@@ -9,23 +9,25 @@
 /* Begin PBXBuildFile section */
 		10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A1F23F3F8EB005402F5 /* AppDelegate.swift */; };
 		10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A2123F3F8EB005402F5 /* SceneDelegate.swift */; };
-		10558A2423F3F8EB005402F5 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A2323F3F8EB005402F5 /* FirstViewController.swift */; };
+		10558A2423F3F8EB005402F5 /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A2323F3F8EB005402F5 /* TripViewController.swift */; };
 		10558A2623F3F8EB005402F5 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A2523F3F8EB005402F5 /* SecondViewController.swift */; };
 		10558A2923F3F8EB005402F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10558A2723F3F8EB005402F5 /* Main.storyboard */; };
 		10558A2B23F3F8ED005402F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10558A2A23F3F8ED005402F5 /* Assets.xcassets */; };
 		10558A2E23F3F8ED005402F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10558A2C23F3F8ED005402F5 /* LaunchScreen.storyboard */; };
+		10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A3623F485C6005402F5 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		10558A1C23F3F8EB005402F5 /* Taxiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taxiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10558A1F23F3F8EB005402F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10558A2123F3F8EB005402F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		10558A2323F3F8EB005402F5 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		10558A2323F3F8EB005402F5 /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		10558A2523F3F8EB005402F5 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		10558A2823F3F8EB005402F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10558A2A23F3F8ED005402F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10558A2D23F3F8ED005402F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10558A2F23F3F8ED005402F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10558A3623F485C6005402F5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 		10558A1323F3F8EB005402F5 = {
 			isa = PBXGroup;
 			children = (
+				10558A3523F41DB0005402F5 /* Controllers */,
 				10558A1E23F3F8EB005402F5 /* Taxiz */,
 				10558A1D23F3F8EB005402F5 /* Products */,
 			);
@@ -60,7 +63,6 @@
 			children = (
 				10558A1F23F3F8EB005402F5 /* AppDelegate.swift */,
 				10558A2123F3F8EB005402F5 /* SceneDelegate.swift */,
-				10558A2323F3F8EB005402F5 /* FirstViewController.swift */,
 				10558A2523F3F8EB005402F5 /* SecondViewController.swift */,
 				10558A2723F3F8EB005402F5 /* Main.storyboard */,
 				10558A2A23F3F8ED005402F5 /* Assets.xcassets */,
@@ -68,6 +70,15 @@
 				10558A2F23F3F8ED005402F5 /* Info.plist */,
 			);
 			path = Taxiz;
+			sourceTree = "<group>";
+		};
+		10558A3523F41DB0005402F5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				10558A3623F485C6005402F5 /* LoginViewController.swift */,
+				10558A2323F3F8EB005402F5 /* TripViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,8 +153,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				10558A2623F3F8EB005402F5 /* SecondViewController.swift in Sources */,
-				10558A2423F3F8EB005402F5 /* FirstViewController.swift in Sources */,
+				10558A2423F3F8EB005402F5 /* TripViewController.swift in Sources */,
 				10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */,
+				10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */,
 				10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
