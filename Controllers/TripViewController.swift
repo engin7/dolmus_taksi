@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 
 class TripViewController: UIViewController {
-    
  
     @IBOutlet weak var mapView: MKMapView!
     
@@ -19,6 +18,7 @@ class TripViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -43,7 +43,7 @@ extension TripViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //  will zoom to the first location
         if let location = locations.first {
-            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
         }
