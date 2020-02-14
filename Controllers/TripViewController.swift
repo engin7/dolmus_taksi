@@ -44,7 +44,7 @@ class TripViewController: UIViewController {
         locationSearchTable.mapView = mapView
 
         resultSearchController?.hidesNavigationBarDuringPresentation = false
-        resultSearchController?.dimsBackgroundDuringPresentation = true
+        resultSearchController?.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
         locationSearchTable.handleMapSearchDelegate = self
     }
@@ -58,7 +58,6 @@ class TripViewController: UIViewController {
     }
 }
 
- 
 extension TripViewController : CLLocationManagerDelegate {
      
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -114,9 +113,9 @@ extension TripViewController : CLLocationManagerDelegate {
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
         pinView?.pinTintColor = UIColor.orange
         pinView?.canShowCallout = true
-        let smallSquare = CGSize(width: 30, height: 30)
+        let smallSquare = CGSize(width: 50, height: 50)
         let button = UIButton(frame: CGRect(origin: .zero, size: smallSquare))
-        button.setBackgroundImage(UIImage(named: "car"), for: [])
+        button.setBackgroundImage(UIImage(named: "taxi"), for: [])
         button.addTarget(self, action: #selector(self.getDirections), for: .touchUpInside)
         pinView?.leftCalloutAccessoryView = button
         return pinView
