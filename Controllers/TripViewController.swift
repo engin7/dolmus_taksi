@@ -25,16 +25,17 @@ class TripViewController: UIViewController {
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
        
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable")
-                 resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController?.searchResultsUpdater = locationSearchTable as! UISearchResultsUpdating
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
                
         let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
         navigationItem.titleView = resultSearchController?.searchBar
         
-         
+        locationSearchTable.mapView = mapView
+
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true

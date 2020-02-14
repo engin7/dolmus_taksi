@@ -8,13 +8,17 @@
 
 import Foundation
 import UIKit
+import MapKit
 
-class LocationSearchTable : UITableViewController {
+  class LocationSearchTable : UITableViewController {
+    
+    var matchingItems:[MKMapItem] = []  // put in search result
+    var mapView: MKMapView? = nil  // search uses map region while querying
     
 }
 
 extension LocationSearchTable : UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+      func updateSearchResults(for searchController: UISearchController) {
          
     }
  
