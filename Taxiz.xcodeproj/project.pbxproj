@@ -15,6 +15,7 @@
 		10558A2B23F3F8ED005402F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10558A2A23F3F8ED005402F5 /* Assets.xcassets */; };
 		10558A2E23F3F8ED005402F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10558A2C23F3F8ED005402F5 /* LaunchScreen.storyboard */; };
 		10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A3623F485C6005402F5 /* LoginViewController.swift */; };
+		10558A5F23F6E178005402F5 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A5E23F6E178005402F5 /* LocationSearchTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		10558A2D23F3F8ED005402F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10558A2F23F3F8ED005402F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10558A3623F485C6005402F5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		10558A5E23F6E178005402F5 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				10558A3623F485C6005402F5 /* LoginViewController.swift */,
 				10558A2323F3F8EB005402F5 /* TripViewController.swift */,
 				10558A2523F3F8EB005402F5 /* MessagesViewController.swift */,
+				10558A5E23F6E178005402F5 /* LocationSearchTable.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 				10558A2623F3F8EB005402F5 /* MessagesViewController.swift in Sources */,
 				10558A2423F3F8EB005402F5 /* TripViewController.swift in Sources */,
 				10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */,
+				10558A5F23F6E178005402F5 /* LocationSearchTable.swift in Sources */,
 				10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */,
 				10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */,
 			);

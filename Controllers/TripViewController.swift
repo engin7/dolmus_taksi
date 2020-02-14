@@ -15,15 +15,29 @@ class TripViewController: UIViewController {
     
     var locationManager: CLLocationManager?
     var currentlocation: CLLocation?
-    
+    var resultSearchController:UISearchController? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
+       
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable")
+                 resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable as! UISearchResultsUpdating
+               
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search for places"
+        navigationItem.titleView = resultSearchController?.searchBar
+        
+         
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
         
     }
 
