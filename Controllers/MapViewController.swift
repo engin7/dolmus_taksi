@@ -14,7 +14,7 @@ protocol HandleMapSearch {
 func dropPinZoomIn(placemark:MKPlacemark)
 }
 
-class TripViewController: UIViewController {
+class MapViewController: UIViewController {
  
     @IBOutlet weak var mapView: MKMapView!
     
@@ -73,7 +73,7 @@ class TripViewController: UIViewController {
   }
 }
 
-extension TripViewController : CLLocationManagerDelegate {
+extension MapViewController : CLLocationManagerDelegate {
      
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
@@ -99,7 +99,7 @@ extension TripViewController : CLLocationManagerDelegate {
        
 }
     
-    extension TripViewController: HandleMapSearch {
+    extension MapViewController: HandleMapSearch {
         func dropPinZoomIn(placemark:MKPlacemark){
         // cache the pin
         selectedPin = placemark
@@ -119,7 +119,7 @@ extension TripViewController : CLLocationManagerDelegate {
         }
     }
 
-  extension TripViewController : MKMapViewDelegate {
+  extension MapViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
