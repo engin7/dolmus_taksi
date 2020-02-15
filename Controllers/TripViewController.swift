@@ -70,7 +70,7 @@ class TripViewController: UIViewController {
              self?.mapView.addOverlay(route.polyline)
       }
     }
-  }    
+  }
 }
 
 extension TripViewController : CLLocationManagerDelegate {
@@ -141,7 +141,15 @@ extension TripViewController : CLLocationManagerDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
            let polyLine = MKPolylineRenderer(overlay: overlay)
                polyLine.strokeColor = UIColor.blue
-          return polyLine
+        let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
+        let distance = currentlocation!.distance(from: destination)/100000
+        let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
+        let midPointLat = (currentlocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 2
+        let midPointLong = (currentlocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
+        let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
+        let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
+        mapView.setRegion(region, animated: true)
+        return polyLine
           }
       }
      
