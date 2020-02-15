@@ -12,7 +12,7 @@ import UIKit
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var  LoginEmail: UITextField!
-     @IBOutlet weak var LoginPassword: UITextField!
+    @IBOutlet weak var LoginPassword: UITextField!
     
     
     @IBAction func loginDidTouch(_ sender: AnyObject) {
@@ -23,6 +23,9 @@ class LoginViewController: UIViewController {
     
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
     }
+    
+    
+    
     
     
 }
