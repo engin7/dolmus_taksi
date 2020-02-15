@@ -8,7 +8,7 @@
 
 import UIKit
 import MapKit
-
+import CoreLocation
 
 protocol HandleMapSearch {
 func dropPinZoomIn(placemark:MKPlacemark)
@@ -47,15 +47,30 @@ class TripViewController: UIViewController {
         resultSearchController?.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
         locationSearchTable.handleMapSearchDelegate = self
-    }
-
+     }
+ 
     @objc func getDirections(){
-        if let selectedPin = selectedPin {
-            let mapItem = MKMapItem(placemark: selectedPin)
-            let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
-            mapItem.openInMaps(launchOptions: launchOptions)
-        }
+            
+        guard let start = currentlocation, let end = selectedPin else {   return }
+        let request = MKDirections.Request()
+        let startMapItem = MKMapItem(placemark: MKPlacemark(coordinate: start.coordinate))
+        let endMapItem = MKMapItem(placemark: MKPlacemark(coordinate: end.coordinate))
+        request.source = startMapItem
+        request.destination = endMapItem
+        request.requestsAlternateRoutes = false
+        request.transportType = .automobile
+        let directions = MKDirections(request: request)
+        directions.calculate() {
+          [weak self] (response, error) in
+          if let error = error {
+            print(error.localizedDescription)
+            return
+          }
+          if let route = response?.routes.first {
+             self?.mapView.addOverlay(route.polyline)
+      }
     }
+  }    
 }
 
 extension TripViewController : CLLocationManagerDelegate {
@@ -67,8 +82,10 @@ extension TripViewController : CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         //  will zoom to the first location
         if let location = locations.first {
+            self.currentlocation = location
             let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
@@ -115,9 +132,18 @@ extension TripViewController : CLLocationManagerDelegate {
         pinView?.canShowCallout = true
         let smallSquare = CGSize(width: 50, height: 50)
         let button = UIButton(frame: CGRect(origin: .zero, size: smallSquare))
+        button.addTarget(self, action:  #selector(getDirections),  for: .touchUpInside)
         button.setBackgroundImage(UIImage(named: "taxi"), for: [])
-        button.addTarget(self, action: #selector(self.getDirections), for: .touchUpInside)
         pinView?.leftCalloutAccessoryView = button
         return pinView
     }
-}
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+           let polyLine = MKPolylineRenderer(overlay: overlay)
+               polyLine.strokeColor = UIColor.blue
+          return polyLine
+          }
+      }
+     
+ 
+ 
