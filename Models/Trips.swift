@@ -9,22 +9,24 @@
 import Foundation
 import Firebase
 
+var tripItemsReference = Database.database().reference(withPath: "trip-items")
+var user: User!
+
+
 struct Trips {
     
     let key: String
-    let name: String
     let addedByUser: String
     let ref: DatabaseReference?
     var completed: Bool
-    var time: DateFormatter // for remaning minutes
+    var time: Int // for remaning minutes
     var from:String
     var to: String
     var persons: Int
     var price: Int
     
-    init(name: String, addedByUser: String, time: DateFormatter, completed: Bool, key: String = "", to: String, from: String, persons: Int, price: Int) {
+    init( addedByUser: String, time: Int, completed: Bool, key: String = "", to: String, from: String, persons: Int, price: Int) {
       self.key = key
-      self.name = name
       self.addedByUser = addedByUser
       self.completed = completed
       self.ref = nil
@@ -35,5 +37,29 @@ struct Trips {
       self.persons = persons
         
     }
+    
+    
+    init(snapshot: DataSnapshot) {
+      key = snapshot.key
+      let snapshotValue = snapshot.value as! [String: AnyObject]
+      addedByUser = snapshotValue["addedByUser"] as! String
+      completed = snapshotValue["completed"] as! Bool
+      time = snapshotValue["time"] as! Int
+      from = snapshotValue["from"] as! String
+      to = snapshotValue["to"] as! String
+      completed = snapshotValue["completed"] as! Bool
+      price = snapshotValue["price"] as! Int
+      persons = snapshotValue["persons"] as! Int
+        
+      ref = snapshot.ref
+    }
+    
+    func toAnyObject() -> Any {
+      return [
+        "addedByUser": addedByUser,
+        "completed": completed
+      ]
+    }
+    
 }
 

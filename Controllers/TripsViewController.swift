@@ -11,23 +11,23 @@ import Firebase
 
 class TripsViewController: UITableViewController {
 
-    var trips: [[Trips]] = []  //array in array. Trips has many values like route, persons etc.
-    var user: User!
-    
+    static var trips: [[Trips]] = []  //array in array. Trips has many values like route, persons etc.
+ 
     override func viewDidLoad() {
     super.viewDidLoad()
     
+
     }
     
     // MARK: UITableView Delegate methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return trips.count
+        return TripsViewController.trips.count
      }
      
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
-       let trip = trips[indexPath.row]
+       let trip = TripsViewController.trips[indexPath.row]
        
 //        cell.textLabel?.text = Trips.
 //       cell.detailTextLabel?.text = Trips.addedByUser

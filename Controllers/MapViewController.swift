@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 import CoreLocation
+import Firebase
 
 protocol HandleMapSearch {
 func dropPinZoomIn(placemark:MKPlacemark)
@@ -25,9 +26,28 @@ class MapViewController: UIViewController {
     @IBOutlet weak var myPersons: UILabel!
     @IBOutlet weak var addPerson: UIButton!
     @IBOutlet weak var removePerson: UIButton!
+
+
+    @IBAction func createTripButton(_ sender: Any) {
+ 
+            // TODO: create trip on Firebase and view on the tableview
+         print(myTo.text!)
+        
+         let trip = Trips(addedByUser: user.email , time: 15, completed: false, key: "", to: myTo.text!, from: myFrom.text!, persons: 1, price: 1)
+
+        TripsViewController.trips.append([trip])
+        let tripItemsRef =  tripItemsReference.child(user.uid.lowercased())
+        // define tree format
+        let values: [String: Any] = [ "addedByUser" : user.email, "completed" : false, "time" : trip.time, "from" : trip.from, "to" : trip.to]
+        // add to database
+           tripItemsRef.setValue(values)
+
+    }
     
-    @IBOutlet weak var createTripButton: UIButton!
-    @IBOutlet weak var cancelTripButton: UIButton!
+    @IBAction func cancelTripButton(_ sender: Any) {
+        myTripView.isHidden = true
+    }
+    
     
     
     @IBOutlet weak var mapView: MKMapView!
@@ -48,7 +68,8 @@ class MapViewController: UIViewController {
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-               
+        
+        
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
@@ -92,17 +113,11 @@ class MapViewController: UIViewController {
             self.myTripView.isHidden = false
             self.myTo.text = self.selectedPin?.locality
             self.myFrom.text = self.currentCity
-            self.createTripButton.addTarget(self, action: #selector(self.didPressCreateTripButton), for:.touchUpInside)
-
         }
   
     }
     
-    @objc func didPressCreateTripButton(sender:UIButton) {
-        
-        // TODO: create trip on Firebase and view on the tableview
-        print("fire and sand")
-    }
+   
 }
 
 extension MapViewController : CLLocationManagerDelegate {

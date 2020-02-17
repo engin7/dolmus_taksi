@@ -90,6 +90,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="19" height="22"/>
                                         <color key="tintColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button" image="xmark.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="cancelTripButton:" destination="9pv-A4-QxB" eventType="touchUpInside" id="gqh-VH-VcF"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" * Price above is cost estimate for the trip. You will see calculated price when you find matches. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15N-Xx-M2o">
                                         <rect key="frame" x="24" y="214" width="236" height="23"/>
@@ -107,6 +110,9 @@
                                         <state key="normal" title="Button" image="car.fill" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                         </state>
+                                        <connections>
+                                            <action selector="createTripButton:" destination="9pv-A4-QxB" eventType="touchUpInside" id="tCt-HM-zJm"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -166,8 +172,6 @@
                     <navigationItem key="navigationItem" id="b9E-py-dt8"/>
                     <connections>
                         <outlet property="addPerson" destination="LB5-2e-lpO" id="DkH-JR-cvs"/>
-                        <outlet property="cancelTripButton" destination="d3S-Le-RHP" id="eMM-Z1-CmN"/>
-                        <outlet property="createTripButton" destination="LEK-s7-Zfg" id="NxL-rL-K8y"/>
                         <outlet property="mapView" destination="h7Z-rN-HCd" id="VA6-1S-KKn"/>
                         <outlet property="myFrom" destination="mn3-Oj-WeI" id="yf0-VC-K62"/>
                         <outlet property="myPersons" destination="lq8-kD-6Vk" id="yv1-hG-VSK"/>

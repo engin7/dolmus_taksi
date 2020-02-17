@@ -14,9 +14,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var  LoginEmail: UITextField!
     @IBOutlet weak var LoginPassword: UITextField!
     
-    
+
     override func viewDidLoad() {
        
+       user = User(uid: "FakeId", email: "hungry@person.food")
        let listener = Auth.auth().addStateDidChangeListener() { auth, user in
         if user != nil {
           self.performSegue(withIdentifier: "loginToMap", sender: nil)
