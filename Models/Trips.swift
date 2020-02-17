@@ -9,9 +9,11 @@
 import Foundation
 import Firebase
 
-var tripItemsReference = Database.database().reference(withPath: "trip-items")
-var user: User!
+let tripItemsReference = Database.database().reference(withPath: "trip-items")
+let tripItemsRef =  tripItemsReference.child(user.uid.lowercased())
 
+var user: User!
+var trips : [Trips] = []  // Trips is an array many values like route, persons etc. So this is array in array
 
 struct Trips {
     
@@ -47,7 +49,6 @@ struct Trips {
       time = snapshotValue["time"] as! Int
       from = snapshotValue["from"] as! String
       to = snapshotValue["to"] as! String
-      completed = snapshotValue["completed"] as! Bool
       price = snapshotValue["price"] as! Int
       persons = snapshotValue["persons"] as! Int
         

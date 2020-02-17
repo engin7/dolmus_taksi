@@ -30,15 +30,13 @@ class MapViewController: UIViewController {
 
     @IBAction func createTripButton(_ sender: Any) {
  
-            // TODO: create trip on Firebase and view on the tableview
-         print(myTo.text!)
+          print(myTo.text!)
         
          let trip = Trips(addedByUser: user.email , time: 15, completed: false, key: "", to: myTo.text!, from: myFrom.text!, persons: 1, price: 1)
 
-        TripsViewController.trips.append([trip])
-        let tripItemsRef =  tripItemsReference.child(user.uid.lowercased())
+        trips.append(trip)
         // define tree format
-        let values: [String: Any] = [ "addedByUser" : user.email, "completed" : false, "time" : trip.time, "from" : trip.from, "to" : trip.to]
+        let values: [String: Any] = [ "addedByUser" : user.email, "completed" : false, "time" : trip.time, "from" : trip.from, "to" : trip.to, "price" : 5, "persons" : 2]
         // add to database
            tripItemsRef.setValue(values)
 
