@@ -6,6 +6,7 @@
 //  Copyright © 2020 Silverback Inc. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import MapKit
 import CoreLocation
@@ -16,22 +17,38 @@ func dropPinZoomIn(placemark:MKPlacemark)
 
 class MapViewController: UIViewController {
  
+    @IBOutlet weak var myTripView: UIView!
+    
+    @IBOutlet weak var myFrom: UITextField!
+    @IBOutlet weak var myTo: UITextField!
+    @IBOutlet weak var myPrice: UILabel!
+    @IBOutlet weak var myPersons: UILabel!
+    @IBOutlet weak var addPerson: UIButton!
+    @IBOutlet weak var removePerson: UIButton!
+    
+    @IBOutlet weak var createTripButton: UIButton!
+    @IBOutlet weak var cancelTripButton: UIButton!
+    
+    
     @IBOutlet weak var mapView: MKMapView!
     
     var locationManager: CLLocationManager?
     var currentlocation: CLLocation?
     var resultSearchController:UISearchController? = nil
     var selectedPin:MKPlacemark? = nil
-
-
+    var currentCity: String?
+    let geoCoder = CLGeocoder()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        myTripView.isHidden = true
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-       
+               
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
@@ -70,7 +87,22 @@ class MapViewController: UIViewController {
              self?.mapView.addOverlay(route.polyline)
       }
     }
-  }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.myTripView.isHidden = false
+            self.myTo.text = self.selectedPin?.locality
+            self.myFrom.text = self.currentCity
+            self.createTripButton.addTarget(self, action: #selector(self.didPressCreateTripButton), for:.touchUpInside)
+
+        }
+  
+    }
+    
+    @objc func didPressCreateTripButton(sender:UIButton) {
+        
+        // TODO: create trip on Firebase and view on the tableview
+        print("fire and sand")
+    }
 }
 
 extension MapViewController : CLLocationManagerDelegate {
@@ -89,6 +121,12 @@ extension MapViewController : CLLocationManagerDelegate {
             let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
+            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
+                placemarks?.forEach { (placemark) in
+                    self.currentCity = placemark.locality
+                }
+            })
+
         }
     }
 
@@ -142,7 +180,7 @@ extension MapViewController : CLLocationManagerDelegate {
            let polyLine = MKPolylineRenderer(overlay: overlay)
                polyLine.strokeColor = UIColor.blue
         let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
-        let distance = currentlocation!.distance(from: destination)/100000
+        let distance = currentlocation!.distance(from: destination)/50000
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
         let midPointLat = (currentlocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 2
         let midPointLong = (currentlocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2

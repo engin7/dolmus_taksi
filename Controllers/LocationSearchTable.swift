@@ -16,7 +16,7 @@ import MapKit
     var mapView: MKMapView? = nil  // search uses map region while querying
     var handleMapSearchDelegate: HandleMapSearch? = nil
 
-    func parseAddress(selectedItem:MKPlacemark) -> String {
+     func parseAddress(selectedItem:MKPlacemark) -> String {
      let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
      let comma = (selectedItem.subThoroughfare != nil || selectedItem.thoroughfare != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
      let secondSpace = (selectedItem.subAdministrativeArea != nil && selectedItem.administrativeArea != nil) ? " " : ""

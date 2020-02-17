@@ -63,7 +63,6 @@
 		10558A1323F3F8EB005402F5 = {
 			isa = PBXGroup;
 			children = (
-				10558A6A23F888A8005402F5 /* Default-568h@2x.png */,
 				10558A6223F871E5005402F5 /* Models */,
 				10558A1E23F3F8EB005402F5 /* Taxiz */,
 				10558A3523F41DB0005402F5 /* Controllers */,
@@ -120,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				10558A2F23F3F8ED005402F5 /* Info.plist */,
+				10558A6A23F888A8005402F5 /* Default-568h@2x.png */,
 				10558A6C23F88A87005402F5 /* GoogleService-Info.plist */,
 			);
 			path = "Supported Files";
