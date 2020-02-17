@@ -16,7 +16,7 @@ func dropPinZoomIn(placemark:MKPlacemark)
 }
 
 class MapViewController: UIViewController {
- 
+    
     @IBOutlet weak var myTripView: UIView!
     
     @IBOutlet weak var myFrom: UITextField!

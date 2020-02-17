@@ -16,15 +16,24 @@ struct Trips {
     let addedByUser: String
     let ref: DatabaseReference?
     var completed: Bool
-    var time: DateFormatter // remaning minutes
+    var time: DateFormatter // for remaning minutes
+    var from:String
+    var to: String
+    var persons: Int
+    var price: Int
     
-    init(name: String, addedByUser: String, time: DateFormatter, completed: Bool, key: String = "") {
+    init(name: String, addedByUser: String, time: DateFormatter, completed: Bool, key: String = "", to: String, from: String, persons: Int, price: Int) {
       self.key = key
       self.name = name
       self.addedByUser = addedByUser
       self.completed = completed
       self.ref = nil
       self.time = time
+      self.to = to
+      self.from = from
+      self.price = price
+      self.persons = persons
+        
     }
 }
 
