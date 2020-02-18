@@ -30,8 +30,6 @@ class MapViewController: UIViewController {
 
     @IBAction func createTripButton(_ sender: Any) {
         
-          print(currentUser)
-         
         
         let trip = Trips(addedByUser: currentUser.email! , time: 15, completed: false, key: "", to: myTo.text!, from: myFrom.text!, persons: 1, price: 1)
 

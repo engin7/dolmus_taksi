@@ -19,6 +19,8 @@ class LoginViewController: UIViewController {
         let listener = Auth.auth().addStateDidChangeListener() { auth, user in
         if user != nil {
           self.performSegue(withIdentifier: "loginToMap", sender: nil)
+            self.LoginEmail.text = nil
+            self.LoginPassword.text = nil
           }
        }
        Auth.auth().removeStateDidChangeListener(listener)
@@ -26,10 +28,29 @@ class LoginViewController: UIViewController {
      }
     
     @IBAction func loginDidTouch(_ sender: AnyObject) {
-        Auth.auth().signIn(withEmail: LoginEmail.text!, password: LoginPassword.text!)
-         performSegue(withIdentifier: "loginToMap", sender: nil)
-    }
-    
+        
+          guard
+            let email = self.LoginEmail.text,
+            let password = self.LoginPassword.text,
+            email.count > 0,
+            password.count > 0
+            else {
+              return
+          }
+          
+          Auth.auth().signIn(withEmail: email, password: password) { user, error in
+            if let error = error, user == nil {
+              let alert = UIAlertController(title: "Sign In Failed",
+                                            message: error.localizedDescription,
+                                            preferredStyle: .alert)
+              
+              alert.addAction(UIAlertAction(title: "OK", style: .default))
+              
+              self.present(alert, animated: true, completion: nil)
+            }
+          }
+        }
+ 
     
     @IBAction func signUpDidTouch(_ sender: AnyObject) {
       let alert = UIAlertController(title: "Register",
