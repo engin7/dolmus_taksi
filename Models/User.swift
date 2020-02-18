@@ -7,6 +7,10 @@
 //
 
 import Foundation
+import Firebase
+ 
+var currentUser: Firebase.User!
+var trips : [Trips] = []  // Trips is an array many values like route, persons etc. So this is array in array
  
 
 struct User {

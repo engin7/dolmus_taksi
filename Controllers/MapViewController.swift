@@ -29,14 +29,15 @@ class MapViewController: UIViewController {
 
 
     @IBAction func createTripButton(_ sender: Any) {
- 
-          print(myTo.text!)
         
-         let trip = Trips(addedByUser: user.email , time: 15, completed: false, key: "", to: myTo.text!, from: myFrom.text!, persons: 1, price: 1)
+          print(currentUser)
+         
+        
+        let trip = Trips(addedByUser: currentUser.email! , time: 15, completed: false, key: "", to: myTo.text!, from: myFrom.text!, persons: 1, price: 1)
 
         trips.append(trip)
         // define tree format
-        let values: [String: Any] = [ "addedByUser" : user.email, "completed" : false, "time" : trip.time, "from" : trip.from, "to" : trip.to, "price" : 5, "persons" : 2]
+        let values: [String: Any] = [ "addedByUser" : currentUser.email!, "completed" : false, "time" : trip.time, "from" : trip.from, "to" : trip.to, "price" : 5, "persons" : 2]
         // add to database
            tripItemsRef.setValue(values)
 
@@ -83,6 +84,11 @@ class MapViewController: UIViewController {
         resultSearchController?.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
         locationSearchTable.handleMapSearchDelegate = self
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+           guard let user = user else { return }
+            currentUser  = user
+        }
      }
  
     @objc func getDirections(){
@@ -107,7 +113,7 @@ class MapViewController: UIViewController {
       }
     }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
             self.myTripView.isHidden = false
             self.myTo.text = self.selectedPin?.locality
             self.myFrom.text = self.currentCity
