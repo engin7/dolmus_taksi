@@ -26,34 +26,33 @@ class TripsTableViewController: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.tableView.reloadData()
-//        tripItemsReference.observe(.value, with: {
-//            snapshot in
-//            var newItems : [Trips] = []  //create empty array
-//            for from in snapshot.children {
-//              let tripItem = Trips(snapshot: from as! DataSnapshot)
-//              newItems.append(tripItem)
-//          }
-//            trips = newItems
-//            self.tableView.reloadData()
-//          })
+
+      tripItemsReference.observe(.value, with: {
+            snapshot in
+            var newItems : [Trips] = []  //create empty array
+            for from in snapshot.children {
+              let tripItem = Trips(snapshot: from as! DataSnapshot)
+              newItems.append(tripItem)
+          }
+            trips = newItems
+            self.tableView.reloadData()
+          })
 
      }
     
     // MARK: UITableView Delegate methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return trips.count
      }
      
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
                  let cell = tableView.dequeueReusableCell(withIdentifier: "TripsTableViewCell", for: indexPath) as! TripsTableViewCell
-          //       let trip = trips[indexPath.row]
+                let trip = trips[indexPath.row]
                  
-        cell.fromTextLabel.text = "trip.from"
-            
-        print(cell.fromTextLabel!)
+        cell.fromTextLabel.text = trip.from
+        cell.toTextLabel.text = trip.to
 
          return cell
       }
