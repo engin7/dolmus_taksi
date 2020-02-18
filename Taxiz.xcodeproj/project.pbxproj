@@ -19,7 +19,7 @@
 		10558A6123F86A6C005402F5 /* ClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6023F86A6C005402F5 /* ClusterView.swift */; };
 		10558A6423F87233005402F5 /* Trips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6323F87233005402F5 /* Trips.swift */; };
 		10558A6623F873EF005402F5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6523F873EF005402F5 /* User.swift */; };
-		10558A6823F886B9005402F5 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6723F886B9005402F5 /* TripsViewController.swift */; };
+		10558A6823F886B9005402F5 /* TripsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6723F886B9005402F5 /* TripsTableViewController.swift */; };
 		10558A6B23F888A8005402F5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6A23F888A8005402F5 /* Default-568h@2x.png */; };
 		10558A6D23F88A87005402F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6C23F88A87005402F5 /* GoogleService-Info.plist */; };
 		9B64D98C2B1A73C4E222E45A /* libPods-Taxiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C27091CAEA0397A9A58879D /* libPods-Taxiz.a */; };
@@ -40,7 +40,7 @@
 		10558A6023F86A6C005402F5 /* ClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterView.swift; sourceTree = "<group>"; };
 		10558A6323F87233005402F5 /* Trips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trips.swift; sourceTree = "<group>"; };
 		10558A6523F873EF005402F5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		10558A6723F886B9005402F5 /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
+		10558A6723F886B9005402F5 /* TripsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewController.swift; sourceTree = "<group>"; };
 		10558A6A23F888A8005402F5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		10558A6C23F88A87005402F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5C27091CAEA0397A9A58879D /* libPods-Taxiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taxiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +98,7 @@
 			children = (
 				10558A3623F485C6005402F5 /* LoginViewController.swift */,
 				10558A2323F3F8EB005402F5 /* MapViewController.swift */,
-				10558A6723F886B9005402F5 /* TripsViewController.swift */,
+				10558A6723F886B9005402F5 /* TripsTableViewController.swift */,
 				10558A2523F3F8EB005402F5 /* MessagesViewController.swift */,
 				10558A5E23F6E178005402F5 /* LocationSearchTable.swift */,
 				10558A6023F86A6C005402F5 /* ClusterView.swift */,
@@ -250,7 +250,7 @@
 				10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */,
 				10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */,
 				10558A6123F86A6C005402F5 /* ClusterView.swift in Sources */,
-				10558A6823F886B9005402F5 /* TripsViewController.swift in Sources */,
+				10558A6823F886B9005402F5 /* TripsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,12 +8,15 @@
 
 import Foundation
 import Firebase
+import UIKit
 
 let tripItemsReference = Database.database().reference(withPath: "trip-items")
 let tripItemsRef =  tripItemsReference.child(user.uid.lowercased())
 
 var user: User!
 var trips : [Trips] = []  // Trips is an array many values like route, persons etc. So this is array in array
+ 
+
 
 struct Trips {
     
