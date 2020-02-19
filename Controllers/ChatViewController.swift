@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class MessagesViewController: UIViewController {    
+class ChatViewController: UIViewController {    
     
     @IBAction func SignoutButton(_ sender: UIButton) {
      

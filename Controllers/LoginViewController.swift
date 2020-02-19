@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
         
         let listener = Auth.auth().addStateDidChangeListener() { auth, user in
         if user != nil {
-          self.performSegue(withIdentifier: "loginToMap", sender: nil)
+          self.performSegue(withIdentifier: "loggedIn", sender: nil)
             self.LoginEmail.text = nil
             self.LoginPassword.text = nil
           }
@@ -81,7 +81,7 @@ class LoginViewController: UIViewController {
                 print(error?.localizedDescription as Any)
             }
              Auth.auth().signIn(withEmail: emailField.text!, password: passwordField.text!)
-            self.performSegue(withIdentifier: "loginToMap", sender: nil)
+            self.performSegue(withIdentifier: "loggedIn", sender: nil)
           }
         }
       }
