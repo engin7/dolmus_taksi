@@ -22,7 +22,6 @@
 		10558A6823F886B9005402F5 /* TripsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6723F886B9005402F5 /* TripsTableViewController.swift */; };
 		10558A6B23F888A8005402F5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6A23F888A8005402F5 /* Default-568h@2x.png */; };
 		10558A6D23F88A87005402F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6C23F88A87005402F5 /* GoogleService-Info.plist */; };
-		10558A9123FDC086005402F5 /* gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 10558A9023FDC086005402F5 /* gitignore */; };
 		45C70D08110F1DC668FE0987 /* libPods-Taxiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161C95D08F495AE58077EC4 /* libPods-Taxiz.a */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 		10558A6723F886B9005402F5 /* TripsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewController.swift; sourceTree = "<group>"; };
 		10558A6A23F888A8005402F5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		10558A6C23F88A87005402F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		10558A9023FDC086005402F5 /* gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = gitignore; sourceTree = "<group>"; };
 		1C261C538088421D1D044AFC /* Pods-Taxiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.release.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.release.xcconfig"; sourceTree = "<group>"; };
 		5161C95D08F495AE58077EC4 /* libPods-Taxiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taxiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B6C177850ED58BCD20FC028 /* Pods-Taxiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.debug.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.debug.xcconfig"; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				10558A2F23F3F8ED005402F5 /* Info.plist */,
 				10558A6A23F888A8005402F5 /* Default-568h@2x.png */,
 				10558A6C23F88A87005402F5 /* GoogleService-Info.plist */,
-				10558A9023FDC086005402F5 /* gitignore */,
 			);
 			path = "Supported Files";
 			sourceTree = "<group>";
@@ -205,7 +202,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				10558A2E23F3F8ED005402F5 /* LaunchScreen.storyboard in Resources */,
-				10558A9123FDC086005402F5 /* gitignore in Resources */,
 				10558A6B23F888A8005402F5 /* Default-568h@2x.png in Resources */,
 				10558A2B23F3F8ED005402F5 /* Assets.xcassets in Resources */,
 				10558A6D23F88A87005402F5 /* GoogleService-Info.plist in Resources */,
