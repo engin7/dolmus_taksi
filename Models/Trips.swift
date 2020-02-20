@@ -12,13 +12,11 @@ import UIKit
 
 let tripItemsReference = Database.database().reference(withPath: "trip-items")
 let tripItemsRef =  tripItemsReference.child(currentUser.uid.lowercased())
-
-
-
+ 
 
 struct Trips {
     
-    let key: String
+    let key: String?
     let addedByUser: String
     let ref: DatabaseReference?
     var completed: Bool
@@ -65,3 +63,16 @@ struct Trips {
     
 }
 
+extension Trips: DatabaseRepresentation {
+  
+  var representation: [String : Any] {
+    var rep = ["to": to]
+    
+    if let key = key {
+      rep["key"] = key
+    }
+    
+    return rep
+  }
+  
+}

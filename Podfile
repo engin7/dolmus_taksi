@@ -5,5 +5,8 @@ pod 'Firebase'
 pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
+pod 'MessageKit'
+pod 'Firebase/Firestore'
 
 end
+

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,7 +23,9 @@
 		10558A6B23F888A8005402F5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6A23F888A8005402F5 /* Default-568h@2x.png */; };
 		10558A6D23F88A87005402F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6C23F88A87005402F5 /* GoogleService-Info.plist */; };
 		10558A9323FDCC14005402F5 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9223FDCC14005402F5 /* test.swift */; };
-		45C70D08110F1DC668FE0987 /* libPods-Taxiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5161C95D08F495AE58077EC4 /* libPods-Taxiz.a */; };
+		10558A9523FE8138005402F5 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9423FE8138005402F5 /* AppSettings.swift */; };
+		10558A9723FE8199005402F5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9623FE8199005402F5 /* Message.swift */; };
+		820A52C828F041B8BC28B632 /* libPods-Taxiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58452656F84D2578238B1235 /* libPods-Taxiz.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,9 +47,11 @@
 		10558A6A23F888A8005402F5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		10558A6C23F88A87005402F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		10558A9223FDCC14005402F5 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
-		1C261C538088421D1D044AFC /* Pods-Taxiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.release.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.release.xcconfig"; sourceTree = "<group>"; };
-		5161C95D08F495AE58077EC4 /* libPods-Taxiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taxiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6B6C177850ED58BCD20FC028 /* Pods-Taxiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.debug.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.debug.xcconfig"; sourceTree = "<group>"; };
+		10558A9423FE8138005402F5 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		10558A9623FE8199005402F5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		58452656F84D2578238B1235 /* libPods-Taxiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taxiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		98EAF695D1C9224028EB8E68 /* Pods-Taxiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.release.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.release.xcconfig"; sourceTree = "<group>"; };
+		9905940D3B069A5E4ED79EC5 /* Pods-Taxiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.debug.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45C70D08110F1DC668FE0987 /* libPods-Taxiz.a in Frameworks */,
+				820A52C828F041B8BC28B632 /* libPods-Taxiz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +75,7 @@
 				10558A6923F88825005402F5 /* Supported Files */,
 				10558A1D23F3F8EB005402F5 /* Products */,
 				E061E15859CF1C62E2C6B150 /* Pods */,
-				DBC6F2F0DF151D93E3DB4C58 /* Frameworks */,
+				BE9EBAEF81B90B6A458674DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,6 +92,7 @@
 			children = (
 				10558A1F23F3F8EB005402F5 /* AppDelegate.swift */,
 				10558A2123F3F8EB005402F5 /* SceneDelegate.swift */,
+				10558A9423FE8138005402F5 /* AppSettings.swift */,
 				10558A2723F3F8EB005402F5 /* Main.storyboard */,
 				10558A2A23F3F8ED005402F5 /* Assets.xcassets */,
 				10558A2C23F3F8ED005402F5 /* LaunchScreen.storyboard */,
@@ -114,6 +119,7 @@
 			children = (
 				10558A6323F87233005402F5 /* Trips.swift */,
 				10558A6523F873EF005402F5 /* User.swift */,
+				10558A9623FE8199005402F5 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -128,10 +134,10 @@
 			path = "Supported Files";
 			sourceTree = "<group>";
 		};
-		DBC6F2F0DF151D93E3DB4C58 /* Frameworks */ = {
+		BE9EBAEF81B90B6A458674DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5161C95D08F495AE58077EC4 /* libPods-Taxiz.a */,
+				58452656F84D2578238B1235 /* libPods-Taxiz.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -139,8 +145,8 @@
 		E061E15859CF1C62E2C6B150 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6B6C177850ED58BCD20FC028 /* Pods-Taxiz.debug.xcconfig */,
-				1C261C538088421D1D044AFC /* Pods-Taxiz.release.xcconfig */,
+				9905940D3B069A5E4ED79EC5 /* Pods-Taxiz.debug.xcconfig */,
+				98EAF695D1C9224028EB8E68 /* Pods-Taxiz.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -152,10 +158,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10558A3223F3F8ED005402F5 /* Build configuration list for PBXNativeTarget "Taxiz" */;
 			buildPhases = (
-				7E04BC23B3168929B37169AF /* [CP] Check Pods Manifest.lock */,
+				CC564762317582FBCE76635E /* [CP] Check Pods Manifest.lock */,
 				10558A1823F3F8EB005402F5 /* Sources */,
 				10558A1923F3F8EB005402F5 /* Frameworks */,
 				10558A1A23F3F8EB005402F5 /* Resources */,
+				DE01BEF77949E7DD1A673ABF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -215,7 +222,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7E04BC23B3168929B37169AF /* [CP] Check Pods Manifest.lock */ = {
+		CC564762317582FBCE76635E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -237,6 +244,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		DE01BEF77949E7DD1A673ABF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taxiz/Pods-Taxiz-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taxiz/Pods-Taxiz-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taxiz/Pods-Taxiz-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -246,12 +270,14 @@
 			files = (
 				10558A2623F3F8EB005402F5 /* ChatViewController.swift in Sources */,
 				10558A2423F3F8EB005402F5 /* MapViewController.swift in Sources */,
+				10558A9523FE8138005402F5 /* AppSettings.swift in Sources */,
 				10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */,
 				10558A5F23F6E178005402F5 /* LocationSearchTable.swift in Sources */,
 				10558A6423F87233005402F5 /* Trips.swift in Sources */,
 				10558A6623F873EF005402F5 /* User.swift in Sources */,
 				10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */,
 				10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */,
+				10558A9723FE8199005402F5 /* Message.swift in Sources */,
 				10558A6123F86A6C005402F5 /* ClusterView.swift in Sources */,
 				10558A6823F886B9005402F5 /* TripsTableViewController.swift in Sources */,
 				10558A9323FDCC14005402F5 /* test.swift in Sources */,
@@ -396,7 +422,7 @@
 		};
 		10558A3323F3F8ED005402F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B6C177850ED58BCD20FC028 /* Pods-Taxiz.debug.xcconfig */;
+			baseConfigurationReference = 9905940D3B069A5E4ED79EC5 /* Pods-Taxiz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -415,7 +441,7 @@
 		};
 		10558A3423F3F8ED005402F5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C261C538088421D1D044AFC /* Pods-Taxiz.release.xcconfig */;
+			baseConfigurationReference = 98EAF695D1C9224028EB8E68 /* Pods-Taxiz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

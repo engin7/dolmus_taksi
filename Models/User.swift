@@ -8,28 +8,43 @@
 
 import Foundation
 import Firebase
+import UIKit
  
 var currentUser: Firebase.User!
 var trips : [Trips] = []  // Trips is an array many values like route, persons etc. So this is array in array
  
 
-struct User {
+//struct User {
+//  
+//  let uid: String
+//  let email: String
+//  
+//  init(authData: User) {
+//    uid = authData.uid
+//    email = authData.email
+//  }
+//  
+//  init(uid: String, email: String) {
+//    self.uid = uid
+//    self.email = email
+//  }
+//  
+//}
+
+// Other Models
+
+ protocol DatabaseRepresentation {
+   var representation: [String: Any] { get }
+ }
+
+extension UIColor {
   
-  let uid: String
-  let email: String
-  
-  init(authData: User) {
-    uid = authData.uid
-    email = authData.email
+  static var primary: UIColor {
+    return UIColor(red: 1 / 255, green: 93 / 255, blue: 48 / 255, alpha: 1)
   }
   
-  init(uid: String, email: String) {
-    self.uid = uid
-    self.email = email
+  static var incomingMessage: UIColor {
+    return UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
   }
   
 }
-
- 
-
-
