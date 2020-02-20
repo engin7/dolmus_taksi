@@ -35,11 +35,27 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        navigationItem.largeTitleDisplayMode = .never
+        
+        maintainPositionOnKeyboardFrameChanged = true
+        messageInputBar.inputTextView.tintColor = .primary
+        messageInputBar.sendButton.setTitleColor(.primary, for: .normal)
+        
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
 
