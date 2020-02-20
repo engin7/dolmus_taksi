@@ -12,6 +12,13 @@ import UIKit
 
 class TestViewController: UITableViewController {
     
-    //mmmm
+//
+//    do {
+//      try Auth.auth().signOut()
+//      self.dismiss(animated: true, completion: nil)
+//    } catch (let error) {
+//      print("Auth sign out failed: \(error)")
+//    }
+    
 }
 

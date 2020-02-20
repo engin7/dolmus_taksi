@@ -21,17 +21,11 @@ private var messageListener: ListenerRegistration?
 class ChatViewController: MessagesViewController {
     
     
-    
-    @IBAction func SignoutButton(_ sender: UIButton) {
+    @IBAction func closeButton(_ sender: Any) {
+        
+        dismiss(animated: true, completion: nil)
+    }
      
-          do {
-            try Auth.auth().signOut()
-            self.dismiss(animated: true, completion: nil)
-          } catch (let error) {
-            print("Auth sign out failed: \(error)")
-          }
-        }
- 
     override func viewDidLoad() {
         super.viewDidLoad()
 
