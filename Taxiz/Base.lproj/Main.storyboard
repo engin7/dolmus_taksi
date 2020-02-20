@@ -10,7 +10,7 @@
         <!--Map-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController title="Map" id="9pv-A4-QxB" customClass="MapViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Map" id="9pv-A4-QxB" customClass="MapViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -188,7 +188,7 @@
         <!--Location Search Table-->
         <scene sceneID="3a6-X2-Ftu">
             <objects>
-                <tableViewController storyboardIdentifier="LocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhc-zp-TSn" customClass="LocationSearchTable" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhc-zp-TSn" customClass="LocationSearchTable" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tiD-Oz-25W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -232,7 +232,7 @@
         <!--Messages-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController title="Messages" id="8rJ-Kc-sve" customClass="MessagesViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Messages" id="8rJ-Kc-sve" customClass="ChatViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -270,7 +270,7 @@
         <!--Login View Controller-->
         <scene sceneID="wld-ja-pYl">
             <objects>
-                <viewController id="Sw2-1R-k3a" customClass="LoginViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Sw2-1R-k3a" customClass="LoginViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nts-2v-Or0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -442,13 +442,13 @@
         <!--Trips Table View Controller-->
         <scene sceneID="JSf-C0-f5b">
             <objects>
-                <tableViewController id="yes-Qc-0lm" customClass="TripsTableViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="yes-Qc-0lm" customClass="TripsTableViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hMg-Wi-gB4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="65" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Dolmus__Taksi" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="65" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Taxiz" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XGY-1c-AOD" id="hcZ-vC-ExX">

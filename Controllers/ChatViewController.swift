@@ -47,20 +47,9 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
-
-
-
-
+ 
+     }
+ 
 
 // MARK: - Helpers
 
