@@ -11,24 +11,52 @@ import Firebase
 import MessageKit
  
 
-private let db = Firestore.firestore()
-private var reference: CollectionReference?
- 
-private var messages: [Message] = []
-private var messageListener: ListenerRegistration?
-
-class ChatViewController: MessagesViewController, MessagesDataSource {
-  
+final class ChatViewController: MessagesViewController, MessagesDataSource {
     
-    @IBAction func closeButton(_ sender: Any) {
-        
-        dismiss(animated: true, completion: nil)
+     private let db = Firestore.firestore()
+     private var reference: CollectionReference?
+      
+     private var messages: [Message] = []
+     private var messageListener: ListenerRegistration?
+     private let trip: Trips
+
+     deinit {
+       messageListener?.remove()
+     }
+
+    init(user: User, trip: Trips) {
+      currentUser = user
+      self.trip = trip
+      super.init(nibName: nil, bundle: nil)
+      title = trip.to
     }
- 
+
+    required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let key = trip.key else {
+          navigationController?.popViewController(animated: true)
+          return
+        }
+        
+        reference = db.collection(["trips", key, "thread"].joined(separator: "/"))
  
+    // Firestore calls this snapshot listener whenever there is a change to the database.
+        messageListener = reference?.addSnapshotListener { querySnapshot, error in
+          guard let snapshot = querySnapshot else {
+            print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+            return
+          }
+          
+          snapshot.documentChanges.forEach { change in
+            self.handleDocumentChange(change)
+          }
+        }
+
         navigationItem.largeTitleDisplayMode = .never
         
         maintainPositionOnKeyboardFrameChanged = true
@@ -40,10 +68,9 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         messagesCollectionView.messagesDataSource = self
          messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-
-        let testMessage = Message(user: currentUser, content: "I love pizza, what is your favorite kind?")
-        insertNewMessage(testMessage)
+ 
      }
+    
     
     // MARK: - Helpers
 
@@ -64,6 +91,21 @@ class ChatViewController: MessagesViewController, MessagesDataSource {
         DispatchQueue.main.async {
           self.messagesCollectionView.scrollToBottom(animated: true)
         }
+      }
+    }
+
+    // observe new data change
+    private func handleDocumentChange(_ change: DocumentChange) {
+      guard let message = Message(document: change.document) else {
+        return
+      }
+
+      switch change.type {
+      case .added:
+        insertNewMessage(message)
+
+      default:
+        break
       }
     }
 

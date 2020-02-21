@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Database.database().isPersistenceEnabled = true
-        return true
+         return true
     }
 
     // MARK: UISceneSession Lifecycle

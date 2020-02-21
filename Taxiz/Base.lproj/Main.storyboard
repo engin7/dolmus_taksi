@@ -229,39 +229,6 @@
             </objects>
             <point key="canvasLocation" x="2138" y="356"/>
         </scene>
-        <!--Messages-->
-        <scene sceneID="wg7-f3-ORb">
-            <objects>
-                <viewController title="Messages" id="8rJ-Kc-sve" customClass="ChatViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waiting-926533_1920" translatesAutoresizingMaskIntoConstraints="NO" id="uh8-ZN-NeE">
-                                <rect key="frame" x="0.0" y="44" width="320" height="475"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="uh8-ZN-NeE" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="0pp-BY-hoi"/>
-                            <constraint firstItem="uh8-ZN-NeE" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="CDz-vf-tkk"/>
-                            <constraint firstItem="uh8-ZN-NeE" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="ntq-Om-pZK"/>
-                            <constraint firstItem="uh8-ZN-NeE" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="yNR-wS-RoX"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="LBO-uK-U9m">
-                        <barButtonItem key="leftBarButtonItem" title="back" image="xmark.circle" catalog="system" id="sBr-EC-CPo">
-                            <connections>
-                                <action selector="closeButton:" destination="8rJ-Kc-sve" id="0Cy-3S-g8b"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2138" y="-433"/>
-        </scene>
         <!--Login View Controller-->
         <scene sceneID="wld-ja-pYl">
             <objects>
@@ -447,7 +414,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LPB-87-2ko" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1358" y="-1248"/>
+            <point key="canvasLocation" x="2138" y="-433"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xpB-Gk-yd7">
@@ -463,26 +430,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9pf-1m-IcO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="488" y="-1248"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="etB-Xa-R4R">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q88-dy-SAk" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SEk-LI-53b">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="rp3-aI-b2f"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pXR-a5-qpR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationItem title="Title" id="FAr-w7-duW"/>
-            </objects>
-            <point key="canvasLocation" x="1326" y="-433"/>
+            <point key="canvasLocation" x="1358" y="-433"/>
         </scene>
         <!--Trips Table View Controller-->
         <scene sceneID="JSf-C0-f5b">
@@ -561,11 +509,7 @@
                                 <segue destination="OFL-xN-TXF" kind="presentation" id="Yfz-iz-RMB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="message" catalog="system" id="13E-I4-3wF">
-                            <connections>
-                                <segue destination="Q88-dy-SAk" kind="show" id="KUj-Ae-EZA"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="message" catalog="system" id="13E-I4-3wF"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5xw-Qj-Fsj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -601,7 +545,6 @@
         <image name="person.crop.circle.fill.badge.minus" catalog="system" width="64" height="50"/>
         <image name="person.crop.circle.fill.badge.plus" catalog="system" width="64" height="50"/>
         <image name="waiting-926533_1920" width="960" height="640"/>
-        <image name="xmark.circle" catalog="system" width="64" height="60"/>
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
 </document>

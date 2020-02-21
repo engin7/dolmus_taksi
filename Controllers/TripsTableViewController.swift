@@ -24,11 +24,16 @@ class TripsTableViewCell: UITableViewCell  {
 
 class TripsTableViewController: UITableViewController {
 
+    
+    
+    
+    private let db = Firestore.firestore()
+
+    
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    print(currentUser?.uid)
-    
+
       tripItemsReference.observe(.value, with: {
             snapshot in
             var newItems : [Trips] = []  //create empty array
@@ -73,7 +78,7 @@ class TripsTableViewController: UITableViewController {
 
         
         let selectedTrip = trips[indexPath.row]
-        let vc = ChatViewController()
+        let vc = ChatViewController(user: currentUser, trip: selectedTrip)
         navigationController?.pushViewController(vc, animated: true)
         
     }
