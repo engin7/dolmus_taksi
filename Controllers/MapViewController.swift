@@ -27,15 +27,16 @@ class MapViewController: UIViewController {
     @IBOutlet weak var addPerson: UIButton!
     @IBOutlet weak var removePerson: UIButton!
 
-
+  
+    
     @IBAction func createTripButton(_ sender: Any) {
+ 
         
-        
-        let trip = Trips(addedByUser: currentUser.email! , time: 15, completed: false, key: "", to: myTo.text!, from: myFrom.text!, persons: 1, price: 1)
+        let trip = Trips(addedByUser: currentUser.email, time: 15, completed: false, key: "", to: myTo.text!, from: myFrom.text!, persons: 1, price: 1)
 
         trips.append(trip)
         // define tree format
-        let values: [String: Any] = [ "addedByUser" : currentUser.email!, "completed" : false, "time" : trip.time, "from" : trip.from, "to" : trip.to, "price" : 5, "persons" : 2]
+        let values: [String: Any] = [ "addedByUser" : currentUser.email, "completed" : false, "time" : trip.time, "from" : trip.from, "to" : trip.to, "price" : 5, "persons" : 2]
         // add to database
            tripItemsRef.setValue(values)
 
@@ -44,9 +45,7 @@ class MapViewController: UIViewController {
     @IBAction func cancelTripButton(_ sender: Any) {
         myTripView.isHidden = true
     }
-    
-    
-    
+     
     @IBOutlet weak var mapView: MKMapView!
     
     var locationManager: CLLocationManager?
@@ -56,6 +55,8 @@ class MapViewController: UIViewController {
     var currentCity: String?
     let geoCoder = CLGeocoder()
     
+       
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +66,6 @@ class MapViewController: UIViewController {
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-        
         
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -84,9 +84,8 @@ class MapViewController: UIViewController {
         locationSearchTable.handleMapSearchDelegate = self
         
         Auth.auth().addStateDidChangeListener { auth, user in
-           guard let user = user else { return }
-            currentUser  = user
-        }
+                         guard let user = user else { return }
+                       }
      }
  
     @objc func getDirections(){

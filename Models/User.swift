@@ -10,26 +10,26 @@ import Foundation
 import Firebase
 import UIKit
  
-var currentUser: Firebase.User!
+var currentUser : User!
+ 
 var trips : [Trips] = []  // Trips is an array many values like route, persons etc. So this is array in array
  
 
-//struct User {
-//  
-//  let uid: String
-//  let email: String
-//  
-//  init(authData: User) {
-//    uid = authData.uid
-//    email = authData.email
-//  }
-//  
-//  init(uid: String, email: String) {
-//    self.uid = uid
-//    self.email = email
-//  }
-//  
-//}
+struct User {
+  
+  let uid: String
+  let email: String
+  
+  init(authData: Firebase.User) {
+    uid = authData.uid
+    email = authData.email!
+  }
+  
+  init(uid: String, email: String) {
+    self.uid = uid
+    self.email = email
+  }
+}
 
 // Other Models
 

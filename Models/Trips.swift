@@ -11,7 +11,7 @@ import Firebase
 import UIKit
 
 let tripItemsReference = Database.database().reference(withPath: "trip-items")
-let tripItemsRef =  tripItemsReference.child(currentUser.uid.lowercased())
+let tripItemsRef =  tripItemsReference.child((currentUser!.uid.lowercased()))
  
 
 struct Trips {

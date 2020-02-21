@@ -1,6 +1,6 @@
 //
 //  SecondViewController.swift
-//  Taxiz
+//
 //
 //  Created by Engin KUK on 12.02.2020.
 //  Copyright © 2020 Silverback Inc. All rights reserved.
@@ -17,7 +17,6 @@ private var reference: CollectionReference?
 private var messages: [Message] = []
 private var messageListener: ListenerRegistration?
 
-
 class ChatViewController: MessagesViewController {
     
     
@@ -25,25 +24,52 @@ class ChatViewController: MessagesViewController {
         
         dismiss(animated: true, completion: nil)
     }
-     
+
+    override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      
+      let testMessage = Message(user: currentUser!, content: "I love pizza, what is your favorite kind?")
+      insertNewMessage(testMessage)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+ 
         navigationItem.largeTitleDisplayMode = .never
         
         maintainPositionOnKeyboardFrameChanged = true
         messageInputBar.inputTextView.tintColor = .primary
         messageInputBar.sendButton.setTitleColor(.primary, for: .normal)
         
+        // implement 4 protocols:
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
 
- 
      }
- 
+    
+    // MARK: - Helpers
+
+    private func insertNewMessage(_ message: Message) {
+      guard !messages.contains(message) else {
+        return
+      }
+      
+      messages.append(message)
+      messages.sort()
+      
+      let isLatestMessage = messages.firstIndex(of: message) == (messages.count - 1)
+      let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage
+      
+      messagesCollectionView.reloadData()
+      
+      if shouldScrollToBottom {
+        DispatchQueue.main.async {
+          self.messagesCollectionView.scrollToBottom(animated: true)
+        }
+      }
+    }
 
 // MARK: - Helpers
 
@@ -64,7 +90,7 @@ private func save(_ message: Message) {
   // initializa sender
  extension ChatViewController: MessagesDataSource {
   func currentSender() -> SenderType {
-      return Sender(id: currentUser.uid, displayName: AppSettings.displayName)
+    return Sender(id: currentUser!.uid, displayName: "AppSettings.displayName")
   }
   
   func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -98,6 +124,7 @@ private func save(_ message: Message) {
 
 extension ChatViewController: MessagesLayoutDelegate {
 
+        //no pic
   func avatarSize(for message: MessageType, at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> CGSize {
     
@@ -145,7 +172,7 @@ extension ChatViewController: MessagesDisplayDelegate {
 extension ChatViewController: MessageInputBarDelegate {
   
   func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-    let message = Message(user: currentUser, content: text)
+    let message = Message(user: currentUser!, content: text)
 
     save(message)
     inputBar.inputTextView.text = ""

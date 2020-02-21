@@ -21,10 +21,10 @@ class LoginViewController: UIViewController {
           self.performSegue(withIdentifier: "loggedIn", sender: nil)
             self.LoginEmail.text = nil
             self.LoginPassword.text = nil
+            currentUser = User(authData: user!)
           }
        }
        Auth.auth().removeStateDidChangeListener(listener)
-        
      }
     
     @IBAction func loginDidTouch(_ sender: AnyObject) {

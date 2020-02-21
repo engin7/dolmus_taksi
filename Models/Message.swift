@@ -8,7 +8,7 @@ import MessageKit
   let id: String?
   let content: String
   let sentDate: Date
-    var kind: MessageKind { .text(content) }
+  var kind: MessageKind { .text(content) }
 
   var data: MessageKind {
       return .text(content)
@@ -21,7 +21,7 @@ import MessageKit
    var downloadURL: URL? = nil
   
   init(user: User, content: String) {
-    sender = Sender(id: user.uid, displayName: AppSettings.displayName)
+    sender = Sender(id: user.uid, displayName: "AppSettings.displayName")
     self.content = content
     sentDate = Date()
     id = nil
@@ -90,3 +90,20 @@ extension Message: Comparable {
   }
   
 }
+
+ 
+ extension UIScrollView {
+   
+   var isAtBottom: Bool {
+     return contentOffset.y >= verticalOffsetForBottom
+   }
+   
+   var verticalOffsetForBottom: CGFloat {
+     let scrollViewHeight = bounds.height
+     let scrollContentSizeHeight = contentSize.height
+     let bottomInset = contentInset.bottom
+     let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
+     return scrollViewBottomOffset
+   }
+   
+ }

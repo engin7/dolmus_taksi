@@ -27,6 +27,8 @@ class TripsTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    print(currentUser?.uid)
+    
       tripItemsReference.observe(.value, with: {
             snapshot in
             var newItems : [Trips] = []  //create empty array
@@ -66,9 +68,13 @@ class TripsTableViewController: UITableViewController {
         
     }
     
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        
+        let selectedTrip = trips[indexPath.row]
+        let vc = ChatViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     // TODO:  load trip created here.
