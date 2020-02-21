@@ -17,20 +17,14 @@ private var reference: CollectionReference?
 private var messages: [Message] = []
 private var messageListener: ListenerRegistration?
 
-class ChatViewController: MessagesViewController {
-    
+class ChatViewController: MessagesViewController, MessagesDataSource {
+  
     
     @IBAction func closeButton(_ sender: Any) {
         
         dismiss(animated: true, completion: nil)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(animated)
-      
-      let testMessage = Message(user: currentUser!, content: "I love pizza, what is your favorite kind?")
-      insertNewMessage(testMessage)
-    }
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +38,11 @@ class ChatViewController: MessagesViewController {
         // implement 4 protocols:
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
-        messagesCollectionView.messagesLayoutDelegate = self
+         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
 
+        let testMessage = Message(user: currentUser, content: "I love pizza, what is your favorite kind?")
+        insertNewMessage(testMessage)
      }
     
     // MARK: - Helpers
@@ -71,10 +67,10 @@ class ChatViewController: MessagesViewController {
       }
     }
 
-// MARK: - Helpers
+ // MARK: - Helpers
 
 private func save(_ message: Message) {
-  reference?.addDocument(data: message.representation) { error in
+    reference?.addDocument(data: message.representation) { error in
     if let e = error {
       print("Error sending message: \(e.localizedDescription)")
       return
@@ -84,13 +80,12 @@ private func save(_ message: Message) {
   }
 }
 
-}
 // MARK: - MessagesDataSource
 
   // initializa sender
- extension ChatViewController: MessagesDataSource {
+ 
   func currentSender() -> SenderType {
-    return Sender(id: currentUser!.uid, displayName: "AppSettings.displayName")
+    return Sender(id: currentUser!.uid, displayName: currentUser!.email)
   }
   
   func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -107,18 +102,28 @@ private func save(_ message: Message) {
   // returns the attributed text for the name above each message bubble.
   func cellTopLabelAttributedText(for message: MessageType,
     at indexPath: IndexPath) -> NSAttributedString? {
-
-    let name = message.sender.displayName
+     let name =  message.sender.displayName
+    print(name)
     return NSAttributedString(
       string: name,
       attributes: [
         .font: UIFont.preferredFont(forTextStyle: .caption1),
-        .foregroundColor: UIColor(white: 0.3, alpha: 1)
+        .foregroundColor: UIColor.black
       ]
     )
   }
-}
-
+    
+    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+           
+           return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+       }
+    
+    
+       func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+           let name = message.sender.displayName
+           return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+       }
+    }
 
 // MARK: - MessagesLayoutDelegate
 

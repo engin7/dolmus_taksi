@@ -2,54 +2,52 @@
 import Firebase
 import MessageKit
  
+ 
  struct Message: MessageType {
-   
+    
   var sender: SenderType
-  let id: String?
+  let senderId: String?
   let content: String
   let sentDate: Date
-  var kind: MessageKind { .text(content) }
+  var kind: MessageKind { return .text(content) }
 
-  var data: MessageKind {
-      return .text(content)
-  }
-  
+ 
   var messageId: String {
-    return id ?? UUID().uuidString
+    return senderId ?? UUID().uuidString
   }
   
-   var downloadURL: URL? = nil
+    var downloadURL: URL? = nil
   
-  init(user: User, content: String) {
-    sender = Sender(id: user.uid, displayName: "AppSettings.displayName")
+    init(user: User, content: String) {
+    sender = Sender (senderId: user.uid, displayName: user.email)
     self.content = content
     sentDate = Date()
-    id = nil
+    senderId = nil
   }
   
- 
+    
   init?(document: QueryDocumentSnapshot) {
-    let data = document.data()
+    let kind = document.data()
     
-    guard let sentDate = data["created"] as? Date else {
+    guard let sentDate = kind["created"] as? Date else {
       return nil
     }
-    guard let senderID = data["senderID"] as? String else {
+    guard let senderID = kind["senderID"] as? String else {
       return nil
     }
-    guard let senderName = data["senderName"] as? String else {
+    guard let senderName = kind["senderName"] as? String else {
       return nil
     }
     
-    id = document.documentID
+    senderId = document.documentID
     
     self.sentDate = sentDate
-    sender = Sender(id: senderID, displayName: senderName)
+    sender = Sender(senderId: senderID, displayName: senderName)
     
-    if let content = data["content"] as? String {
+    if let content = kind["content"] as? String {
       self.content = content
       downloadURL = nil
-    } else if let urlString = data["url"] as? String, let url = URL(string: urlString) {
+    } else if let urlString = kind["url"] as? String, let url = URL(string: urlString) {
       downloadURL = url
       content = ""
     } else {
@@ -82,7 +80,7 @@ extension Message: DatabaseRepresentation {
 extension Message: Comparable {
   
   static func == (lhs: Message, rhs: Message) -> Bool {
-    return lhs.id == rhs.id
+    return lhs.senderId == rhs.senderId
   }
   
   static func < (lhs: Message, rhs: Message) -> Bool {

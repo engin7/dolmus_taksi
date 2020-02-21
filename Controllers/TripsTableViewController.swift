@@ -40,6 +40,7 @@ class TripsTableViewController: UITableViewController {
             self.tableView.reloadData()
           })
 
+ 
      }
     
     // MARK: UITableView Delegate methods

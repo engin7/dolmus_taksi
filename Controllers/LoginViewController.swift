@@ -22,6 +22,8 @@ class LoginViewController: UIViewController {
             self.LoginEmail.text = nil
             self.LoginPassword.text = nil
             currentUser = User(authData: user!)
+            AppSettings.displayName = "willbeUpdated..."
+
           }
        }
        Auth.auth().removeStateDidChangeListener(listener)
