@@ -16,8 +16,7 @@ import MessageKit
     return senderId ?? UUID().uuidString
   }
   
-    var downloadURL: URL? = nil
-  
+ 
     init(user: User, content: String) {
     sender = Sender (senderId: user.uid, displayName: user.email)
     self.content = content
@@ -46,11 +45,7 @@ import MessageKit
     
     if let content = kind["content"] as? String {
       self.content = content
-      downloadURL = nil
-    } else if let urlString = kind["url"] as? String, let url = URL(string: urlString) {
-      downloadURL = url
-      content = ""
-    } else {
+     }  else {
       return nil
     }
   }
@@ -65,13 +60,7 @@ extension Message: DatabaseRepresentation {
       "senderID": sender.senderId,
       "senderName": sender.displayName
     ]
-    
-    if let url = downloadURL {
-      rep["url"] = url.absoluteString
-    } else {
-      rep["content"] = content
-    }
-    
+   
     return rep
   }
   

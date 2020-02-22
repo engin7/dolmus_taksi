@@ -9,23 +9,25 @@
 import UIKit
 import Firebase
 
+
+
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var  LoginEmail: UITextField!
     @IBOutlet weak var LoginPassword: UITextField!
-    
+
     override func viewDidLoad() {
-        
+
         let listener = Auth.auth().addStateDidChangeListener() { auth, user in
         if user != nil {
           self.performSegue(withIdentifier: "loggedIn", sender: nil)
             self.LoginEmail.text = nil
             self.LoginPassword.text = nil
+             AppSettings.displayName = "willbeUpdated..."
             currentUser = User(authData: user!)
-            AppSettings.displayName = "willbeUpdated..."
-
           }
        }
+    
        Auth.auth().removeStateDidChangeListener(listener)
      }
     

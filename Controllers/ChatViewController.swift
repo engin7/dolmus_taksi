@@ -19,13 +19,14 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
      private var messages: [Message] = []
      private var messageListener: ListenerRegistration?
      private let trip: Trips
+     private let currentUser: User
 
      deinit {
        messageListener?.remove()
      }
 
-    init(user: User, trip: Trips) {
-      currentUser = user
+    init(currentUser: User, trip: Trips) {
+      self.currentUser = currentUser
       self.trip = trip
       super.init(nibName: nil, bundle: nil)
       title = trip.to
@@ -38,7 +39,7 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let key = trip.key else {
+        guard let key = trip.id else {
           navigationController?.popViewController(animated: true)
           return
         }
@@ -127,7 +128,7 @@ private func save(_ message: Message) {
   // initializa sender
  
   func currentSender() -> SenderType {
-    return Sender(id: currentUser!.uid, displayName: currentUser!.email)
+    return Sender(id: currentUser.uid, displayName: currentUser.email)
   }
   
   func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -219,7 +220,7 @@ extension ChatViewController: MessagesDisplayDelegate {
 extension ChatViewController: MessageInputBarDelegate {
   
   func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-    let message = Message(user: currentUser!, content: text)
+    let message = Message(user: currentUser, content: text)
 
     save(message)
     inputBar.inputTextView.text = ""

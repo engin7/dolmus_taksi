@@ -10,68 +10,78 @@ import Foundation
 import Firebase
 import UIKit
 
-let tripItemsReference = Database.database().reference(withPath: "trip-items")
-let tripItemsRef =  tripItemsReference.child((currentUser!.uid.lowercased()))
+//let tripItemsReference = Database.database().reference(withPath: "trip-items") *Firebase
+//let tripItemsRef =  tripItemsReference.child((currentUser!.uid.lowercased()))
 
 struct Trips {
     
-    let key: String?
-    let addedByUser: String
-    let ref: DatabaseReference?
-    var completed: Bool
-    var time: Int // for remaning minutes
+    let id: String?
+    var time: Date
     var from:String
     var to: String
     var persons: Int
-    var price: Int
-    
-    init( addedByUser: String, time: Int, completed: Bool, key: String = "", to: String, from: String, persons: Int, price: Int) {
-      self.key = key
-      self.addedByUser = addedByUser
-      self.completed = completed
-      self.ref = nil
+ 
+    init(time:Date, to:String, from:String, persons:Int) {
+      self.id = nil
       self.time = time
       self.to = to
       self.from = from
-      self.price = price
       self.persons = persons
         
     }
     
-    
-    init(snapshot: DataSnapshot) {
-      key = snapshot.key
-      let snapshotValue = snapshot.value as! [String: AnyObject]
-      addedByUser = snapshotValue["addedByUser"] as! String
-      completed = snapshotValue["completed"] as! Bool
-      time = snapshotValue["time"] as! Int
-      from = snapshotValue["from"] as! String
-      to = snapshotValue["to"] as! String
-      price = snapshotValue["price"] as! Int
-      persons = snapshotValue["persons"] as! Int
-        
-      ref = snapshot.ref
+    init?(document: QueryDocumentSnapshot) {
+      let data = document.data()
+      
+      guard let time = data["time"] as? Date else {
+        return nil
+      }
+      guard let to = data["to"] as? String else {
+        return nil
+      }
+      guard let from = data["from"] as? String else {
+        return nil
+      }
+      guard let persons = data["persons"] as? Int else {
+        return nil
+      }
+      id = document.documentID
+        self.time    = time
+        self.to      = to
+        self.from    = from
+        self.persons = persons
+ 
     }
-    
-    func toAnyObject() -> Any {
-      return [
-        "addedByUser": addedByUser,
-        "completed": completed
-      ]
-    }
-    
+     
 }
 
 extension Trips: DatabaseRepresentation {
   
   var representation: [String : Any] {
-    var rep = ["to": to]
-    
-    if let key = key {
-      rep["key"] = key
+    var rep: [String : Any] = [
+    "to": to,
+    "from": from,
+    "time": time,
+    "persons": persons
+    ]
+ 
+    if let id = id {
+      rep["id"] = id
     }
     
     return rep
   }
   
+}
+
+extension Trips: Comparable {
+  
+  static func == (lhs: Trips, rhs: Trips) -> Bool {
+    return lhs.id == rhs.id
+  }
+  
+  static func < (lhs: Trips, rhs: Trips) -> Bool {
+    return lhs.to < rhs.to
+  }
+
 }
