@@ -55,15 +55,13 @@ import MessageKit
 extension Message: DatabaseRepresentation {
   
   var representation: [String : Any] {
-    var rep: [String : Any] = [
+    [
       "created": sentDate,
       "senderID": sender.senderId,
       "senderName": sender.displayName,
-     ]
-     rep["content"] = content
-    return rep
+      "content"  : content
+    ]
   }
-  
 }
 
 extension Message: Comparable {
