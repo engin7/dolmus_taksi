@@ -14,10 +14,7 @@ let db = Firestore.firestore()
       var tripReference: CollectionReference {
       return db.collection("Trips")
       }
-     var chatReference: CollectionReference {
-        return (tripReference.document("id").collection("Chat"))
-     }
- 
+    
 struct Trips {
     
     let id: String?

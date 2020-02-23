@@ -37,7 +37,7 @@ class TripsTableViewCell: UITableViewCell  {
        
         private var tripListener: ListenerRegistration?
         static var trips : [Trips] = []
-
+        
         deinit {
           tripListener?.remove()
         }
@@ -115,8 +115,8 @@ class TripsTableViewCell: UITableViewCell  {
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
             
-            let selectedTrip =  TripsTableViewController.trips[indexPath.row]
-            let vc = ChatViewController(currentUser: currentUser!, trip: selectedTrip)
+              let trip =  TripsTableViewController.trips[indexPath.row]
+            let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
             
         }
