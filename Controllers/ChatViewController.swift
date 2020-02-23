@@ -14,8 +14,7 @@ import MessageKit
 final class ChatViewController: MessagesViewController, MessagesDataSource {
     
      private let db = Firestore.firestore()
-     private var reference: CollectionReference?
-      
+ 
      private var messages: [Message] = []
      private var messageListener: ListenerRegistration?
      private let trip: Trips
@@ -39,15 +38,14 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let key = trip.id else {
+        guard trip.id != nil else {
 //          navigationController?.popViewController(animated: true)
           return
         }
         
-        reference = db.collection(["trips", key, "thread"].joined(separator: "/"))
  
     // Firestore calls this snapshot listener whenever there is a change to the database.
-        messageListener = reference?.addSnapshotListener { querySnapshot, error in
+        messageListener = chatReference.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
             print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
             return
@@ -113,7 +111,7 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
  // MARK: - Helpers
 
 private func save(_ message: Message) {
-    reference?.addDocument(data: message.representation) { error in
+    chatReference.addDocument(data: message.representation) { error in
     if let e = error {
       print("Error sending message: \(e.localizedDescription)")
       return

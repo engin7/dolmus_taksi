@@ -51,6 +51,7 @@ class TripsTableViewCell: UITableViewCell  {
             print("Error listening updates: \(error?.localizedDescription ?? "No error")")
             return
             }
+            // type added gets initial values at the begining
             snapshot.documentChanges.forEach { diff in
             if (diff.type == .added) {
                 let to  = diff.document.get("to") as! String
@@ -59,6 +60,7 @@ class TripsTableViewCell: UITableViewCell  {
                 let time = diff.document.get("time") as! Timestamp
                 let newTrip = Trips(time: time.dateValue(), to: to, from: from, persons: persons)
                 TripsTableViewController.self.trips.append(newTrip)
+                print(diff.document )
             }
             }
             self.tableView.reloadData()
