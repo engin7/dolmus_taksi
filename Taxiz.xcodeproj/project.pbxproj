@@ -22,7 +22,6 @@
 		10558A6823F886B9005402F5 /* TripsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6723F886B9005402F5 /* TripsTableViewController.swift */; };
 		10558A6B23F888A8005402F5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6A23F888A8005402F5 /* Default-568h@2x.png */; };
 		10558A6D23F88A87005402F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6C23F88A87005402F5 /* GoogleService-Info.plist */; };
-		10558A9323FDCC14005402F5 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9223FDCC14005402F5 /* test.swift */; };
 		10558A9523FE8138005402F5 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9423FE8138005402F5 /* AppSettings.swift */; };
 		10558A9723FE8199005402F5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9623FE8199005402F5 /* Message.swift */; };
 		820A52C828F041B8BC28B632 /* libPods-Taxiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58452656F84D2578238B1235 /* libPods-Taxiz.a */; };
@@ -46,7 +45,6 @@
 		10558A6723F886B9005402F5 /* TripsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewController.swift; sourceTree = "<group>"; };
 		10558A6A23F888A8005402F5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		10558A6C23F88A87005402F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		10558A9223FDCC14005402F5 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		10558A9423FE8138005402F5 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		10558A9623FE8199005402F5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		58452656F84D2578238B1235 /* libPods-Taxiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taxiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +107,6 @@
 				10558A2523F3F8EB005402F5 /* ChatViewController.swift */,
 				10558A5E23F6E178005402F5 /* LocationSearchTable.swift */,
 				10558A6023F86A6C005402F5 /* ClusterView.swift */,
-				10558A9223FDCC14005402F5 /* test.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -280,7 +277,6 @@
 				10558A9723FE8199005402F5 /* Message.swift in Sources */,
 				10558A6123F86A6C005402F5 /* ClusterView.swift in Sources */,
 				10558A6823F886B9005402F5 /* TripsTableViewController.swift in Sources */,
-				10558A9323FDCC14005402F5 /* test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
