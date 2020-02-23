@@ -58,9 +58,9 @@ extension Message: DatabaseRepresentation {
     var rep: [String : Any] = [
       "created": sentDate,
       "senderID": sender.senderId,
-      "senderName": sender.displayName
-    ]
-   
+      "senderName": sender.displayName,
+     ]
+     rep["content"] = content
     return rep
   }
   

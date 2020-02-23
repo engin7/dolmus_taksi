@@ -67,8 +67,16 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
          messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
  
-     }
+      }
     
+    override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      
+      let testMessage = Message(user: currentUser, content: "I love pizza, what is your favorite kind?")
+      insertNewMessage(testMessage)
+        reference?.addDocument(data: testMessage.representation)
+
+    }
     
     // MARK: - Helpers
 
@@ -100,7 +108,7 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
 
       switch change.type {
       case .added:
-        insertNewMessage(message)
+      insertNewMessage(message)
 
       default:
         break
@@ -172,6 +180,8 @@ extension ChatViewController: MessagesLayoutDelegate {
   func avatarSize(for message: MessageType, at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> CGSize {
     
+    print("1212")
+
     return .zero
   }
 
@@ -212,17 +222,18 @@ extension ChatViewController: MessagesDisplayDelegate {
 }
 
 // MARK: - MessageInputBarDelegate
+ 
 
 extension ChatViewController: MessageInputBarDelegate {
-  
+     
+      
   func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-    let message = Message(user: currentUser, content: text)
-  print("1212")
-    save(message)
+   
     
+    let message = Message(user: currentUser, content: text)
+    save(message)
     inputBar.inputTextView.text = ""
   }
   
 }
- 
- 
+  
