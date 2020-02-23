@@ -9,7 +9,8 @@
 import UIKit
 import Firebase
 import MessageKit
- 
+import InputBarAccessoryView
+
 
 final class ChatViewController: MessagesViewController, MessagesDataSource {
     
@@ -40,6 +41,7 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
         navigationController?.popViewController(animated: true)
           return
         }
+        
         //   new collection inside Trips
         reference = db.collection(["Trips", id, "thread"].joined(separator: "/"))
             
@@ -69,14 +71,14 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
  
       }
     
-    override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(animated)
-      
-      let testMessage = Message(user: currentUser, content: "I love pizza, what is your favorite kind?")
-      insertNewMessage(testMessage)
-        reference?.addDocument(data: testMessage.representation)
-
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//      super.viewDidAppear(animated)
+//
+//      let testMessage = Message(user: currentUser, content: "I love pizza, what is your favorite kind?")
+//      insertNewMessage(testMessage)
+//        reference?.addDocument(data: testMessage.representation)
+//
+//    }
     
     // MARK: - Helpers
 
@@ -150,8 +152,7 @@ private func save(_ message: Message) {
   func cellTopLabelAttributedText(for message: MessageType,
     at indexPath: IndexPath) -> NSAttributedString? {
      let name =  message.sender.displayName
-    print(name)
-    return NSAttributedString(
+     return NSAttributedString(
       string: name,
       attributes: [
         .font: UIFont.preferredFont(forTextStyle: .caption1),
@@ -179,9 +180,7 @@ extension ChatViewController: MessagesLayoutDelegate {
         //no pic
   func avatarSize(for message: MessageType, at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> CGSize {
-    
-    print("1212")
-
+ 
     return .zero
   }
 
@@ -227,9 +226,9 @@ extension ChatViewController: MessagesDisplayDelegate {
 extension ChatViewController: MessageInputBarDelegate {
      
       
-  func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+  func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
    
-    
+    print("takunyaci")
     let message = Message(user: currentUser, content: text)
     save(message)
     inputBar.inputTextView.text = ""
