@@ -9,9 +9,12 @@
 import Foundation
 import Firebase
 import UIKit
-
-//let tripItemsReference = Database.database().reference(withPath: "trip-items") *Firebase
-//let tripItemsRef =  tripItemsReference.child((currentUser!.uid.lowercased()))
+ 
+   let db = Firestore.firestore()
+   var tripReference: CollectionReference {
+   return db.collection("Trips")
+   }
+   
 
 struct Trips {
     
@@ -27,32 +30,8 @@ struct Trips {
       self.to = to
       self.from = from
       self.persons = persons
-        
     }
-    
-    init?(document: QueryDocumentSnapshot) {
-      let data = document.data()
-      
-      guard let time = data["time"] as? Date else {
-        return nil
-      }
-      guard let to = data["to"] as? String else {
-        return nil
-      }
-      guard let from = data["from"] as? String else {
-        return nil
-      }
-      guard let persons = data["persons"] as? Int else {
-        return nil
-      }
-      id = document.documentID
-        self.time    = time
-        self.to      = to
-        self.from    = from
-        self.persons = persons
- 
-    }
-     
+  
 }
 
 extension Trips: DatabaseRepresentation {

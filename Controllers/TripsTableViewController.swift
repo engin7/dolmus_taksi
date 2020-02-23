@@ -24,51 +24,48 @@ class TripsTableViewCell: UITableViewCell  {
 
 class TripsTableViewController: UITableViewController {
 
-    var trips : [Trips] = []
+    @IBAction func chatButtton(_ sender: Any) {
+//        let vc = ChatViewController(currentUser: currentUser!, trip: Trips(time: Date(), to: "Africa", from: "rr", persons: 3))
+//        navigationController?.pushViewController(vc, animated: true)
+        // should go to a list with joined trips
+    }
+
     private let TripsCellIdentifier = "TripsCell"
     private var currentTripsAlertController: UIAlertController?
     
-    private let db = Firestore.firestore()
-    private var tripReference: CollectionReference {
-    return db.collection("Trips")
-    }
-    
-    private var Trip = [Trips]()
+   
     private var tripListener: ListenerRegistration?
- 
+   
+    static var trips : [Trips] = []
+
     deinit {
       tripListener?.remove()
     }
      
-//      init(currentUser: User) {
-//      self.currentUser = currentUser
-//      super.init(style: .grouped)
-//      title = "Trips"
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//      fatalError("init(coder:) has not been implemented")
-//    }
-   
   override func viewDidLoad() {
     super.viewDidLoad()
  
     tripListener = tripReference.addSnapshotListener { querySnapshot, error in
       guard let snapshot = querySnapshot else {
-        print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+        print("Error listening updates: \(error?.localizedDescription ?? "No error")")
         return
       }
-      
-      snapshot.documentChanges.forEach { change in
-        self.handleDocumentChange(change)
-      }
-    }
+        TripsTableViewController.self.trips = []
+        // get data from cloud in array
+         for document in snapshot.documents {
+            let to  = document.get("to") as! String
+            let from = document.get("from") as! String
+            let persons = document.get("persons") as! Int
+            let time = document.get("time") as! Timestamp
+            let newTrip = Trips(time: time.dateValue(), to: to, from: from, persons: persons)
+            TripsTableViewController.self.trips.append(newTrip)
+           }
+        self.tableView.reloadData()
 
-    
+    }
+       
      }
-    
-   
-    
+ 
     // MARK: - Actions
     
     @objc private func signOut() {
@@ -83,132 +80,29 @@ class TripsTableViewController: UITableViewController {
       }))
       present(ac, animated: true, completion: nil)
     }
-    
-    @objc private func addButtonPressed() {
-      let ac = UIAlertController(title: "Create a new Channel", message: nil, preferredStyle: .alert)
-      ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-      ac.addTextField { field in
-        field.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        field.enablesReturnKeyAutomatically = true
-        field.autocapitalizationType = .words
-        field.clearButtonMode = .whileEditing
-        field.placeholder = "Channel name"
-        field.returnKeyType = .done
-        field.tintColor = .primary
-      }
-      
-      let createAction = UIAlertAction(title: "Create", style: .default, handler: { _ in
-        self.createChannel()
-      })
-      createAction.isEnabled = false
-      ac.addAction(createAction)
-      ac.preferredAction = createAction
-      
-      present(ac, animated: true) {
-        ac.textFields?.first?.becomeFirstResponder()
-      }
-      currentTripsAlertController = ac
-    }
-    
-    @objc private func textFieldDidChange(_ field: UITextField) {
-      guard let ac = currentTripsAlertController else {
-        return
-      }
-      
-      ac.preferredAction?.isEnabled = field.hasText
-    }
-    
-    // MARK: - Helpers
-    
-      func createChannel() {
-      guard let ac = currentTripsAlertController else {
-        return
-      }
-      
-      guard let channelName = ac.textFields?.first?.text else {
-        return
-      }
-      
-      let trip = Trips(time: Date(), to: channelName, from: "rr", persons:
-        3)
-      tripReference.addDocument(data: trip.representation) { error in
-        if let e = error {
-          print("Error saving channel: \(e.localizedDescription)")
-        }
-      }
-    }
-    
-    private func addChannelToTable(_ channel: Trips) {
-      guard !trips.contains(channel) else {
-        return
-      }
-      
-      trips.append(channel)
-      trips.sort()
-      
-      guard let index = trips.firstIndex(of: channel) else {
-      return
-      }
-      tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-    }
-     
-    private func updateChannelInTable(_ channel: Trips) {
-        guard let index = trips.firstIndex(of: channel) else {
-        return
-      }
-      
-      trips[index] = channel
-      tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-    }
-    
-    private func removeChannelFromTable(_ channel: Trips) {
-        guard let index = trips.firstIndex(of: channel) else {
-        return
-      }
-      
-      trips.remove(at: index)
-      tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-    }
-    
-    private func handleDocumentChange(_ change: DocumentChange) {
-      guard let channel = Trips(document: change.document) else {
-        return
-      }
-      
-      switch change.type {
-      case .added:
-        addChannelToTable(channel)
-        
-      case .modified:
-        updateChannelInTable(channel)
-        
-      case .removed:
-        removeChannelFromTable(channel)
-      }
-    }
-    
+   
+ 
     
     // MARK: UITableView Delegate methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trips.count
+        
+        return TripsTableViewController.trips.count
      }
      
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
                  let cell = tableView.dequeueReusableCell(withIdentifier: "TripsTableViewCell", for: indexPath) as! TripsTableViewCell
-                let trip = trips[indexPath.row]
+        let trip = TripsTableViewController.trips[indexPath.row]
                  
-        cell.fromTextLabel.text = trip.from
+        cell.fromTextLabel.text =  trip.from
         cell.toTextLabel.text = trip.to
-
          return cell
       }
    
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
        return true
      }
-    
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -217,7 +111,7 @@ class TripsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         
-        let selectedTrip = trips[indexPath.row]
+        let selectedTrip = TripsTableViewController.trips[indexPath.row]
         let vc = ChatViewController(currentUser: currentUser!, trip: selectedTrip)
         navigationController?.pushViewController(vc, animated: true)
         

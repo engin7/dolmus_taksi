@@ -40,7 +40,7 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
         super.viewDidLoad()
         
         guard let key = trip.id else {
-          navigationController?.popViewController(animated: true)
+//          navigationController?.popViewController(animated: true)
           return
         }
         

@@ -26,13 +26,18 @@ class MapViewController: UIViewController {
     @IBOutlet weak var myPersons: UILabel!
     @IBOutlet weak var addPerson: UIButton!
     @IBOutlet weak var removePerson: UIButton!
+    
     @IBAction func createTripButton(_ sender: Any) {
-  
-  
-//        let MapViewController: TripsTableViewController = TripsTableViewController()
-//        MapViewController.createChannel()
-//
-    }
+        
+        // add to firestore database:
+        let trip =  Trips(time: Date(), to: myTo.text!, from: myFrom.text!, persons: Int(myPersons.text!)!)
+         tripReference.addDocument(data: trip.representation) { error in
+        if let e = error {
+          print("Error saving channel: \(e.localizedDescription)")
+        }
+      }
+       }
+
     
     @IBAction func cancelTripButton(_ sender: Any) {
         myTripView.isHidden = true
