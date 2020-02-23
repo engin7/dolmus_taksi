@@ -58,7 +58,8 @@ class TripsTableViewCell: UITableViewCell  {
                 let from = diff.document.get("from") as! String
                 let persons = diff.document.get("persons") as! Int
                 let time = diff.document.get("time") as! Timestamp
-                let newTrip = Trips(time: time.dateValue(), to: to, from: from, persons: persons)
+                let id = diff.document.documentID as String
+                let newTrip = Trips(time: time.dateValue(), to: to, from: from, persons: persons, id: id)
                 TripsTableViewController.self.trips.append(newTrip)
                 print(diff.document )
             }

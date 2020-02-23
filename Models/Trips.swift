@@ -17,14 +17,14 @@ let db = Firestore.firestore()
     
 struct Trips {
     
-    let id: String?
+    let id: String
     var time: Date
     var from:String
     var to: String
     var persons: Int
  
-    init(time:Date, to:String, from:String, persons:Int) {
-      self.id = nil
+    init(time:Date, to:String, from:String, persons:Int, id:String) {
+      self.id = id
       self.time = time
       self.to = to
       self.from = from
@@ -63,12 +63,11 @@ extension Trips: DatabaseRepresentation {
     "to": to,
     "from": from,
     "time": time,
-    "persons": persons
+    "persons": persons,
+        "id" : id
     ]
  
-    if let id = id {
-      rep["id"] = id
-    }
+    
     
     return rep
   }

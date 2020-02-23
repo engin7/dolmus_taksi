@@ -36,15 +36,13 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(trip)
-        print("1212")
         guard let id = trip?.id else {
         navigationController?.popViewController(animated: true)
           return
         }
         //   new collection inside Trips
         reference = db.collection(["Trips", id, "thread"].joined(separator: "/"))
-
+            
     // Firestore calls this snapshot listener whenever there is a change to the database.
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
@@ -117,8 +115,7 @@ private func save(_ message: Message) {
       print("Error sending message: \(e.localizedDescription)")
       return
     }
-    
-    self.messagesCollectionView.scrollToBottom()
+     self.messagesCollectionView.scrollToBottom()
   }
 }
 
@@ -220,8 +217,9 @@ extension ChatViewController: MessageInputBarDelegate {
   
   func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
     let message = Message(user: currentUser, content: text)
-
+  print("1212")
     save(message)
+    
     inputBar.inputTextView.text = ""
   }
   
