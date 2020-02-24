@@ -6,14 +6,14 @@ import MessageKit
  struct Message: MessageType {
     
   var sender: SenderType
-  let senderId: String?
+  let id: String?
   let content: String
   let sentDate: Date
   var kind: MessageKind { return .text(content) }
 
  
   var messageId: String {
-    return senderId ?? UUID().uuidString
+    return id ?? UUID().uuidString
   }
   
  
@@ -21,16 +21,17 @@ import MessageKit
     sender = Sender (senderId: user.uid, displayName: user.email)
     self.content = content
     sentDate = Date()
-    senderId = nil
+    id = nil
   }
   
     
   init?(document: QueryDocumentSnapshot) {
     let kind = document.data()
     
-    guard let sentDate = kind["created"] as? Date else {
+    guard let date = kind["created"]  as? Timestamp else {
       return nil
     }
+    let sentDate = date.dateValue()
     guard let senderID = kind["senderID"] as? String else {
       return nil
     }
@@ -38,7 +39,7 @@ import MessageKit
       return nil
     }
     
-    senderId = document.documentID
+    id = document.documentID
     
     self.sentDate = sentDate
     sender = Sender(senderId: senderID, displayName: senderName)
@@ -61,19 +62,19 @@ extension Message: DatabaseRepresentation {
       "senderName": sender.displayName,
       "content"  : content
     ]
-  }
+   }
 }
 
 extension Message: Comparable {
   
   static func == (lhs: Message, rhs: Message) -> Bool {
-    return lhs.senderId == rhs.senderId
+    return lhs.id == rhs.id
   }
   
   static func < (lhs: Message, rhs: Message) -> Bool {
     return lhs.sentDate < rhs.sentDate
   }
-  
+    
 }
 
  
