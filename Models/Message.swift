@@ -26,16 +26,16 @@ import MessageKit
   
     
   init?(document: QueryDocumentSnapshot) {
-    let kind = document.data()
+    let data = document.data()
     
-    guard let date = kind["created"]  as? Timestamp else {
+    guard let date = data["created"]  as? Timestamp else {
       return nil
     }
     let sentDate = date.dateValue()
-    guard let senderID = kind["senderID"] as? String else {
+    guard let senderID = data["senderID"] as? String else {
       return nil
     }
-    guard let senderName = kind["senderName"] as? String else {
+    guard let senderName = data["senderName"] as? String else {
       return nil
     }
     
@@ -44,7 +44,7 @@ import MessageKit
     self.sentDate = sentDate
     sender = Sender(senderId: senderID, displayName: senderName)
     
-    if let content = kind["content"] as? String {
+    if let content = data["content"] as? String {
       self.content = content
      }  else {
       return nil

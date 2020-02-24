@@ -58,21 +58,18 @@ struct Trips {
 
 extension Trips: DatabaseRepresentation {
   
-  var representation: [String : Any] {
-    var rep: [String : Any] = [
+    var representation: [String : Any]   {
+    [
     "to": to,
     "from": from,
     "time": time,
     "persons": persons,
         "id" : id
     ]
- 
-    
-    
-    return rep
-  }
+   }
+ }
   
-}
+ 
 
 //- Other extensions
 

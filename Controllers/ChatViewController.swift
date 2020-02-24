@@ -55,6 +55,7 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
           snapshot.documentChanges.forEach { change in
             self.handleDocumentChange(change)
           }
+
         }
 
         navigationItem.largeTitleDisplayMode = .never
@@ -101,12 +102,11 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
         }
       }
     }
-
+    
     // observe new data change
     private func handleDocumentChange(_ change: DocumentChange) {
       guard let message = Message(document: change.document) else {
-        print(change.document.data())
-        print("cahil")
+         
         return
       }
        switch change.type {
@@ -229,7 +229,6 @@ extension ChatViewController: MessageInputBarDelegate {
       
   func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
    
-    print("takunyaci")
     let message = Message(user: currentUser, content: text)
     save(message)
     inputBar.inputTextView.text = ""
