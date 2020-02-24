@@ -50,7 +50,7 @@ import MessageKit
       return nil
     }
   }
-  
+ 
 }
 
 extension Message: DatabaseRepresentation {
