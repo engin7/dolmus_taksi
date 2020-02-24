@@ -29,7 +29,7 @@ class TripsTableViewCell: UITableViewCell  {
         @IBAction func chatButtton(_ sender: Any) {
     //        let vc = ChatViewController(currentUser: currentUser!, trip: Trips(time: Date(), to: "Africa", from: "rr", persons: 3))
     //        navigationController?.pushViewController(vc, animated: true)
-            // should go to a list with joined trips
+            // !!should go to a list with joined trips
         }
 
         private let TripsCellIdentifier = "TripsCell"
@@ -71,22 +71,7 @@ class TripsTableViewCell: UITableViewCell  {
         }
            
      
-        // MARK: - Actions
-        
-        @objc private func signOut() {
-          let ac = UIAlertController(title: nil, message: "Are you sure you want to sign out?", preferredStyle: .alert)
-          ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-          ac.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
-            do {
-              try Auth.auth().signOut()
-            } catch {
-              print("Error signing out: \(error.localizedDescription)")
-            }
-          }))
-          present(ac, animated: true, completion: nil)
-        }
-       
-     
+      
         
         // MARK: UITableView Delegate methods
 

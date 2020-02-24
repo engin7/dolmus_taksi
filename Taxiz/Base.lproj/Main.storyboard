@@ -379,10 +379,10 @@
             </objects>
             <point key="canvasLocation" x="489" y="356"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Profile Table View Controller-->
         <scene sceneID="FGs-OU-M5J">
             <objects>
-                <tableViewController id="ZLb-K0-6hG" sceneMemberID="viewController">
+                <tableViewController id="ZLb-K0-6hG" customClass="ProfileTableViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gpT-9Q-wCg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -402,35 +402,17 @@
                             <outlet property="delegate" destination="ZLb-K0-6hG" id="OPp-ap-qfd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="6eV-od-Ikz">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="IAD-S3-31W">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="a3s-gf-D0g">
-                                <rect key="frame" x="233" y="13" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign out"/>
-                            </button>
+                    <navigationItem key="navigationItem" id="ESH-UO-gpC">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="Z2S-qd-S7y">
+                            <connections>
+                                <action selector="SignOutButton:" destination="ZLb-K0-6hG" id="uBP-ht-nqL"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LPB-87-2ko" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2138" y="-433"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="xpB-Gk-yd7">
-            <objects>
-                <navigationController id="OFL-xN-TXF" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="j8P-5w-eB6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="ZLb-K0-6hG" kind="relationship" relationship="rootViewController" id="7YW-fM-JrP"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9pf-1m-IcO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1358" y="-433"/>
+            <point key="canvasLocation" x="2381.25" y="-433.0985915492958"/>
         </scene>
         <!--Trips Table View Controller-->
         <scene sceneID="JSf-C0-f5b">
@@ -506,7 +488,7 @@
                     <navigationItem key="navigationItem" id="evU-MD-eNq">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="person" catalog="system" id="0NC-H3-IbG">
                             <connections>
-                                <segue destination="OFL-xN-TXF" kind="presentation" id="Yfz-iz-RMB"/>
+                                <segue destination="2LT-AY-C2E" kind="presentation" id="r5u-gF-ObG"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="message" catalog="system" id="13E-I4-3wF">
@@ -538,6 +520,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4WY-qf-gdw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-471" y="-433"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Pn8-yC-lV5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2LT-AY-C2E" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hLV-E2-QWn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZLb-K0-6hG" kind="relationship" relationship="rootViewController" id="WYY-oh-Z15"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rdo-H5-skm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1383.75" y="-433.0985915492958"/>
         </scene>
     </scenes>
     <resources>
