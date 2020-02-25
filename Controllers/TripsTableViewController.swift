@@ -66,12 +66,8 @@ class TripsTableViewCell: UITableViewCell  {
             self.tableView.reloadData()
         }
  
- 
         }
-           
      
-      
-        
         // MARK: UITableView Delegate methods
 
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -86,7 +82,9 @@ class TripsTableViewCell: UITableViewCell  {
                      
             cell.fromTextLabel.text =  trip.from
             cell.toTextLabel.text = trip.to
-             return cell
+            let time = getReadableDate(time: trip.time)
+            cell.timeTextLabel.text = time
+            return cell
           }
        
          override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -106,7 +104,15 @@ class TripsTableViewCell: UITableViewCell  {
             
         }
         
-      
+            // convert time data to string
+        
+      func getReadableDate(time: Date) -> String? {
+         let date = time
+         let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm"
+        return dateFormatter.string(from: date)
+        
+        }
     }
 
 
