@@ -21,9 +21,10 @@ class ProfileTableViewController:  UITableViewController {
           ac.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
             do {
               try Auth.auth().signOut()
-              self.dismiss(animated: true, completion: nil)
-              // must return login vc
-            } catch {
+                // go backt to sing in screen
+             self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+
+             } catch {
               print("Error signing out: \(error.localizedDescription)")
             }
           }))

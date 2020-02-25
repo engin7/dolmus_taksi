@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
 
         let listener = Auth.auth().addStateDidChangeListener() { auth, user in
+            // auto sign-in and move to next view:
         if user != nil {
           self.performSegue(withIdentifier: "loggedIn", sender: nil)
             self.LoginEmail.text = nil
@@ -41,9 +42,8 @@ class LoginViewController: UIViewController {
             else {
               return
           }
-          
-          Auth.auth().signIn(withEmail: email, password: password) { user, error in
-            if let error = error, user == nil {
+           Auth.auth().signIn(withEmail: email, password: password) { user, error in
+             if let error = error, user == nil {
               let alert = UIAlertController(title: "Sign In Failed",
                                             message: error.localizedDescription,
                                             preferredStyle: .alert)
@@ -51,6 +51,10 @@ class LoginViewController: UIViewController {
               alert.addAction(UIAlertAction(title: "OK", style: .default))
               
               self.present(alert, animated: true, completion: nil)
+            }
+            else {
+            self.performSegue(withIdentifier: "loggedIn", sender: nil)
+                currentUser = User(authData: user!.user)
             }
           }
         }
