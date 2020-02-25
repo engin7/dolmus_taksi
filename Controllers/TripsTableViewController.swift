@@ -12,12 +12,11 @@ import Foundation
 
 class TripsTableViewCell: UITableViewCell  {
   
-
     @IBOutlet weak var fromTextLabel: UILabel!
         
     @IBOutlet weak var toTextLabel: UILabel!
     
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var timeTextLabel: UILabel!
     
  }
 

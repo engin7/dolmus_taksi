@@ -474,6 +474,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="fromTextLabel" destination="z69-FF-yfP" id="13t-aC-hnR"/>
+                                    <outlet property="timeTextLabel" destination="xE9-wg-sIL" id="pss-iK-oGp"/>
                                     <outlet property="toTextLabel" destination="MDQ-Q2-Rt6" id="mw4-5S-efF"/>
                                 </connections>
                             </tableViewCell>
