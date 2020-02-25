@@ -60,13 +60,29 @@ class TripsTableViewCell: UITableViewCell  {
             }
             // *type added gets initial values at the begining
             snapshot.documentChanges.forEach { change in
-              if (change.type == .added) {
-                TripsTableViewController.trips.append(Trips(document: change.document)!)
-                self.tableView.reloadData()
-                } else {
-                  return
+                guard let trip = Trips(document: change.document) else {
+                     return
+                   }
+                
+                switch change.type {
+                case .added:
+                    TripsTableViewController.trips.append(trip)
+                case .modified:
+                    guard let index = TripsTableViewController.trips.firstIndex(of: trip)    else {
+                      return
+                    }
+                    TripsTableViewController.trips[index] = trip
+                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                case .removed:
+                    guard let index =  TripsTableViewController.trips.firstIndex(of: trip) else {
+                      return
+                    }
+                    TripsTableViewController.trips.remove(at: index)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                 }
+                
+                  self.tableView.reloadData()
                 }
-              }
             }
           }
   
