@@ -41,17 +41,10 @@ class TripsTableViewCell: UITableViewCell  {
           tripListener?.remove()
         }
       
-        @objc func refresh(sender:AnyObject)
-        {
-            // Updating your data here...
-            self.tableView.reloadData()
-            self.refreshControl?.endRefreshing()
-            // need to use firestore document change option
-        }
         
       override func viewDidLoad() {
         super.viewDidLoad()
-        self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        
         // listed document and get document with snapshot
         tripListener = tripReference.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
