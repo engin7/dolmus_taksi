@@ -35,9 +35,10 @@ struct Trips {
    
         let data = document.data()
  
-         guard let time = data["time"] as? Date else {
+         guard let date = data["time"] as? Timestamp else {
            return nil
          }
+         let time = date.dateValue()
          guard let to = data["to"] as? String else {
            return nil
          }
@@ -101,3 +102,12 @@ extension UIColor {
   }
   
 }
+
+    // convert time data to string
+  func getReadableDate(time: Date) -> String? {
+   let date = time
+   let dateFormatter = DateFormatter()
+  dateFormatter.dateFormat = "hh:mm"
+  return dateFormatter.string(from: date)
+  
+  }

@@ -41,33 +41,35 @@ class TripsTableViewCell: UITableViewCell  {
           tripListener?.remove()
         }
       
+        @objc func refresh(sender:AnyObject)
+        {
+            // Updating your data here...
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+            // need to use firestore document change option
+        }
         
       override func viewDidLoad() {
         super.viewDidLoad()
+        self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         // listed document and get document with snapshot
         tripListener = tripReference.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
             print("Error listening updates: \(error?.localizedDescription ?? "No error")")
             return
             }
-            // type added gets initial values at the begining
-            snapshot.documentChanges.forEach { diff in
-            if (diff.type == .added) {
-                let to  = diff.document.get("to") as! String
-                let from = diff.document.get("from") as! String
-                let persons = diff.document.get("persons") as! Int
-                let time = diff.document.get("time") as! Timestamp
-                let id = diff.document.documentID as String
-                let newTrip = Trips(time: time.dateValue(), to: to, from: from, persons: persons, id: id)
-                TripsTableViewController.self.trips.append(newTrip)
-                print(diff.document )
+            // *type added gets initial values at the begining
+            snapshot.documentChanges.forEach { change in
+              if (change.type == .added) {
+                TripsTableViewController.trips.append(Trips(document: change.document)!)
+                self.tableView.reloadData()
+                } else {
+                  return
+                }
+              }
             }
-            }
-            self.tableView.reloadData()
-        }
- 
-        }
-     
+          }
+  
         // MARK: UITableView Delegate methods
 
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -104,15 +106,7 @@ class TripsTableViewCell: UITableViewCell  {
             
         }
         
-            // convert time data to string
-        
-      func getReadableDate(time: Date) -> String? {
-         let date = time
-         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm"
-        return dateFormatter.string(from: date)
-        
-        }
+  
     }
 
 
