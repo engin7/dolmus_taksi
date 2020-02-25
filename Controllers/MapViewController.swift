@@ -41,6 +41,7 @@ class MapViewController: UIViewController {
     
     @IBAction func cancelTripButton(_ sender: Any) {
         myTripView.isHidden = true
+        removeOverlay()
     }
      
     @IBOutlet weak var mapView: MKMapView!
@@ -79,7 +80,7 @@ class MapViewController: UIViewController {
  
      }
  
-    @objc func getDirections(){
+    @objc public func getDirections(){
             
         guard let start = currentlocation, let end = selectedPin else {   return }
         let request = MKDirections.Request()
@@ -99,6 +100,8 @@ class MapViewController: UIViewController {
           if let route = response?.routes.first {
              self?.mapView.addOverlay(route.polyline)
       }
+            
+
     }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
@@ -109,6 +112,13 @@ class MapViewController: UIViewController {
   
     }
     
+    func  removeOverlay() {
+        self.mapView.overlays.forEach {
+            if !($0 is MKUserLocation) {
+                self.mapView.removeOverlay($0)
+            }
+        }
+    }
    
 }
 
