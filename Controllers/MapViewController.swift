@@ -36,11 +36,33 @@ class MapViewController: UIViewController {
           print("Error saving channel: \(e.localizedDescription)")
         }
       }
+ 
+        UIView.animate(withDuration: 1.0, animations: {
+             self.myTripView.alpha = 0
+        }, completion:  {
+           (value: Bool) in
+               self.myTripView.isHidden = true
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            
+            self.tabBarController?.selectedIndex = 0
+            self.removeOverlay()
+
+        }
+          
        }
 
     
     @IBAction func cancelTripButton(_ sender: Any) {
-        myTripView.isHidden = true
+        
+        UIView.animate(withDuration: 0.5, animations: {
+                    self.myTripView.alpha = 0
+               }, completion:  {
+                  (value: Bool) in
+                      self.myTripView.isHidden = true
+               })
+        
         removeOverlay()
     }
      

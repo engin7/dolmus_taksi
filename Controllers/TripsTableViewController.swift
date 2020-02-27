@@ -40,8 +40,7 @@ class TripsTableViewCell: UITableViewCell  {
         deinit {
           tripListener?.remove()
         }
-      
-        
+              
       override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,7 +87,7 @@ class TripsTableViewCell: UITableViewCell  {
          
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-                     let cell = tableView.dequeueReusableCell(withIdentifier: "TripsTableViewCell", for: indexPath) as! TripsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TripsTableViewCell", for: indexPath) as! TripsTableViewCell
             let trip =  TripsTableViewController.trips[indexPath.row]
                      
             cell.fromTextLabel.text =  trip.from
@@ -100,7 +99,7 @@ class TripsTableViewCell: UITableViewCell  {
        
          override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
            return true
-         }
+             }
 
         override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             
