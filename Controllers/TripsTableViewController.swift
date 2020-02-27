@@ -18,6 +18,20 @@ class TripsTableViewCell: UITableViewCell  {
     
     @IBOutlet weak var timeTextLabel: UILabel!
     
+    @IBOutlet weak var persons: UIStackView!
+    
+    @IBOutlet weak var personImage: UIImageView!
+    
+    
+    
+//    func imageOfPersons {
+//
+//        let image = UIImage()
+//        image.dra =
+//
+//
+//    }
+    
  }
 
 
