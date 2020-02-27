@@ -22,13 +22,9 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var myFrom: UITextField!
     @IBOutlet weak var myTo: UITextField!
-    @IBOutlet weak var myPrice: UILabel!
     @IBOutlet weak var myPersons: UILabel!
-    @IBOutlet weak var addPerson: UIButton!
-    @IBOutlet weak var removePerson: UIButton!
-    
+
     @IBAction func createTripButton(_ sender: Any) {
-        
         // add to firestore database:
         let trip =  Trips(time: Date(), to: myTo.text!, from: myFrom.text!, persons: Int(myPersons.text!)!, id: "nil")
          tripReference.addDocument(data: trip.representation) { error in
@@ -43,7 +39,7 @@ class MapViewController: UIViewController {
                    self.myTripView.isHidden = finished
                 }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             
             self.tabBarController?.selectedIndex = 0
             self.removeOverlay()
@@ -52,6 +48,20 @@ class MapViewController: UIViewController {
           
        }
 
+    @IBAction func addPerson(_ sender: Any) {
+        
+        var myPersonsInt = Int(myPersons.text!)!
+        myPersonsInt += 1
+        myPersons.text = String(myPersonsInt)
+    }
+    
+    @IBAction func removePerson(_ sender: Any) {
+        var myPersonsInt = Int(myPersons.text!)!
+        myPersonsInt -= 1
+        myPersons.text = String(myPersonsInt)
+        
+    }
+       
     
     @IBAction func cancelTripButton(_ sender: Any) {
       
@@ -120,7 +130,6 @@ class MapViewController: UIViewController {
           if let route = response?.routes.first {
              self?.mapView.addOverlay(route.polyline)
       }
-            
 
     }
             // fade in view
@@ -132,6 +141,7 @@ class MapViewController: UIViewController {
             
             self.myTo.text = self.selectedPin?.locality
             self.myFrom.text = self.currentCity
+            
         }
   
     

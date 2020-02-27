@@ -44,6 +44,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB5-2e-lpO" userLabel="remove Person">
                                         <rect key="frame" x="250" y="59" width="26" height="22"/>
                                         <state key="normal" title="Button" image="person.crop.circle.fill.badge.minus" catalog="system"/>
+                                        <connections>
+                                            <action selector="removePerson:" destination="9pv-A4-QxB" eventType="touchUpInside" id="dlE-15-ekQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3S-Le-RHP">
                                         <rect key="frame" x="0.0" y="0.0" width="23" height="22"/>
@@ -80,8 +83,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWt-c6-P5a" userLabel="add Person">
-                                        <rect key="frame" x="179" y="59" width="26" height="22"/>
+                                        <rect key="frame" x="179" y="59.5" width="26" height="22"/>
                                         <state key="normal" title="Button" image="person.crop.circle.fill.badge.plus" catalog="system"/>
+                                        <connections>
+                                            <action selector="addPerson:" destination="9pv-A4-QxB" eventType="touchUpInside" id="ymt-vr-8yf"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq8-kD-6Vk">
                                         <rect key="frame" x="213" y="60" width="29" height="20.5"/>
@@ -142,7 +148,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="b9E-py-dt8"/>
                     <connections>
-                        <outlet property="addPerson" destination="LB5-2e-lpO" id="DkH-JR-cvs"/>
                         <outlet property="mapView" destination="h7Z-rN-HCd" id="VA6-1S-KKn"/>
                         <outlet property="myFrom" destination="mn3-Oj-WeI" id="yf0-VC-K62"/>
                         <outlet property="myPersons" destination="lq8-kD-6Vk" id="yv1-hG-VSK"/>
