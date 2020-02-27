@@ -37,12 +37,11 @@ class MapViewController: UIViewController {
         }
       }
  
-        UIView.animate(withDuration: 1.0, animations: {
-             self.myTripView.alpha = 0
-        }, completion:  {
-           (value: Bool) in
-               self.myTripView.isHidden = true
-        })
+         UIView.animate(withDuration: 0.3, animations: {
+                   self.myTripView.alpha = 0
+                }) { (finished) in
+                   self.myTripView.isHidden = finished
+                }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             
@@ -55,13 +54,12 @@ class MapViewController: UIViewController {
 
     
     @IBAction func cancelTripButton(_ sender: Any) {
-        
-        UIView.animate(withDuration: 0.5, animations: {
-                    self.myTripView.alpha = 0
-               }, completion:  {
-                  (value: Bool) in
-                      self.myTripView.isHidden = true
-               })
+      
+         UIView.animate(withDuration: 0.3, animations: {
+            self.myTripView.alpha = 0
+         }) { (finished) in
+            self.myTripView.isHidden = finished
+         }
         
         removeOverlay()
     }
@@ -125,15 +123,21 @@ class MapViewController: UIViewController {
             
 
     }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            // fade in view
+            self.myTripView.alpha = 0
             self.myTripView.isHidden = false
+            UIView.animate(withDuration: 0.3) {
+             self.myTripView.alpha = 1
+            }
+            
             self.myTo.text = self.selectedPin?.locality
             self.myFrom.text = self.currentCity
         }
   
-    }
     
+    
+// MARK: - Actions
+
     func  removeOverlay() {
         self.mapView.overlays.forEach {
             if !($0 is MKUserLocation) {
@@ -141,8 +145,10 @@ class MapViewController: UIViewController {
             }
         }
     }
-   
+  
+    
 }
+// MARK: - Extensions
 
 extension MapViewController : CLLocationManagerDelegate {
      
@@ -157,7 +163,7 @@ extension MapViewController : CLLocationManagerDelegate {
         //  will zoom to the first location
         if let location = locations.first {
             self.currentlocation = location
-            let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+            let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
@@ -185,13 +191,12 @@ extension MapViewController : CLLocationManagerDelegate {
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
-        if let city = placemark.locality,
-        let state = placemark.administrativeArea {
-        annotation.subtitle = "\(city) \(state)"
+        if let city = placemark.locality {
+        annotation.subtitle = "\(city)"
         }
         mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
-        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+            let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude - 0.03)  , span: span)
          mapView.setRegion(region, animated: true)
         }
     }
@@ -206,15 +211,17 @@ extension MapViewController : CLLocationManagerDelegate {
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
         pinView?.pinTintColor = UIColor.orange
-        pinView?.canShowCallout = true
         let smallSquare = CGSize(width: 50, height: 50)
         let button = UIButton(frame: CGRect(origin: .zero, size: smallSquare))
-        button.addTarget(self, action:  #selector(getDirections),  for: .touchUpInside)
         button.setBackgroundImage(UIImage(named: "taxi"), for: [])
         pinView?.leftCalloutAccessoryView = button
+         
+        pinView?.canShowCallout = true
+        button.addTarget(self, action:  #selector(getDirections),  for: .touchUpInside)
+        pinView?.isSelected = true
         return pinView
     }
-    
+     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
            let polyLine = MKPolylineRenderer(overlay: overlay)
                polyLine.strokeColor = UIColor.blue

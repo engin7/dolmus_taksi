@@ -59,6 +59,7 @@ class TripsTableViewCell: UITableViewCell  {
                 switch change.type {
                 case .added:
                     TripsTableViewController.trips.append(trip)
+
                 case .modified:
                     guard let index = TripsTableViewController.trips.firstIndex(of: trip)    else {
                       return
@@ -94,6 +95,9 @@ class TripsTableViewCell: UITableViewCell  {
             cell.toTextLabel.text = trip.to
             let time = getReadableDate(time: trip.time)
             cell.timeTextLabel.text = time
+            
+            cell.setHighlighted(true, animated: true)
+
             return cell
           }
        
@@ -101,6 +105,8 @@ class TripsTableViewCell: UITableViewCell  {
            return true
              }
 
+       
+        
         override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             
         }
