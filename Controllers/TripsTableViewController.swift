@@ -22,7 +22,6 @@ class TripsTableViewCell: UITableViewCell  {
     
     @IBOutlet weak var PersonImage2: UIImageView!
     
-    
     @IBOutlet weak var PersonImage3: UIImageView!
     
  
@@ -103,9 +102,20 @@ class TripsTableViewCell: UITableViewCell  {
             cell.toTextLabel.text = trip.to
             let time = getReadableDate(time: trip.time)
             cell.timeTextLabel.text = time
-//            for _ in 0..<4 {
-//             }
-//            cell.addSubview(cell.persons)
+            switch trip.persons {
+            case 1:
+                cell.PersonImage2.isHidden = true
+                cell.PersonImage3.isHidden = true
+            case 2:
+                cell.PersonImage3.isHidden = true
+                cell.PersonImage2.isHidden = false
+            case 3:
+                cell.PersonImage3.isHidden = false
+                cell.PersonImage2.isHidden = false
+                
+            default:
+               break
+            }
             return cell
           }
        
