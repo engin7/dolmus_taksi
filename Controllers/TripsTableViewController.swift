@@ -103,6 +103,7 @@ class TripsTableViewCell: UITableViewCell  {
             let time = getReadableDate(time: trip.time)
             cell.timeTextLabel.text = time
             switch trip.persons {
+                
             case 1:
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage3.isHidden = true
@@ -122,16 +123,25 @@ class TripsTableViewCell: UITableViewCell  {
          override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
            return true
              }
-
-       
-        
+     
         override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            
+
+            if editingStyle == .delete {
+                let trip =  TripsTableViewController.trips[indexPath.row]
+                let documentId = trip.id
+                tripReference.document(documentId).delete() { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("File deleted successfully")
+                }
+            }
+          }
         }
+        
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-            
               let trip =  TripsTableViewController.trips[indexPath.row]
             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
