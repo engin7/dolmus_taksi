@@ -64,7 +64,9 @@ class TripsTableViewCell: UITableViewCell  {
                    }
                 
                 switch change.type {
+                
                 case .added:
+                    
                     TripsTableViewController.trips.append(trip)
 
                 case .modified:
@@ -72,16 +74,17 @@ class TripsTableViewCell: UITableViewCell  {
                       return
                     }
                     TripsTableViewController.trips[index] = trip
-                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+                    
                 case .removed:
                     guard let index =  TripsTableViewController.trips.firstIndex(of: trip) else {
                       return
                     }
                     TripsTableViewController.trips.remove(at: index)
-                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
                  }
-                
-                  self.tableView.reloadData()
+
+                   self.tableView.reloadData()
                 }
             }
           }
@@ -139,6 +142,7 @@ class TripsTableViewCell: UITableViewCell  {
           }
         }
         
+ 
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
