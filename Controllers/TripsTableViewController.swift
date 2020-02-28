@@ -18,20 +18,14 @@ class TripsTableViewCell: UITableViewCell  {
     
     @IBOutlet weak var timeTextLabel: UILabel!
     
-    @IBOutlet weak var persons: UIStackView!
+    @IBOutlet weak var PersonImage1: UIImageView!
     
-    @IBOutlet weak var personImage: UIImageView!
+    @IBOutlet weak var PersonImage2: UIImageView!
     
     
+    @IBOutlet weak var PersonImage3: UIImageView!
     
-//    func imageOfPersons {
-//
-//        let image = UIImage()
-//        image.dra =
-//
-//
-//    }
-    
+ 
  }
 
 
@@ -109,9 +103,9 @@ class TripsTableViewCell: UITableViewCell  {
             cell.toTextLabel.text = trip.to
             let time = getReadableDate(time: trip.time)
             cell.timeTextLabel.text = time
-            
-            cell.setHighlighted(true, animated: true)
-
+//            for _ in 0..<4 {
+//             }
+//            cell.addSubview(cell.persons)
             return cell
           }
        
