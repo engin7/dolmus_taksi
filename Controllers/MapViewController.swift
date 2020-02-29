@@ -92,7 +92,7 @@ class MapViewController: UIViewController {
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-
+                // Search Table display recommendations
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
@@ -101,13 +101,14 @@ class MapViewController: UIViewController {
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
         navigationItem.titleView = resultSearchController?.searchBar
-         
+        
         locationSearchTable.mapView = mapView
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
         locationSearchTable.handleMapSearchDelegate = self
- 
+        
+//        self.myFrom = searchBar
      }
  
     @objc public func getDirections(){
@@ -140,12 +141,11 @@ class MapViewController: UIViewController {
             }
             
             self.myTo.text = self.selectedPin?.locality
+         
             self.myFrom.text = self.currentCity
             
         }
   
-    
-    
 // MARK: - Actions
 
     func  removeOverlay() {
@@ -200,13 +200,12 @@ extension MapViewController : CLLocationManagerDelegate {
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
-        annotation.title = placemark.name
         if let city = placemark.locality {
-        annotation.subtitle = "\(city)"
+        annotation.title = "\(city)"
         }
         mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-            let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude - 0.03)  , span: span)
+        let span = MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
+            let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude - 0.02)  , span: span)
          mapView.setRegion(region, animated: true)
         }
     }
@@ -238,7 +237,7 @@ extension MapViewController : CLLocationManagerDelegate {
         let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
         let distance = currentlocation!.distance(from: destination)/50000
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
-        let midPointLat = (currentlocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 2
+        let midPointLat = (currentlocation!.coordinate.latitude + selectedPin!.coordinate.latitude + 0.05) / 2
         let midPointLong = (currentlocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
         let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
         let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
