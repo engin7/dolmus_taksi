@@ -19,12 +19,12 @@ func dropPinZoomIn(placemark:MKPlacemark)
 class MapViewController: UIViewController {
     
     @IBOutlet weak var myTripView: UIView!
-    
-    @IBOutlet weak var myFrom: UITextField!
-    @IBOutlet weak var myTo: UITextField!
+    @IBOutlet weak var myFrom: UISearchBar!
+    @IBOutlet weak var myTo: UISearchBar!
     @IBOutlet weak var myPersons: UILabel!
 
     @IBAction func createTripButton(_ sender: Any) {
+        
         // add to firestore database:
         let trip =  Trips(time: Date(), to: myTo.text!, from: myFrom.text!, persons: Int(myPersons.text!)!, id: "nil")
          tripReference.addDocument(data: trip.representation) { error in
@@ -98,6 +98,8 @@ class MapViewController: UIViewController {
         resultSearchController?.searchResultsUpdater = locationSearchTable
 
         let searchBar = resultSearchController!.searchBar
+        let searchBarTrip = resultSearchController!.searchBar
+        
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
         navigationItem.titleView = resultSearchController?.searchBar
@@ -107,8 +109,10 @@ class MapViewController: UIViewController {
         resultSearchController?.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
         locationSearchTable.handleMapSearchDelegate = self
-        
-//        self.myFrom = searchBar
+
+//        self.myFrom = searchBarTrip
+//        self.myTo = searchBarTrip
+
      }
  
     @objc public func getDirections(){
