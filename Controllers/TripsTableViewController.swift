@@ -143,19 +143,36 @@ class TripsTableViewCell: UITableViewCell  {
           }
         }
         
- 
-        
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+           
             var trip =  TripsTableViewController.trips[indexPath.row]
             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
             if currentUser?.email != trip.Passengers[0] {
+   
+            let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "None, I'm just looking.", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
                 trip.Passengers.append(currentUser!.email)
+            }))
+            
+            if trip.Passengers.count < 3 {
+            alert.addAction(UIAlertAction(title: "2", style: .default, handler: { action in
+                trip.Passengers.append(currentUser!.email)
+                trip.Passengers.append(currentUser!.email + "+1")
+            }))
             }
+            if trip.Passengers.count < 2 {
+            alert.addAction(UIAlertAction(title: "3", style: .default, handler: { action in
+                trip.Passengers.append(currentUser!.email)
+                trip.Passengers.append(currentUser!.email + "+1")
+                trip.Passengers.append(currentUser!.email + "+2")
+            }))
+            }
+            self.present(alert, animated: true)
         }
-        
-  
+      }
     }
 
 
