@@ -21,16 +21,18 @@ struct Trips {
     var time: Date
     var from:String
     var to: String
-    var persons: Int
- 
-    init(time:Date, to:String, from:String, persons:Int, id:String) {
+    var Passengers: [String]
+    
+    init(time:Date, to:String, from:String, passengers:String, id:String) {
       self.id = id
       self.time = time
       self.to = to
       self.from = from
-      self.persons = persons
-    }
-  
+      self.Passengers = [passengers]
+     }
+       
+        // firestore initialization:
+    
     init?(document: QueryDocumentSnapshot) {
    
         let data = document.data()
@@ -45,15 +47,15 @@ struct Trips {
          guard let from = data["from"] as? String else {
            return nil
          }
-         guard let persons = data["persons"] as? Int else {
-           return nil
+         guard let Passengers = data["passengers"] as? [String] else {
+                  return nil
          }
+        
          id = document.documentID
            self.time    = time
            self.to      = to
            self.from    = from
-           self.persons = persons
-    
+           self.Passengers = Passengers
        }
 }
 
@@ -64,15 +66,14 @@ extension Trips: DatabaseRepresentation {
     "to": to,
     "from": from,
     "time": time,
-    "persons": persons,
-        "id" : id
+    "passengers": Passengers,
+    "id" : id
     ]
    }
  }
-  
  
 
-//- Other extensions
+// MARK: Other Extensions
 
 extension Trips: Comparable {
   
@@ -89,7 +90,6 @@ extension Trips: Comparable {
 protocol DatabaseRepresentation {
   var representation: [String: Any] { get }
 }
-
 
 extension UIColor {
   

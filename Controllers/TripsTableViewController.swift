@@ -105,7 +105,7 @@ class TripsTableViewCell: UITableViewCell  {
             cell.toTextLabel.text = trip.to
             let time = getReadableDate(time: trip.time)
             cell.timeTextLabel.text = time
-            switch trip.persons {
+            switch trip.Passengers.count {
                 
             case 1:
                 cell.PersonImage2.isHidden = true
@@ -132,6 +132,7 @@ class TripsTableViewCell: UITableViewCell  {
             if editingStyle == .delete {
                 let trip =  TripsTableViewController.trips[indexPath.row]
                 let documentId = trip.id
+                            
                 tripReference.document(documentId).delete() { error in
                 if let error = error {
                     print(error.localizedDescription)
@@ -146,10 +147,12 @@ class TripsTableViewCell: UITableViewCell  {
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-              let trip =  TripsTableViewController.trips[indexPath.row]
+            var trip =  TripsTableViewController.trips[indexPath.row]
             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
-            
+            if currentUser?.email != trip.Passengers[0] {
+                trip.Passengers.append(currentUser!.email)
+            }
         }
         
   

@@ -24,13 +24,20 @@ class MapViewController: UIViewController {
     @IBOutlet weak var myPersons: UILabel!
 
     @IBAction func createTripButton(_ sender: Any) {
-        
+                
         // add to firestore database:
-        let trip =  Trips(time: Date(), to: myTo.text!, from: myFrom.text!, persons: Int(myPersons.text!)!, id: "nil")
+        var trip =  Trips(time: Date(), to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
+     
+        let n = Int(myPersons.text!)!
+        
+        for i in 1..<n {
+        trip.Passengers.append(currentUser!.email + "+" + String(i))
+        }
+        
          tripReference.addDocument(data: trip.representation) { error in
         if let e = error {
           print("Error saving channel: \(e.localizedDescription)")
-        }
+         }
       }
  
          UIView.animate(withDuration: 0.3, animations: {
@@ -40,26 +47,26 @@ class MapViewController: UIViewController {
                 }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            
             self.tabBarController?.selectedIndex = 0
             self.removeOverlay()
-
-        }
-         
+         }
        }
 
     @IBAction func addPerson(_ sender: Any) {
         
         var myPersonsInt = Int(myPersons.text!)!
+        if myPersonsInt<3 {
         myPersonsInt += 1
         myPersons.text = String(myPersonsInt)
+        }
     }
     
     @IBAction func removePerson(_ sender: Any) {
         var myPersonsInt = Int(myPersons.text!)!
+        if myPersonsInt>1 {
         myPersonsInt -= 1
         myPersons.text = String(myPersonsInt)
-        
+      }
     }
        
     
