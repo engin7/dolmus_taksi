@@ -45,6 +45,7 @@ class TripsTableViewCell: UITableViewCell  {
        
         var tripListener: ListenerRegistration?
         var trips : [Trips] = []
+        static var newDocument = false
         
         deinit {
           tripListener?.remove()
@@ -59,6 +60,7 @@ class TripsTableViewCell: UITableViewCell  {
             print("Error listening updates: \(error?.localizedDescription ?? "No error")")
             return
             }
+            
             // *type added gets initial values at the begining
             snapshot.documentChanges.forEach { change in
                 guard let trip = Trips(document: change.document) else {
@@ -68,9 +70,14 @@ class TripsTableViewCell: UITableViewCell  {
                 switch change.type {
                 
                 case .added:
+                   
+                    if TripsTableViewController.newDocument {
+                       TripsTableViewController.newDocument = false
+                        self.trips.insert(trip, at: 0)
+                    } else {
+                        self.trips.append(trip)
+                    }
                     
-                    self.trips.append(trip)
-
                 case .modified:
                     guard let index = self.trips.firstIndex(of: trip)    else {
                       return
@@ -102,7 +109,7 @@ class TripsTableViewCell: UITableViewCell  {
 
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripsTableViewCell", for: indexPath) as! TripsTableViewCell
             let trip =  self.trips[indexPath.row]
-                     
+            
             cell.fromTextLabel.text =  trip.from
             cell.toTextLabel.text = trip.to
             let time = getReadableDate(time: trip.time)
@@ -130,11 +137,14 @@ class TripsTableViewCell: UITableViewCell  {
             case 4:
                 cell.contentView.alpha = 0.2
                 cell.PersonImage3.isHidden = false
+                cell.PersonImage2.isHidden = false
+                cell.PersonImage1.isHidden = false
                 cell.selectionStyle = .none
-               
+                
             default:
                break
             }
+          
             return cell
             
           }
@@ -212,6 +222,13 @@ class TripsTableViewCell: UITableViewCell  {
           }
         }
       }
+        
+        override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+            
+        
+            
+            
+        }
     }
 
 
