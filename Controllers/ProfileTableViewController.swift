@@ -21,7 +21,7 @@ class ProfileTableViewController:  UITableViewController {
             do {
               try Auth.auth().signOut()
                 // clear array not to have duplicate
-                TripsTableViewController.trips.removeAll()
+//                 trips.removeAll()
                 // go backt to sing in screen
              self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 

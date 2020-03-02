@@ -43,8 +43,8 @@ class TripsTableViewCell: UITableViewCell  {
         private let TripsCellIdentifier = "TripsCell"
         private var currentTripsAlertController: UIAlertController?
        
-        private var tripListener: ListenerRegistration?
-        static var trips : [Trips] = []
+        var tripListener: ListenerRegistration?
+        var trips : [Trips] = []
         
         deinit {
           tripListener?.remove()
@@ -69,20 +69,20 @@ class TripsTableViewCell: UITableViewCell  {
                 
                 case .added:
                     
-                    TripsTableViewController.trips.append(trip)
+                    self.trips.append(trip)
 
                 case .modified:
-                    guard let index = TripsTableViewController.trips.firstIndex(of: trip)    else {
+                    guard let index = self.trips.firstIndex(of: trip)    else {
                       return
                     }
-                    TripsTableViewController.trips[index] = trip
+                    self.trips[index] = trip
                     self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
                     
                 case .removed:
-                    guard let index =  TripsTableViewController.trips.firstIndex(of: trip) else {
+                    guard let index =  self.trips.firstIndex(of: trip) else {
                       return
                     }
-                    TripsTableViewController.trips.remove(at: index)
+                    self.trips.remove(at: index)
                     self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
                  }
 
@@ -95,13 +95,13 @@ class TripsTableViewCell: UITableViewCell  {
 
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             
-            return  TripsTableViewController.trips.count
+            return  self.trips.count
          }
          
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripsTableViewCell", for: indexPath) as! TripsTableViewCell
-            let trip =  TripsTableViewController.trips[indexPath.row]
+            let trip =  self.trips[indexPath.row]
                      
             cell.fromTextLabel.text =  trip.from
             cell.toTextLabel.text = trip.to
@@ -146,7 +146,7 @@ class TripsTableViewCell: UITableViewCell  {
         override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
             if editingStyle == .delete {
-                let trip =  TripsTableViewController.trips[indexPath.row]
+                let trip =  self.trips[indexPath.row]
                 let documentId = trip.id
                             
                 tripReference.document(documentId).delete() { error in
@@ -173,7 +173,7 @@ class TripsTableViewCell: UITableViewCell  {
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
-            var trip =  TripsTableViewController.trips[indexPath.row]
+            var trip =  self.trips[indexPath.row]
             let documentId = trip.id
             
           if trip.Passengers.count < 4 || trip.Passengers.contains(currentUser!.email) {

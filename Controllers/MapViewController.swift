@@ -25,7 +25,6 @@ class MapViewController: UIViewController {
 
     @IBAction func createTripButton(_ sender: Any) {
                 
-     
         var trip =  Trips(time: Date(), to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
      
         let n = Int(myPersons.text!)!
