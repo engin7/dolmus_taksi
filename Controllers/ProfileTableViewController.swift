@@ -12,7 +12,6 @@ import Foundation
 
 
 class ProfileTableViewController:  UITableViewController {
-    
  
     @IBAction func SignOutButton(_ sender: Any) {
         
@@ -21,9 +20,11 @@ class ProfileTableViewController:  UITableViewController {
           ac.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
             do {
               try Auth.auth().signOut()
+                // clear array not to have duplicate
+                TripsTableViewController.trips.removeAll()
                 // go backt to sing in screen
              self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-
+                
              } catch {
               print("Error signing out: \(error.localizedDescription)")
             }

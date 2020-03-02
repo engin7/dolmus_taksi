@@ -113,23 +113,30 @@ class TripsTableViewCell: UITableViewCell  {
                 cell.PersonImage1.isHidden = true
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage3.isHidden = true
+                cell.contentView.alpha = 1
+
             case 2:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage1.isHidden = false
+                cell.contentView.alpha = 1
+
             case 3:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = false
                 cell.PersonImage1.isHidden = false
+                cell.contentView.alpha = 1
+
             case 4:
-                cell.backgroundColor  =  UIColor.gray
+                cell.contentView.alpha = 0.2
                 cell.PersonImage3.isHidden = false
-               
+                cell.selectionStyle = .none
                
             default:
                break
             }
             return cell
+            
           }
        
          override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -166,24 +173,25 @@ class TripsTableViewCell: UITableViewCell  {
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
-           
             var trip =  TripsTableViewController.trips[indexPath.row]
             let documentId = trip.id
-             if trip.Passengers.count < 4 {
-            let vc = ChatViewController(currentUser: currentUser!, trip: trip)
+            
+          if trip.Passengers.count < 4 || trip.Passengers.contains(currentUser!.email) {
+                
+             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
 
                   print(trip.Passengers)
-            if trip.Passengers.contains(currentUser!.email) == false {
+            if !(trip.Passengers.contains(currentUser!.email))  {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
-
+       
             alert.addAction(UIAlertAction(title: "None, I'm just looking.", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
                 trip.Passengers.append(currentUser!.email)
                 self.updatePassengers(documentId, trip)
             }))
-            
+           
             if trip.Passengers.count < 3 {
             alert.addAction(UIAlertAction(title: "2", style: .default, handler: { action in
                 trip.Passengers.append(currentUser!.email)
