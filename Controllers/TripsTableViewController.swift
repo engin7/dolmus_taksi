@@ -18,6 +18,8 @@ class TripsTableViewCell: UITableViewCell  {
     
     @IBOutlet weak var timeTextLabel: UILabel!
     
+    @IBOutlet weak var PersonImage0: UIImageView!
+    
     @IBOutlet weak var PersonImage1: UIImageView!
     
     @IBOutlet weak var PersonImage2: UIImageView!
@@ -108,15 +110,22 @@ class TripsTableViewCell: UITableViewCell  {
             switch trip.Passengers.count {
                 
             case 1:
+                cell.PersonImage1.isHidden = true
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage3.isHidden = true
             case 2:
                 cell.PersonImage3.isHidden = true
-                cell.PersonImage2.isHidden = false
+                cell.PersonImage2.isHidden = true
+                cell.PersonImage1.isHidden = false
             case 3:
-                cell.PersonImage3.isHidden = false
+                cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = false
-                
+                cell.PersonImage1.isHidden = false
+            case 4:
+                cell.backgroundColor  =  UIColor.gray
+                cell.PersonImage3.isHidden = false
+               
+               
             default:
                break
             }
@@ -157,8 +166,10 @@ class TripsTableViewCell: UITableViewCell  {
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
+           
             var trip =  TripsTableViewController.trips[indexPath.row]
             let documentId = trip.id
+             if trip.Passengers.count < 4 {
             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
 
@@ -190,7 +201,7 @@ class TripsTableViewCell: UITableViewCell  {
             }))
             }
             self.present(alert, animated: true)
-                 
+          }
         }
       }
     }
