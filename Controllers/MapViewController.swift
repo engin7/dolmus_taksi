@@ -25,7 +25,7 @@ class MapViewController: UIViewController {
 
     @IBAction func createTripButton(_ sender: Any) {
                 
-        // add to firestore database:
+     
         var trip =  Trips(time: Date(), to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
      
         let n = Int(myPersons.text!)!
@@ -33,7 +33,7 @@ class MapViewController: UIViewController {
         for i in 1..<n {
         trip.Passengers.append(currentUser!.email + "+" + String(i))
         }
-        
+            // add to firestore database:
          tripReference.addDocument(data: trip.representation) { error in
         if let e = error {
           print("Error saving channel: \(e.localizedDescription)")

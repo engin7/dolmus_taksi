@@ -143,34 +143,54 @@ class TripsTableViewCell: UITableViewCell  {
           }
         }
         
+        fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
+            tripReference.document(documentId).updateData([
+                "passengers": trip.Passengers
+            ]) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        }
+        
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
             var trip =  TripsTableViewController.trips[indexPath.row]
+            let documentId = trip.id
             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
-            if currentUser?.email != trip.Passengers[0] {
+
+                  print(trip.Passengers)
+            if trip.Passengers.contains(currentUser!.email) == false {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "None, I'm just looking.", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
                 trip.Passengers.append(currentUser!.email)
+                self.updatePassengers(documentId, trip)
             }))
             
             if trip.Passengers.count < 3 {
             alert.addAction(UIAlertAction(title: "2", style: .default, handler: { action in
                 trip.Passengers.append(currentUser!.email)
                 trip.Passengers.append(currentUser!.email + "+1")
+                self.updatePassengers(documentId, trip)
             }))
             }
+                
             if trip.Passengers.count < 2 {
             alert.addAction(UIAlertAction(title: "3", style: .default, handler: { action in
                 trip.Passengers.append(currentUser!.email)
                 trip.Passengers.append(currentUser!.email + "+1")
                 trip.Passengers.append(currentUser!.email + "+2")
+                self.updatePassengers(documentId, trip)
             }))
             }
             self.present(alert, animated: true)
+                 
         }
       }
     }
