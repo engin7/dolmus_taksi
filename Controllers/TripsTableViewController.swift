@@ -153,14 +153,16 @@ class TripsTableViewCell: UITableViewCell  {
             }
           
             if trip.Passengers.contains(currentUser!.email) {
-             
              cell.alpha = 0
+             cell.backgroundColor = UIColor.lightGray
              UIView.animate(withDuration: 2.0, animations: {
               cell.alpha = 1.0
               cell.fromTextLabel.textColor = UIColor.red
               cell.toTextLabel.textColor = UIColor.red
               cell.timeTextLabel.textColor = UIColor.red
-              })
+              cell.backgroundColor = UIColor.white
+            })
+                 
           }
              return cell
             
