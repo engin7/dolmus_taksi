@@ -45,7 +45,8 @@ class TripsTableViewCell: UITableViewCell  {
        
         var tripListener: ListenerRegistration?
         var trips : [Trips] = []
- 
+        var joinedTrips : [Trips] = []
+
         deinit {
           tripListener?.remove()
         }
@@ -70,15 +71,16 @@ class TripsTableViewCell: UITableViewCell  {
                 
                 case .added:
                     
-                self.trips.sort(by: {$0.from < $1.from})
-                self.trips.sort(by: {$0.to < $1.to})
-                self.trips.sort(by: {$0.time < $1.time})
-                
-                if  trip.Passengers[0] == currentUser?.email {
-                    self.trips.insert(trip, at: 0)
-                } else {
+ 
+                 if  !trip.Passengers.contains(currentUser!.email) {
                     self.trips.append(trip)
-                    }
+                    self.trips.sort(by: {$0.from < $1.from})
+                    self.trips.sort(by: {$0.to < $1.to})
+                    self.trips.sort(by: {$0.time < $1.time})
+                 } else {
+                    self.joinedTrips.append(trip)
+                 }
+                 
                     
                 case .modified:
                     guard let index = self.trips.firstIndex(of: trip)    else {
@@ -94,9 +96,12 @@ class TripsTableViewCell: UITableViewCell  {
                     self.trips.remove(at: index)
                     self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
                  }
-
-                   self.tableView.reloadData()
+                   
                 }
+               
+                  self.trips.insert(contentsOf: self.joinedTrips, at: 0)
+                  self.joinedTrips = []
+                  self.tableView.reloadData()
             }
           }
   
@@ -142,7 +147,7 @@ class TripsTableViewCell: UITableViewCell  {
                 cell.contentView.alpha = 0.8
 
             case 4:
-                cell.contentView.alpha = 0.2
+                cell.contentView.alpha = 0.4
                 cell.PersonImage3.isHidden = false
                 cell.PersonImage2.isHidden = false
                 cell.PersonImage1.isHidden = false
