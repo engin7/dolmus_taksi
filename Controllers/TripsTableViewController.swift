@@ -45,8 +45,7 @@ class TripsTableViewCell: UITableViewCell  {
        
         var tripListener: ListenerRegistration?
         var trips : [Trips] = []
-        static var newDocument = false
-        
+ 
         deinit {
           tripListener?.remove()
         }
@@ -70,12 +69,15 @@ class TripsTableViewCell: UITableViewCell  {
                 switch change.type {
                 
                 case .added:
-                   
-                    if TripsTableViewController.newDocument {
-                       TripsTableViewController.newDocument = false
-                        self.trips.insert(trip, at: 0)
-                    } else {
-                        self.trips.append(trip)
+                    
+                self.trips.sort(by: {$0.from < $1.from})
+                self.trips.sort(by: {$0.to < $1.to})
+                self.trips.sort(by: {$0.time < $1.time})
+                
+                if  trip.Passengers[0] == currentUser?.email {
+                    self.trips.insert(trip, at: 0)
+                } else {
+                    self.trips.append(trip)
                     }
                     
                 case .modified:
@@ -114,25 +116,26 @@ class TripsTableViewCell: UITableViewCell  {
             cell.toTextLabel.text = trip.to
             let time = getReadableDate(time: trip.time)
             cell.timeTextLabel.text = time
+         
             switch trip.Passengers.count {
                 
             case 1:
                 cell.PersonImage1.isHidden = true
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage3.isHidden = true
-                cell.contentView.alpha = 1
+                cell.contentView.alpha = 0.8
 
             case 2:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage1.isHidden = false
-                cell.contentView.alpha = 1
+                cell.contentView.alpha = 0.8
 
             case 3:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = false
                 cell.PersonImage1.isHidden = false
-                cell.contentView.alpha = 1
+                cell.contentView.alpha = 0.8
 
             case 4:
                 cell.contentView.alpha = 0.2
@@ -145,6 +148,11 @@ class TripsTableViewCell: UITableViewCell  {
                break
             }
           
+          if trip.Passengers.contains(currentUser!.email) {
+              cell.contentView.alpha = 1
+              cell.backgroundColor = UIColor.lightGray
+          }
+            
             return cell
             
           }

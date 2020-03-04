@@ -39,8 +39,7 @@ class MapViewController: UIViewController {
           print("Error saving channel: \(e.localizedDescription)")
          }
       }
-        TripsTableViewController.newDocument = true
-        
+ 
          UIView.animate(withDuration: 0.3, animations: {
                    self.myTripView.alpha = 0
                 }) { (finished) in
