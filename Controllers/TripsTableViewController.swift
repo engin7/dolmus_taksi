@@ -116,7 +116,11 @@ class TripsTableViewCell: UITableViewCell  {
             cell.toTextLabel.text = trip.to
             let time = getReadableDate(time: trip.time)
             cell.timeTextLabel.text = time
-         
+            
+            cell.fromTextLabel.textColor = UIColor.black
+            cell.toTextLabel.textColor = UIColor.black
+            cell.timeTextLabel.textColor = UIColor.black
+            
             switch trip.Passengers.count {
                 
             case 1:
@@ -148,15 +152,21 @@ class TripsTableViewCell: UITableViewCell  {
                break
             }
           
-          if trip.Passengers.contains(currentUser!.email) {
-              cell.contentView.alpha = 1
-              cell.backgroundColor = UIColor.lightGray
+            if trip.Passengers.contains(currentUser!.email) {
+             
+             cell.alpha = 0
+             UIView.animate(withDuration: 2.0, animations: {
+              cell.alpha = 1.0
+              cell.fromTextLabel.textColor = UIColor.red
+              cell.toTextLabel.textColor = UIColor.red
+              cell.timeTextLabel.textColor = UIColor.red
+              })
           }
-            
-            return cell
+             return cell
             
           }
        
+        
          override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
            return true
              }
@@ -176,6 +186,8 @@ class TripsTableViewCell: UITableViewCell  {
             }
           }
         }
+        
+        
         
         fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
             tripReference.document(documentId).updateData([

@@ -40,13 +40,13 @@ class MapViewController: UIViewController {
          }
       }
  
-         UIView.animate(withDuration: 0.3, animations: {
+         UIView.animate(withDuration: 0.2, animations: {
                    self.myTripView.alpha = 0
                 }) { (finished) in
                    self.myTripView.isHidden = finished
                 }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.tabBarController?.selectedIndex = 0
             self.removeOverlay()
          }
