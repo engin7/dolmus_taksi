@@ -147,6 +147,7 @@
                         <outlet property="myPersons" destination="lq8-kD-6Vk" id="yv1-hG-VSK"/>
                         <outlet property="myTo" destination="p0I-n3-OGp" id="BKH-XY-O3a"/>
                         <outlet property="myTripView" destination="v9Y-fN-6iE" id="WNO-Lc-Jsr"/>
+                        <outlet property="picker" destination="Hfg-qG-1ut" id="zka-4G-JGh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

@@ -22,10 +22,11 @@ class MapViewController: UIViewController {
     @IBOutlet weak var myFrom: UISearchBar!
     @IBOutlet weak var myTo: UISearchBar!
     @IBOutlet weak var myPersons: UILabel!
-
+    @IBOutlet weak var picker: UIDatePicker!
+    
     @IBAction func createTripButton(_ sender: Any) {
                 
-        var trip =  Trips(time: Date(), to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
+        var trip =  Trips(time: picker.date, to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
      
         let n = Int(myPersons.text!)!
         
