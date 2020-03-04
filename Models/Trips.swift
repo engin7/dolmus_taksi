@@ -107,7 +107,8 @@ extension UIColor {
   func getReadableDate(time: Date) -> String? {
    let date = time
    let dateFormatter = DateFormatter()
-  dateFormatter.dateFormat = "hh:mm"
-  return dateFormatter.string(from: date)
+       dateFormatter.dateFormat = "HH:mm"
+   
+   return dateFormatter.string(from: date)
   
   }
