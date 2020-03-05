@@ -170,7 +170,7 @@ class TripsTableViewCell: UITableViewCell  {
             })
                  
           }
-             return cell
+              return cell
             
           }
        

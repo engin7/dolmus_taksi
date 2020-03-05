@@ -159,7 +159,7 @@ class MapViewController: UIViewController {
              self.myTripView.alpha = 1
             }
             
-            self.myTo.text = self.selectedPin?.locality
+            self.myTo.text = self.selectedPin?.subLocality
          
             self.myFrom.text = self.currentCity
             
@@ -197,7 +197,7 @@ extension MapViewController : CLLocationManagerDelegate {
             mapView.setRegion(region, animated: true)
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                 placemarks?.forEach { (placemark) in
-                    self.currentCity = placemark.locality
+                    self.currentCity = placemark.subLocality
                 }
             })
 
@@ -219,7 +219,7 @@ extension MapViewController : CLLocationManagerDelegate {
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
-        if let city = placemark.locality {
+        if let city = placemark.subLocality {
         annotation.title = "\(city)"
         }
         mapView.addAnnotation(annotation)

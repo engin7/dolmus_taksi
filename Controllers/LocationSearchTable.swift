@@ -29,7 +29,7 @@ import MapKit
     selectedItem.thoroughfare ?? "",
     comma,
     // city
-    selectedItem.locality ?? "",
+        selectedItem.subLocality ?? "",
     secondSpace,
     // state
     selectedItem.administrativeArea ?? ""

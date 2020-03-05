@@ -392,6 +392,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="sectionIndexBackgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="32" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Taxiz" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="32"/>
