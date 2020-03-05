@@ -11,7 +11,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
-
+ 
 protocol HandleMapSearch {
 func dropPinZoomIn(placemark:MKPlacemark)
 }
@@ -23,18 +23,26 @@ class MapViewController: UIViewController {
     @IBOutlet weak var myTo: UISearchBar!
     @IBOutlet weak var myPersons: UILabel!
     @IBOutlet weak var picker: UIDatePicker!
+    var pickerTime: Date?
+    var trip : Trips?
     
     @IBAction func createTripButton(_ sender: Any) {
-                
-        var trip =  Trips(time: picker.date, to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
-     
+        
+        if picker.date < Date() {
+            
+            pickerTime = Calendar.current.date(byAdding: .day, value: 1, to: picker.date)!
+              trip =  Trips(time: pickerTime!, to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
+         } else {
+              trip =  Trips(time: picker.date, to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
+        }
+      
         let n = Int(myPersons.text!)!
         
         for i in 1..<n {
-        trip.Passengers.append(currentUser!.email + "+" + String(i))
+            trip!.Passengers.append(currentUser!.email + "+" + String(i))
         }
             // add to firestore database:
-         tripReference.addDocument(data: trip.representation) { error in
+        tripReference.addDocument(data: trip!.representation) { error in
         if let e = error {
           print("Error saving channel: \(e.localizedDescription)")
          }

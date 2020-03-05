@@ -35,9 +35,9 @@ class TripsTableViewCell: UITableViewCell  {
 
       
         @IBAction func chatButtton(_ sender: Any) {
-    //        let vc = ChatViewController(currentUser: currentUser!, trip: Trips(time: Date(), to: "Africa", from: "rr", persons: 3))
-    //        navigationController?.pushViewController(vc, animated: true)
-            // !!should go to a list with joined trips
+   
+            
+            
         }
 
         private let TripsCellIdentifier = "TripsCell"
@@ -70,18 +70,19 @@ class TripsTableViewCell: UITableViewCell  {
                 switch change.type {
                 
                 case .added:
-                    
- 
+                
+                    print(trip.time)
                  if  !trip.Passengers.contains(currentUser!.email) {
                     self.trips.append(trip)
-                    self.trips.sort(by: {$0.from < $1.from})
-                    self.trips.sort(by: {$0.to < $1.to})
-                    self.trips.sort(by: {$0.time < $1.time})
+                    
+//                    self.trips.sort(by: {$0.from < $1.from})
+//                    self.trips.sort(by: {$0.to < $1.to})
+                      self.trips.sort(by: {$0.time < $1.time})
+               
                  } else {
                     self.joinedTrips.append(trip)
                  }
                  
-                    
                 case .modified:
                     guard let index = self.trips.firstIndex(of: trip)    else {
                       return
@@ -193,9 +194,7 @@ class TripsTableViewCell: UITableViewCell  {
             }
           }
         }
-        
-        
-        
+                
         fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
             tripReference.document(documentId).updateData([
                 "passengers": trip.Passengers
