@@ -17,22 +17,16 @@ import MapKit
     var handleMapSearchDelegate: HandleMapSearch? = nil
 
      func parseAddress(selectedItem:MKPlacemark) -> String {
-     let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
-     let comma = (selectedItem.subThoroughfare != nil || selectedItem.thoroughfare != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
-     let secondSpace = (selectedItem.subAdministrativeArea != nil && selectedItem.administrativeArea != nil) ? " " : ""
-    let addressLine = String(
-    format:"%@%@%@%@%@%@%@",
-    // street number
-    selectedItem.subThoroughfare ?? "",
-    firstSpace,
-    // street name
-    selectedItem.thoroughfare ?? "",
+    
+     let comma = (selectedItem.thoroughfare != nil || selectedItem.subLocality != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
+     let addressLine = String(
+    format:"%@%@%@",
+   
+     // brough name
+    selectedItem.subLocality ?? "",
     comma,
     // city
-        selectedItem.subLocality ?? "",
-    secondSpace,
-    // state
-    selectedItem.administrativeArea ?? ""
+    selectedItem.locality ?? ""
     )
     return addressLine
     }
