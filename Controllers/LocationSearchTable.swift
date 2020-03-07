@@ -23,10 +23,10 @@ import MapKit
     format:"%@%@%@",
    
      // brough name
-    selectedItem.locality ?? "",
+    selectedItem.subLocality ?? "",
     comma,
     // city
-    selectedItem.subAdministrativeArea ?? ""
+    selectedItem.locality ?? ""
     )
     return addressLine
     }
@@ -66,10 +66,11 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
   }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-         if matchingItems[indexPath.row].placemark.subLocality == nil {
-        return 0
+         if matchingItems[indexPath.row].placemark.subLocality == nil  {
+             // hide if there is no hood
+                 return 0
          } else {
-     return 48
+                return 48
    } }
 }
 
