@@ -18,15 +18,15 @@ import MapKit
 
      func parseAddress(selectedItem:MKPlacemark) -> String {
     
-     let comma = (selectedItem.thoroughfare != nil || selectedItem.subLocality != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
+     let comma = (selectedItem.locality != nil || selectedItem.subLocality != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
      let addressLine = String(
     format:"%@%@%@",
    
      // brough name
-    selectedItem.subLocality ?? "",
+    selectedItem.locality ?? "",
     comma,
     // city
-    selectedItem.locality ?? ""
+    selectedItem.subAdministrativeArea ?? ""
     )
     return addressLine
     }
@@ -64,6 +64,13 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     cell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
     return cell
   }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+         if matchingItems[indexPath.row].placemark.subLocality == nil {
+        return 0
+         } else {
+     return 48
+   } }
 }
 
 extension LocationSearchTable {
@@ -74,4 +81,4 @@ dismiss(animated: true, completion: nil)
   }
 }
 
-
+ 
