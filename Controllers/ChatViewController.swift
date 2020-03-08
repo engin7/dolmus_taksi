@@ -30,8 +30,8 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
       self.currentUser = currentUser
       self.trip = trip
       super.init(nibName: nil, bundle: nil)
-      title = trip.to + "  " + getReadableDate(time: trip.time)!
-      
+        title = "#"+trip.from + getReadableDate(time: trip.time)! + trip.to
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
