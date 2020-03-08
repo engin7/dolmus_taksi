@@ -23,8 +23,13 @@ class MapViewController: UIViewController {
     @IBOutlet weak var myTo: UISearchBar!
     @IBOutlet weak var myPersons: UILabel!
     @IBOutlet weak var picker: UIDatePicker!
+
     var pickerTime: Date?
     var trip : Trips?
+    
+    @IBAction func switchTrip(_ sender: Any) {
+        swap(&myTo.text, &myTo.text)
+    }
     
     @IBAction func createTripButton(_ sender: Any) {
         
@@ -102,6 +107,12 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         myTripView.isHidden = true
+        myFrom.isUserInteractionEnabled = false
+        myFrom.setImage(UIImage(), for: .clear, state: .normal)
+
+        myTo.isUserInteractionEnabled = false
+        myTo.setImage(UIImage(), for: .clear, state: .normal)
+        
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -113,8 +124,7 @@ class MapViewController: UIViewController {
         resultSearchController?.searchResultsUpdater = locationSearchTable
 
         let searchBar = resultSearchController!.searchBar
-        let searchBarTrip = resultSearchController!.searchBar
-        
+ 
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
         navigationItem.titleView = resultSearchController?.searchBar

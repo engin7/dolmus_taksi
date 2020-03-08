@@ -88,6 +88,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWh-pt-jVa">
                                         <rect key="frame" x="109" y="63" width="27" height="22"/>
                                         <state key="normal" title="Button" image="arrow.up.arrow.down" catalog="system"/>
+                                        <connections>
+                                            <action selector="switchTrip:" destination="9pv-A4-QxB" eventType="touchUpInside" id="MfW-bx-PrC"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
