@@ -28,7 +28,7 @@ class MapViewController: UIViewController {
     var trip : Trips?
     
     @IBAction func switchTrip(_ sender: Any) {
-        swap(&myTo.text, &myTo.text)
+        swap(&myTo.text, &myFrom.text)
     }
     
     @IBAction func createTripButton(_ sender: Any) {
