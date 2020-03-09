@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 
 
@@ -17,7 +18,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var LoginPassword: UITextField!
 
     override func viewDidLoad() {
-
+     
+           GIDSignIn.sharedInstance()?.presentingViewController = self
+           GIDSignIn.sharedInstance().signIn()
+          
         let listener = Auth.auth().addStateDidChangeListener() { auth, user in
             // auto sign-in and move to next view:
         if user != nil {
@@ -31,6 +35,9 @@ class LoginViewController: UIViewController {
     
        Auth.auth().removeStateDidChangeListener(listener)
      }
+    
+    
+      
     
     @IBAction func loginDidTouch(_ sender: AnyObject) {
         
