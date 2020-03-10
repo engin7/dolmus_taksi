@@ -18,7 +18,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var LoginPassword: UITextField!
 
     override func viewDidLoad() {
-     
+      
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "loginScene.jpg")
+        backgroundImage.contentMode =  UIView.ContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
+ 
            GIDSignIn.sharedInstance()?.presentingViewController = self
            GIDSignIn.sharedInstance().signIn()
           
