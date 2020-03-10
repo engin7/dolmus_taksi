@@ -22,6 +22,8 @@ class LoginViewController: UIViewController {
            GIDSignIn.sharedInstance()?.presentingViewController = self
            GIDSignIn.sharedInstance().signIn()
           
+        NotificationCenter.default.addObserver(self, selector: #selector(didSignIn), name: NSNotification.Name("SuccessfulSignInNotification"), object: nil)
+
         let listener = Auth.auth().addStateDidChangeListener() { auth, user in
             // auto sign-in and move to next view:
         if user != nil {
@@ -37,7 +39,18 @@ class LoginViewController: UIViewController {
      }
     
     
-      
+
+      @objc func didSignIn()  {
+
+          // Add your code here to push the new view controller
+         self.performSegue(withIdentifier: "loggedIn", sender: nil)
+
+      }
+
+      deinit {
+          NotificationCenter.default.removeObserver(self)
+      }
+    
     
     @IBAction func loginDidTouch(_ sender: AnyObject) {
         

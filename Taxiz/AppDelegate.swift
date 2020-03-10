@@ -14,8 +14,8 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWindowSceneDelegate {
     
-    var window:UIWindow? // ios13 moved window to sceneDelegate
-
+ // ios13 moved window to sceneDelegate
+ 
     override init() {
       FirebaseApp.configure()
     }
@@ -27,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         GIDSignIn.sharedInstance().delegate = self
         
         Database.database().isPersistenceEnabled = true
+        
+     
+        
         
          return true
     }
@@ -62,18 +65,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
                     print("can't sign in to Firebase")
                      return
                  }
-                 // User is signed in
-        guard let mainController = self.window?.rootViewController?.presentedViewController else { return }
- 
-                mainController.performSegue(withIdentifier: "loggedIn", sender: nil)
- 
+        
+                  // User is signed in
+                
+                currentUser = User(uid: user.userID, email: user.profile.email)
+        
+                    NotificationCenter.default.post(
+                            name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
+                    }
+        
             }
      
-        }
-    
-    }
-
-        
 //        func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
 //            // Perform any operations when the user disconnects from app here.
 //            // ...
@@ -94,6 +96,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
- 
-
+ }
+    
