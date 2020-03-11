@@ -14,7 +14,7 @@ More social media sign in features will be added.
 
 <img src="https://user-images.githubusercontent.com/32449276/76433556-876d0f00-63c5-11ea-8996-7a6afbb09518.png" width="200">
  
-District and city names with small text size will be added below neighborhood names. Firestore database will be updated accordingly.
+District and city names with small text size will be added below neighborhood names. Firestore database will be updated accordingly. Tableview cells will be sorted by user location and time and will be more user friendly.
 
 Example: Williamsburg (Bigger text, first line)   Brooklyn, New York (Smaller text, second line)
 
