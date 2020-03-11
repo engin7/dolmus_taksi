@@ -1,4 +1,4 @@
-# dolmus_taksi
+# Dolmuş Taksi
 
     Dolmus Taksi is a taxi sharing app which gathers travellers in IRC style chat rooms. 
     
