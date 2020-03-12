@@ -11,8 +11,23 @@ import Firebase
 import Foundation
 
 
+class ProfileTableViewCell: UITableViewCell  {
+
+    @IBOutlet weak var nickName: UILabel!
+        
+    @IBOutlet weak var email: UILabel!
+    
+}
+    
 class ProfileTableViewController:  UITableViewController {
- 
+
+//    profileCell
+//        
+//    cell.email = currentUser?.email
+//    cell.nickName = "will be updated"
+//    
+    
+    
     @IBAction func SignOutButton(_ sender: Any) {
         
         let ac = UIAlertController(title: nil, message: "Are you sure you want to sign out?", preferredStyle: .alert)
@@ -33,5 +48,6 @@ class ProfileTableViewController:  UITableViewController {
     }
     
    
+    
     
 }
