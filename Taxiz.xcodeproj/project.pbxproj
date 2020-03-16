@@ -105,9 +105,9 @@
 			children = (
 				10558A3623F485C6005402F5 /* LoginViewController.swift */,
 				10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */,
-				10558A2323F3F8EB005402F5 /* MapViewController.swift */,
 				10558A6723F886B9005402F5 /* TripsTableViewController.swift */,
 				10558A2523F3F8EB005402F5 /* ChatViewController.swift */,
+				10558A2323F3F8EB005402F5 /* MapViewController.swift */,
 				10558A5E23F6E178005402F5 /* LocationSearchTable.swift */,
 				10558A6023F86A6C005402F5 /* ClusterView.swift */,
 			);
