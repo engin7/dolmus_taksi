@@ -622,6 +622,9 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="message" catalog="system" id="13E-I4-3wF">
                             <connections>
                                 <action selector="chatButtton:" destination="yes-Qc-0lm" id="7uc-Z5-aDv"/>
+                                <segue destination="1Lp-pX-IRV" kind="popoverPresentation" popoverAnchorBarButtonItem="13E-I4-3wF" id="eHH-eZ-h1d">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -649,6 +652,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4WY-qf-gdw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-471" y="-433"/>
+        </scene>
+        <!--messages-->
+        <scene sceneID="wcU-k2-Yz2">
+            <objects>
+                <viewController title="messages" id="1Lp-pX-IRV" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ibP-ra-yK8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="swipe down to dismiss. this section will be updated. " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBd-ii-XFC">
+                                <rect key="frame" x="53" y="200" width="215" height="149"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="sIe-PW-Csa"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UJS-bX-ZlW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1387.5" y="-1149.2957746478874"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Pn8-yC-lV5">
