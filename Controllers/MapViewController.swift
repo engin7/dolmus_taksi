@@ -26,9 +26,12 @@ class MapViewController: UIViewController {
 
     var pickerTime: Date?
     var trip : Trips?
+    var toCity: String?
+    var fromCity: String?
     
     @IBAction func switchTrip(_ sender: Any) {
         swap(&myTo.text, &myFrom.text)
+        swap(&toCity, &fromCity)
     }
     
     @IBAction func createTripButton(_ sender: Any) {
@@ -36,9 +39,9 @@ class MapViewController: UIViewController {
         if picker.date < Date() {
             
             pickerTime = Calendar.current.date(byAdding: .day, value: 1, to: picker.date)!
-              trip =  Trips(time: pickerTime!, to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
+            trip =  Trips(time: pickerTime!, to: myTo.text!, toCity: toCity!, from: myFrom.text!, fromCity: fromCity!, passengers: currentUser!.email, id: "nil")
          } else {
-              trip =  Trips(time: picker.date, to: myTo.text!, from: myFrom.text!, passengers: currentUser!.email, id: "nil")
+            trip =  Trips(time: picker.date, to: myTo.text!, toCity: toCity!, from: myFrom.text!, fromCity: fromCity!, passengers: currentUser!.email, id: "nil")
         }
       
         let n = Int(myPersons.text!)!
@@ -170,9 +173,10 @@ class MapViewController: UIViewController {
             }
             
             self.myTo.text = self.selectedPin?.subLocality
-         
+        self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
+
             self.myFrom.text = self.currentCity
-            
+        
         }
   
 // MARK: - Actions
@@ -208,6 +212,7 @@ extension MapViewController : CLLocationManagerDelegate {
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                 placemarks?.forEach { (placemark) in
                     self.currentCity = placemark.subLocality
+                    self.fromCity = " \(placemark.locality!), \(placemark.administrativeArea!)"
                 }
             })
 

@@ -20,14 +20,18 @@ struct Trips {
     let id: String
     var time: Date
     var from:String
+    var fromCity: String
     var to: String
+    var toCity: String
     var Passengers: [String]
     
-    init(time:Date, to:String, from:String, passengers:String, id:String) {
+    init(time:Date, to:String, toCity:String, from:String, fromCity:String, passengers:String, id:String) {
       self.id = id
       self.time = time
       self.to = to
+      self.toCity = toCity
       self.from = from
+      self.fromCity = fromCity
       self.Passengers = [passengers]
      }
        
@@ -47,14 +51,22 @@ struct Trips {
          guard let from = data["from"] as? String else {
            return nil
          }
+         guard let fromCity = data["fromCity"] as? String else {
+           return nil
+         }
+         guard let toCity = data["toCity"] as? String else {
+          return nil
+        }
          guard let Passengers = data["passengers"] as? [String] else {
                   return nil
          }
         
          id = document.documentID
-           self.time    = time
-           self.to      = to
-           self.from    = from
+           self.time     = time
+           self.to       = to
+           self.from     = from
+           self.fromCity = fromCity
+            self.toCity  = toCity
            self.Passengers = Passengers
        }
 }
@@ -65,13 +77,14 @@ extension Trips: DatabaseRepresentation {
     [
     "to": to,
     "from": from,
+    "fromCity": fromCity,
+    "toCity" : toCity,
     "time": time,
     "passengers": Passengers,
     "id" : id
     ]
    }
  }
- 
 
 // MARK: Other Extensions
 

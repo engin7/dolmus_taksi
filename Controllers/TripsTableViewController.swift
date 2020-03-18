@@ -18,6 +18,11 @@ class TripsTableViewCell: UITableViewCell  {
     
     @IBOutlet weak var timeTextLabel: UILabel!
     
+    @IBOutlet weak var fromCityTextLabel: UILabel!
+    
+    @IBOutlet weak var toCityTextLabel: UILabel!
+    
+    
     @IBOutlet weak var PersonImage0: UIImageView!
     
     @IBOutlet weak var PersonImage1: UIImageView!
@@ -120,13 +125,17 @@ class TripsTableViewCell: UITableViewCell  {
             
             cell.fromTextLabel.text =  trip.from
             cell.toTextLabel.text = trip.to
+            cell.toCityTextLabel.text = trip.toCity
+            cell.fromCityTextLabel.text = trip.fromCity
             let time = getReadableDate(time: trip.time)
             cell.timeTextLabel.text = time
             
             cell.fromTextLabel.textColor = UIColor.black
             cell.toTextLabel.textColor = UIColor.black
             cell.timeTextLabel.textColor = UIColor.black
-            
+            cell.fromCityTextLabel.textColor = UIColor.black
+            cell.toCityTextLabel.textColor = UIColor.black
+
             switch trip.Passengers.count {
                 
             case 1:
@@ -166,6 +175,8 @@ class TripsTableViewCell: UITableViewCell  {
               cell.fromTextLabel.textColor = UIColor.red
               cell.toTextLabel.textColor = UIColor.red
               cell.timeTextLabel.textColor = UIColor.red
+              cell.fromCityTextLabel.textColor = UIColor.red
+              cell.toCityTextLabel.textColor = UIColor.red
               cell.backgroundColor = UIColor.white
             })
                  
