@@ -271,7 +271,7 @@ extension MapViewController : CLLocationManagerDelegate {
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
         let midPointLat = (currentlocation!.coordinate.latitude + selectedPin!.coordinate.latitude + 0.05) / 2
         let midPointLong = (currentlocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
-        let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
+        let center = CLLocation(latitude: midPointLat*1.003, longitude: midPointLong)
         let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
         mapView.setRegion(region, animated: true)
         return polyLine
