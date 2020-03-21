@@ -28,9 +28,7 @@ Some IRC commands will be added.
 
 <img src="https://user-images.githubusercontent.com/32449276/76433540-8340f180-63c5-11ea-99ca-a5eb8ed5f737.png" width="200">
 
-<img src="https://user-images.githubusercontent.com/32449276/76433552-86d47880-63c5-11ea-879f-74044755c41d.png" width="200">
-
-MKLocalSearch class will be changed with MKLocalSearchCompleter to get more accurate search resuts. 
+<img src="https://user-images.githubusercontent.com/32449276/77228369-da9a4b00-6b97-11ea-8a09-5a8f16cece03.png" width="200">
 
 <img src="https://user-images.githubusercontent.com/32449276/76433513-7ae8b680-63c5-11ea-9502-a28d4c2a66da.png" width="200">
 
