@@ -10,76 +10,138 @@ import Foundation
 import UIKit
 import MapKit
 
-  class LocationSearchTable : UITableViewController {
-    
-    var matchingItems:[MKMapItem] = []  // put in search result
-    var mapView: MKMapView? = nil  // search uses map region while querying
-    var handleMapSearchDelegate: HandleMapSearch? = nil
+class LocationSearchTable : UITableViewController {
 
-     func parseAddress(selectedItem:MKPlacemark) -> String {
+    var handleMapSearchDelegate: HandleMapSearch? = nil
+    var mapView: MKMapView? = nil
+    var searchResults = [MKLocalSearchCompletion]()
+    private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
+
+    lazy var searchCompleter: MKLocalSearchCompleter = {
+          let sC = MKLocalSearchCompleter()
+          sC.delegate = self
+          sC.resultTypes = .pointOfInterest
+          sC.region = boundingRegion
+          return sC
+      }()
     
-     let comma = (selectedItem.locality != nil || selectedItem.subLocality != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
-     let addressLine = String(
-    format:"%@%@%@",
-   
-     // brough name
-    selectedItem.subLocality ?? "",
-    comma,
-    // city
-    selectedItem.locality ?? ""
-    )
-    return addressLine
+    private var places: [MKMapItem]? {
+          didSet {
+              tableView.reloadData()
+           }
+      }
+    
+    private var localSearch: MKLocalSearch? {
+          willSet {
+              // Clear the results and cancel the currently running local search before starting a new search.
+              places = nil
+              localSearch?.cancel()
+          }
+      }
+    
+    /// - Parameter suggestedCompletion: A search completion provided by `MKLocalSearchCompleter` when tapping on a search completion table row
+      private func search(for suggestedCompletion: MKLocalSearchCompletion) {
+          let searchRequest = MKLocalSearch.Request(completion: suggestedCompletion)
+            search(using: searchRequest)
+      }
+    
+    /// - Tag: SearchRequest
+    private func search(using searchRequest: MKLocalSearch.Request) {
+        // Confine the map search area to an area around the user's current location.
+        searchRequest.region = boundingRegion
+        
+        // Include only point of interest results. This excludes results based on address matches.
+        searchRequest.resultTypes = .pointOfInterest
+        
+        localSearch = MKLocalSearch(request: searchRequest)
+        localSearch?.start { [unowned self] (response, error) in
+            guard error == nil else {
+                self.displaySearchError(error)
+                return
+            }
+            
+            self.places = response?.mapItems
+            
+            // Used when setting the map's region in `prepareForSegue`.
+            if let updatedRegion = response?.boundingRegion {
+                self.boundingRegion = updatedRegion
+            }
+        }
+    }
+        
+        private func displaySearchError(_ error: Error?) {
+            if let error = error as NSError?, let errorString = error.userInfo[NSLocalizedDescriptionKey] as? String {
+                let alertController = UIAlertController(title: "Could not find any places.", message: errorString, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(alertController, animated: true, completion: nil)
+            }
+        }
+  
+    }
+  
+
+  extension LocationSearchTable: UISearchResultsUpdating {
+
+     func updateSearchResults(for searchController: UISearchController) {
+               
+      searchCompleter.queryFragment =  searchController.searchBar.text ?? ""
+
+          self.tableView.reloadData()
+          
+      }
+  }
+
+
+extension LocationSearchTable: MKLocalSearchCompleterDelegate {
+    
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchResults = completer.results
+         self.tableView.reloadData()
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        // handle error
+        print("error loading MKLocalSearchCompleter")
     }
 }
-
-extension LocationSearchTable : UISearchResultsUpdating {
-  func updateSearchResults(for searchController: UISearchController) {
-     guard let mapView = mapView,
-     let searchBarText = searchController.searchBar.text else { return }
-     let request = MKLocalSearch.Request()
-     request.naturalLanguageQuery = searchBarText
-     request.region = mapView.region
-     let search = MKLocalSearch(request: request)
-     search.start { response, _ in
-     guard let response = response else {
-     return
-     }
-     self.matchingItems = response.mapItems
-     self.tableView.reloadData()
-     }
-  }
-}
+ 
 
 //-   Tableview DataSource methods
 
 extension LocationSearchTable {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-return matchingItems.count
-}
-
-override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-    let selectedItem = matchingItems[indexPath.row].placemark
-    cell.textLabel?.text = selectedItem.name
-    cell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
-    return cell
-  }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-         if matchingItems[indexPath.row].placemark.subLocality == nil  {
-             // hide if there is no hood
-                 return 0
-         } else {
-                return 48
-   } }
-}
+    override func numberOfSections(in tableView: UITableView) -> Int {
+           return 1
+       }
+       
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+           return searchResults.count
+       }
+       
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+           let searchResult = searchResults[indexPath.row]
+           let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+           cell.textLabel?.text = searchResult.title
+           cell.detailTextLabel?.text = searchResult.subtitle
 
-extension LocationSearchTable {
-override func tableView(_ tableView: UITableView, didSelectRowAt  indexPath: IndexPath) {
-let selectedItem = matchingItems[indexPath.row].placemark
-handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
-dismiss(animated: true, completion: nil)
+        return cell
+       }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt  indexPath: IndexPath) {
+         
+        let selectedItem = searchResults[indexPath.row]
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = selectedItem.title
+
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+        guard let response = response else {return}
+        guard let item = response.mapItems.first else {return}
+
+        self.handleMapSearchDelegate?.dropPinZoomIn(placemark: item.placemark)
+        self.dismiss(animated: true, completion: nil)
+
+    }
   }
 }
 
- 

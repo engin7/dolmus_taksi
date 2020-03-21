@@ -16,7 +16,7 @@ protocol HandleMapSearch {
 func dropPinZoomIn(placemark:MKPlacemark)
 }
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate {
     
     @IBOutlet weak var myTripView: UIView!
     @IBOutlet weak var myFrom: UISearchBar!
@@ -28,6 +28,7 @@ class MapViewController: UIViewController {
     var trip : Trips?
     var toCity: String?
     var fromCity: String?
+    var resultSearchController = UISearchController(searchResultsController: nil)
     
     @IBAction func switchTrip(_ sender: Any) {
         swap(&myTo.text, &myFrom.text)
@@ -99,14 +100,13 @@ class MapViewController: UIViewController {
      
     @IBOutlet weak var mapView: MKMapView!
     
-    var locationManager: CLLocationManager?
-    var currentlocation: CLLocation?
-    var resultSearchController:UISearchController? = nil
-    var selectedPin:MKPlacemark? = nil
-    var currentCity: String?
-    let geoCoder = CLGeocoder()
- 
-    
+    private var locationManager: CLLocationManager?
+    private var currentlocation: CLLocation?
+    private var selectedPin:MKPlacemark? = nil
+    private var currentCity: String?
+    private let geoCoder = CLGeocoder()
+    private var foregroundRestorationObserver: NSObjectProtocol?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         myTripView.isHidden = true
@@ -121,25 +121,22 @@ class MapViewController: UIViewController {
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-                // Search Table display recommendations
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController?.searchResultsUpdater = locationSearchTable
-
-        let searchBar = resultSearchController!.searchBar
+      
  
+        // Search Table display recommendations
+       let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController.searchResultsUpdater = locationSearchTable
+        let searchBar = resultSearchController.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
-        navigationItem.titleView = resultSearchController?.searchBar
-        
-        locationSearchTable.mapView = mapView
-        resultSearchController?.hidesNavigationBarDuringPresentation = false
-        resultSearchController?.obscuresBackgroundDuringPresentation = true
+        navigationItem.titleView = resultSearchController.searchBar
+        resultSearchController.searchBar.delegate = self
+        resultSearchController.hidesNavigationBarDuringPresentation = false
+        resultSearchController.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
+        locationSearchTable.mapView = mapView
         locationSearchTable.handleMapSearchDelegate = self
-
-//        self.myFrom = searchBarTrip
-//        self.myTo = searchBarTrip
 
      }
  
@@ -172,8 +169,8 @@ class MapViewController: UIViewController {
              self.myTripView.alpha = 1
             }
             
-            self.myTo.text = self.selectedPin?.subLocality
-        self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
+            self.myTo.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
+            self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
 
             self.myFrom.text = self.currentCity
         
@@ -206,13 +203,13 @@ extension MapViewController : CLLocationManagerDelegate {
         //  will zoom to the first location
         if let location = locations.first {
             self.currentlocation = location
-            let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                 placemarks?.forEach { (placemark) in
-                    self.currentCity = placemark.subLocality
-                    self.fromCity = " \(placemark.locality!), \(placemark.administrativeArea!)"
+                    self.currentCity = placemark.subLocality ?? placemark.name
+                    self.fromCity = " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
                 }
             })
 
@@ -223,9 +220,8 @@ extension MapViewController : CLLocationManagerDelegate {
            
            print(error.localizedDescription)
        }
-       
 }
-    
+                    
     extension MapViewController: HandleMapSearch {
         func dropPinZoomIn(placemark:MKPlacemark){
         // cache the pin
@@ -234,11 +230,11 @@ extension MapViewController : CLLocationManagerDelegate {
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
-        if let city = placemark.subLocality {
-        annotation.title = "\(city)"
+            if let place = placemark.name {
+        annotation.title = "\(place)"
         }
         mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
+        let span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
             let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude - 0.02)  , span: span)
          mapView.setRegion(region, animated: true)
         }
@@ -258,8 +254,10 @@ extension MapViewController : CLLocationManagerDelegate {
         let button = UIButton(frame: CGRect(origin: .zero, size: smallSquare))
         button.setBackgroundImage(UIImage(named: "taxi"), for: [])
         pinView?.leftCalloutAccessoryView = button
-         
         pinView?.canShowCallout = true
+
+        pinView?.translatesAutoresizingMaskIntoConstraints = false
+        pinView?.calloutOffset = CGPoint(x: -5, y: 5)
         button.addTarget(self, action:  #selector(getDirections),  for: .touchUpInside)
         pinView?.isSelected = true
         return pinView
@@ -269,7 +267,7 @@ extension MapViewController : CLLocationManagerDelegate {
            let polyLine = MKPolylineRenderer(overlay: overlay)
                polyLine.strokeColor = UIColor.blue
         let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
-        let distance = currentlocation!.distance(from: destination)/50000
+        let distance = currentlocation!.distance(from: destination)/20000
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
         let midPointLat = (currentlocation!.coordinate.latitude + selectedPin!.coordinate.latitude + 0.05) / 2
         let midPointLong = (currentlocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
