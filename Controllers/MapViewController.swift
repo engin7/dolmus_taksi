@@ -255,11 +255,11 @@ extension MapViewController : CLLocationManagerDelegate {
         button.setBackgroundImage(UIImage(named: "taxi"), for: [])
         pinView?.leftCalloutAccessoryView = button
         pinView?.canShowCallout = true
-
-        pinView?.translatesAutoresizingMaskIntoConstraints = false
-        pinView?.calloutOffset = CGPoint(x: -5, y: 5)
+         pinView?.calloutOffset = CGPoint(x: -5, y: 5)
         button.addTarget(self, action:  #selector(getDirections),  for: .touchUpInside)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
         pinView?.isSelected = true
+        }
         return pinView
     }
      
