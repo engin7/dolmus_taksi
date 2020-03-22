@@ -116,11 +116,12 @@ class TripsTableViewCell: UITableViewCell  {
         
         func deletePastChannels() {
             
-               let past = Calendar.current.date(byAdding: .hour, value: -24, to: today)
-              //will update, will make  < now deletes bigger than yesterday
+               let past = Calendar.current.date(byAdding: .hour, value: -240, to: today)
+              //will update to 24. now it deletes 10 days before
+            
                for Trips in trips {
                    
-                   if Trips.time > past! {
+                   if Trips.time < past! {
                       
                      let documentId = Trips.id
                     tripReference.document(documentId).delete() { error in
@@ -160,6 +161,9 @@ class TripsTableViewCell: UITableViewCell  {
             cell.fromCityTextLabel.textColor = UIColor.black
             cell.toCityTextLabel.textColor = UIColor.black
 
+            let past = Calendar.current.date(byAdding: .hour, value: -1, to: today)
+
+           
             switch trip.Passengers.count {
                 
             case 1:
@@ -167,18 +171,30 @@ class TripsTableViewCell: UITableViewCell  {
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage3.isHidden = true
                 cell.contentView.alpha = 0.8
+                if trip.time < past! {
+               cell.contentView.alpha = 0.2
+                cell.selectionStyle = .none
+              }
 
             case 2:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage1.isHidden = false
                 cell.contentView.alpha = 0.8
+                if trip.time < past! {
+               cell.contentView.alpha = 0.2
+                cell.selectionStyle = .none
+              }
 
             case 3:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = false
                 cell.PersonImage1.isHidden = false
                 cell.contentView.alpha = 0.8
+                if trip.time < past! {
+               cell.contentView.alpha = 0.2
+                cell.selectionStyle = .none
+              }
 
             case 4:
                 cell.contentView.alpha = 0.4
@@ -186,6 +202,10 @@ class TripsTableViewCell: UITableViewCell  {
                 cell.PersonImage2.isHidden = false
                 cell.PersonImage1.isHidden = false
                 cell.selectionStyle = .none
+
+                if trip.time < past! {
+               cell.contentView.alpha = 0.2
+              }
                 
             default:
                break
@@ -205,6 +225,10 @@ class TripsTableViewCell: UITableViewCell  {
             })
                  
           }
+         
+        
+ 
+                       
               return cell
             
           }
@@ -246,8 +270,10 @@ class TripsTableViewCell: UITableViewCell  {
            
             var trip =  self.trips[indexPath.row]
             let documentId = trip.id
+            let past = Calendar.current.date(byAdding: .hour, value: -1, to: today)
+
             
-          if trip.Passengers.count < 4 || trip.Passengers.contains(currentUser!.email) {
+          if (trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.email) {
                 
              let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
