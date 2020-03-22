@@ -51,7 +51,9 @@ class TripsTableViewCell: UITableViewCell  {
         var tripListener: ListenerRegistration?
         var trips : [Trips] = []
         var joinedTrips : [Trips] = []
-
+        let today = Date()
+       
+        
         deinit {
           tripListener?.remove()
         }
@@ -76,8 +78,7 @@ class TripsTableViewCell: UITableViewCell  {
                 
                 case .added:
                 
-                    print(trip.time)
-                 if  !trip.Passengers.contains(currentUser!.email) {
+                  if  !trip.Passengers.contains(currentUser!.email) {
                     self.trips.append(trip)
                     
 //                    self.trips.sort(by: {$0.from < $1.from})
@@ -107,10 +108,29 @@ class TripsTableViewCell: UITableViewCell  {
                
                   self.trips.insert(contentsOf: self.joinedTrips, at: 0)
                   self.joinedTrips = []
+                  self.deletePastChannels()
                   self.tableView.reloadData()
             }
           }
   
+        
+        func deletePastChannels() {
+            
+               let future = Calendar.current.date(byAdding: .hour, value: -1, to: today)
+              //will update for now deletes 1 hour before channels
+               for Trips in trips {
+                   
+                   if Trips.time > future! {
+                       
+                       guard let index =  trips.firstIndex(of: Trips) else {
+                      return
+                      }
+                     self.trips.remove(at: index)
+                   }
+               }
+        }
+        
+        
         // MARK: UITableView Delegate methods
 
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -191,8 +211,8 @@ class TripsTableViewCell: UITableViewCell  {
              }
      
         override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-
-            if editingStyle == .delete {
+            
+            if editingStyle == .delete   {
                 let trip =  self.trips[indexPath.row]
                 let documentId = trip.id
                             

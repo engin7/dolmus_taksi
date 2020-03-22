@@ -128,7 +128,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController.searchResultsUpdater = locationSearchTable
         let searchBar = resultSearchController.searchBar
-        searchBar.sizeToFit()
+         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
         navigationItem.titleView = resultSearchController.searchBar
         resultSearchController.searchBar.delegate = self
