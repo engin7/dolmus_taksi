@@ -110,11 +110,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         myTripView.isHidden = true
-        myFrom.isUserInteractionEnabled = false
-        myFrom.setImage(UIImage(), for: .clear, state: .normal)
-
-        myTo.isUserInteractionEnabled = false
-        myTo.setImage(UIImage(), for: .clear, state: .normal)
+//        myFrom.isUserInteractionEnabled = false
+//        myFrom.setImage(UIImage(), for: .clear, state: .normal)
+//
+//        myTo.isUserInteractionEnabled = false
+//        myTo.setImage(UIImage(), for: .clear, state: .normal)
         
         locationManager = CLLocationManager()
         locationManager?.delegate = self
@@ -135,7 +135,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         resultSearchController.hidesNavigationBarDuringPresentation = false
         resultSearchController.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
-        locationSearchTable.mapView = mapView
         locationSearchTable.handleMapSearchDelegate = self
 
      }

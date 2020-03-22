@@ -13,7 +13,6 @@ import MapKit
 class LocationSearchTable : UITableViewController {
 
     var handleMapSearchDelegate: HandleMapSearch? = nil
-    var mapView: MKMapView? = nil
     var searchResults = [MKLocalSearchCompletion]()
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
 
