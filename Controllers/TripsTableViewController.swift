@@ -116,20 +116,24 @@ class TripsTableViewCell: UITableViewCell  {
         
         func deletePastChannels() {
             
-               let future = Calendar.current.date(byAdding: .hour, value: -1, to: today)
-              //will update for now deletes 1 hour before channels
+               let past = Calendar.current.date(byAdding: .hour, value: -24, to: today)
+              //will update, will make  < now deletes bigger than yesterday
                for Trips in trips {
                    
-                   if Trips.time > future! {
-                       
-                       guard let index =  trips.firstIndex(of: Trips) else {
-                      return
-                      }
-                     self.trips.remove(at: index)
-                   }
+                   if Trips.time > past! {
+                      
+                     let documentId = Trips.id
+                    tripReference.document(documentId).delete() { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("File deleted successfully")
+                    }
+                        
+                    }
                }
         }
-        
+        }
         
         // MARK: UITableView Delegate methods
 
