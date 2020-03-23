@@ -151,6 +151,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
          var searchBarFrame = fromSearchController.searchBar.frame
          searchBarFrame.size.width = myFrom.frame.size.width
          fromSearchController.searchBar.frame = searchBarFrame
+         self.fromSearchController.hidesNavigationBarDuringPresentation = false
+
      }
     
     @objc public func getDirections(){
