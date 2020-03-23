@@ -29,6 +29,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var toCity: String?
     var fromCity: String?
     var resultSearchController = UISearchController(searchResultsController: nil)
+    var fromSearchController = UISearchController(searchResultsController: nil)
     
     @IBAction func switchTrip(_ sender: Any) {
         swap(&myTo.text, &myFrom.text)
@@ -136,9 +137,22 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         resultSearchController.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
         locationSearchTable.handleMapSearchDelegate = self
+        
+        fromSearchController = UISearchController(searchResultsController: locationSearchTable)
+        fromSearchController.searchResultsUpdater = locationSearchTable
+        let fromSearchBar = fromSearchController.searchBar
+        fromSearchBar.sizeToFit()
+        fromSearchBar.placeholder = self.currentCity
+        myFrom.addSubview(fromSearchController.searchBar)
 
      }
  
+     override func viewDidLayoutSubviews() {
+         var searchBarFrame = fromSearchController.searchBar.frame
+         searchBarFrame.size.width = myFrom.frame.size.width
+         fromSearchController.searchBar.frame = searchBarFrame
+     }
+    
     @objc public func getDirections(){
             
         guard let start = currentlocation, let end = selectedPin else {   return }
@@ -171,7 +185,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             self.myTo.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
             self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
 
-            self.myFrom.text = self.currentCity
+            self.myFrom.text = " "
         
         }
   
