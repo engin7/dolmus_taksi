@@ -1,16 +1,18 @@
 //
-//  LocationSearchTable.swift
+//  PopupLocationSearchTable.swift
 //  Taxiz
 //
-//  Created by Engin KUK on 14.02.2020.
+//  Created by Engin KUK on 24.03.2020.
 //  Copyright © 2020 Silverback Inc. All rights reserved.
 //
+
+ 
 
 import Foundation
 import UIKit
 import MapKit
 
-class LocationSearchTable : UITableViewController {
+class PopupLocationSearchTable : UITableViewController {
 
     var handleMapSearchDelegate: HandleMapSearch? = nil
     var searchResults = [MKLocalSearchCompletion]()
@@ -76,7 +78,7 @@ class LocationSearchTable : UITableViewController {
     }
   
 
-  extension LocationSearchTable: UISearchResultsUpdating {
+  extension PopupLocationSearchTable: UISearchResultsUpdating {
 
      func updateSearchResults(for searchController: UISearchController) {
                
@@ -88,7 +90,7 @@ class LocationSearchTable : UITableViewController {
   }
 
 
-extension LocationSearchTable: MKLocalSearchCompleterDelegate {
+extension PopupLocationSearchTable: MKLocalSearchCompleterDelegate {
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
@@ -104,7 +106,7 @@ extension LocationSearchTable: MKLocalSearchCompleterDelegate {
 
 //-   Tableview DataSource methods
 
-extension LocationSearchTable {
+extension PopupLocationSearchTable {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
            return 1
@@ -134,7 +136,7 @@ extension LocationSearchTable {
         guard let response = response else {return}
         guard let item = response.mapItems.first else {return}
          
-        self.handleMapSearchDelegate?.dropPinZoomInTo(placemark: item.placemark)
+        self.handleMapSearchDelegate?.dropPinZoomInFrom(placemark: item.placemark)
         self.dismiss(animated: true, completion: nil)
 
     }
