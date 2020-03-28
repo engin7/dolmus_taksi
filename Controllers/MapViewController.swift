@@ -44,6 +44,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var fromSearchController = UISearchController(searchResultsController: nil)
     var toSearchController = UISearchController(searchResultsController: nil)
     var toAnnotation: MKAnnotation?
+    var fromLocation_searchBar: String?
+    
     @IBAction func switchTrip(_ sender: Any) {
         swap(&toSearchController.searchBar.text, &fromSearchController.searchBar.text)
         swap(&toCity, &fromCity)
@@ -70,7 +72,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
           print("Error saving channel: \(e.localizedDescription)")
          }
       }
- 
+        
          UIView.animate(withDuration: 0.2, animations: {
                    self.myTripView.alpha = 0
                 }) { (finished) in
@@ -81,6 +83,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             self.tabBarController?.selectedIndex = 0
             self.removeOverlay()
          }
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        mapView.removeAnnotations(mapView.annotations)
+        arrangeSearchBars()
+
        }
 
     @IBAction func addPerson(_ sender: Any) {
@@ -111,6 +117,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         mapView.removeAnnotations(mapView.annotations)
         removeOverlay()
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        arrangeSearchBars()
+
     }
      
     @IBOutlet weak var mapView: MKMapView!
@@ -132,6 +141,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
       
+        arrangeSearchBars()
+    
+     }
+  
+     func arrangeSearchBars(){
+        
         // Search Table display recommendations
        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
        let PopupLocationSearchTable = storyboard!.instantiateViewController(withIdentifier: "PopupLocationSearchTable") as! PopupLocationSearchTable
@@ -139,41 +154,50 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController.searchResultsUpdater = locationSearchTable
         let searchBar = resultSearchController.searchBar
+        searchBar.setImage(UIImage(), for: .clear, state: .normal)
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
         navigationItem.titleView = resultSearchController.searchBar
         resultSearchController.searchBar.delegate = self
         resultSearchController.hidesNavigationBarDuringPresentation = false
         resultSearchController.obscuresBackgroundDuringPresentation = true
+        
         definesPresentationContext = true
+ 
         locationSearchTable.handleMapSearchDelegate = self
-       
+        locationSearchTable.additionalSafeAreaInsets = UIEdgeInsets(top: 50 , left: 0, bottom: 0, right: 0)
         PopupLocationSearchTable.handleMapSearchDelegate = self
         fromSearchController = UISearchController(searchResultsController: PopupLocationSearchTable)
+        PopupLocationSearchTable.additionalSafeAreaInsets = UIEdgeInsets(top: 50 , left: 0, bottom: 0, right: 0)
         fromSearchController.searchResultsUpdater = PopupLocationSearchTable
+        fromSearchController.searchBar.showsCancelButton = false
         let fromSearchBar = fromSearchController.searchBar
-        fromSearchBar.sizeToFit()
+ 
+        fromSearchBar.setImage(UIImage(), for: .clear, state: .normal)
         fromSearchBar.placeholder = "Origin"
         myFrom.addSubview(fromSearchController.searchBar)
-
+ 
         toSearchController = UISearchController(searchResultsController: locationSearchTable)
+        toSearchController.searchBar.showsCancelButton = false
+        
         toSearchController.searchResultsUpdater = locationSearchTable
         let toSearchBar = toSearchController.searchBar
         toSearchBar.sizeToFit()
+        toSearchBar.setImage(UIImage(), for: .clear, state: .normal)
         toSearchBar.placeholder = "Destination"
+
         myTo.addSubview(toSearchController.searchBar)
-    
-     }
- 
-     override func viewDidLayoutSubviews() {
-         var searchBarFrame = fromSearchController.searchBar.frame
-         searchBarFrame.size.width = myFrom.frame.size.width + 10
+        
+        var searchBarFrame = fromSearchController.searchBar.frame
+         searchBarFrame.size.width = myFrom.frame.size.width - 15
          fromSearchController.searchBar.frame = searchBarFrame
          toSearchController.searchBar.frame = searchBarFrame
+        
          self.fromSearchController.hidesNavigationBarDuringPresentation = true
          self.toSearchController.hidesNavigationBarDuringPresentation = true
-     }
-    
+    }
+
+ 
     @objc public func getDirections(){
             
         guard let start = fromLocation, let end = selectedPin else {   return }
@@ -206,8 +230,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             toSearchController.searchBar.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
             self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
 
-             fromSearchController.searchBar.text =  currentCity
-        
+           var searchBarFrame = fromSearchController.searchBar.frame
+             searchBarFrame.size.width = myFrom.frame.size.width - 15
+             fromSearchController.searchBar.frame = searchBarFrame
+             toSearchController.searchBar.frame = searchBarFrame
+            
         }
   
 // MARK: - Actions
@@ -223,7 +250,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     
 }
 // MARK: - Extensions
-
+ 
+  
 extension MapViewController : CLLocationManagerDelegate {
      
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -277,6 +305,7 @@ extension MapViewController : CLLocationManagerDelegate {
             let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude + 0.02, longitude: annotation.coordinate.longitude - 0.02)  , span: span)
          mapView.setRegion(region, animated: true)
          myTripView.isHidden = true
+         fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity
 
         }
         
@@ -284,7 +313,8 @@ extension MapViewController : CLLocationManagerDelegate {
                
                // cache the pin
                 fromLocation = CLLocation(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude)
-                self.fromSearchController.searchBar.text =  placemark.subLocality ?? placemark.name
+                fromLocation_searchBar =  placemark.subLocality ?? placemark.name
+                self.fromSearchController.searchBar.text = fromLocation_searchBar
 
               // clear existing pins
                mapView.removeAnnotations(mapView.annotations)
@@ -300,8 +330,8 @@ extension MapViewController : CLLocationManagerDelegate {
                let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
             let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude + 0.04, longitude: annotation.coordinate.longitude)  , span: span)
                 mapView.setRegion(region, animated: true)
+ 
                }
-        
     }
 
   extension MapViewController : MKMapViewDelegate {
@@ -329,6 +359,7 @@ extension MapViewController : CLLocationManagerDelegate {
         } else {
             pinView?.canShowCallout = true
         }
+        navigationController?.setNavigationBarHidden(true, animated: true)
         return pinView
     }
      
