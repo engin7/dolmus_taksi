@@ -4,33 +4,41 @@
 //
 //  Created by Engin KUK on 15.02.2020.
 //  Copyright © 2020 Silverback Inc. All rights reserved.
-//
+
+
 
 import Foundation
 import Firebase
 import UIKit
+import MapKit
  
 let db = Firestore.firestore()
       var tripReference: CollectionReference {
       return db.collection("Trips")
       }
     
+let userLocation = TripsTableViewController().userLocation
+ 
 struct Trips {
     
     let id: String
     var time: Date
     var from:String
     var fromCity: String
+    var fromLocation: [Double]
     var to: String
     var toCity: String
     var Passengers: [String]
+    var distance: Double?
     
-    init(time:Date, to:String, toCity:String, from:String, fromCity:String, passengers:String, id:String) {
+ 
+    init(time:Date, to:String, toCity:String, from:String, fromLocation:[Double], fromCity:String, passengers:String, id:String) {
       self.id = id
       self.time = time
       self.to = to
       self.toCity = toCity
       self.from = from
+      self.fromLocation = fromLocation
       self.fromCity = fromCity
       self.Passengers = [passengers]
      }
@@ -54,6 +62,9 @@ struct Trips {
          guard let fromCity = data["fromCity"] as? String else {
            return nil
          }
+        guard let fromLocation = data["fromLocation"] as? [Double] else {
+          return nil
+        }
          guard let toCity = data["toCity"] as? String else {
           return nil
         }
@@ -66,11 +77,13 @@ struct Trips {
            self.to       = to
            self.from     = from
            self.fromCity = fromCity
-            self.toCity  = toCity
+           self.fromLocation = fromLocation
+           self.toCity  = toCity
            self.Passengers = Passengers
        }
 }
-
+    
+ 
 extension Trips: DatabaseRepresentation {
   
     var representation: [String : Any]   {
@@ -78,6 +91,7 @@ extension Trips: DatabaseRepresentation {
     "to": to,
     "from": from,
     "fromCity": fromCity,
+    "fromLocation": fromLocation,
     "toCity" : toCity,
     "time": time,
     "passengers": Passengers,
@@ -93,7 +107,7 @@ extension Trips: Comparable {
   static func == (lhs: Trips, rhs: Trips) -> Bool {
     return lhs.id == rhs.id
   }
-  
+    
   static func < (lhs: Trips, rhs: Trips) -> Bool {
     return lhs.to < rhs.to
   }

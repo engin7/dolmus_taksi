@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import Foundation
+import MapKit
+import CoreLocation
 
 class TripsTableViewCell: UITableViewCell  {
   
@@ -52,15 +54,23 @@ class TripsTableViewCell: UITableViewCell  {
         var trips : [Trips] = []
         var joinedTrips : [Trips] = []
         let today = Date()
-       
+        var userLocation: CLLocation?
+        private var locationManager: CLLocationManager?
+
         
         deinit {
           tripListener?.remove()
         }
               
       override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         
+         locationManager = CLLocationManager()
+         locationManager?.delegate = self
+         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+         locationManager?.requestWhenInUseAuthorization()
+         locationManager?.requestLocation()
+         
         // listed document and get document with snapshot
         tripListener = tripReference.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
@@ -73,17 +83,19 @@ class TripsTableViewCell: UITableViewCell  {
                 guard let trip = Trips(document: change.document) else {
                      return
                    }
-                
+              
                 switch change.type {
                 
                 case .added:
                 
                   if  !trip.Passengers.contains(currentUser!.email) {
                     self.trips.append(trip)
-                    
+//                     print(trip.distance)
+                     print("lol")
 //                    self.trips.sort(by: {$0.from < $1.from})
 //                    self.trips.sort(by: {$0.to < $1.to})
                       self.trips.sort(by: {$0.time < $1.time})
+//                      self.trips.sort(by: {$0.distance < $1.distance})
                
                  } else {
                     self.joinedTrips.append(trip)
@@ -144,10 +156,10 @@ class TripsTableViewCell: UITableViewCell  {
          }
          
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+ 
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripsTableViewCell", for: indexPath) as! TripsTableViewCell
             let trip =  self.trips[indexPath.row]
-            
+    
             cell.fromTextLabel.text =  trip.from
             cell.toTextLabel.text = trip.to
             cell.toCityTextLabel.text = trip.toCity
@@ -320,3 +332,26 @@ class TripsTableViewCell: UITableViewCell  {
 
 
  
+extension TripsTableViewController : CLLocationManagerDelegate {
+     
+    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager!.requestLocation()
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        //  will zoom to the first location
+        if let location = locations.first {
+              userLocation = location
+                  }
+            }
+
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+           
+           print(error.localizedDescription)
+       }
+}
+

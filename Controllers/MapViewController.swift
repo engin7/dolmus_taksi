@@ -45,7 +45,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var toSearchController = UISearchController(searchResultsController: nil)
     var toAnnotation: MKAnnotation?
     var fromLocation_searchBar: String?
-    
+ 
     @IBAction func switchTrip(_ sender: Any) {
         swap(&toSearchController.searchBar.text, &fromSearchController.searchBar.text)
         swap(&toCity, &fromCity)
@@ -56,9 +56,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         if picker.date < Date() {
             
             pickerTime = Calendar.current.date(byAdding: .day, value: 1, to: picker.date)!
-            trip =  Trips(time: pickerTime!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromCity: fromCity!, passengers: currentUser!.email, id: "nil")
+            trip =  Trips(time: pickerTime!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.email, id: "nil")
          } else {
-            trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromCity: fromCity!, passengers: currentUser!.email, id: "nil")
+            trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.email, id: "nil")
         }
       
         let n = Int(myPersons.text!)!
@@ -140,7 +140,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-      
+        
         arrangeSearchBars()
         
      }
@@ -389,7 +389,7 @@ extension MapViewController : CLLocationManagerDelegate {
         if distance > 0.6 {
         midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.98
         } else if distance > 0.3 {
-        midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.985
+        midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.986
         } else {
             midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.9975
         }

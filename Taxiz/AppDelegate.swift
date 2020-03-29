@@ -10,12 +10,13 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWindowSceneDelegate {
     
  // ios13 moved window to sceneDelegate
  
+   
+    
     override init() {
       FirebaseApp.configure()
     }
@@ -27,13 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         GIDSignIn.sharedInstance().delegate = self
         
         Database.database().isPersistenceEnabled = true
-        
-     
-        
+      
         
          return true
     }
 
+
+    
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
       -> Bool {
@@ -98,3 +99,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
 
  }
     
+
+

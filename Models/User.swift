@@ -1,9 +1,11 @@
  
 import Foundation
 import Firebase
+import CoreLocation
+import UserNotifications
 
+ 
 var currentUser: User?
-
  
 struct User {
   
@@ -21,3 +23,6 @@ struct User {
     }
     
 }
+
+ 
+ 
