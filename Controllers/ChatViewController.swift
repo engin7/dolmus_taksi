@@ -152,7 +152,7 @@ private func save(_ message: Message) {
   // initializa sender
  
   func currentSender() -> SenderType {
-    return Sender(id: currentUser.uid, displayName: currentUser.email)
+    return Sender(id: currentUser.uid, displayName: currentUser.displayName)
   }
   
   func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -240,10 +240,8 @@ extension ChatViewController: MessagesDisplayDelegate {
 
 // MARK: - MessageInputBarDelegate
  
-
 extension ChatViewController: MessageInputBarDelegate {
      
-      
   func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
     
     let message = Message(user: currentUser, content: text)

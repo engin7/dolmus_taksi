@@ -288,8 +288,7 @@ class TripsTableViewCell: UITableViewCell  {
              let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
 
-                  print(trip.Passengers)
-            if !(trip.Passengers.contains(currentUser!.email))  {
+             if !(trip.Passengers.contains(currentUser!.email))  {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
        

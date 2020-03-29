@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         
                   // User is signed in
                 
-                currentUser = User(uid: user.userID, email: user.profile.email)
+        currentUser = User(uid: user.userID, email: user.profile.email, nick: user.profile.name)
         
                     NotificationCenter.default.post(
                             name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
