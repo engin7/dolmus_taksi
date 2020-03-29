@@ -142,7 +142,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         locationManager?.requestLocation()
       
         arrangeSearchBars()
-    
+        
      }
   
      func arrangeSearchBars(){
@@ -170,19 +170,18 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         fromSearchController = UISearchController(searchResultsController: PopupLocationSearchTable)
         PopupLocationSearchTable.additionalSafeAreaInsets = UIEdgeInsets(top: 50 , left: 0, bottom: 0, right: 0)
         fromSearchController.searchResultsUpdater = PopupLocationSearchTable
-        fromSearchController.searchBar.showsCancelButton = false
-        let fromSearchBar = fromSearchController.searchBar
+         let fromSearchBar = fromSearchController.searchBar
  
         fromSearchBar.setImage(UIImage(), for: .clear, state: .normal)
         fromSearchBar.placeholder = "Origin"
         myFrom.addSubview(fromSearchController.searchBar)
  
         toSearchController = UISearchController(searchResultsController: locationSearchTable)
-        toSearchController.searchBar.showsCancelButton = false
-        
+ 
         toSearchController.searchResultsUpdater = locationSearchTable
         let toSearchBar = toSearchController.searchBar
         toSearchBar.sizeToFit()
+         
         toSearchBar.setImage(UIImage(), for: .clear, state: .normal)
         toSearchBar.placeholder = "Destination"
 
@@ -195,9 +194,13 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
          self.fromSearchController.hidesNavigationBarDuringPresentation = true
          self.toSearchController.hidesNavigationBarDuringPresentation = true
-    }
-
+         
  
+      }
+  
+   
+ 
+    
     @objc public func getDirections(){
             
         guard let start = fromLocation, let end = selectedPin else {   return }
@@ -229,11 +232,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             
             toSearchController.searchBar.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
             self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
-
-           var searchBarFrame = fromSearchController.searchBar.frame
-             searchBarFrame.size.width = myFrom.frame.size.width - 15
-             fromSearchController.searchBar.frame = searchBarFrame
-             toSearchController.searchBar.frame = searchBarFrame
             
         }
   
@@ -251,6 +249,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
 }
 // MARK: - Extensions
  
+  
   
 extension MapViewController : CLLocationManagerDelegate {
      
@@ -271,7 +270,7 @@ extension MapViewController : CLLocationManagerDelegate {
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                 placemarks?.forEach { (placemark) in
                     self.currentCity = placemark.subLocality ?? placemark.name
-                    self.fromCity = " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
+                    self.fromCity =   " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
                 }
             })
 
@@ -307,6 +306,13 @@ extension MapViewController : CLLocationManagerDelegate {
          myTripView.isHidden = true
          fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity
 
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+
+                var searchBarFrame = self.fromSearchController.searchBar.frame
+                searchBarFrame.size.width = self.myFrom.frame.size.width - 15
+                self.fromSearchController.searchBar.frame = searchBarFrame
+                self.toSearchController.searchBar.frame = searchBarFrame
+            }
         }
         
         func dropPinZoomInFrom(placemark:MKPlacemark){
@@ -314,6 +320,7 @@ extension MapViewController : CLLocationManagerDelegate {
                // cache the pin
                 fromLocation = CLLocation(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude)
                 fromLocation_searchBar =  placemark.subLocality ?? placemark.name
+                self.fromCity  = " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
                 self.fromSearchController.searchBar.text = fromLocation_searchBar
 
               // clear existing pins
@@ -330,11 +337,20 @@ extension MapViewController : CLLocationManagerDelegate {
                let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
             let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude + 0.04, longitude: annotation.coordinate.longitude)  , span: span)
                 mapView.setRegion(region, animated: true)
- 
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+
+            var searchBarFrame = self.fromSearchController.searchBar.frame
+            searchBarFrame.size.width = self.myFrom.frame.size.width - 15
+            self.fromSearchController.searchBar.frame = searchBarFrame
+            self.toSearchController.searchBar.frame = searchBarFrame
+            }
                }
     }
 
   extension MapViewController : MKMapViewDelegate {
+    
+  
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
@@ -353,7 +369,7 @@ extension MapViewController : CLLocationManagerDelegate {
         pinView?.canShowCallout = true
          pinView?.calloutOffset = CGPoint(x: -5, y: 5)
         button.addTarget(self, action:  #selector(getDirections),  for: .touchUpInside)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
         pinView?.isSelected = true
         }
         } else {
@@ -369,9 +385,16 @@ extension MapViewController : CLLocationManagerDelegate {
         let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
         let distance = fromLocation!.distance(from: destination)/20000
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
-        let midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude + 0.5) / 2
+        var midPointLat: Double?
+        if distance > 0.6 {
+        midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.98
+        } else if distance > 0.3 {
+        midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.985
+        } else {
+            midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.9975
+        }
         let midPointLong = (fromLocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
-        let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
+        let center = CLLocation(latitude: midPointLat!, longitude: midPointLong)
         let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
         mapView.setRegion(region, animated: true)
         return polyLine
