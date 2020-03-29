@@ -57,7 +57,6 @@ class TripsTableViewCell: UITableViewCell  {
         var userLocation: CLLocation?
         private var locationManager: CLLocationManager?
 
-        
         deinit {
           tripListener?.remove()
         }
@@ -90,13 +89,15 @@ class TripsTableViewCell: UITableViewCell  {
                 
                   if  !trip.Passengers.contains(currentUser!.email) {
                     self.trips.append(trip)
-//                     print(trip.distance)
-                     print("lol")
-//                    self.trips.sort(by: {$0.from < $1.from})
+  //                  self.trips.sort(by: {$0.from < $1.from})
 //                    self.trips.sort(by: {$0.to < $1.to})
-                      self.trips.sort(by: {$0.time < $1.time})
-//                      self.trips.sort(by: {$0.distance < $1.distance})
-               
+                    self.trips.sort(by: {$0.time < $1.time})
+
+                    if self.userLocation != nil {
+                      self.trips.sort(by: {(abs($0.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($0.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) < (abs($1.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($1.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) })
+                     }
+                    
+
                  } else {
                     self.joinedTrips.append(trip)
                  }
@@ -237,10 +238,7 @@ class TripsTableViewCell: UITableViewCell  {
             })
                  
           }
-         
-        
- 
-                       
+          
               return cell
             
           }

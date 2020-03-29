@@ -17,7 +17,6 @@ let db = Firestore.firestore()
       return db.collection("Trips")
       }
     
-let userLocation = TripsTableViewController().userLocation
  
 struct Trips {
     
@@ -29,8 +28,6 @@ struct Trips {
     var to: String
     var toCity: String
     var Passengers: [String]
-    var distance: Double?
-    
  
     init(time:Date, to:String, toCity:String, from:String, fromLocation:[Double], fromCity:String, passengers:String, id:String) {
       self.id = id
