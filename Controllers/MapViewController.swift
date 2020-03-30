@@ -56,15 +56,15 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         if picker.date < Date() {
             
             pickerTime = Calendar.current.date(byAdding: .day, value: 1, to: picker.date)!
-            trip =  Trips(time: pickerTime!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.email, id: "nil")
+            trip =  Trips(time: pickerTime!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
          } else {
-            trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.email, id: "nil")
+            trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
         }
       
         let n = Int(myPersons.text!)!
         
         for i in 1..<n {
-            trip!.Passengers.append(currentUser!.email + "+" + String(i))
+            trip!.Passengers.append(currentUser!.displayName + "+" + String(i))
         }
             // add to firestore database:
         tripReference.addDocument(data: trip!.representation) { error in

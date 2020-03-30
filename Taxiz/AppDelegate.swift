@@ -8,80 +8,33 @@
 
 import UIKit
 import Firebase
-import GoogleSignIn
-
+ 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWindowSceneDelegate {
-    
- // ios13 moved window to sceneDelegate
- 
-   
-    
-    override init() {
-      FirebaseApp.configure()
-    }
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Use Firebase library to configure APIs
- 
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance().delegate = self
-        
-        Database.database().isPersistenceEnabled = true
-      
-        
-         return true
-    }
-
-
-    
-    @available(iOS 9.0, *)
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
-      -> Bool {
-        // handle the URL that your application receives at the end of the authentication process.
-      return GIDSignIn.sharedInstance().handle(url)
-    }
-    
-    // to run on iOS 8 and older, also implement the deprecated method
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
-    }
+class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
   
-    // MARK: GIDSignInDelegate (handle sign-in process)
+   var ref: DatabaseReference!
+
+      func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+           // Use Firebase library to configure APIs
+           FirebaseApp.configure()
+          
+           Database.database().isPersistenceEnabled = true
+
+           ref = Database.database().reference()
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-      if let error = error {
-        print(error)
-        print("can not sign in with Google")
-        return
-      }
-        print("Successfully logged into Google", user!)
+           Auth.auth().signInAnonymously() { (user, error) in
+                  if let user = user {
+                   let uid = user.user.uid
+                    currentUser = User(uid: uid, nick: randomAlphaNumericString(length: 9))
 
-      guard let authentication = user.authentication else { return }
-      let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                        accessToken: authentication.accessToken)
-       Auth.auth().signIn(with: credential) { (authResult, error) in
-                 if let error = error {
-                    print(error)
-                    print("can't sign in to Firebase")
-                     return
-                 }
-        
-                  // User is signed in
-                
-        currentUser = User(uid: user.userID, email: user.profile.email, nick: user.profile.name)
-        
-                    NotificationCenter.default.post(
-                            name: Notification.Name("SuccessfulSignInNotification"), object: nil, userInfo: nil)
-                    }
-        
+                      }
             }
-     
-//        func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-//            // Perform any operations when the user disconnects from app here.
-//            // ...
-//        }
+        return true
 
+    }
+
+
+    
 
     // MARK: UISceneSession Lifecycle
 

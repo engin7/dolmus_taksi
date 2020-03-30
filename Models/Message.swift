@@ -18,7 +18,7 @@ import MessageKit
   
  
     init(user: User, content: String) {
-    sender = Sender (senderId: user.uid, displayName: user.email)
+    sender = Sender (senderId: user.uid, displayName: user.displayName)
     self.content = content
     sentDate = Date()
     id = nil

@@ -27,8 +27,7 @@ class ProfileTableViewController:  UITableViewController {
            super.viewDidLoad()
         
     nickName.text = currentUser?.displayName
-    email.text = currentUser?.email
-        
+ 
     }
 
     

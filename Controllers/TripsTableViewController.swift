@@ -87,7 +87,7 @@ class TripsTableViewCell: UITableViewCell  {
                 
                 case .added:
                 
-                  if  !trip.Passengers.contains(currentUser!.email) {
+                  if  !trip.Passengers.contains(currentUser!.displayName) {
                     self.trips.append(trip)
   //                  self.trips.sort(by: {$0.from < $1.from})
 //                    self.trips.sort(by: {$0.to < $1.to})
@@ -224,7 +224,7 @@ class TripsTableViewCell: UITableViewCell  {
                break
             }
           
-            if trip.Passengers.contains(currentUser!.email) {
+            if trip.Passengers.contains(currentUser!.displayName) {
              cell.alpha = 0
              cell.backgroundColor = UIColor.lightGray
              UIView.animate(withDuration: 2.0, animations: {
@@ -283,34 +283,34 @@ class TripsTableViewCell: UITableViewCell  {
             let past = Calendar.current.date(byAdding: .hour, value: -1, to: today)
 
             
-          if (trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.email) {
+          if (trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName) {
                 
              let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
 
-             if !(trip.Passengers.contains(currentUser!.email))  {
+             if !(trip.Passengers.contains(currentUser!.displayName))  {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
        
             alert.addAction(UIAlertAction(title: "None, I'm just looking.", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
-                trip.Passengers.append(currentUser!.email)
+                trip.Passengers.append(currentUser!.displayName)
                 self.updatePassengers(documentId, trip)
             }))
            
             if trip.Passengers.count < 3 {
             alert.addAction(UIAlertAction(title: "2", style: .default, handler: { action in
-                trip.Passengers.append(currentUser!.email)
-                trip.Passengers.append(currentUser!.email + "+1")
+                trip.Passengers.append(currentUser!.displayName)
+                trip.Passengers.append(currentUser!.displayName + "+1")
                 self.updatePassengers(documentId, trip)
             }))
             }
                 
             if trip.Passengers.count < 2 {
             alert.addAction(UIAlertAction(title: "3", style: .default, handler: { action in
-                trip.Passengers.append(currentUser!.email)
-                trip.Passengers.append(currentUser!.email + "+1")
-                trip.Passengers.append(currentUser!.email + "+2")
+                trip.Passengers.append(currentUser!.displayName)
+                trip.Passengers.append(currentUser!.displayName + "+1")
+                trip.Passengers.append(currentUser!.displayName + "+2")
                 self.updatePassengers(documentId, trip)
             }))
             }

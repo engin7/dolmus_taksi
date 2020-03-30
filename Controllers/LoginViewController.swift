@@ -8,8 +8,7 @@
 
 import UIKit
 import Firebase
-import GoogleSignIn
-
+  
 
 
 class LoginViewController: UIViewController {
@@ -24,9 +23,7 @@ class LoginViewController: UIViewController {
         backgroundImage.contentMode =  UIView.ContentMode.scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
  
-           GIDSignIn.sharedInstance()?.presentingViewController = self
-           GIDSignIn.sharedInstance().signIn()
-          
+           
         NotificationCenter.default.addObserver(self, selector: #selector(didSignIn), name: NSNotification.Name("SuccessfulSignInNotification"), object: nil)
 
         let listener = Auth.auth().addStateDidChangeListener() { auth, user in

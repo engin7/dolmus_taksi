@@ -10,24 +10,18 @@ var currentUser: User?
 struct User {
   
   let uid: String
-  let email: String
   let displayName: String
   
   init(authData: Firebase.User) {
     uid = authData.uid
-    email = authData.email!
     displayName = randomAlphaNumericString(length: 9)
   }
   
-    init(uid: String, email: String, nick: String) {
+    init(uid: String, nick: String) {
     self.uid = uid
-    self.email = email
     self.displayName = nick
     }
-    
 }
-
- 
  
  func randomAlphaNumericString(length: Int) -> String {
      let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
