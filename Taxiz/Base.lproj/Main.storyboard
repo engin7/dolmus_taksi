@@ -499,13 +499,7 @@
                             <outlet property="delegate" destination="ZLb-K0-6hG" id="OPp-ap-qfd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ESH-UO-gpC">
-                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="Z2S-qd-S7y">
-                            <connections>
-                                <action selector="SignOutButton:" destination="ZLb-K0-6hG" id="uBP-ht-nqL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="ESH-UO-gpC"/>
                     <connections>
                         <outlet property="email" destination="CjA-T6-e7Y" id="BEG-Nx-3SV"/>
                         <outlet property="nickName" destination="VfJ-aw-zU5" id="K5Y-wg-x4I"/>

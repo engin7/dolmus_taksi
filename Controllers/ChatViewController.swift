@@ -12,7 +12,7 @@ import MessageKit
 import InputBarAccessoryView
 
 
-final class ChatViewController: MessagesViewController, MessagesDataSource {
+  class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate {
     
      private var messages: [Message] = []
      private var messageListener: ListenerRegistration?
@@ -20,7 +20,6 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
      private var reference: CollectionReference?
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
-     let imageView = UIImageView()
 
      deinit {
        messageListener?.remove()
@@ -30,31 +29,19 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
       self.currentUser = currentUser
       self.trip = trip
       super.init(nibName: nil, bundle: nil)
-        title = "#"+trip.from + getReadableDate(time: trip.time)! + trip.to
+      title = "#"+trip.from + getReadableDate(time: trip.time)! + trip.to
         
     }
     
     required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
-    
- 
-    override func viewDidLayoutSubviews() {
-       // for different screen size
-       super.viewDidLayoutSubviews()
-        self.imageView.frame = self.view.bounds
-    }
-    
-   
+     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   
-        self.imageView.image = #imageLiteral(resourceName: "chat")
-        self.imageView.contentMode = .scaleAspectFill
-        self.imageView.alpha = 0.3
-        self.imageView.clipsToBounds = true
-        self.view.addSubview(imageView)
+        
+
         guard let id = trip?.id else {
         navigationController?.popViewController(animated: true)
         return
@@ -74,8 +61,8 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
             print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
             return
           }
-          
-          snapshot.documentChanges.forEach { change in
+
+            snapshot.documentChanges.forEach { change in
             self.handleDocumentChange(change)
           }
 
@@ -94,10 +81,7 @@ final class ChatViewController: MessagesViewController, MessagesDataSource {
         messagesCollectionView.messagesDisplayDelegate = self
  
       }
- 
   
-       
-    
     // MARK: - Helpers
 
     private func insertNewMessage(_ message: Message) {
@@ -154,7 +138,7 @@ private func save(_ message: Message) {
   func currentSender() -> SenderType {
     return Sender(id: currentUser.uid, displayName: currentUser.displayName)
   }
-  
+    
   func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
        return messages.count
   }
@@ -164,36 +148,14 @@ private func save(_ message: Message) {
     in messagesCollectionView: MessagesCollectionView) -> MessageType {
     return messages[indexPath.section]
   }
-
-  // returns the attributed text for the name above each message bubble.
-  func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-    let name = message.sender.displayName
-    return NSAttributedString(
-      string: name,
-      attributes: [
-        .font: UIFont.preferredFont(forTextStyle: .caption1),
-        .foregroundColor: UIColor(white: 0.3, alpha: 1),
-        .paragraphStyle: paragraph
-      ]
-    )
-  }
-    
-    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-           
-           return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-       }
-    
-     
-    }
-
+ 
 // MARK: - MessagesLayoutDelegate
-
-extension ChatViewController: MessagesLayoutDelegate {
+ 
 
   func footerViewSize(for message: MessageType, at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> CGSize {
    
-    return CGSize(width: 0, height: 8)
+    return CGSize(width: 0, height: 2)
   }
 
   func heightForLocation(message: MessageType, at indexPath: IndexPath,
@@ -206,33 +168,29 @@ extension ChatViewController: MessagesLayoutDelegate {
         return 14
     }
  
-}
+ }
 
 extension ChatViewController: MessagesDisplayDelegate {
  
-    
-  func backgroundColor(for message: MessageType, at indexPath: IndexPath,
-    in messagesCollectionView: MessagesCollectionView) -> UIColor {
-    // change color according to  sender
-    return isFromCurrentSender(message: message) ? .primary : .incomingMessage
-  }
-
+     
   func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> Bool {
     // remove header
     return false
   }
-
-  func messageStyle(for message: MessageType, at indexPath: IndexPath,
-    in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-
-    let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
-    // choose a corner for the tail of the message bubble depending on sender
-    paragraph.alignment = isFromCurrentSender(message: message) ? .right : .left
-    // sender name on left/right
-    return .bubbleTail(corner, .curved)
-  }
+ 
+    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        paragraph.alignment = isFromCurrentSender(message: message) ? .left : .left
+        
+        return isFromCurrentSender(message: message) ? .gray : .black
+    }
     
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath,
+      in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        // change color according to  sender
+      return isFromCurrentSender(message: message) ? .white : .white
+    }
+     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
       avatarView.isHidden = true
     }
@@ -244,7 +202,7 @@ extension ChatViewController: MessageInputBarDelegate {
      
   func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
     
-    let message = Message(user: currentUser, content: text)
+    let message = Message(user: currentUser, content: "<"+(currentUser.displayName)+"> " + text)
     save(message)
     inputBar.inputTextView.text = ""
   }

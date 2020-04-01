@@ -56,6 +56,7 @@ class TripsTableViewCell: UITableViewCell  {
         let today = Date()
         var userLocation: CLLocation?
         private var locationManager: CLLocationManager?
+        private let imageView = UIImageView()
 
         deinit {
           tripListener?.remove()
@@ -64,6 +65,12 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()        
         
+         self.imageView.image = #imageLiteral(resourceName: "chat")
+         self.imageView.contentMode = .scaleAspectFill
+         self.imageView.alpha = 0.3
+         self.imageView.clipsToBounds = true
+         self.view.addSubview(imageView)
+    
          locationManager = CLLocationManager()
          locationManager?.delegate = self
          locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -127,10 +134,16 @@ class TripsTableViewCell: UITableViewCell  {
           }
   
         
+        override func viewDidLayoutSubviews() {
+              // for different screen size
+              super.viewDidLayoutSubviews()
+               self.imageView.frame = self.view.bounds
+           }
+        
         func deletePastChannels() {
             
-               let past = Calendar.current.date(byAdding: .hour, value: -240, to: today)
-              //will update to 24. now it deletes 10 days before
+               let past = Calendar.current.date(byAdding: .hour, value: -24, to: today)
+              //will update to 4h now it deletes 1 days before
             
                for Trips in trips {
                    

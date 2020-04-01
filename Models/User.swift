@@ -24,7 +24,7 @@ struct User {
 }
  
  func randomAlphaNumericString(length: Int) -> String {
-     let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+     let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDE-0123456789"
      let allowedCharsCount = UInt32(allowedChars.count)
      var randomString = ""
 

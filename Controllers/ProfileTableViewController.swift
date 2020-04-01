@@ -26,8 +26,8 @@ class ProfileTableViewController:  UITableViewController {
     override func viewDidLoad() {
            super.viewDidLoad()
         
-    nickName.text = currentUser?.displayName
- 
+     nickName.text = currentUser?.displayName
+        email.text = currentUser?.uid
     }
 
     
