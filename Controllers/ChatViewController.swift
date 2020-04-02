@@ -20,19 +20,35 @@ import InputBarAccessoryView
      private var reference: CollectionReference?
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
+    
+    deinit {
+        messageListener?.remove()
+      }
+    
+    private var terminal: User {
+        .init(uid: title!, nick: "terminal")
+    }
+    
+     private var chatRoomUsers : Int = 0  {
 
-     deinit {
-       messageListener?.remove()
-     }
-
+        didSet {
+         
+         print("lol")
+            
+         let message = Message(user: terminal, content: "... joined room")
+         save(message)
+        }
+    }
+         
+    
     init(currentUser: User, trip: Trips) {
       self.currentUser = currentUser
       self.trip = trip
+      self.chatRoomUsers = trip.Passengers.count
       super.init(nibName: nil, bundle: nil)
       title = "#"+trip.from + getReadableDate(time: trip.time)! + trip.to
-        
     }
-    
+ 
     required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
@@ -40,8 +56,7 @@ import InputBarAccessoryView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
+         
         guard let id = trip?.id else {
         navigationController?.popViewController(animated: true)
         return
@@ -49,7 +64,8 @@ import InputBarAccessoryView
        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
           layout.setMessageIncomingAvatarSize(.zero)
           layout.setMessageOutgoingAvatarSize(.zero)
-   
+          layout.sectionInset = UIEdgeInsets(top: -15, left: -4, bottom: -5, right: -4)
+
         }
         
         //   new collection inside Trips
@@ -171,8 +187,15 @@ private func save(_ message: Message) {
  }
 
 extension ChatViewController: MessagesDisplayDelegate {
- 
-     
+  
+    func isFromCurrentSender(message: MessageType) -> Bool {
+        false
+    }
+    
+     private func customIsFromCurrentSender(message: MessageType) -> Bool {
+         return message.sender.senderId == currentSender().senderId
+     }
+    
   func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> Bool {
     // remove header
@@ -180,10 +203,11 @@ extension ChatViewController: MessagesDisplayDelegate {
   }
  
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        paragraph.alignment = isFromCurrentSender(message: message) ? .left : .left
         
-        return isFromCurrentSender(message: message) ? .gray : .black
+        return customIsFromCurrentSender(message: message) ? .gray : .black
     }
+    
+   
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath,
       in messagesCollectionView: MessagesCollectionView) -> UIColor {
@@ -191,6 +215,13 @@ extension ChatViewController: MessagesDisplayDelegate {
       return isFromCurrentSender(message: message) ? .white : .white
     }
      
+    func messageStyle(for message: MessageType, at indexPath: IndexPath,
+      in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+ 
+      return .none
+    }
+    
+    
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
       avatarView.isHidden = true
     }
@@ -199,7 +230,7 @@ extension ChatViewController: MessagesDisplayDelegate {
 // MARK: - MessageInputBarDelegate
  
 extension ChatViewController: MessageInputBarDelegate {
-     
+   
   func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
     
     let message = Message(user: currentUser, content: "<"+(currentUser.displayName)+"> " + text)

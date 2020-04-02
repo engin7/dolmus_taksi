@@ -32,8 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
         return true
 
     }
-
-
+ 
     
 
     // MARK: UISceneSession Lifecycle
