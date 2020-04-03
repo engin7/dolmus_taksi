@@ -300,7 +300,7 @@ class TripsTableViewCell: UITableViewCell  {
                 
              let vc = ChatViewController(currentUser: currentUser!, trip: trip)
             navigationController?.pushViewController(vc, animated: true)
-
+           
              if !(trip.Passengers.contains(currentUser!.displayName))  {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
@@ -310,7 +310,7 @@ class TripsTableViewCell: UITableViewCell  {
                 trip.Passengers.append(currentUser!.displayName)
                 self.updatePassengers(documentId, trip)
             }))
-           
+                    
             if trip.Passengers.count < 3 {
             alert.addAction(UIAlertAction(title: "2", style: .default, handler: { action in
                 trip.Passengers.append(currentUser!.displayName)
@@ -334,9 +334,7 @@ class TripsTableViewCell: UITableViewCell  {
         
         override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
             
-        
-            
-            
+       
         }
     }
 

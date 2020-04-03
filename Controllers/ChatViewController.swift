@@ -29,7 +29,9 @@ import InputBarAccessoryView
         .init(uid: title!, nick: "terminal")
     }
     
-     private var chatRoomUsers : Int = 0  {
+     public var chatRoomUsers: [String]
+    
+     private var chatRoomUsersCount : Int = 0  {
 
         didSet {
          
@@ -44,7 +46,7 @@ import InputBarAccessoryView
     init(currentUser: User, trip: Trips) {
       self.currentUser = currentUser
       self.trip = trip
-      self.chatRoomUsers = trip.Passengers.count
+      self.chatRoomUsers = trip.Passengers
       super.init(nibName: nil, bundle: nil)
       title = "#"+trip.from + getReadableDate(time: trip.time)! + trip.to
     }
@@ -52,11 +54,15 @@ import InputBarAccessoryView
     required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
-     
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
          
+        let chatUsers = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showUsers))
+
+        navigationItem.rightBarButtonItems = [chatUsers]
+        
         guard let id = trip?.id else {
         navigationController?.popViewController(animated: true)
         return
@@ -98,8 +104,18 @@ import InputBarAccessoryView
  
       }
   
+    
+    @objc func showUsers(sender: UIButton!) {
+         
+          let vcl = ChatUsersTableViewController(trip: trip!)
+          navigationController?.pushViewController(vcl, animated: true)
+
+       }
+    
+    
     // MARK: - Helpers
 
+    
     private func insertNewMessage(_ message: Message) {
       guard !messages.contains(message) else {
         return

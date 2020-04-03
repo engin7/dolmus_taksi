@@ -640,7 +640,7 @@
                                 <segue destination="2LT-AY-C2E" kind="presentation" id="r5u-gF-ObG"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="message" catalog="system" id="13E-I4-3wF">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Item" image="message" catalog="system" id="13E-I4-3wF">
                             <connections>
                                 <action selector="chatButtton:" destination="yes-Qc-0lm" id="7uc-Z5-aDv"/>
                                 <segue destination="1Lp-pX-IRV" kind="popoverPresentation" popoverAnchorBarButtonItem="13E-I4-3wF" id="eHH-eZ-h1d">

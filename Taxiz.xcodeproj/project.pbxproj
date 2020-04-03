@@ -26,6 +26,7 @@
 		10558A9723FE8199005402F5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9623FE8199005402F5 /* Message.swift */; };
 		10B5CBD8240444AF00FDC8E7 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */; };
 		10D43B29242A795B00A3719B /* PopupLocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */; };
+		10D43B2B24368B8F00A3719B /* ChatUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */; };
 		820A52C828F041B8BC28B632 /* libPods-Taxiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58452656F84D2578238B1235 /* libPods-Taxiz.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		10558A9623FE8199005402F5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupLocationSearchTable.swift; sourceTree = "<group>"; };
+		10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUsersTableViewController.swift; sourceTree = "<group>"; };
 		58452656F84D2578238B1235 /* libPods-Taxiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taxiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98EAF695D1C9224028EB8E68 /* Pods-Taxiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.release.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.release.xcconfig"; sourceTree = "<group>"; };
 		9905940D3B069A5E4ED79EC5 /* Pods-Taxiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.debug.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */,
 				10558A6723F886B9005402F5 /* TripsTableViewController.swift */,
 				10558A2523F3F8EB005402F5 /* ChatViewController.swift */,
+				10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */,
 				10558A2323F3F8EB005402F5 /* MapViewController.swift */,
 				10558A5E23F6E178005402F5 /* LocationSearchTable.swift */,
 				10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */,
@@ -277,6 +280,7 @@
 				10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */,
 				10558A5F23F6E178005402F5 /* LocationSearchTable.swift in Sources */,
 				10558A6423F87233005402F5 /* Trips.swift in Sources */,
+				10D43B2B24368B8F00A3719B /* ChatUsersTableViewController.swift in Sources */,
 				10558A6623F873EF005402F5 /* User.swift in Sources */,
 				10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */,
 				10B5CBD8240444AF00FDC8E7 /* ProfileTableViewController.swift in Sources */,
