@@ -10,7 +10,7 @@ import Firebase
 import MessageKit
 import InputBarAccessoryView
 
-// TODO: update passengers when new joined. Add listener db firebase
+// TODO: Notifications via firebase
 
   class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate {
     
@@ -31,24 +31,13 @@ import InputBarAccessoryView
     
      public var chatRoomUsers: [String]
     
-     private var chatRoomUsersCount : Int = 0  {
-
-        didSet {
-         
-         print("lol")
-            
-         let message = Message(user: terminal, content: "... joined room")
-         save(message)
-        }
-    }
-         
-    
+ 
     init(currentUser: User, trip: Trips) {
       self.currentUser = currentUser
       self.trip = trip
       self.chatRoomUsers = trip.Passengers
       super.init(nibName: nil, bundle: nil)
-      title = "#"+trip.from + getReadableDate(time: trip.time)! + trip.to
+        title =  "#" + String(trip.from.first!) + String(trip.to.first!) + getReadableDate(time: trip.time)!
     }
  
     required init?(coder aDecoder: NSCoder) {
@@ -58,21 +47,12 @@ import InputBarAccessoryView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         
-        let chatUsers = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showUsers))
+         overrideUserInterfaceStyle = .light
 
-        navigationItem.rightBarButtonItems = [chatUsers]
-        
         guard let id = trip?.id else {
-        navigationController?.popViewController(animated: true)
-        return
-       }
-       if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
-          layout.setMessageIncomingAvatarSize(.zero)
-          layout.setMessageOutgoingAvatarSize(.zero)
-          layout.sectionInset = UIEdgeInsets(top: -15, left: -4, bottom: -5, right: -4)
-
-        }
+                navigationController?.popViewController(animated: true)
+                return
+               }
         
         //   new collection inside Trips
         reference = db.collection(["Trips", id, "thread"].joined(separator: "/"))
@@ -90,6 +70,17 @@ import InputBarAccessoryView
 
         }
 
+         let chatUsers = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showUsers))
+
+         navigationItem.rightBarButtonItems = [chatUsers]
+         
+        
+        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
+           layout.setMessageIncomingAvatarSize(.zero)
+           layout.setMessageOutgoingAvatarSize(.zero)
+           layout.sectionInset = UIEdgeInsets(top: -15, left: -4, bottom: -5, right: -4)
+
+         }
         navigationItem.largeTitleDisplayMode = .never
 
         maintainPositionOnKeyboardFrameChanged = true
@@ -99,9 +90,11 @@ import InputBarAccessoryView
         // implement 4 protocols:
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
-         messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
- 
+        
+        self.messagesCollectionView.scrollToBottom(animated: true)
+
       }
   
     
@@ -115,7 +108,16 @@ import InputBarAccessoryView
     
     // MARK: - Helpers
 
-   
+ 
+   private func save(_ message: Message) {
+       reference?.addDocument(data: message.representation) { error in
+       if let e = error {
+         print("Error sending message: \(e.localizedDescription)")
+         return
+       }
+        self.messagesCollectionView.scrollToBottom()
+     }
+   }
     
     private func insertNewMessage(_ message: Message) {
       guard !messages.contains(message) else {
@@ -124,12 +126,12 @@ import InputBarAccessoryView
       
       messages.append(message)
       messages.sort()
-      
+         
       let isLatestMessage = messages.firstIndex(of: message) == (messages.count - 1)
       let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage
       
-      messagesCollectionView.reloadData()
-      
+       messagesCollectionView.reloadData()
+
       if shouldScrollToBottom {
         DispatchQueue.main.async {
           self.messagesCollectionView.scrollToBottom(animated: true)
@@ -146,23 +148,12 @@ import InputBarAccessoryView
        switch change.type {
       case .added:
       insertNewMessage(message)
-
       default:
-        break
+      break
       }
     }
 
- // MARK: - Helpers
 
-private func save(_ message: Message) {
-    reference?.addDocument(data: message.representation) { error in
-    if let e = error {
-      print("Error sending message: \(e.localizedDescription)")
-      return
-    }
-     self.messagesCollectionView.scrollToBottom()
-  }
-}
 
 // MARK: - MessagesDataSource
 
@@ -184,7 +175,6 @@ private func save(_ message: Message) {
  
 // MARK: - MessagesLayoutDelegate
  
-
   func footerViewSize(for message: MessageType, at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> CGSize {
    
@@ -218,7 +208,7 @@ extension ChatViewController: MessagesDisplayDelegate {
     // remove header
     return false
   }
- 
+   
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         
         return customIsFromCurrentSender(message: message) ? .gray : .black

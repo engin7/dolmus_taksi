@@ -18,15 +18,40 @@ class ChatUsersTableViewController: UITableViewController {
      super.init(nibName: nil, bundle: nil)
     }
     
-    
     override func viewDidLoad()
     {
- 
+       overrideUserInterfaceStyle = .light
+
        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
         
-        self.title = "Users in the Room"
+        self.title = "Passengers "
+        
+        let exit  = UIBarButtonItem(title: "exit", style: .plain, target: self, action: #selector(exitRoom))
+        
+        navigationItem.rightBarButtonItems = [exit]
+ 
     }
-    
+      
+    @objc func exitRoom(sender: UIButton!) {
+        // go back 2 screens
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+        
+        let indexOfUser = trip?.Passengers.firstIndex(of: currentUser!.displayName)
+        if indexOfUser != nil {
+                   trip?.Passengers.remove(at: indexOfUser!)
+               }
+        let indexOfUser1 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+1")
+        if indexOfUser1 != nil {
+            trip?.Passengers.remove(at: indexOfUser1!)
+        }
+        let indexOfUser2 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+2")
+        if indexOfUser2 != nil {
+            trip?.Passengers.remove(at: indexOfUser2!)
+        }
+        
+        TripsTableViewController().updatePassengers(trip!.id, trip!)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

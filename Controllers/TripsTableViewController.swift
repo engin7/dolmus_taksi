@@ -36,7 +36,6 @@ class TripsTableViewCell: UITableViewCell  {
  
  }
 
-
     class TripsTableViewController: UITableViewController {
 
 
@@ -64,7 +63,8 @@ class TripsTableViewCell: UITableViewCell  {
               
       override func viewDidLoad() {
         super.viewDidLoad()        
-        
+        overrideUserInterfaceStyle = .light
+
          self.imageView.image = #imageLiteral(resourceName: "chat")
          self.imageView.contentMode = .scaleAspectFill
          self.imageView.alpha = 0.3
@@ -142,9 +142,8 @@ class TripsTableViewCell: UITableViewCell  {
         
         func deletePastChannels() {
             
-               let past = Calendar.current.date(byAdding: .hour, value: -24, to: today)
-              //will update to 4h now it deletes 1 days before
-            
+               let past = Calendar.current.date(byAdding: .hour, value: -4, to: today)
+ 
                for Trips in trips {
                    
                    if Trips.time < past! {
@@ -277,7 +276,7 @@ class TripsTableViewCell: UITableViewCell  {
           }
         }
                 
-        fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
+          func updatePassengers(_ documentId: String, _ trip: Trips) {
             tripReference.document(documentId).updateData([
                 "passengers": trip.Passengers
             ]) { err in

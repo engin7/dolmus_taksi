@@ -25,7 +25,8 @@ class ProfileTableViewController:  UITableViewController {
     
     override func viewDidLoad() {
            super.viewDidLoad()
-        
+        overrideUserInterfaceStyle = .light
+
      nickName.text = currentUser?.displayName
         email.text = currentUser?.uid
     }

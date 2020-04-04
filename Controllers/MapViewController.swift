@@ -133,6 +133,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     private var foregroundRestorationObserver: NSObjectProtocol?
 
     override func viewDidLoad() {
+        overrideUserInterfaceStyle = .light
+
         super.viewDidLoad()
         myTripView.isHidden = true
         locationManager = CLLocationManager()
