@@ -18,7 +18,6 @@ class ChatUsersTableViewController: UITableViewController {
      super.init(nibName: nil, bundle: nil)
     }
     
-    // TODO: update passengers when new joined
     
     override func viewDidLoad()
     {

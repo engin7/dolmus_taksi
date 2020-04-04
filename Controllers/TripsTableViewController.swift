@@ -294,21 +294,23 @@ class TripsTableViewCell: UITableViewCell  {
             var trip =  self.trips[indexPath.row]
             let documentId = trip.id
             let past = Calendar.current.date(byAdding: .hour, value: -1, to: today)
+            let vc = ChatViewController(currentUser: currentUser!, trip: trip)
 
-            
-          if (trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName) {
+           if (trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName) {
                 
-             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
-            navigationController?.pushViewController(vc, animated: true)
-           
+            
              if !(trip.Passengers.contains(currentUser!.displayName))  {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
        
-            alert.addAction(UIAlertAction(title: "None, I'm just looking.", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "None, I'm just looking.", style: .default, handler: { action in
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
             alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
                 trip.Passengers.append(currentUser!.displayName)
                 self.updatePassengers(documentId, trip)
+                self.navigationController?.pushViewController(vc, animated: true)
+
             }))
                     
             if trip.Passengers.count < 3 {
@@ -316,6 +318,8 @@ class TripsTableViewCell: UITableViewCell  {
                 trip.Passengers.append(currentUser!.displayName)
                 trip.Passengers.append(currentUser!.displayName + "+1")
                 self.updatePassengers(documentId, trip)
+                self.navigationController?.pushViewController(vc, animated: true)
+
             }))
             }
                 
@@ -325,11 +329,21 @@ class TripsTableViewCell: UITableViewCell  {
                 trip.Passengers.append(currentUser!.displayName + "+1")
                 trip.Passengers.append(currentUser!.displayName + "+2")
                 self.updatePassengers(documentId, trip)
+                self.navigationController?.pushViewController(vc, animated: true)
             }))
             }
             self.present(alert, animated: true)
-          }
-        }
+           }
+                      
+            }
+            if trip.Passengers.contains(currentUser!.displayName) {
+            
+                navigationController?.pushViewController(vc, animated: true)
+
+            }
+             
+            
+
       }
         
         override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {

@@ -1,7 +1,6 @@
 //
 //  SecondViewController.swift
 //
-//
 //  Created by Engin KUK on 12.02.2020.
 //  Copyright © 2020 Silverback Inc. All rights reserved.
 //
@@ -11,6 +10,7 @@ import Firebase
 import MessageKit
 import InputBarAccessoryView
 
+// TODO: update passengers when new joined. Add listener db firebase
 
   class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate {
     
@@ -21,13 +21,13 @@ import InputBarAccessoryView
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
     
-    deinit {
+     deinit {
         messageListener?.remove()
       }
     
-    private var terminal: User {
+     private var terminal: User {
         .init(uid: title!, nick: "terminal")
-    }
+     }
     
      public var chatRoomUsers: [String]
     
@@ -76,7 +76,7 @@ import InputBarAccessoryView
         
         //   new collection inside Trips
         reference = db.collection(["Trips", id, "thread"].joined(separator: "/"))
-            
+ 
     // Firestore calls this snapshot listener whenever there is a change to the database.
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
@@ -107,7 +107,7 @@ import InputBarAccessoryView
     
     @objc func showUsers(sender: UIButton!) {
          
-          let vcl = ChatUsersTableViewController(trip: trip!)
+           let vcl = ChatUsersTableViewController(trip: trip!)
           navigationController?.pushViewController(vcl, animated: true)
 
        }
@@ -115,6 +115,7 @@ import InputBarAccessoryView
     
     // MARK: - Helpers
 
+   
     
     private func insertNewMessage(_ message: Message) {
       guard !messages.contains(message) else {
@@ -168,7 +169,7 @@ private func save(_ message: Message) {
   // initializa sender
  
   func currentSender() -> SenderType {
-    return Sender(id: currentUser.uid, displayName: currentUser.displayName)
+    return Sender(senderId: currentUser.uid, displayName: currentUser.displayName)
   }
     
   func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
