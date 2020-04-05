@@ -121,9 +121,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         mapView.removeAnnotations(mapView.annotations)
         removeOverlay()
+        fromSearchController.searchBar.text = ""
+        toSearchController.searchBar.text = ""
         navigationController?.setNavigationBarHidden(false, animated: true)
-        arrangeSearchBars()
 
+        setNavigationSearchBar()
+        
     }
      
     @IBOutlet weak var mapView: MKMapView!
@@ -147,39 +150,59 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
         
+        setNavigationSearchBar()
         arrangeSearchBars()
-        
+ 
      }
-  
+        
+    func setNavigationSearchBar() {
+        
+         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+               resultSearchController.searchResultsUpdater = locationSearchTable
+               let searchBar = resultSearchController.searchBar
+
+               searchBar.setImage(UIImage(), for: .clear, state: .normal)
+               searchBar.sizeToFit()
+               searchBar.placeholder = "Search for places"
+
+               navigationItem.titleView = resultSearchController.searchBar
+               resultSearchController.searchBar.delegate = self
+               resultSearchController.hidesNavigationBarDuringPresentation = false
+               resultSearchController.obscuresBackgroundDuringPresentation = true
+               
+               definesPresentationContext = true
+        
+               locationSearchTable.handleMapSearchDelegate = self
+              
+        
+    }
+    
+    
+    
      func arrangeSearchBars(){
         
         // Search Table display recommendations
        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
        let PopupLocationSearchTable = storyboard!.instantiateViewController(withIdentifier: "PopupLocationSearchTable") as! PopupLocationSearchTable
         
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController.searchResultsUpdater = locationSearchTable
-        let searchBar = resultSearchController.searchBar
-        searchBar.setImage(UIImage(), for: .clear, state: .normal)
-        searchBar.sizeToFit()
-        searchBar.placeholder = "Search for places"
-        navigationItem.titleView = resultSearchController.searchBar
-        resultSearchController.searchBar.delegate = self
-        resultSearchController.hidesNavigationBarDuringPresentation = false
-        resultSearchController.obscuresBackgroundDuringPresentation = true
-        
-        definesPresentationContext = true
- 
         locationSearchTable.handleMapSearchDelegate = self
-        locationSearchTable.additionalSafeAreaInsets = UIEdgeInsets(top: 50 , left: 0, bottom: 0, right: 0)
+               locationSearchTable.additionalSafeAreaInsets = UIEdgeInsets(top: 50 , left: 0, bottom: 0, right: 0)
+
         PopupLocationSearchTable.handleMapSearchDelegate = self
         fromSearchController = UISearchController(searchResultsController: PopupLocationSearchTable)
         PopupLocationSearchTable.additionalSafeAreaInsets = UIEdgeInsets(top: 50 , left: 0, bottom: 0, right: 0)
+        
+        definesPresentationContext = true
+
         fromSearchController.searchResultsUpdater = PopupLocationSearchTable
          let fromSearchBar = fromSearchController.searchBar
- 
+
         fromSearchBar.setImage(UIImage(), for: .clear, state: .normal)
+        fromSearchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         fromSearchBar.placeholder = "Origin"
+ 
         myFrom.addSubview(fromSearchController.searchBar)
  
         toSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -189,8 +212,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         toSearchBar.sizeToFit()
          
         toSearchBar.setImage(UIImage(), for: .clear, state: .normal)
-        toSearchBar.placeholder = "Destination"
+        toSearchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
 
+        toSearchBar.placeholder = "Destination"
+        
         myTo.addSubview(toSearchController.searchBar)
         
         var searchBarFrame = fromSearchController.searchBar.frame
@@ -200,12 +225,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
          self.fromSearchController.hidesNavigationBarDuringPresentation = true
          self.toSearchController.hidesNavigationBarDuringPresentation = true
-         
- 
+        
       }
-  
-   
- 
     
     @objc public func getDirections(){
             
@@ -238,7 +259,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             
             toSearchController.searchBar.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
             self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
-            
+        
         }
   
 // MARK: - Actions
@@ -250,13 +271,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             }
         }
     }
-  
-    
 }
+
 // MARK: - Extensions
- 
-  
-  
+
 extension MapViewController : CLLocationManagerDelegate {
      
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -279,7 +297,6 @@ extension MapViewController : CLLocationManagerDelegate {
                     self.fromCity =   " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
                 }
             })
-
         }
     }
 
@@ -311,7 +328,7 @@ extension MapViewController : CLLocationManagerDelegate {
          mapView.setRegion(region, animated: true)
          myTripView.isHidden = true
          fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity
-
+         
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
 
                 var searchBarFrame = self.fromSearchController.searchBar.frame
@@ -328,7 +345,7 @@ extension MapViewController : CLLocationManagerDelegate {
                 fromLocation_searchBar =  placemark.subLocality ?? placemark.name
                 self.fromCity  = " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
                 self.fromSearchController.searchBar.text = fromLocation_searchBar
-
+ 
               // clear existing pins
                mapView.removeAnnotations(mapView.annotations)
                self.removeOverlay()
