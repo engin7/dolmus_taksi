@@ -93,6 +93,7 @@ class TripsTableViewCell: UITableViewCell  {
                      return
                    }
  
+ 
                 switch change.type {
                 
                     

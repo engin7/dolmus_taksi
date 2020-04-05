@@ -10,5 +10,5 @@ import Foundation
 
 // TASK: We need to implement cluster on maps after user numnber reaches some point
 
-//test
+// Possible future update showing multiple routes on map, clustering if necessary
 

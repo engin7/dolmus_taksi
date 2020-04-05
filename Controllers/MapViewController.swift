@@ -31,8 +31,10 @@ class ColorPointAnnotation: MKPointAnnotation {
 class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate {
     
     @IBOutlet weak var myTripView: UIView!
+ 
     @IBOutlet weak var myFrom: UIView!
     @IBOutlet weak var myTo: UIView!
+    
     @IBOutlet weak var myPersons: UILabel!
     @IBOutlet weak var picker: UIDatePicker!
 
@@ -57,7 +59,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         {
         if picker.date < Date() {
             
-            pickerTime = Calendar.current.date(byAdding: .day, value: 1, to: picker.date)!
+            pickerTime = Calendar.current.date(byAdding: .hour, value: 24, to: picker.date)!
             trip =  Trips(time: pickerTime!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
          } else {
             trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")

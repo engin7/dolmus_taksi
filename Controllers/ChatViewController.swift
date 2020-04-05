@@ -11,6 +11,8 @@ import MessageKit
 import InputBarAccessoryView
 
 // TODO: Notifications via firebase
+// TODO: Terminal messages red color
+// TODO: kick leave etc commands. 
 
   class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate {
     
