@@ -11,7 +11,7 @@ import Firebase
 import Foundation
 import MapKit
 import CoreLocation
-
+ 
 class TripsTableViewCell: UITableViewCell  {
   
     @IBOutlet weak var fromTextLabel: UILabel!
@@ -52,6 +52,7 @@ class TripsTableViewCell: UITableViewCell  {
         var tripListener: ListenerRegistration?
         var trips : [Trips] = []
         var joinedTrips : [Trips] = []
+        var pastTrips: [Trips] = []
         let today = Date()
         var userLocation: CLLocation?
         private var locationManager: CLLocationManager?
@@ -91,12 +92,13 @@ class TripsTableViewCell: UITableViewCell  {
                 guard let trip = Trips(document: change.document) else {
                      return
                    }
-              
+ 
                 switch change.type {
                 
+                    
                 case .added:
                 
-                  if  !trip.Passengers.contains(currentUser!.displayName) {
+                    if  !trip.Passengers.contains(currentUser!.displayName) && trip.time.timeIntervalSinceNow > 0 {
                     self.trips.append(trip)
   //                  self.trips.sort(by: {$0.from < $1.from})
 //                    self.trips.sort(by: {$0.to < $1.to})
@@ -107,9 +109,11 @@ class TripsTableViewCell: UITableViewCell  {
                      }
                     
 
-                 } else {
+                    } else if trip.Passengers.contains(currentUser!.displayName) && trip.time.timeIntervalSinceNow > 0 {
                     self.joinedTrips.append(trip)
-                 }
+                    } else if trip.time.timeIntervalSinceNow < 0 {
+                        self.pastTrips.append(trip)
+                    }
                  
                 case .modified:
                     guard let index = self.trips.firstIndex(of: trip)    else {
@@ -129,12 +133,12 @@ class TripsTableViewCell: UITableViewCell  {
                 }
                
                   self.trips.insert(contentsOf: self.joinedTrips, at: 0)
+                  self.trips.append(contentsOf: self.pastTrips)
                   self.joinedTrips = []
                   self.deletePastChannels()
                   self.tableView.reloadData()
             }
           }
-  
         
         override func viewDidLayoutSubviews() {
               // for different screen size
@@ -143,9 +147,9 @@ class TripsTableViewCell: UITableViewCell  {
            }
         
         func deletePastChannels() {
-            
-               let past = Calendar.current.date(byAdding: .hour, value: -4, to: today)
- 
+                                                          // will lower to 4 as users grow
+               let past = Calendar.current.date(byAdding: .hour, value: -244, to: today)
+                
                for Trips in trips {
                    
                 if Trips.time < past! || Trips.Passengers.count == 0 {
