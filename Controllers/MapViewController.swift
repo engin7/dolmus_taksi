@@ -53,6 +53,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     
     @IBAction func createTripButton(_ sender: Any) {
         
+        if (toSearchController.searchBar.text != "") && (fromSearchController.searchBar.text != "")
+        {
         if picker.date < Date() {
             
             pickerTime = Calendar.current.date(byAdding: .day, value: 1, to: picker.date)!
@@ -88,7 +90,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         arrangeSearchBars()
 
        }
-
+    }
     @IBAction func addPerson(_ sender: Any) {
         
         var myPersonsInt = Int(myPersons.text!)!

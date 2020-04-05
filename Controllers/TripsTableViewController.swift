@@ -64,6 +64,8 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()        
         overrideUserInterfaceStyle = .light
+        self.tableView.reloadData()
+        self.deletePastChannels()
 
          self.imageView.image = #imageLiteral(resourceName: "chat")
          self.imageView.contentMode = .scaleAspectFill
@@ -146,7 +148,7 @@ class TripsTableViewCell: UITableViewCell  {
  
                for Trips in trips {
                    
-                   if Trips.time < past! {
+                if Trips.time < past! || Trips.Passengers.count == 0 {
                       
                      let documentId = Trips.id
                     tripReference.document(documentId).delete() { error in
@@ -276,7 +278,7 @@ class TripsTableViewCell: UITableViewCell  {
           }
         }
                 
-          func updatePassengers(_ documentId: String, _ trip: Trips) {
+        fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
             tripReference.document(documentId).updateData([
                 "passengers": trip.Passengers
             ]) { err in
@@ -293,21 +295,22 @@ class TripsTableViewCell: UITableViewCell  {
             var trip =  self.trips[indexPath.row]
             let documentId = trip.id
             let past = Calendar.current.date(byAdding: .hour, value: -1, to: today)
-            let vc = ChatViewController(currentUser: currentUser!, trip: trip)
 
            if (trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName) {
                 
-            
              if !(trip.Passengers.contains(currentUser!.displayName))  {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
        
             alert.addAction(UIAlertAction(title: "None, I'm just looking.", style: .default, handler: { action in
+                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
             alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
                 trip.Passengers.append(currentUser!.displayName)
                 self.updatePassengers(documentId, trip)
+                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
+
                 self.navigationController?.pushViewController(vc, animated: true)
 
             }))
@@ -317,6 +320,8 @@ class TripsTableViewCell: UITableViewCell  {
                 trip.Passengers.append(currentUser!.displayName)
                 trip.Passengers.append(currentUser!.displayName + "+1")
                 self.updatePassengers(documentId, trip)
+                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
+
                 self.navigationController?.pushViewController(vc, animated: true)
 
             }))
@@ -328,6 +333,8 @@ class TripsTableViewCell: UITableViewCell  {
                 trip.Passengers.append(currentUser!.displayName + "+1")
                 trip.Passengers.append(currentUser!.displayName + "+2")
                 self.updatePassengers(documentId, trip)
+                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
+
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
             }
@@ -336,7 +343,9 @@ class TripsTableViewCell: UITableViewCell  {
                       
             }
             if trip.Passengers.contains(currentUser!.displayName) {
-            
+                self.updatePassengers(documentId, trip)
+                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
+
                 navigationController?.pushViewController(vc, animated: true)
 
             }

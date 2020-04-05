@@ -48,7 +48,7 @@ import InputBarAccessoryView
     override func viewDidLoad() {
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
-
+ 
         guard let id = trip?.id else {
                 navigationController?.popViewController(animated: true)
                 return
@@ -63,7 +63,7 @@ import InputBarAccessoryView
             print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
             return
           }
-
+            
             snapshot.documentChanges.forEach { change in
             self.handleDocumentChange(change)
           }

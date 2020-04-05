@@ -18,6 +18,18 @@ class ChatUsersTableViewController: UITableViewController {
      super.init(nibName: nil, bundle: nil)
     }
     
+    fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
+             tripReference.document(documentId).updateData([
+                 "passengers": trip.Passengers
+             ]) { err in
+                 if let err = err {
+                     print("Error updating document: \(err)")
+                 } else {
+                     print("Document successfully updated")
+                 }
+             }
+         }
+    
     override func viewDidLoad()
     {
        overrideUserInterfaceStyle = .light
@@ -26,7 +38,7 @@ class ChatUsersTableViewController: UITableViewController {
         
         self.title = "Passengers "
         
-        let exit  = UIBarButtonItem(title: "exit", style: .plain, target: self, action: #selector(exitRoom))
+        let exit  = UIBarButtonItem(title: "/leave #", style: .plain, target: self, action: #selector(exitRoom))
         
         navigationItem.rightBarButtonItems = [exit]
  
@@ -40,17 +52,20 @@ class ChatUsersTableViewController: UITableViewController {
         let indexOfUser = trip?.Passengers.firstIndex(of: currentUser!.displayName)
         if indexOfUser != nil {
                    trip?.Passengers.remove(at: indexOfUser!)
+            updatePassengers(trip!.id, trip!)
                }
         let indexOfUser1 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+1")
         if indexOfUser1 != nil {
             trip?.Passengers.remove(at: indexOfUser1!)
+            updatePassengers(trip!.id, trip!)
         }
         let indexOfUser2 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+2")
         if indexOfUser2 != nil {
             trip?.Passengers.remove(at: indexOfUser2!)
+            updatePassengers(trip!.id, trip!)
         }
         
-        TripsTableViewController().updatePassengers(trip!.id, trip!)
+//        TripsTableViewController().updatePassengers(trip!.id, trip!)
     }
     
     required init?(coder: NSCoder) {
