@@ -88,7 +88,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWt-c6-P5a" userLabel="add Person">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="22"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" title="Button" image="person.crop.circle.fill.badge.plus" catalog="system"/>
                                                         <connections>
                                                             <action selector="addPerson:" destination="9pv-A4-QxB" eventType="touchUpInside" id="ymt-vr-8yf"/>
@@ -96,7 +96,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB5-2e-lpO" userLabel="remove Person">
                                                         <rect key="frame" x="56" y="1" width="23" height="22"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" title="Button" image="person.crop.circle.badge.minus" catalog="system"/>
                                                         <connections>
                                                             <action selector="removePerson:" destination="9pv-A4-QxB" eventType="touchUpInside" id="dlE-15-ekQ"/>
@@ -107,7 +107,7 @@
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lq8-kD-6Vk">
                                                 <rect key="frame" x="55" y="39" width="9" height="20"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -130,13 +130,16 @@
                                             <constraint firstAttribute="bottom" secondItem="GMb-35-e5z" secondAttribute="bottom" constant="10" id="QZv-US-4Nl"/>
                                             <constraint firstItem="LEK-s7-Zfg" firstAttribute="centerX" secondItem="GMb-35-e5z" secondAttribute="centerX" id="Qa4-aq-Xa0"/>
                                             <constraint firstItem="Ymd-DE-WfG" firstAttribute="top" secondItem="P3V-LW-hj2" secondAttribute="top" constant="21" id="QaO-8K-BBf"/>
+                                            <constraint firstAttribute="height" constant="117" id="Rgo-23-aDK"/>
                                             <constraint firstItem="CWh-pt-jVa" firstAttribute="bottom" secondItem="d3S-Le-RHP" secondAttribute="bottom" id="UDS-gQ-v8g"/>
                                             <constraint firstAttribute="trailing" secondItem="d3S-Le-RHP" secondAttribute="trailing" constant="2" id="Y7e-ID-ndP"/>
                                             <constraint firstItem="8h6-1w-cyV" firstAttribute="top" secondItem="Ymd-DE-WfG" secondAttribute="bottom" constant="8" symbolic="YES" id="dQj-u9-ZTo"/>
                                             <constraint firstItem="Ymd-DE-WfG" firstAttribute="centerX" secondItem="LEK-s7-Zfg" secondAttribute="centerX" id="deO-oH-5hM"/>
                                             <constraint firstItem="8h6-1w-cyV" firstAttribute="leading" secondItem="P3V-LW-hj2" secondAttribute="leading" constant="20" id="g1r-ap-Td2"/>
                                             <constraint firstItem="CWh-pt-jVa" firstAttribute="top" secondItem="d3S-Le-RHP" secondAttribute="top" id="gUn-9w-Zcb"/>
+                                            <constraint firstAttribute="width" constant="119" id="nLl-9K-S3e"/>
                                             <constraint firstItem="GMb-35-e5z" firstAttribute="leading" secondItem="P3V-LW-hj2" secondAttribute="leading" constant="26" id="sYm-gl-Zcj"/>
+                                            <constraint firstAttribute="trailing" secondItem="LEK-s7-Zfg" secondAttribute="trailing" constant="48" id="wKG-8D-Qzc"/>
                                         </constraints>
                                     </view>
                                     <datePicker autoresizesSubviews="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="Hfg-qG-1ut">
@@ -149,18 +152,19 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="hyf-FB-QEk" firstAttribute="top" secondItem="v9Y-fN-6iE" secondAttribute="topMargin" id="7QE-R5-1KN"/>
-                                    <constraint firstItem="Hld-pO-NL9" firstAttribute="trailing" secondItem="P3V-LW-hj2" secondAttribute="trailing" id="B0C-Wk-HtG"/>
                                     <constraint firstItem="Hfg-qG-1ut" firstAttribute="bottom" secondItem="P3V-LW-hj2" secondAttribute="bottom" id="B0Y-cJ-IJa"/>
                                     <constraint firstItem="hyf-FB-QEk" firstAttribute="trailing" secondItem="Hld-pO-NL9" secondAttribute="trailing" id="E1J-G7-9dv"/>
                                     <constraint firstItem="hyf-FB-QEk" firstAttribute="trailing" secondItem="v9Y-fN-6iE" secondAttribute="trailingMargin" id="GP8-yq-o5x"/>
                                     <constraint firstItem="P3V-LW-hj2" firstAttribute="top" secondItem="Hld-pO-NL9" secondAttribute="bottom" constant="16" id="IG8-l8-Xq3"/>
+                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="P3V-LW-hj2" secondAttribute="trailing" constant="24" id="Pbw-WN-x6u"/>
                                     <constraint firstAttribute="bottom" secondItem="Hld-pO-NL9" secondAttribute="bottom" constant="141" id="SXe-0N-aG4"/>
                                     <constraint firstItem="hyf-FB-QEk" firstAttribute="leading" secondItem="v9Y-fN-6iE" secondAttribute="leadingMargin" id="cjg-s5-KSQ"/>
                                     <constraint firstItem="hyf-FB-QEk" firstAttribute="leading" secondItem="Hld-pO-NL9" secondAttribute="leading" id="kGB-4d-a91"/>
+                                    <constraint firstItem="P3V-LW-hj2" firstAttribute="leading" secondItem="Hfg-qG-1ut" secondAttribute="trailing" priority="999" constant="8" id="kjf-pN-rYS"/>
                                     <constraint firstItem="Hfg-qG-1ut" firstAttribute="top" secondItem="Hld-pO-NL9" secondAttribute="bottom" constant="16" id="rUz-El-Iaz"/>
                                     <constraint firstItem="Hfg-qG-1ut" firstAttribute="bottom" secondItem="v9Y-fN-6iE" secondAttribute="bottomMargin" id="rcl-11-R29"/>
                                     <constraint firstItem="Hld-pO-NL9" firstAttribute="leading" secondItem="Hfg-qG-1ut" secondAttribute="leading" id="req-a8-03t"/>
-                                    <constraint firstItem="P3V-LW-hj2" firstAttribute="leading" secondItem="Hfg-qG-1ut" secondAttribute="trailing" constant="8" symbolic="YES" id="s2l-eF-p6U"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="P3V-LW-hj2" secondAttribute="trailing" priority="250" constant="8" id="tfK-tt-Re7"/>
                                     <constraint firstItem="Hld-pO-NL9" firstAttribute="top" secondItem="hyf-FB-QEk" secondAttribute="bottom" constant="16" id="wVf-aX-mVR"/>
                                 </constraints>
                             </view>

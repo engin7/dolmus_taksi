@@ -149,12 +149,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-        
         setNavigationSearchBar()
         arrangeSearchBars()
- 
+
      }
-        
+    
     func setNavigationSearchBar() {
         
          let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
@@ -178,9 +177,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
               
         
     }
-    
-    
-    
+     
      func arrangeSearchBars(){
         
         // Search Table display recommendations
@@ -194,17 +191,19 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         fromSearchController = UISearchController(searchResultsController: PopupLocationSearchTable)
         PopupLocationSearchTable.additionalSafeAreaInsets = UIEdgeInsets(top: 50 , left: 0, bottom: 0, right: 0)
         
-        definesPresentationContext = true
-
         fromSearchController.searchResultsUpdater = PopupLocationSearchTable
          let fromSearchBar = fromSearchController.searchBar
-
+        fromSearchBar.sizeToFit()
+        
         fromSearchBar.setImage(UIImage(), for: .clear, state: .normal)
         fromSearchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         fromSearchBar.placeholder = "Origin"
  
         myFrom.addSubview(fromSearchController.searchBar)
- 
+        
+        fromSearchController.searchBar.delegate = self
+
+        
         toSearchController = UISearchController(searchResultsController: locationSearchTable)
  
         toSearchController.searchResultsUpdater = locationSearchTable
@@ -217,15 +216,18 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         toSearchBar.placeholder = "Destination"
         
         myTo.addSubview(toSearchController.searchBar)
-        
+        toSearchController.searchBar.delegate = self
+
         var searchBarFrame = fromSearchController.searchBar.frame
          searchBarFrame.size.width = myFrom.frame.size.width - 15
          fromSearchController.searchBar.frame = searchBarFrame
          toSearchController.searchBar.frame = searchBarFrame
         
-         self.fromSearchController.hidesNavigationBarDuringPresentation = true
-         self.toSearchController.hidesNavigationBarDuringPresentation = true
+         self.fromSearchController.hidesNavigationBarDuringPresentation = false
+         self.toSearchController.hidesNavigationBarDuringPresentation = false
         
+        definesPresentationContext = true
+
       }
     
     @objc public func getDirections(){
@@ -345,7 +347,7 @@ extension MapViewController : CLLocationManagerDelegate {
                 fromLocation_searchBar =  placemark.subLocality ?? placemark.name
                 self.fromCity  = " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
                 self.fromSearchController.searchBar.text = fromLocation_searchBar
- 
+                 
               // clear existing pins
                mapView.removeAnnotations(mapView.annotations)
                self.removeOverlay()
