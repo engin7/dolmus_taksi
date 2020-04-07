@@ -80,20 +80,21 @@ class TripsTableViewCell: UITableViewCell  {
          locationManager?.requestWhenInUseAuthorization()
          locationManager?.requestLocation()
          
+        
         // listed document and get document with snapshot
         tripListener = tripReference.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
             print("Error listening updates: \(error?.localizedDescription ?? "No error")")
             return
             }
-            
             // *type added gets initial values at the begining
             snapshot.documentChanges.forEach { change in
                 guard let trip = Trips(document: change.document) else {
                      return
                    }
- 
- 
+                
+                if (Auth.auth().currentUser?.uid) != nil {
+
                 switch change.type {
                 
                     
@@ -141,6 +142,7 @@ class TripsTableViewCell: UITableViewCell  {
                   self.tableView.reloadData()
             }
           }
+        }
         
         override func viewDidLayoutSubviews() {
               // for different screen size

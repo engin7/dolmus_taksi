@@ -22,7 +22,7 @@ class ProfileTableViewController:  UITableViewController {
            super.viewDidLoad()
         overrideUserInterfaceStyle = .light
  
-     nickName.text = currentUser?.displayName
+        nickName.text = "nickName: " + currentUser!.displayName
     }
  
     

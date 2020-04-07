@@ -3,7 +3,6 @@
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -410,7 +409,9 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gpT-9Q-wCg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="sectionIndexBackgroundColor" name="mainText"/>
+                        <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="K4d-Wp-iH7">
                                 <cells>
@@ -421,34 +422,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nickName: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ed0-Aq-H0R">
-                                                    <rect key="frame" x="16" y="30" width="127" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nickName " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VfJ-aw-zU5">
-                                                    <rect key="frame" x="177" y="30" width="127" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nickName " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VfJ-aw-zU5">
+                                                    <rect key="frame" x="119.5" y="30" width="81" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="VfJ-aw-zU5" firstAttribute="centerX" secondItem="Shq-4e-ZTY" secondAttribute="centerX" id="eKf-Zi-rG1"/>
+                                                <constraint firstItem="VfJ-aw-zU5" firstAttribute="centerY" secondItem="Shq-4e-ZTY" secondAttribute="centerY" id="mWj-5S-pqf"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="devNoteCell" rowHeight="385" id="Urk-3e-Nrp">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="devNoteCell" rowHeight="385" id="Urk-3e-Nrp">
                                         <rect key="frame" x="0.0" y="108" width="320" height="385"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Urk-3e-Nrp" id="3VX-4D-OiT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="385"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZW-cd-mu6">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZW-cd-mu6">
                                                     <rect key="frame" x="16" y="64" width="288" height="310"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="310" id="DA6-oN-nzU"/>
+                                                    </constraints>
                                                     <string key="text">Message from the devoloper:
 
 Your nickname is autogenerated. All users are  anonymous. Chat rooms and all messages are deleted after the trip. Please do not provide any personal information in chat rooms until meeting time. Choose  public places to meet. Some users can offer ride with their own vehicle. You can always reject joining the trip if you don't feel comfortable. 
@@ -458,11 +457,23 @@ Stay safe!
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="envelope.open.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="n9q-rw-Fxz">
-                                                    <rect key="frame" x="115" y="11" width="90" height="45"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="envelope.open.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="n9q-rw-Fxz">
+                                                    <rect key="frame" x="115" y="26" width="90" height="39"/>
+                                                    <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="38" id="L2P-kw-uPi"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="n9q-rw-Fxz" firstAttribute="centerX" secondItem="xZW-cd-mu6" secondAttribute="centerX" id="QZR-Za-01A"/>
+                                                <constraint firstItem="n9q-rw-Fxz" firstAttribute="leading" secondItem="3VX-4D-OiT" secondAttribute="leadingMargin" constant="99" id="d0T-n9-uXD"/>
+                                                <constraint firstItem="xZW-cd-mu6" firstAttribute="trailing" secondItem="3VX-4D-OiT" secondAttribute="trailingMargin" id="icW-T7-pm1"/>
+                                                <constraint firstItem="n9q-rw-Fxz" firstAttribute="top" secondItem="3VX-4D-OiT" secondAttribute="topMargin" constant="16.5" id="nLd-Kv-lHb"/>
+                                                <constraint firstItem="xZW-cd-mu6" firstAttribute="leading" secondItem="3VX-4D-OiT" secondAttribute="leadingMargin" id="vqa-YH-kMF"/>
+                                                <constraint firstItem="xZW-cd-mu6" firstAttribute="bottom" secondItem="3VX-4D-OiT" secondAttribute="bottomMargin" id="xwE-4q-xYT"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
@@ -714,8 +725,5 @@ Stay safe!
         <image name="person.crop.circle.fill.badge.plus" catalog="system" width="64" height="50"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
-        <namedColor name="mainText">
-            <color red="0.039999999105930328" green="0.039999999105930328" blue="0.041000001132488251" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
     </resources>
 </document>
