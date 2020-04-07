@@ -136,6 +136,7 @@ class TripsTableViewCell: UITableViewCell  {
                   self.trips.insert(contentsOf: self.joinedTrips, at: 0)
                   self.trips.append(contentsOf: self.pastTrips)
                   self.joinedTrips = []
+                  self.pastTrips = []
                   self.deletePastChannels()
                   self.tableView.reloadData()
             }

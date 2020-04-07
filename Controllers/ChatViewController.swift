@@ -27,9 +27,9 @@ import InputBarAccessoryView
         messageListener?.remove()
       }
     
-     private var terminal: User {
-        .init(uid: title!, nick: "terminal")
-     }
+//     private var terminal: User {
+//        .init(uid: title!, nick: "terminal")
+//     }
     
      public var chatRoomUsers: [String]
     

@@ -10,28 +10,21 @@ import UIKit
 import Firebase
 import Foundation
 
- 
+
 class ProfileTableViewController:  UITableViewController {
 
-//    profileCell
-//        
-//    cell.email = currentUser?.email
-//    cell.nickName = "will be updated"
-//    
 
+    
     @IBOutlet weak var nickName: UILabel!
     
-    @IBOutlet weak var email: UILabel!
-    
+ 
     override func viewDidLoad() {
            super.viewDidLoad()
         overrideUserInterfaceStyle = .light
-
+ 
      nickName.text = currentUser?.displayName
-        email.text = currentUser?.uid
     }
-
-    
+ 
     
     @IBAction func SignOutButton(_ sender: Any) {
         

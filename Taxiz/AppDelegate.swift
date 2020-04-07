@@ -24,8 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
     
            Auth.auth().signInAnonymously() { (user, error) in
                   if let user = user {
-                   let uid = user.user.uid
-                    currentUser = User(uid: uid, nick: randomAlphaNumericString(length: 9))
+                currentUser = User(authData: user.user)
 
                       }
             }
