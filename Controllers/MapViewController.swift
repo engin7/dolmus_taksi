@@ -51,6 +51,19 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     @IBAction func switchTrip(_ sender: Any) {
         swap(&toSearchController.searchBar.text, &fromSearchController.searchBar.text)
         swap(&toCity, &fromCity)
+        swap(&toLocation, &fromLocation)
+        mapView.removeAnnotations(mapView.annotations)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        let annotationFrom = ColorPointAnnotation(pinColor: UIColor.green)
+            annotationFrom.coordinate = self.fromLocation!.coordinate
+        let annotationTo = ColorPointAnnotation(pinColor: UIColor.red)
+        annotationTo.coordinate = self.toLocation!.coordinate
+        
+        self.mapView.addAnnotation(annotationFrom)
+        self.mapView.addAnnotation(annotationTo)
+
+        }
     }
     
     @IBAction func createTripButton(_ sender: Any) {
@@ -134,6 +147,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     private var locationManager: CLLocationManager?
 //    private var currentlocation: CLLocation?
     private var fromLocation: CLLocation?
+    private var toLocation: CLLocation?
     private var selectedPin:MKPlacemark? = nil
     private var currentCity: String?
     private let geoCoder = CLGeocoder()
@@ -259,7 +273,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
              self.myTripView.alpha = 1
             }
             
-            toSearchController.searchBar.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
+             toSearchController.searchBar.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
             self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
         
         }
@@ -325,12 +339,13 @@ extension MapViewController : CLLocationManagerDelegate {
         }
         toAnnotation = annotation
         mapView.addAnnotation(annotation)
+        toLocation = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
         let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
             let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude + 0.02, longitude: annotation.coordinate.longitude - 0.02)  , span: span)
          mapView.setRegion(region, animated: true)
          myTripView.isHidden = true
          fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity
-         
+ 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
 
                 var searchBarFrame = self.fromSearchController.searchBar.frame
