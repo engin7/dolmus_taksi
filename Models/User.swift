@@ -6,22 +6,29 @@ import UserNotifications
 
 var currentUser: User?
 var initialName: String?
- 
+
 struct User {
   
   let uid: String 
   let displayName: String
-  
+ 
   init(authData: Firebase.User) {
     
+ 
     uid = authData.uid
     displayName = String(uid.prefix(8)).lowercased()
+   
+    }
     
-  }
-  
+    init() {
+        
+        self.uid = "terminal"
+        self.displayName = "terminal"
+     }
+    
 }
- 
 
+  
 // TODO: Autogen weekly random nicks
 // func randomAlphaNumericString(length: Int) -> String {
 //     let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDE-0123456789"

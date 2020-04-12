@@ -24,10 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
     
            Auth.auth().signInAnonymously() { (user, error) in
                   if let user = user {
-                currentUser = User(authData: user.user)
+                    currentUser = User(authData: user.user)
 
-                      }
+                }
             }
+        
         return true
 
     }

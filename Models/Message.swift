@@ -2,7 +2,6 @@
 import Firebase
 import MessageKit
  
- 
  struct Message: MessageType {
     
   var sender: SenderType
@@ -16,7 +15,6 @@ import MessageKit
     return id ?? UUID().uuidString
   }
   
- 
     init(user: User, content: String) {
     sender = Sender (senderId: user.uid, displayName: user.displayName)
     self.content = content
@@ -24,7 +22,6 @@ import MessageKit
     id = nil
   }
   
-    
   init?(document: QueryDocumentSnapshot) {
     let data = document.data()
     

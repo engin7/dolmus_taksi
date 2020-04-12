@@ -12,10 +12,10 @@ import UIKit
 class ChatUsersTableViewController: UITableViewController {
 
      private var trip: Trips?
-    
-     init(trip: Trips) {
+ 
+    init(trip: Trips ) {
      self.trip = trip
-     super.init(nibName: nil, bundle: nil)
+      super.init(nibName: nil, bundle: nil)
     }
     
     fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
@@ -28,6 +28,7 @@ class ChatUsersTableViewController: UITableViewController {
                      print("Document successfully updated")
                  }
              }
+                 self.tableView.reloadData()
          }
     
     override func viewDidLoad()
@@ -38,36 +39,14 @@ class ChatUsersTableViewController: UITableViewController {
         
         self.title = "Passengers "
         
-        let exit  = UIBarButtonItem(title: "/leave #", style: .plain, target: self, action: #selector(exitRoom))
+        if (trip?.Passengers.contains(currentUser!.displayName))! {
+        let exit  = UIBarButtonItem(title: "leave trip", style: .plain, target: self, action: #selector(exitRoom))
         
         navigationItem.rightBarButtonItems = [exit]
- 
+        }
     }
       
-    @objc func exitRoom(sender: UIButton!) {
-        // go back 2 screens
-        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
-        
-        let indexOfUser = trip?.Passengers.firstIndex(of: currentUser!.displayName)
-        if indexOfUser != nil {
-                   trip?.Passengers.remove(at: indexOfUser!)
-            updatePassengers(trip!.id, trip!)
-               }
-        let indexOfUser1 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+1")
-        if indexOfUser1 != nil {
-            trip?.Passengers.remove(at: indexOfUser1!)
-            updatePassengers(trip!.id, trip!)
-        }
-        let indexOfUser2 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+2")
-        if indexOfUser2 != nil {
-            trip?.Passengers.remove(at: indexOfUser2!)
-            updatePassengers(trip!.id, trip!)
-        }
-        
-//        TripsTableViewController().updatePassengers(trip!.id, trip!)
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -93,4 +72,39 @@ class ChatUsersTableViewController: UITableViewController {
      
         }
 
+   @objc func exitRoom(sender: UIButton!) {
+       // go back
+    
+        
+    
+       let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+       self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2],   animated: true)
+    
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+      
+        viewControllers[viewControllers.count - 2].dismiss(animated: true, completion: nil)
+
     }
+    
+       let indexOfUser = trip?.Passengers.firstIndex(of: currentUser!.displayName)
+       if indexOfUser != nil {
+                  trip?.Passengers.remove(at: indexOfUser!)
+           updatePassengers(trip!.id, trip!)
+ 
+              }
+       let indexOfUser1 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+1")
+       if indexOfUser1 != nil {
+           trip?.Passengers.remove(at: indexOfUser1!)
+           updatePassengers(trip!.id, trip!)
+ 
+       }
+       let indexOfUser2 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+2")
+       if indexOfUser2 != nil {
+           trip?.Passengers.remove(at: indexOfUser2!)
+           updatePassengers(trip!.id, trip!)
+ 
+       }
+
+     }
+
+}

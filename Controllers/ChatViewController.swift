@@ -15,29 +15,27 @@ import InputBarAccessoryView
 // TODO: kick leave etc commands. 
 
   class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate {
-    
+     
      private var messages: [Message] = []
      private var messageListener: ListenerRegistration?
+     private var userListener: ListenerRegistration?
      private let currentUser: User
+     private let terminal: User
      private var reference: CollectionReference?
+     private var referenceUsers: CollectionReference?
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
-    
+     private var chatRoomUsers: [String] = []
+     var documentId: DocumentReference?
+ 
      deinit {
-        messageListener?.remove()
+         messageListener?.remove()
       }
     
-//     private var terminal: User {
-//        .init(uid: title!, nick: "terminal")
-//     }
-    
-     public var chatRoomUsers: [String]
-    
- 
     init(currentUser: User, trip: Trips) {
       self.currentUser = currentUser
+      self.terminal = User()
       self.trip = trip
-      self.chatRoomUsers = trip.Passengers
       super.init(nibName: nil, bundle: nil)
         title =  "#" + String(trip.from.first!) + String(trip.to.first!) + getReadableDate(time: trip.time)!
     }
@@ -45,12 +43,11 @@ import InputBarAccessoryView
     required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
-  
     
     override func viewDidLoad() {
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
- 
+
         guard let id = trip?.id else {
                 navigationController?.popViewController(animated: true)
                 return
@@ -58,21 +55,38 @@ import InputBarAccessoryView
         
         //   new collection inside Trips
         reference = db.collection(["Trips", id, "thread"].joined(separator: "/"))
+        
+        referenceUsers = db.collection(["Trips", id, "users"].joined(separator: "/"))
  
+       
     // Firestore calls this snapshot listener whenever there is a change to the database.
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
+          
           guard let snapshot = querySnapshot else {
             print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
             return
           }
-            
+ 
             snapshot.documentChanges.forEach { change in
             self.handleDocumentChange(change)
           }
 
         }
 
-         let chatUsers = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showUsers))
+         userListener = referenceUsers?.addSnapshotListener { querySnapshot, error in
+  
+                 guard let snapshot = querySnapshot else {
+                   print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+                   return
+                 }
+             
+            snapshot.documentChanges.forEach { change in
+              self.handleUserChange(change)
+                
+            }
+      }
+  
+       let chatUsers = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showUsers))
 
          navigationItem.rightBarButtonItems = [chatUsers]
          
@@ -96,20 +110,75 @@ import InputBarAccessoryView
         messagesCollectionView.messagesDisplayDelegate = self
         
         self.messagesCollectionView.scrollToBottom(animated: true)
-
-      }
-  
-    
-    @objc func showUsers(sender: UIButton!) {
-         
-           let vcl = ChatUsersTableViewController(trip: trip!)
-          navigationController?.pushViewController(vcl, animated: true)
-
+        
+            terminalAdd()
        }
+       
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+            let id = self.documentId?.documentID
+
+        if self.isMovingFromParent {
+            terminalRemove(id!)        }
+    }
     
+    func terminalAdd() {
+        
+        let user = chatUser(nickName: currentUser.displayName, passenger: true)
+           if !chatRoomUsers.contains(currentUser.displayName){
+           addUser(user)
+              
+            let messageT = Message(user: terminal, content: " \(currentUser.displayName)  has joined   #"  + String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!)
+            
+                save(messageT)
+ 
+           }
+         
+    }
+    
+    func terminalRemove(_ id: String) {
+        
+        let user = chatUser(nickName: currentUser.displayName, passenger: true)
+         
+         removeUser(user)
+              
+            let messageT = Message(user: terminal, content: " \(currentUser.displayName)  has left   #"  + String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!)
+                save(messageT)
+   
+    }
+    
+   
+    @objc func showUsers(sender: UIButton!) {
+           
+        let vcl = ChatUsersTableViewController(trip: trip!)
+ 
+            navigationController?.pushViewController(vcl, animated: true)
+           
+       }
     
     // MARK: - Helpers
 
+    private func addUser(_ user: chatUser) {
+        self.documentId = referenceUsers?.addDocument(data: user.representation) { error in
+        if let e = error {
+          print("Error sending message: \(e.localizedDescription)")
+          return
+            }
+           }
+      }
+    
+    
+    private func removeUser(_ user: chatUser) {
+        let id = (documentId?.documentID)!
+        referenceUsers?.document(id).delete()   { error in
+        if let e = error {
+          print("Error sending message: \(e.localizedDescription)")
+          return
+            }
+          }
+    }
+    
+    
  
    private func save(_ message: Message) {
        reference?.addDocument(data: message.representation) { error in
@@ -155,6 +224,23 @@ import InputBarAccessoryView
       }
     }
 
+    private func handleUserChange(_ change: DocumentChange) {
+      
+        switch change.type {
+        case .added:
+        
+        chatRoomUsers.append(currentUser.displayName)
+  
+          
+        case .removed:
+        
+        let index = chatRoomUsers.firstIndex(of: currentUser.displayName)!
+        chatRoomUsers.remove(at: index)
+ 
+        default:
+        break
+        }
+      }
 
 
 // MARK: - MessagesDataSource
@@ -204,19 +290,22 @@ extension ChatViewController: MessagesDisplayDelegate {
      private func customIsFromCurrentSender(message: MessageType) -> Bool {
          return message.sender.senderId == currentSender().senderId
      }
-    
+   
   func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath,
     in messagesCollectionView: MessagesCollectionView) -> Bool {
     // remove header
     return false
-  }
+   }
    
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         
+        if message.sender.senderId ==  terminal.displayName {
+            return .blue
+        }
+        
         return customIsFromCurrentSender(message: message) ? .gray : .black
     }
-    
-   
+     
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath,
       in messagesCollectionView: MessagesCollectionView) -> UIColor {
@@ -229,8 +318,7 @@ extension ChatViewController: MessagesDisplayDelegate {
  
       return .none
     }
-    
-    
+        
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
       avatarView.isHidden = true
     }
@@ -245,7 +333,8 @@ extension ChatViewController: MessageInputBarDelegate {
     let message = Message(user: currentUser, content: "<"+(currentUser.displayName)+"> " + text)
     save(message)
     inputBar.inputTextView.text = ""
+    
+    
   }
   
 }
-  

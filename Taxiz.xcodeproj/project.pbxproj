@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10226AA024423EEE00BD49D8 /* chatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10226A9F24423EEE00BD49D8 /* chatUser.swift */; };
 		10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A1F23F3F8EB005402F5 /* AppDelegate.swift */; };
 		10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A2123F3F8EB005402F5 /* SceneDelegate.swift */; };
 		10558A2423F3F8EB005402F5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A2323F3F8EB005402F5 /* MapViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10226A9F24423EEE00BD49D8 /* chatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatUser.swift; sourceTree = "<group>"; };
 		10558A1C23F3F8EB005402F5 /* Taxiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taxiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10558A1F23F3F8EB005402F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10558A2123F3F8EB005402F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			children = (
 				10558A6323F87233005402F5 /* Trips.swift */,
 				10558A6523F873EF005402F5 /* User.swift */,
+				10226A9F24423EEE00BD49D8 /* chatUser.swift */,
 				10558A9623FE8199005402F5 /* Message.swift */,
 			);
 			path = Models;
@@ -286,6 +289,7 @@
 				10B5CBD8240444AF00FDC8E7 /* ProfileTableViewController.swift in Sources */,
 				10D43B29242A795B00A3719B /* PopupLocationSearchTable.swift in Sources */,
 				10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */,
+				10226AA024423EEE00BD49D8 /* chatUser.swift in Sources */,
 				10558A9723FE8199005402F5 /* Message.swift in Sources */,
 				10558A6123F86A6C005402F5 /* ClusterView.swift in Sources */,
 				10558A6823F886B9005402F5 /* TripsTableViewController.swift in Sources */,
