@@ -34,7 +34,7 @@ class ChatUsersTableViewController: UITableViewController {
     override func viewDidLoad()
     {
        overrideUserInterfaceStyle = .light
-
+    
        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
         
         self.title = "Passengers "
@@ -46,7 +46,6 @@ class ChatUsersTableViewController: UITableViewController {
         }
     }
       
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -75,20 +74,18 @@ class ChatUsersTableViewController: UITableViewController {
    @objc func exitRoom(sender: UIButton!) {
        // go back
     
-        
-    
        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-       self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2],   animated: true)
     
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
       
-        viewControllers[viewControllers.count - 2].dismiss(animated: true, completion: nil)
-
+   self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2],   animated: true)
+        
+        viewControllers[viewControllers.count - 2].navigationItem.rightBarButtonItem!.isEnabled = false
     }
     
        let indexOfUser = trip?.Passengers.firstIndex(of: currentUser!.displayName)
        if indexOfUser != nil {
-                  trip?.Passengers.remove(at: indexOfUser!)
+           trip?.Passengers.remove(at: indexOfUser!)
            updatePassengers(trip!.id, trip!)
  
               }

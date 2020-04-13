@@ -42,30 +42,30 @@ struct Trips {
        
         // firestore initialization:
     
-    init?(document: QueryDocumentSnapshot) {
+    init?(document: DocumentSnapshot) {
    
         let data = document.data()
  
-         guard let date = data["time"] as? Timestamp else {
+        guard let date = data!["time"] as? Timestamp else {
            return nil
          }
          let time = date.dateValue()
-         guard let to = data["to"] as? String else {
+        guard let to = data!["to"] as? String else {
            return nil
          }
-         guard let from = data["from"] as? String else {
+        guard let from = data!["from"] as? String else {
            return nil
          }
-         guard let fromCity = data["fromCity"] as? String else {
+        guard let fromCity = data!["fromCity"] as? String else {
            return nil
          }
-        guard let fromLocation = data["fromLocation"] as? [Double] else {
+        guard let fromLocation = data!["fromLocation"] as? [Double] else {
           return nil
         }
-         guard let toCity = data["toCity"] as? String else {
+        guard let toCity = data!["toCity"] as? String else {
           return nil
         }
-         guard let Passengers = data["passengers"] as? [String] else {
+        guard let Passengers = data!["passengers"] as? [String] else {
                   return nil
          }
         

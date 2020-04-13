@@ -102,8 +102,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
          }
         navigationController?.setNavigationBarHidden(false, animated: true)
         mapView.removeAnnotations(mapView.annotations)
-        arrangeSearchBars()
-
+  
        }
     }
     @IBAction func addPerson(_ sender: Any) {

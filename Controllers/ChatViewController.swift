@@ -22,12 +22,14 @@ import InputBarAccessoryView
      private let currentUser: User
      private let terminal: User
      private var reference: CollectionReference?
+    private var docRef: DocumentReference?
      private var referenceUsers: CollectionReference?
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
      private var chatRoomUsers: [String] = []
      var documentId: DocumentReference?
- 
+     private var tripListener: ListenerRegistration?
+
      deinit {
          messageListener?.remove()
       }
@@ -58,7 +60,8 @@ import InputBarAccessoryView
         
         referenceUsers = db.collection(["Trips", id, "users"].joined(separator: "/"))
  
-       
+        docRef = db.collection("Trips").document(id)
+        
     // Firestore calls this snapshot listener whenever there is a change to the database.
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
           
@@ -114,6 +117,7 @@ import InputBarAccessoryView
             terminalAdd()
        }
        
+   
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
             let id = self.documentId?.documentID
@@ -150,10 +154,23 @@ import InputBarAccessoryView
    
     @objc func showUsers(sender: UIButton!) {
            
-        let vcl = ChatUsersTableViewController(trip: trip!)
- 
-            navigationController?.pushViewController(vcl, animated: true)
+      
+        docRef!.getDocument { (document, error) in
+            if let trip0 = Trips(document: document!) {
+                self.trip = trip0
+            }  else {
+                print("Document does not exist")
            
+            }
+            
+
+            let vcl = ChatUsersTableViewController(trip: self.trip!)
+            
+            self.navigationController?.pushViewController(vcl, animated: true)
+               
+            
+        }
+          
        }
     
     // MARK: - Helpers
