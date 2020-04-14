@@ -70,9 +70,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         if (toSearchController.searchBar.text != "") && (fromSearchController.searchBar.text != "")
         {
-        if picker.date < Date() {
+        if picker.date <= Date() {
             
-            pickerTime = Calendar.current.date(byAdding: .hour, value: 24, to: picker.date)!
+            pickerTime = picker.date.addingTimeInterval(86400)
             trip =  Trips(time: pickerTime!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
          } else {
             trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")

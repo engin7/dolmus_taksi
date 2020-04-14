@@ -38,7 +38,7 @@ class ChatUsersTableViewController: UITableViewController {
        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
         
         self.title = "Passengers "
-        
+
         if (trip?.Passengers.contains(currentUser!.displayName))! {
         let exit  = UIBarButtonItem(title: "leave trip", style: .plain, target: self, action: #selector(exitRoom))
         
@@ -63,7 +63,8 @@ class ChatUsersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
         let users = trip?.Passengers[indexPath.row]
         cell.textLabel?.text = users
-        
+        cell.selectionStyle = .none
+
         return cell
        }
     

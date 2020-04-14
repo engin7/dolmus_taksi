@@ -196,9 +196,10 @@ class TripsTableViewCell: UITableViewCell  {
             cell.fromCityTextLabel.textColor = UIColor.black
             cell.toCityTextLabel.textColor = UIColor.black
 
-            let past = Calendar.current.date(byAdding: .hour, value: -1, to: today)
+            let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
 
            
+            
             switch trip.Passengers.count {
                 
             case 1:
@@ -206,46 +207,37 @@ class TripsTableViewCell: UITableViewCell  {
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage3.isHidden = true
                 cell.contentView.alpha = 0.8
-                if trip.time < past! {
-               cell.contentView.alpha = 0.2
-                cell.selectionStyle = .none
-              }
+                
 
             case 2:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = true
                 cell.PersonImage1.isHidden = false
                 cell.contentView.alpha = 0.8
-                if trip.time < past! {
-               cell.contentView.alpha = 0.2
-                cell.selectionStyle = .none
-              }
-
+               
             case 3:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = false
                 cell.PersonImage1.isHidden = false
                 cell.contentView.alpha = 0.8
-                if trip.time < past! {
-               cell.contentView.alpha = 0.2
-                cell.selectionStyle = .none
-              }
+                
 
             case 4:
                 cell.contentView.alpha = 0.4
                 cell.PersonImage3.isHidden = false
                 cell.PersonImage2.isHidden = false
                 cell.PersonImage1.isHidden = false
-                cell.selectionStyle = .none
-
-                if trip.time < past! {
-               cell.contentView.alpha = 0.2
-              }
+ 
                 
             default:
                break
             }
           
+            if trip.time < past! {
+            cell.contentView.alpha = 0.2
+            cell.selectionStyle = .none
+           }
+            
             if trip.Passengers.contains(currentUser!.displayName) {
              cell.alpha = 0
              cell.backgroundColor = UIColor.lightGray
@@ -270,21 +262,21 @@ class TripsTableViewCell: UITableViewCell  {
            return true
              }
      
-        override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            
-            if editingStyle == .delete   {
-                let trip =  self.trips[indexPath.row]
-                let documentId = trip.id
-                            
-                tripReference.document(documentId).delete() { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    print("File deleted successfully")
-                }
-            }
-          }
-        }
+//        override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//            if editingStyle == .delete   {
+//                let trip =  self.trips[indexPath.row]
+//                let documentId = trip.id
+//
+//                tripReference.document(documentId).delete() { error in
+//                if let error = error {
+//                    print(error.localizedDescription)
+//                } else {
+//                    print("File deleted successfully")
+//                }
+//            }
+//          }
+//        }
                 
         fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
             tripReference.document(documentId).updateData([
@@ -302,7 +294,7 @@ class TripsTableViewCell: UITableViewCell  {
            
             var trip =  self.trips[indexPath.row]
             let documentId = trip.id
-            let past = Calendar.current.date(byAdding: .hour, value: -1, to: today)
+            let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
 
            if (trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName) {
                 
