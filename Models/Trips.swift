@@ -28,6 +28,7 @@ struct Trips {
     var to: String
     var toCity: String
     var Passengers: [String]
+    var welcomed : Bool
  
     init(time:Date, to:String, toCity:String, from:String, fromLocation:[Double], fromCity:String, passengers:String, id:String) {
       self.id = id
@@ -38,6 +39,7 @@ struct Trips {
       self.fromLocation = fromLocation
       self.fromCity = fromCity
       self.Passengers = [passengers]
+      self.welcomed = false
      }
        
         // firestore initialization:
@@ -68,6 +70,9 @@ struct Trips {
         guard let Passengers = data!["passengers"] as? [String] else {
                   return nil
          }
+        guard let welcomed = data!["welcomed"] as? Bool else {
+                         return nil
+                }
         
          id = document.documentID
            self.time     = time
@@ -77,6 +82,7 @@ struct Trips {
            self.fromLocation = fromLocation
            self.toCity  = toCity
            self.Passengers = Passengers
+           self.welcomed = welcomed
        }
 }
     
@@ -92,7 +98,8 @@ extension Trips: DatabaseRepresentation {
     "toCity" : toCity,
     "time": time,
     "passengers": Passengers,
-    "id" : id
+    "id" : id,
+    "welcomed": welcomed
     ]
    }
  }

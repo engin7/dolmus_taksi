@@ -114,17 +114,63 @@ import InputBarAccessoryView
         
         self.messagesCollectionView.scrollToBottom(animated: true)
         
+        if !self.trip!.welcomed  {
+                 self.terminalWelcome()
+                 self.trip!.welcomed = true
+                 documentId = docRef
+                 self.updateWelcome(self.documentId!.documentID, self.trip!)
+
+                }
+
             terminalAdd()
        }
        
-   
+    fileprivate func updateWelcome(_ documentId: String, _ trip: Trips) {
+            tripReference.document(documentId).updateData([
+                "welcomed": trip.welcomed
+            ]) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        }
+        
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
             let id = self.documentId?.documentID
 
         if self.isMovingFromParent {
             terminalRemove(id!)        }
+         
     }
+    
+    
+     func terminalWelcome() {
+                        
+           // TODO:  ASCIIart will be added in next version
+            
+    //                / _---------_ \
+    //               / /           \ \
+    //               | |           | |
+    //               |_|___________|_|
+    //           /-\|                 |/-\
+    //          | _ |\       0       /| _ |
+    //          |(_)| \      !      / |(_)|
+    //          |___|__\_____!_____/__|___|
+    //          [_______|#AS13:45|________]
+    //           ||||    ~~~~~~~~     ||||
+    //           `--'                 `--'
+    // channel name in plate ^  will use smaller car design
+                
+                let messageW = Message(user: terminal, content:   " Welcome to #"  + String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)! + "\nThis channel is created to gather people travelling in similar directions. \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. It's possible that another user can offer ride with his/her vehicle.  \n All users are anonymous and have auto-generated nick name. Trip channel will be deleted after the trip. \nPlease be respectful and polite.   You can report a user by command: \n/report nickName \nIf you violate our Terms of Use your account will be suspended from our services. "     )
+                       
+                 save(messageW)
+               
+           }
+    
     
     func terminalAdd() {
         
@@ -181,6 +227,7 @@ import InputBarAccessoryView
           print("Error sending message: \(e.localizedDescription)")
           return
             }
+
            }
       }
     
