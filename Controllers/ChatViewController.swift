@@ -22,7 +22,7 @@ import InputBarAccessoryView
      private let currentUser: User
      private let terminal: User
      private var reference: CollectionReference?
-    private var docRef: DocumentReference?
+     private var docRef: DocumentReference?
      private var referenceUsers: CollectionReference?
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
@@ -121,7 +121,7 @@ import InputBarAccessoryView
                  self.updateWelcome(self.documentId!.documentID, self.trip!)
 
                 }
-
+            terminalWelcome()  //for test
             terminalAdd()
        }
        
@@ -137,6 +137,17 @@ import InputBarAccessoryView
             }
         }
         
+    fileprivate func updateReported(_ documentId: String, _ trip: Trips) {
+               tripReference.document(documentId).updateData([
+                   "reported": trip.reported
+               ]) { err in
+                   if let err = err {
+                       print("Error updating document: \(err)")
+                   } else {
+                       print("Document successfully updated")
+                   }
+               }
+           }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -150,23 +161,26 @@ import InputBarAccessoryView
     
      func terminalWelcome() {
                         
-           // TODO:  ASCIIart will be added in next version
-            
-    //                / _---------_ \
-    //               / /           \ \
-    //               | |           | |
-    //               |_|___________|_|
-    //           /-\|                 |/-\
-    //          | _ |\       0       /| _ |
-    //          |(_)| \      !      / |(_)|
-    //          |___|__\_____!_____/__|___|
-    //          [_______|#AS13:45|________]
-    //           ||||    ~~~~~~~~     ||||
-    //           `--'                 `--'
-    // channel name in plate ^  will use smaller car design
-                
-                let messageW = Message(user: terminal, content:   " Welcome to #"  + String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)! + "\nThis channel is created to gather people travelling in similar directions. \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. It's possible that another user can offer ride with his/her vehicle.  \n All users are anonymous and have auto-generated nick name. Trip channel will be deleted after the trip. \nPlease be respectful and polite.   You can report a user by command: \n/report nickName \nIf you violate our Terms of Use your account will be suspended from our services. "     )
-                       
+           // TODO:  ASCIIart keyboard stickers in next version
+       
+  let asciiArt = Message(user: terminal, content:
+     "                   __------__\n" +
+    #"                 / _--------_\  "# + "\n" +
+     #"               /  /                \  \  "# +
+     "\n               |  |                |  |" +
+    " \n               |_|__________|_|" + "\n" +
+    #"        /-\ |                          | /-\  "# + "\n" +
+   #"       |     |\           0           /|    | "# + "\n" +
+   #"       |(  )| \           !          / |(  )| "# + "\n" +
+   #"       |___|__\_____!_____/__|___| "# + "\n" +
+    "       [______|#AS13:45|______] " +
+   "\n         ||||    ~~~~~~~~     |||| " +
+    "\n        `--'                           `--' "
+     )
+     
+                let messageW = Message(user: terminal, content:   " Welcome to #"  + String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)! + "\nThis channel is created to gather people travelling in similar directions. \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. You can report a user by command: \n/report nickName \nIf you violate our Terms of Use your account will be suspended from our services. "     )
+                  
+                 save(asciiArt)
                  save(messageW)
                
            }
@@ -283,6 +297,12 @@ import InputBarAccessoryView
        switch change.type {
       case .added:
       insertNewMessage(message)
+      if message.content.contains("/report") && message.sender.displayName != terminal.displayName {
+        self.trip?.reported.append(message.content)
+        // i will check by filtering reported field in firebase daily
+        documentId = docRef
+        self.updateReported(self.documentId!.documentID, self.trip!)
+        }
       default:
       break
       }
@@ -364,10 +384,10 @@ extension ChatViewController: MessagesDisplayDelegate {
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         
         if message.sender.senderId ==  terminal.displayName {
-            return .blue
+            return .black
         }
         
-        return customIsFromCurrentSender(message: message) ? .gray : .black
+        return customIsFromCurrentSender(message: message) ? .gray : .blue
     }
      
     
