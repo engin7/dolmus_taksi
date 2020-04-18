@@ -21,14 +21,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
            Database.database().isPersistenceEnabled = true
 
            ref = Database.database().reference()
-    
-           Auth.auth().signInAnonymously() { (user, error) in
-                  if let user = user {
-                    currentUser = User(authData: user.user)
-
-                }
-            }
         
+        let listener = Auth.auth().addStateDidChangeListener() { auth, user in
+                   // auto sign-in and move to next view:
+               if user != nil {
+                currentUser = User(authData: user!)
+               AppSettings.displayName = currentUser?.uid
+              
+            }
+    
+           
+            
+            if AppSettings.displayName == nil  {
+      // if user disabled from firestore consol it won't get new uid
+             
+                Auth.auth().signInAnonymously() { (user, error) in
+                           
+                 if let user = user {
+                   
+                   currentUser = User(authData: user.user)
+               }
+           }
+         }
+             
+      }
+        
+        Auth.auth().removeStateDidChangeListener(listener)
+ 
         return true
 
     }

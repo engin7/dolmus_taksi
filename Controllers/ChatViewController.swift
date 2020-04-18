@@ -26,7 +26,7 @@ import InputBarAccessoryView
      private var referenceUsers: CollectionReference?
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
-     private var chatRoomUsers: [String] = []
+     private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
      private var tripListener: ListenerRegistration?
 
@@ -121,8 +121,7 @@ import InputBarAccessoryView
                  self.updateWelcome(self.documentId!.documentID, self.trip!)
 
                 }
-            terminalWelcome()  //for test
-            terminalAdd()
+             terminalAdd()
        }
        
     fileprivate func updateWelcome(_ documentId: String, _ trip: Trips) {
@@ -162,7 +161,10 @@ import InputBarAccessoryView
      func terminalWelcome() {
                         
            // TODO:  ASCIIart keyboard stickers in next version
-       
+        let channelName = String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!
+        
+        let direction = "from " + String(trip!.from) + " to " + String(trip!.to) + " @" + getReadableDate(time: trip!.time)!
+        
   let asciiArt = Message(user: terminal, content:
      "                   __------__\n" +
     #"                 / _--------_\  "# + "\n" +
@@ -173,12 +175,13 @@ import InputBarAccessoryView
    #"       |     |\           0           /|    | "# + "\n" +
    #"       |(  )| \           !          / |(  )| "# + "\n" +
    #"       |___|__\_____!_____/__|___| "# + "\n" +
-    "       [______|#AS13:45|______] " +
+    "       [______|#"+channelName+"|______] " +
    "\n         ||||    ~~~~~~~~     |||| " +
     "\n        `--'                           `--' "
      )
      
-                let messageW = Message(user: terminal, content:   " Welcome to #"  + String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)! + "\nThis channel is created to gather people travelling in similar directions. \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. You can report a user by command: \n/report nickName \nIf you violate our Terms of Use your account will be suspended from our services. "     )
+               
+                let messageW = Message(user: terminal, content:   " Welcome to #"  + channelName + "\nThis channel is created to gather people travelling " + direction + " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. You can report a user by command: \n/report nickName \n "     )
                   
                  save(asciiArt)
                  save(messageW)
@@ -188,8 +191,8 @@ import InputBarAccessoryView
     
     func terminalAdd() {
         
-        let user = chatUser(nickName: currentUser.displayName, passenger: true)
-           if !chatRoomUsers.contains(currentUser.displayName){
+        let user = chatUser(nickName: currentUser.displayName, passenger: true, uid: currentUser.uid)
+           if !chatRoomUsers.contains(user){
            addUser(user)
               
             let messageT = Message(user: terminal, content: " \(currentUser.displayName)  has joined   #"  + String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!)
@@ -202,7 +205,7 @@ import InputBarAccessoryView
     
     func terminalRemove(_ id: String) {
         
-        let user = chatUser(nickName: currentUser.displayName, passenger: true)
+        let user = chatUser(nickName: currentUser.displayName, passenger: true, uid: currentUser.uid)
          
          removeUser(user)
               
@@ -298,8 +301,25 @@ import InputBarAccessoryView
       case .added:
       insertNewMessage(message)
       if message.content.contains("/report") && message.sender.displayName != terminal.displayName {
-        self.trip?.reported.append(message.content)
-        // i will check by filtering reported field in firebase daily
+        
+        
+        let reportedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /report ",with: "")
+        
+        for user in chatRoomUsers {
+            
+            if user.nickName == reportedUser {
+                
+              let reportedUserId = user.uid
+             self.trip?.reported.append(reportedUserId)
+                
+            }
+        }
+        
+      // TODO: more channel moderation by ops
+      // Trip creators will be (@)op and other passengers will be (+)voiced users automatically. Other users could also join chat but ops can change channel mode to moderated if they want to. Some IRC commands will be added. /kick /ban etc. 
+        
+     // about Moderation Guidelines: i will check by filtering reported field in firebase daily, there is no blocking option now because sending private messages is not allowed. User can report and leave the channel. Inappropriate messages will be deleted automatically as channels are autodelted (deleted only from frontend Database for messages stays) after few hours of the trip. More channel moderation will be added in the next version.
+        
         documentId = docRef
         self.updateReported(self.documentId!.documentID, self.trip!)
         }
@@ -310,15 +330,17 @@ import InputBarAccessoryView
 
     private func handleUserChange(_ change: DocumentChange) {
       
+        
         switch change.type {
         case .added:
-        
-        chatRoomUsers.append(currentUser.displayName)
+        let user = chatUser(nickName: currentUser.displayName, passenger: true, uid: currentUser.uid)
+        chatRoomUsers.append(user)
   
           
         case .removed:
-        
-        let index = chatRoomUsers.firstIndex(of: currentUser.displayName)!
+        let user = chatUser(nickName: currentUser.displayName, passenger: true, uid: currentUser.uid)
+
+        let index = chatRoomUsers.firstIndex(of: user)!
         chatRoomUsers.remove(at: index)
  
         default:

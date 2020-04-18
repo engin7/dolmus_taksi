@@ -187,8 +187,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                definesPresentationContext = true
         
                locationSearchTable.handleMapSearchDelegate = self
-              
-        
+   
     }
      
      func arrangeSearchBars(){
@@ -422,15 +421,15 @@ extension MapViewController : CLLocationManagerDelegate {
            let polyLine = MKPolylineRenderer(overlay: overlay)
                polyLine.strokeColor = UIColor.blue
         let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
-        let distance = fromLocation!.distance(from: destination)/20000
+        let distance = fromLocation!.coordinate.latitude.distance(to: destination.coordinate.latitude)/20000
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
         var midPointLat: Double?
         if distance > 0.6 {
         midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.98
         } else if distance > 0.3 {
-        midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.986
+        midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.99
         } else {
-            midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.9975
+            midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.999
         }
         let midPointLong = (fromLocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
         let center = CLLocation(latitude: midPointLat!, longitude: midPointLong)

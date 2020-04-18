@@ -15,10 +15,12 @@ struct chatUser {
 var id: String?
 let passenger: Bool
 let nickName: String
+let uid: String
     
-    init(nickName: String, passenger: Bool) {
+    init(nickName: String, passenger: Bool, uid: String) {
      self.nickName = nickName
      self.passenger = passenger
+     self.uid = uid
      id = nil
     }
     
@@ -29,7 +31,9 @@ let nickName: String
         guard let nickName = data["nick"] as? String else {
                    return nil
                  }
-    
+        guard let uid = data["uid"] as? String else {
+                          return nil
+                        }
         guard let passenger = data["passenger"] as? Bool else {
             return nil
           }
@@ -37,7 +41,7 @@ let nickName: String
     id = document.documentID
     self.nickName = nickName
     self.passenger = passenger
-
+    self.uid = uid
     }
 }
 
@@ -46,7 +50,19 @@ extension chatUser: DatabaseRepresentation {
   var representation: [String : Any] {
     [
            "nick": nickName,
+           "uid" : uid,
       "passenger": passenger
     ]
    }
+}
+
+extension chatUser: Comparable {
+    static func < (lhs: chatUser, rhs: chatUser) -> Bool {
+            return lhs.nickName < rhs.nickName
+    }
+  
+  static func == (lhs: chatUser, rhs: chatUser) -> Bool {
+    return lhs.id == rhs.id
+  }
+  
 }

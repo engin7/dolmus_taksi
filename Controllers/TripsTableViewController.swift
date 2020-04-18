@@ -65,6 +65,21 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()        
         overrideUserInterfaceStyle = .light
+        
+        // warning for disabled user accounts
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+
+        if currentUser == nil  {
+
+           let alert = UIAlertController(title: "Your account has been disabled", message: "As you violated our terms of use, we permenantly restricted your account to access our services. ", preferredStyle: .alert)
+          
+           alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: { action in
+               exit(0);
+           }))
+           self.present(alert, animated: true, completion: nil)
+
+            } }
+        
         self.tableView.reloadData()
         self.deletePastChannels()
 
