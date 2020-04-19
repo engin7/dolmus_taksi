@@ -15,7 +15,6 @@
 		10558A2923F3F8EB005402F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10558A2723F3F8EB005402F5 /* Main.storyboard */; };
 		10558A2B23F3F8ED005402F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10558A2A23F3F8ED005402F5 /* Assets.xcassets */; };
 		10558A2E23F3F8ED005402F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10558A2C23F3F8ED005402F5 /* LaunchScreen.storyboard */; };
-		10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A3623F485C6005402F5 /* LoginViewController.swift */; };
 		10558A5F23F6E178005402F5 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A5E23F6E178005402F5 /* LocationSearchTable.swift */; };
 		10558A6123F86A6C005402F5 /* ClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6023F86A6C005402F5 /* ClusterView.swift */; };
 		10558A6423F87233005402F5 /* Trips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A6323F87233005402F5 /* Trips.swift */; };
@@ -43,7 +42,6 @@
 		10558A2A23F3F8ED005402F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10558A2D23F3F8ED005402F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10558A2F23F3F8ED005402F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		10558A3623F485C6005402F5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		10558A5E23F6E178005402F5 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		10558A6023F86A6C005402F5 /* ClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterView.swift; sourceTree = "<group>"; };
 		10558A6323F87233005402F5 /* Trips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trips.swift; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 		10558A3523F41DB0005402F5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				10558A3623F485C6005402F5 /* LoginViewController.swift */,
 				10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */,
 				10558A6723F886B9005402F5 /* TripsTableViewController.swift */,
 				10558A2523F3F8EB005402F5 /* ChatViewController.swift */,
@@ -287,7 +284,6 @@
 				10558A6423F87233005402F5 /* Trips.swift in Sources */,
 				10D43B2B24368B8F00A3719B /* ChatUsersTableViewController.swift in Sources */,
 				10558A6623F873EF005402F5 /* User.swift in Sources */,
-				10558A3723F485C6005402F5 /* LoginViewController.swift in Sources */,
 				10B5CBD8240444AF00FDC8E7 /* ProfileTableViewController.swift in Sources */,
 				10D43B29242A795B00A3719B /* PopupLocationSearchTable.swift in Sources */,
 				10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */,

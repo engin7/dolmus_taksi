@@ -243,7 +243,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
       }
     
     @objc public func getDirections(){
-            
+        
         guard let start = fromLocation, let end = selectedPin else {   return }
         let request = MKDirections.Request()
         let startMapItem = MKMapItem(placemark: MKPlacemark(coordinate: start.coordinate))
@@ -264,7 +264,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
       }
 
     }
-            // fade in view
+             // fade in view
             self.myTripView.alpha = 0
             self.myTripView.isHidden = false
             UIView.animate(withDuration: 0.3) {
@@ -406,8 +406,10 @@ extension MapViewController : CLLocationManagerDelegate {
         pinView?.leftCalloutAccessoryView = button
         pinView?.canShowCallout = true
          pinView?.calloutOffset = CGPoint(x: -5, y: 5)
+         
         button.addTarget(self, action:  #selector(getDirections),  for: .touchUpInside)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+ 
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
         pinView?.isSelected = true
         }
         } else {
@@ -418,23 +420,20 @@ extension MapViewController : CLLocationManagerDelegate {
     }
      
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-           let polyLine = MKPolylineRenderer(overlay: overlay)
+
+            let polyLine = MKPolylineRenderer(overlay: overlay)
                polyLine.strokeColor = UIColor.blue
         let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
-        let distance = fromLocation!.coordinate.latitude.distance(to: destination.coordinate.latitude)/20000
+        let distance = fromLocation!.distance(from: destination)/20000
+        let distanceLat = abs(fromLocation!.coordinate.latitude.distance(to: destination.coordinate.latitude))
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
-        var midPointLat: Double?
-        if distance > 0.6 {
-        midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.98
-        } else if distance > 0.3 {
-        midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.99
-        } else {
-            midPointLat = (fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / 1.999
-        }
+
+        let midPointLat = ((fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / (2-(distanceLat/10))) + 0.02
         let midPointLong = (fromLocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
-        let center = CLLocation(latitude: midPointLat!, longitude: midPointLong)
+        let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
         let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
         mapView.setRegion(region, animated: true)
+        
         return polyLine
           }
       }
