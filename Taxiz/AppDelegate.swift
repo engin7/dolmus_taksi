@@ -8,12 +8,13 @@
 
 import UIKit
 import Firebase
- 
+import SwiftKeychainWrapper
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
   
    var ref: DatabaseReference!
-
+ 
       func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
            // Use Firebase library to configure APIs
            FirebaseApp.configure()
@@ -21,20 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
            Database.database().isPersistenceEnabled = true
 
            ref = Database.database().reference()
-        
+            
         let listener = Auth.auth().addStateDidChangeListener() { auth, user in
                    // auto sign-in and move to next view:
                if user != nil {
                 currentUser = User(authData: user!)
-               AppSettings.displayName = currentUser?.uid
-              
-            }
-    
-           
+                print(KeychainWrapper.standard.string(forKey: "myKey") ?? "nop")
+        }
             
-            if AppSettings.displayName == nil  {
+            if  KeychainWrapper.standard.string(forKey: "myKey") != "firstTime" {
       // if user disabled from firestore consol it won't get new uid
-             
+        _ = KeychainWrapper.standard.set("firstTime", forKey: "myKey")
+ 
                 Auth.auth().signInAnonymously() { (user, error) in
                            
                  if let user = user {

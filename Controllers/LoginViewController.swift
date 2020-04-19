@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
   
-
+// Depending on MVP feedbacks this screen might be activated in future versions.
 
 class LoginViewController: UIViewController {
     

@@ -305,6 +305,7 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
+  - SwiftKeychainWrapper (3.4.0)
 
 DEPENDENCIES:
   - Firebase
@@ -314,6 +315,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - GoogleSignIn
   - MessageKit
+  - SwiftKeychainWrapper
 
 SPEC REPOS:
   trunk:
@@ -345,6 +347,7 @@ SPEC REPOS:
     - MessageKit
     - nanopb
     - PromisesObjC
+    - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -375,7 +378,8 @@ SPEC CHECKSUMS:
   MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: 59b5922f0ac971631282b738f65a39451d239b26
+PODFILE CHECKSUM: 37e94cef112ac11ce7bea08252dcbbe7d0926f40
 
 COCOAPODS: 1.8.4

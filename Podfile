@@ -8,6 +8,7 @@ pod 'Firebase/Auth'
 pod 'MessageKit'
 pod 'Firebase/Firestore'
 pod 'GoogleSignIn'
+pod 'SwiftKeychainWrapper'
 
 end
 
