@@ -69,9 +69,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     
     @IBAction func createTripButton(_ sender: Any) {
         
-        if (toSearchController.searchBar.text != "") && (fromSearchController.searchBar.text != "")
+     if (toSearchController.searchBar.text != "") && (fromSearchController.searchBar.text != "")
         {
-           
+         if  currentUser?.previousTrip ?? Date().addingTimeInterval(TimeInterval(-6.0 * 60.0)) <= Date().addingTimeInterval(TimeInterval(-3.0 * 60.0)) {
+
         if picker.date <= Date() {
             
             let calendar = Calendar.current
@@ -89,10 +90,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             )
             
             trip =  Trips(time: tomorrow!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
+            currentUser?.previousTrip = Date()
          } else {
             trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
-        }
-      
+                currentUser?.previousTrip = Date()
+       }
+           
         let n = Int(myPersons.text!)!
         
         for i in 1..<n {
@@ -118,8 +121,18 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         navigationController?.setNavigationBarHidden(false, animated: true)
         mapView.removeAnnotations(mapView.annotations)
   
-       }
-    }
+       } else {
+            
+            let alert = UIAlertController(title: "Trip Creating Limit", message: "To prevent spamming, we have user limits for creating a trip channel. Please leave the trip channel you previously created if it is not legitimate and wait for a few minutes.", preferredStyle: .alert)
+                             
+                  alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    self.cancelTripButton(nil)
+                  }))
+                  self.present(alert, animated: true, completion: nil)
+
+      }
+        }
+            }
     @IBAction func addPerson(_ sender: Any) {
         
         var myPersonsInt = Int(myPersons.text!)!
@@ -138,7 +151,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     }
        
     
-    @IBAction func cancelTripButton(_ sender: Any) {
+    @IBAction func cancelTripButton(_ sender: Any?) {
       
          UIView.animate(withDuration: 0.3, animations: {
             self.myTripView.alpha = 0
@@ -261,8 +274,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         let calendar = Calendar.current
         var components = DateComponents()
+        if calendar.component(.minute, from: Date()) < 30 {
+            components.hour = calendar.component(.hour, from: Date()) + 1
+        } else {
         components.hour = calendar.component(.hour, from: Date()) + 2
-        components.minute = 0
+        }
+        components.minute = 30
         components.day = calendar.component(.day, from: Date())
         components.month = calendar.component(.month, from: Date())
         components.year = calendar.component(.year, from: Date())
