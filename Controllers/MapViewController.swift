@@ -71,10 +71,24 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         if (toSearchController.searchBar.text != "") && (fromSearchController.searchBar.text != "")
         {
+           
         if picker.date <= Date() {
             
-            pickerTime = picker.date.addingTimeInterval(86400)
-            trip =  Trips(time: pickerTime!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
+            let calendar = Calendar.current
+            let date = picker.date
+ 
+            let components = calendar.dateComponents(
+                [.hour, .minute, .second, .nanosecond],
+                from: date
+            )
+
+            let tomorrow = calendar.nextDate(
+                after: date,
+                matching: components,
+                matchingPolicy: .nextTime
+            )
+            
+            trip =  Trips(time: tomorrow!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
          } else {
             trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, id: "nil")
         }
@@ -244,6 +258,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
       }
     
     @objc public func getDirections(){
+        
+        let calendar = Calendar.current
+        var components = DateComponents()
+        components.hour = calendar.component(.hour, from: Date()) + 2
+        components.minute = 0
+        components.day = calendar.component(.day, from: Date())
+        components.month = calendar.component(.month, from: Date())
+        components.year = calendar.component(.year, from: Date())
+        
+        picker.setDate(calendar.date(from: components)!, animated: false)
+        
         
         guard let start = fromLocation, let end = selectedPin else {   return }
         let request = MKDirections.Request()

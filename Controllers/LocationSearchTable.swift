@@ -94,11 +94,7 @@ extension LocationSearchTable: MKLocalSearchCompleterDelegate {
         searchResults = completer.results
          self.tableView.reloadData()
     }
-    
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        // handle error
-        print("error loading MKLocalSearchCompleter")
-    }
+     
 }
  
 
