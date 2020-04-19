@@ -47,7 +47,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var toSearchController = UISearchController(searchResultsController: nil)
     var toAnnotation: MKAnnotation?
     var fromLocation_searchBar: String?
- 
+    var pinView :  MKPinAnnotationView?
+    
     @IBAction func switchTrip(_ sender: Any) {
         swap(&toSearchController.searchBar.text, &fromSearchController.searchBar.text)
         swap(&toCity, &fromCity)
@@ -395,7 +396,7 @@ extension MapViewController : CLLocationManagerDelegate {
             return nil
         }
         let reuseId = "pin"
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+         
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
         let colorPointAnnotation = annotation as! ColorPointAnnotation
         pinView?.pinTintColor = colorPointAnnotation.pinColor
@@ -408,9 +409,9 @@ extension MapViewController : CLLocationManagerDelegate {
          pinView?.calloutOffset = CGPoint(x: -5, y: 5)
          
         button.addTarget(self, action:  #selector(getDirections),  for: .touchUpInside)
- 
+              
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-        pinView?.isSelected = true
+            self.pinView?.isSelected = true
         }
         } else {
             pinView?.canShowCallout = true
@@ -428,12 +429,12 @@ extension MapViewController : CLLocationManagerDelegate {
         let distanceLat = abs(fromLocation!.coordinate.latitude.distance(to: destination.coordinate.latitude))
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
 
-        let midPointLat = ((fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / (2-(distanceLat/10))) + 0.02
+        let midPointLat = ((fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / (2-(distanceLat/10))) + 0.01
         let midPointLong = (fromLocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
         let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
         let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
         mapView.setRegion(region, animated: true)
-        
+        pinView?.isSelected = false
         return polyLine
           }
       }
