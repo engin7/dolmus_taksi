@@ -51,8 +51,8 @@ class TripsTableViewCell: UITableViewCell  {
        
         var tripListener: ListenerRegistration?
         var trips : [Trips] = []
-        var joinedTrips : [Trips] = []
-        var pastTrips: [Trips] = []
+        var availableTrips : [Trips] = []
+        var myTrips : [Trips] = []
         let today = Date()
         var userLocation: CLLocation?
         private var locationManager: CLLocationManager?
@@ -79,10 +79,7 @@ class TripsTableViewCell: UITableViewCell  {
            self.present(alert, animated: true, completion: nil)
 
             } }
-        
-        self.tableView.reloadData()
-        self.deletePastChannels()
-
+         
          self.imageView.image = #imageLiteral(resourceName: "chat")
          self.imageView.contentMode = .scaleAspectFill
          self.imageView.alpha = 0.3
@@ -94,8 +91,7 @@ class TripsTableViewCell: UITableViewCell  {
          locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
          locationManager?.requestWhenInUseAuthorization()
          locationManager?.requestLocation()
-         
-        
+          
         // listed document and get document with snapshot
         tripListener = tripReference.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
@@ -111,28 +107,22 @@ class TripsTableViewCell: UITableViewCell  {
                 if (Auth.auth().currentUser?.uid) != nil {
 
                 switch change.type {
+     
+                 case .added:
                 
+                       if  !trip.Passengers.contains(currentUser!.displayName) && trip.time.timeIntervalSinceNow > 0 {
+                              
+                        self.availableTrips.append(trip)
+         
+                       } else if trip.Passengers.contains(currentUser!.displayName) && trip.time.timeIntervalSinceNow > 0 {
+                        self.myTrips.append(trip)
+                       }
+                                    
+                        else {
+                         self.trips.append(trip)
+                        }
                     
-                case .added:
-                
-                    if  !trip.Passengers.contains(currentUser!.displayName) && trip.time.timeIntervalSinceNow > 0 {
-                    self.trips.append(trip)
-  //                  self.trips.sort(by: {$0.from < $1.from})
-//                    self.trips.sort(by: {$0.to < $1.to})
-                    self.trips.sort(by: {$0.time < $1.time})
-
-                    if self.userLocation != nil {
-                      self.trips.sort(by: {(abs($0.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($0.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) < (abs($1.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($1.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) })
-                     }
-                    
-
-                    } else if trip.Passengers.contains(currentUser!.displayName) && trip.time.timeIntervalSinceNow > 0 {
-                    self.joinedTrips.append(trip)
-                    } else if trip.time.timeIntervalSinceNow < 0 {
-                        self.pastTrips.append(trip)
-                    }
-                 
-                case .modified:
+                 case .modified:
                     guard let index = self.trips.firstIndex(of: trip)    else {
                       return
                     }
@@ -145,20 +135,26 @@ class TripsTableViewCell: UITableViewCell  {
                     }
                     self.trips.remove(at: index)
                     self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-                 }
-                   
+                    }
                 }
                
-                  self.trips.insert(contentsOf: self.joinedTrips, at: 0)
-                  self.trips.append(contentsOf: self.pastTrips)
-                  self.joinedTrips = []
-                  self.pastTrips = []
-                  self.deletePastChannels()
-                  self.tableView.reloadData()
             }
-          }
-        }
-        
+              
+            self.availableTrips.sort(by: {$0.time < $1.time})
+
+            if self.userLocation != nil {
+              self.availableTrips.sort(by: {(abs($0.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($0.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) < (abs($1.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($1.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) })
+             }
+                 self.trips.insert(contentsOf: self.availableTrips, at: 0)
+                 self.availableTrips = []
+                  
+                 self.trips.insert(contentsOf: self.myTrips, at: 0)
+                 self.myTrips = []
+            
+                  self.tableView.reloadData()
+                  self.deletePastChannels()
+         }
+      }
         override func viewDidLayoutSubviews() {
               // for different screen size
               super.viewDidLayoutSubviews()
@@ -167,7 +163,7 @@ class TripsTableViewCell: UITableViewCell  {
         
         func deletePastChannels() {
                                                           // will lower to 4 as users grow
-               let past = Calendar.current.date(byAdding: .hour, value: -244, to: today)
+               let past = Calendar.current.date(byAdding: .hour, value: -120, to: today)
                 
                for Trips in trips {
                    
@@ -364,9 +360,6 @@ class TripsTableViewCell: UITableViewCell  {
                 navigationController?.pushViewController(vc, animated: true)
 
             }
-             
-            
-
       }
         
         override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
