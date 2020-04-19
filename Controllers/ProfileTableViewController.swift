@@ -9,11 +9,33 @@
 import UIKit
 import Firebase
 import Foundation
+import MessageUI
 
 
-class ProfileTableViewController:  UITableViewController {
+class ProfileTableViewController:  UITableViewController, MFMailComposeViewControllerDelegate
+ {
 
+    @IBAction func contactUs(_ sender: UIButton) {
+        if MFMailComposeViewController.canSendMail() {
+  let mailVC = MFMailComposeViewController()
+        mailVC.mailComposeDelegate = self
+        mailVC.setToRecipients(["kuk.engin@icloud.com"])
+        mailVC.setSubject("Subject for email")
+        mailVC.setMessageBody("Email message string", isHTML: false)
 
+        present(mailVC, animated: true, completion: nil)
+        } else {
+            
+            let alert = UIAlertController(title: "e-mail not connected", message: "Please enable your email account in your device.", preferredStyle: .alert)
+                    
+                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    self.dismiss(animated: true, completion: nil);
+                 }))
+                 self.present(alert, animated: true, completion: nil)
+
+        }
+        
+  }
     
     @IBOutlet weak var nickName: UILabel!
     
@@ -45,7 +67,10 @@ class ProfileTableViewController:  UITableViewController {
           present(ac, animated: true, completion: nil)
     }
     
-   
+   //MARK: - MFMail compose method
+   func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+       controller.dismiss(animated: true, completion: nil)
+   }
     
     
 }

@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
                    // auto sign-in and move to next view:
                if user != nil {
                 currentUser = User(authData: user!)
-                print(KeychainWrapper.standard.string(forKey: "myKey") ?? "nop")
-        }
+
+            }
             
             if  KeychainWrapper.standard.string(forKey: "myKey") != "firstTime" {
       // if user disabled from firestore consol it won't get new uid
