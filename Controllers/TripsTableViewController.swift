@@ -137,7 +137,6 @@ class TripsTableViewCell: UITableViewCell  {
                     self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
                     }
                 }
-               
             }
               
             self.availableTrips.sort(by: {$0.time < $1.time})
@@ -145,6 +144,7 @@ class TripsTableViewCell: UITableViewCell  {
             if self.userLocation != nil {
               self.availableTrips.sort(by: {(abs($0.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($0.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) < (abs($1.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($1.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) })
              }
+            
                  self.trips.insert(contentsOf: self.availableTrips, at: 0)
                  self.availableTrips = []
                   
