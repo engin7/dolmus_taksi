@@ -48,7 +48,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var toAnnotation: MKAnnotation?
     var fromLocation_searchBar: String?
     var pinView :  MKPinAnnotationView?
-    
+
     @IBAction func switchTrip(_ sender: Any) {
         swap(&toSearchController.searchBar.text, &fromSearchController.searchBar.text)
         swap(&toCity, &fromCity)
@@ -71,8 +71,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
      if (toSearchController.searchBar.text != "") && (fromSearchController.searchBar.text != "")
         {
-         if  currentUser?.previousTrip ?? Date().addingTimeInterval(TimeInterval(-6.0 * 60.0)) <= Date().addingTimeInterval(TimeInterval(-3.0 * 60.0)) {
-
+         if  currentUser?.previousTrip ?? Date().addingTimeInterval(TimeInterval(-5.0 * 60.0)) <= Date().addingTimeInterval(TimeInterval( tSpam * -5.0)) {
+            tSpam = tSpam + 1.0
+ 
         if picker.date <= Date() {
             
             let calendar = Calendar.current

@@ -162,8 +162,8 @@ class TripsTableViewCell: UITableViewCell  {
            }
         
         func deletePastChannels() {
-                                                          // will lower to 4 as users grow
-               let past = Calendar.current.date(byAdding: .hour, value: -120, to: today)
+                                             // will lower to 4 as users grow even less
+               let past = Calendar.current.date(byAdding: .hour, value: -24, to: today)
                 
                for Trips in trips {
                    

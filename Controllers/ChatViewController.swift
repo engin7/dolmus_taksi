@@ -135,18 +135,6 @@ import InputBarAccessoryView
                 }
             }
         }
-        
-    fileprivate func updateReported(_ documentId: String, _ trip: Trips) {
-               tripReference.document(documentId).updateData([
-                   "reported": trip.reported
-               ]) { err in
-                   if let err = err {
-                       print("Error updating document: \(err)")
-                   } else {
-                       print("Document successfully updated")
-                   }
-               }
-           }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -310,7 +298,11 @@ import InputBarAccessoryView
             if user.nickName == reportedUser {
                 
               let reportedUserId = user.uid
-             self.trip?.reported.append(reportedUserId)
+                documentId = docRef
+                
+                let reported = rUser(uid: reportedUserId, docName: documentId!.documentID)
+              
+              reportUser(reported)
                 
             }
         }
@@ -320,14 +312,22 @@ import InputBarAccessoryView
         
      // about Moderation Guidelines: i will check by filtering reported field in firebase daily, there is no blocking option now because sending private messages is not allowed. User can report and leave the channel. Inappropriate messages will be deleted automatically as channels are autodelted (deleted only from frontend Database for messages stays) after few hours of the trip. More channel moderation will be added in the next version.
         
-        documentId = docRef
-        self.updateReported(self.documentId!.documentID, self.trip!)
         }
       default:
       break
       }
     }
 
+    func reportUser(_ user: rUser) {
+                      self.documentId = reportedReference.addDocument(data: user.representation) { error in
+                      if let e = error {
+                        print("Error sending message: \(e.localizedDescription)")
+                        return
+                          }
+
+                         }
+                    }
+    
     private func handleUserChange(_ change: DocumentChange) {
       
         
