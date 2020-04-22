@@ -168,6 +168,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
 
         setNavigationSearchBar()
         
+        
+ 
     }
      
     @IBOutlet weak var mapView: MKMapView!
@@ -356,6 +358,7 @@ extension MapViewController : CLLocationManagerDelegate {
                 }
             })
         }
+        
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -428,6 +431,7 @@ extension MapViewController : CLLocationManagerDelegate {
             self.toSearchController.searchBar.frame = searchBarFrame
             }
                }
+        
     }
 
   extension MapViewController : MKMapViewDelegate {

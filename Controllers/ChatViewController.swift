@@ -136,7 +136,7 @@ import InputBarAccessoryView
             }
         }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
             let id = self.documentId?.documentID
 
@@ -145,6 +145,9 @@ import InputBarAccessoryView
          
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
     
      func terminalWelcome() {
                         

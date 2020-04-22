@@ -162,8 +162,8 @@ class TripsTableViewCell: UITableViewCell  {
            }
         
         func deletePastChannels() {
-                                             // will lower to 4 as users grow even less
-               let past = Calendar.current.date(byAdding: .hour, value: -24, to: today)
+        // will lower time to 2 hours when reach many active users, chat messages stays in database, i'll delete them manually after checking if there is any reports in the chat rooms.
+               let past = Calendar.current.date(byAdding: .hour, value: -12, to: today)
                 
                for Trips in trips {
                    
