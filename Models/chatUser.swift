@@ -11,6 +11,7 @@ import Firebase
 
 var cUser: chatUser?
 var userId: DocumentReference?
+ 
 
 var chatUserReference: CollectionReference {
 return db.collection("chatUsers")
@@ -32,20 +33,20 @@ var blocked: [String]?
      blocked = []
     }
     
-    init?(document: QueryDocumentSnapshot) {
+    init?(document: DocumentSnapshot) {
    
     let data = document.data()
  
-        guard let nickName = data["nick"] as? String else {
+        guard let nickName = data!["nick"] as? String else {
                    return nil
                  }
-        guard let uid = data["uid"] as? String else {
+        guard let uid = data!["uid"] as? String else {
                           return nil
                         }
-        guard let blocked = data["blocked"] as? [String]? else {
+        guard let blocked = data!["blocked"] as? [String]? else {
                                return nil
                              }
-        guard let passenger = data["passenger"] as? Bool else {
+        guard let passenger = data!["passenger"] as? Bool else {
             return nil
           }
         

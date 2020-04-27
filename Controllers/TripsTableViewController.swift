@@ -38,12 +38,10 @@ class TripsTableViewCell: UITableViewCell  {
 
     class TripsTableViewController: UITableViewController {
 
-
-      
+ 
         @IBAction func chatButtton(_ sender: Any) {
    
-            
-            
+             
         }
 
         private let TripsCellIdentifier = "TripsCell"
@@ -65,7 +63,7 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()        
         overrideUserInterfaceStyle = .light
-        
+      
         // warning for disabled user accounts
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
 

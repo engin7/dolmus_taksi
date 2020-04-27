@@ -28,9 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
                if user != nil {
                 currentUser = User(authData: user!)
              
-//                cUser = 
+             if  KeychainWrapper.standard.string(forKey: "myKey") != nil {
                 
-            }
+            let documentID = KeychainWrapper.standard.string(forKey: "myKey")
+                
+                  userId = chatUserReference.document(documentID!)
+
+                userId.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                    cUser = chatUser(document: document)
+                       
+                    } }}
+               }
+        
             
             if  KeychainWrapper.standard.string(forKey: "myKey") == nil {
         // if user disabled from firestore consol it won't get new uid
