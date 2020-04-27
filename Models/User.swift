@@ -12,10 +12,9 @@ struct User {
   let uid: String 
   let displayName: String
   var previousTrip: Date?
-    
+ 
   init(authData: Firebase.User) {
     
- 
     uid = authData.uid
     displayName = String(uid.prefix(8)).lowercased()
     previousTrip = nil

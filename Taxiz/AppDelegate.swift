@@ -27,18 +27,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
                    // auto sign-in and move to next view:
                if user != nil {
                 currentUser = User(authData: user!)
-
+             
+//                cUser = 
+                
             }
             
-            if  KeychainWrapper.standard.string(forKey: "myKey") != "firstTime" {
-      // if user disabled from firestore consol it won't get new uid
-        _ = KeychainWrapper.standard.set("firstTime", forKey: "myKey")
+            if  KeychainWrapper.standard.string(forKey: "myKey") == nil {
+        // if user disabled from firestore consol it won't get new uid
  
                 Auth.auth().signInAnonymously() { (user, error) in
                            
                  if let user = user {
                    
                    currentUser = User(authData: user.user)
+                    
+                    cUser = chatUser(nickName: currentUser!.displayName, uid: currentUser!.uid)
+                                 
+                      userId = chatUserReference.addDocument(data: cUser!.representation) { error in
+                    if let e = error {
+                      print("Error sending message: \(e.localizedDescription)")
+                      return
+                        }
+
+                       }
+                    
+                    _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "myKey")
+
                }
            }
          }

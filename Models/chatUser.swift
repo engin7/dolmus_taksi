@@ -9,6 +9,12 @@
 import Foundation
 import Firebase
 
+var cUser: chatUser?
+var userId: DocumentReference?
+
+var chatUserReference: CollectionReference {
+return db.collection("chatUsers")
+}
 
 struct chatUser {
 
@@ -16,12 +22,14 @@ var id: String?
 let passenger: Bool
 let nickName: String
 let uid: String
-    
-    init(nickName: String, passenger: Bool, uid: String) {
+var blocked: [String]?
+
+    init(nickName: String, uid: String) {
      self.nickName = nickName
-     self.passenger = passenger
+     self.passenger = false
      self.uid = uid
      id = nil
+     blocked = []
     }
     
     init?(document: QueryDocumentSnapshot) {
@@ -34,6 +42,9 @@ let uid: String
         guard let uid = data["uid"] as? String else {
                           return nil
                         }
+        guard let blocked = data["blocked"] as? [String]? else {
+                               return nil
+                             }
         guard let passenger = data["passenger"] as? Bool else {
             return nil
           }
@@ -42,6 +53,7 @@ let uid: String
     self.nickName = nickName
     self.passenger = passenger
     self.uid = uid
+    self.blocked = blocked
     }
 }
 
@@ -51,7 +63,8 @@ extension chatUser: DatabaseRepresentation {
     [
            "nick": nickName,
            "uid" : uid,
-      "passenger": passenger
+      "passenger": passenger,
+        "blocked": blocked
     ]
    }
 }

@@ -19,7 +19,7 @@ import InputBarAccessoryView
      private var messages: [Message] = []
      private var messageListener: ListenerRegistration?
      private var userListener: ListenerRegistration?
-     private let currentUser: User
+     private var currentUser: User
      private let terminal: User
      private var reference: CollectionReference?
      private var docRef: DocumentReference?
@@ -182,7 +182,7 @@ import InputBarAccessoryView
     
     func terminalAdd() {
         
-        let user = chatUser(nickName: currentUser.displayName, passenger: true, uid: currentUser.uid)
+        let user = cUser!
            if !chatRoomUsers.contains(user){
            addUser(user)
               
@@ -196,7 +196,7 @@ import InputBarAccessoryView
     
     func terminalRemove(_ id: String) {
         
-        let user = chatUser(nickName: currentUser.displayName, passenger: true, uid: currentUser.uid)
+        let user = cUser!
          
          removeUser(user)
               
@@ -217,14 +217,10 @@ import InputBarAccessoryView
            
             }
             
-
-            let vcl = ChatUsersTableViewController(trip: self.trip!)
+           let vcl = ChatUsersTableViewController(trip: self.trip!)
             
             self.navigationController?.pushViewController(vcl, animated: true)
-               
-            
-        }
-          
+         }
        }
     
     // MARK: - Helpers
@@ -239,7 +235,6 @@ import InputBarAccessoryView
            }
       }
     
-    
     private func removeUser(_ user: chatUser) {
         let id = (documentId?.documentID)!
         referenceUsers?.document(id).delete()   { error in
@@ -249,9 +244,7 @@ import InputBarAccessoryView
             }
           }
     }
-    
-    
- 
+     
    private func save(_ message: Message) {
        reference?.addDocument(data: message.representation) { error in
        if let e = error {
@@ -291,8 +284,7 @@ import InputBarAccessoryView
        switch change.type {
       case .added:
       insertNewMessage(message)
-      if message.content.contains("/report") && message.sender.displayName != terminal.displayName {
-        
+      if message.content.contains("/report")  {
         
         let reportedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /report ",with: "")
         
@@ -303,7 +295,7 @@ import InputBarAccessoryView
               let reportedUserId = user.uid
                 documentId = docRef
                 
-                let reported = rUser(uid: reportedUserId, docName: documentId!.documentID)
+             let reported = rUser(uid: reportedUserId, docName: documentId!.documentID)
               
               reportUser(reported)
                 
@@ -316,6 +308,41 @@ import InputBarAccessoryView
      // about Moderation Guidelines: i will check by filtering reported field in firebase daily, there is no blocking option now because sending private messages is not allowed. User can report and leave the channel. Inappropriate messages will be deleted automatically as channels are autodelted (deleted only from frontend Database for messages stays) after few hours of the trip. More channel moderation will be added in the next version.
         
         }
+        
+      if message.content.contains("/block") && message.sender.displayName == currentUser.displayName {
+        
+        let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /report ",with: "")
+          
+          for user in chatRoomUsers {
+               
+              if user.nickName == blockedUser {
+            
+                let blockedUserId = user.uid
+                
+                cUser!.blocked?.append(blockedUserId)
+  
+                let documentId = userId?.documentID
+                
+                chatUserReference.document(documentId!).updateData([
+                    "blocked": cUser!.blocked!
+                          ]) { err in
+                              if let err = err {
+                                  print("Error updating document: \(err)")
+                              } else {
+                                  print("Document successfully updated")
+                              }
+                       
+                }
+                
+            }
+             
+                }
+           
+ 
+              }
+     
+      
+        
       default:
       break
       }
@@ -336,13 +363,12 @@ import InputBarAccessoryView
         
         switch change.type {
         case .added:
-        let user = chatUser(nickName: currentUser.displayName, passenger: true, uid: currentUser.uid)
+        let user = cUser!
         chatRoomUsers.append(user)
   
           
         case .removed:
-        let user = chatUser(nickName: currentUser.displayName, passenger: true, uid: currentUser.uid)
-
+        let user = cUser!
         let index = chatRoomUsers.firstIndex(of: user)!
         chatRoomUsers.remove(at: index)
  

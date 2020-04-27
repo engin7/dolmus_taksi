@@ -11,7 +11,6 @@ import Firebase
 import Foundation
 import MessageUI
 
-
 class ProfileTableViewController:  UITableViewController, MFMailComposeViewControllerDelegate
  {
 
