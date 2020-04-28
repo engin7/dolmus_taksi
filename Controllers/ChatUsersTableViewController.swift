@@ -87,19 +87,19 @@ class ChatUsersTableViewController: UITableViewController {
        let indexOfUser = trip?.Passengers.firstIndex(of: currentUser!.displayName)
        if indexOfUser != nil {
            trip?.Passengers.remove(at: indexOfUser!)
-        updatePassengers(trip!.id, trip!)
+        updatePassengers(trip!.id!, trip!)
  
               }
        let indexOfUser1 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+1")
        if indexOfUser1 != nil {
            trip?.Passengers.remove(at: indexOfUser1!)
-        updatePassengers(trip!.id, trip!)
+        updatePassengers(trip!.id!, trip!)
  
        }
        let indexOfUser2 = trip?.Passengers.firstIndex(of: currentUser!.displayName + "+2")
        if indexOfUser2 != nil {
            trip?.Passengers.remove(at: indexOfUser2!)
-        updatePassengers(trip!.id, trip!)
+        updatePassengers(trip!.id!, trip!)
  
        }
 

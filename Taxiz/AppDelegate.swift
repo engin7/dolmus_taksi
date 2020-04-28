@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
                 
                   userId = chatUserReference.document(documentID!)
 
-                userId.getDocument { (document, error) in
+                userId!.getDocument { (document, error) in
                     if let document = document, document.exists {
                     cUser = chatUser(document: document)
                        

@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 var cUser: chatUser?
+var host: chatUser?
 var userId: DocumentReference?
  
 
@@ -65,7 +66,8 @@ extension chatUser: DatabaseRepresentation {
            "nick": nickName,
            "uid" : uid,
       "passenger": passenger,
-        "blocked": blocked
+        "blocked": blocked,
+          "id" : id,
     ]
    }
 }

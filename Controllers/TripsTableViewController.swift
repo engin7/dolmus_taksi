@@ -168,7 +168,7 @@ class TripsTableViewCell: UITableViewCell  {
                 if Trips.time < past! || Trips.Passengers.count == 0 {
                       
                      let documentId = Trips.id
-                    tripReference.document(documentId).delete() { error in
+                    tripReference.document(documentId!).delete() { error in
                     if let error = error {
                         print(error.localizedDescription)
                     } else {
@@ -302,11 +302,22 @@ class TripsTableViewCell: UITableViewCell  {
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
             var trip =  self.trips[indexPath.row]
-            let documentId = trip.id
+            let documentId = trip.id //? get new host id calculate in advance to prevent entering it crashing now.. host = nil 
             let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
-
-           if (trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName) {
-                
+           
+            let  hostID = chatUserReference.document(trip.hostID)
+ 
+               hostID.getDocument { (document, error) in
+                if let document = document, document.exists {
+                  host = chatUser(document: document)!
+                } }
+            
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    
+             if ((trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName))
+//                && ((host?.blocked!.contains(currentUser!.uid))!)
+            {
+              
              if !(trip.Passengers.contains(currentUser!.displayName))  {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
@@ -317,7 +328,7 @@ class TripsTableViewCell: UITableViewCell  {
             }))
             alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
                 trip.Passengers.append(currentUser!.displayName)
-                self.updatePassengers(documentId, trip)
+                self.updatePassengers(documentId!, trip)
                 let vc = ChatViewController(currentUser: currentUser!, trip: trip)
 
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -328,7 +339,7 @@ class TripsTableViewCell: UITableViewCell  {
             alert.addAction(UIAlertAction(title: "2", style: .default, handler: { action in
                 trip.Passengers.append(currentUser!.displayName)
                 trip.Passengers.append(currentUser!.displayName + "+1")
-                self.updatePassengers(documentId, trip)
+                self.updatePassengers(documentId!, trip)
                 let vc = ChatViewController(currentUser: currentUser!, trip: trip)
 
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -341,7 +352,7 @@ class TripsTableViewCell: UITableViewCell  {
                 trip.Passengers.append(currentUser!.displayName)
                 trip.Passengers.append(currentUser!.displayName + "+1")
                 trip.Passengers.append(currentUser!.displayName + "+2")
-                self.updatePassengers(documentId, trip)
+                self.updatePassengers(documentId!, trip)
                 let vc = ChatViewController(currentUser: currentUser!, trip: trip)
 
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -349,25 +360,22 @@ class TripsTableViewCell: UITableViewCell  {
             }
             self.present(alert, animated: true)
            }
-                      
-            }
+            }  }
+                
             if trip.Passengers.contains(currentUser!.displayName) {
-                self.updatePassengers(documentId, trip)
+                self.updatePassengers(documentId!, trip)
                 let vc = ChatViewController(currentUser: currentUser!, trip: trip)
 
-                navigationController?.pushViewController(vc, animated: true)
+                self.navigationController?.pushViewController(vc, animated: true)
 
             }
-      }
+      
         
-        override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-            
-       
+                func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         }
     }
+  }
 
-
- 
 extension TripsTableViewController : CLLocationManagerDelegate {
      
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -390,4 +398,5 @@ extension TripsTableViewController : CLLocationManagerDelegate {
            print(error.localizedDescription)
        }
 }
-
+ 
+ 

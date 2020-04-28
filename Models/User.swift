@@ -16,7 +16,7 @@ struct User {
   init(authData: Firebase.User) {
     
     uid = authData.uid
-    displayName = String(uid.prefix(8)).lowercased()
+    displayName = String(uid.prefix(6)).lowercased()
     previousTrip = nil
     }
     

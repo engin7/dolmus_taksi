@@ -27,6 +27,8 @@ import InputBarAccessoryView
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
      private var chatRoomUsers: [chatUser] = []
+     private var blockedchatRoomUsers: [String] = []
+
      var documentId: DocumentReference?
      private var tripListener: ListenerRegistration?
 
@@ -267,7 +269,11 @@ import InputBarAccessoryView
       let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage
       
        messagesCollectionView.reloadData()
-
+        
+        if blockedchatRoomUsers.contains(currentUser.displayName) {
+            _ = navigationController?.popViewController(animated: true)
+         }
+        
       if shouldScrollToBottom {
         DispatchQueue.main.async {
           self.messagesCollectionView.scrollToBottom(animated: true)
@@ -284,6 +290,7 @@ import InputBarAccessoryView
        switch change.type {
       case .added:
       insertNewMessage(message)
+     
       if message.content.contains("/report")  {
         
         let reportedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /report ",with: "")
@@ -311,16 +318,21 @@ import InputBarAccessoryView
         
       if message.content.contains("/block") && message.sender.displayName == currentUser.displayName {
         
-        let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /report ",with: "")
+        let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /block ",with: "")
           
           for user in chatRoomUsers {
-               
+               print(chatRoomUsers)
               if user.nickName == blockedUser {
             
                 let blockedUserId = user.uid
-                
+                blockedchatRoomUsers.append(blockedUser)
                 cUser!.blocked?.append(blockedUserId)
-  
+                // if blocking person trip creator kick blocked one
+                if cUser?.nickName == trip?.Passengers[0] {
+                    let indexOfUser = trip?.Passengers.firstIndex(of: blockedUser)
+                    trip?.Passengers.remove(at: indexOfUser!)
+                 }
+                
                 let documentId = userId?.documentID
                 
                 chatUserReference.document(documentId!).updateData([
