@@ -55,5 +55,4 @@ class ProfileTableViewController:  UITableViewController, MFMailComposeViewContr
        controller.dismiss(animated: true, completion: nil)
    }
     
-    
 }

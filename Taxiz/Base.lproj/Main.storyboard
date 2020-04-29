@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6Qa-Io-GVP">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
@@ -239,10 +239,111 @@
             </objects>
             <point key="canvasLocation" x="2138" y="356"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Terms-->
+        <scene sceneID="AhH-bs-RbC">
+            <objects>
+                <viewController id="6Qa-Io-GVP" customClass="Terms" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="abS-jD-Eth">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KOy-zh-Cjb">
+                                <rect key="frame" x="16" y="0.0" width="288" height="568"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <mutableString key="text">    /*/ Privacy Policy of Dolmus Taksi \*\ 
+
+         Privacy Policy
+This policy applies to all information collected or submitted on our apps and any other devices and platforms.
+
+Information we collect
+Dolmus Taksi accounts are created anonymously, without email addresses or passwords.
+
+We store information about your messages in chat rooms.
+We may disclose your information in response to subpoenas, court orders, or other legal requirements; to exercise our legal rights or defend against legal claims; to investigate, prevent, or take action regarding illegal activities, suspected fraud or abuse, violations of our policies; or to protect our rights and property.
+
+Security
+In our platform there is no tolerance for objectionable content or abusive users. Selling illegeal drugs or doing any other illegal activities in the chat rooms is not allowed and any information will be given to legal authorities. There is a feature to report a user in our chat rooms. We investigate reported user messages in 24 hours and permenantly delete accounts which violate our policies. Any user is responsible for their own safety. We recommend you to meet other passengers in public places.
+
+Service Providers
+We may employ third party companies and individuals to facilitate our Service (“Service Providers”), to provide the Service on our behalf, to perform Service-related services or to assist us in analyzing how our Service is used.
+
+These third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.
+
+Analytics
+We may use third-party Service Providers to monitor and analyze the use of our Service.
+
+Firebase
+
+Firebase is analytics service provided by Google Inc.
+
+You may opt-out of certain Firebase features through your mobile device settings, such as your device advertising settings or by following the instructions provided by Google in their Privacy Policy: https://policies.google.com/privacy?hl=en
+
+We also encourage you to review the Google’s policy for safeguarding your data: https://support.google.com/analytics/answer/6004245. For more information on what type of information Firebase collects, please visit please visit the Google Privacy &amp; Terms web page: https://policies.google.com/privacy?hl=en
+
+California Online Privacy Protection Act Compliance
+We comply with the California Online Privacy Protection Act. We therefore will not distribute your personal information to outside parties without your consent.
+
+Children’s Online Privacy Protection Act Compliance
+We never collect or maintain information at our website from those we actually know are under 13, and no part of our website is structured to attract anyone under 13.
+
+Information for European Union Customers
+By using Overcast and providing your information, you authorize us to collect, use, and store your information outside of the European Union.
+
+International Transfers of Information
+Information may be processed, stored, and used outside of the country in which you are located. Data privacy laws vary across jurisdictions, and different laws may be applicable to your data depending on where it is processed, stored, or used.
+
+Your Consent
+By using our site or apps, you consent to our privacy policy.
+
+Contacting Us
+If you have questions regarding this privacy policy, you may email kuk.engin@icloud.com
+
+Changes to this policy
+If we decide to change our privacy policy, we will post those changes on this page. Summary of changes so far:
+
+April 23, 2020: First published.</mutableString>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCy-pX-cKW">
+                                <rect key="frame" x="128" y="510" width="65" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="" backgroundImage="checkmark.rectangle.fill" catalog="system">
+                                    <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="termsOK:" destination="6Qa-Io-GVP" eventType="touchUpInside" id="Eh0-hs-h0g"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="accept" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="F4m-55-dRp">
+                                <rect key="frame" x="137" y="547" width="47" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="KOy-zh-Cjb" firstAttribute="leading" secondItem="Np1-yI-dRr" secondAttribute="leading" constant="16" id="1R1-Nn-qxE"/>
+                            <constraint firstAttribute="bottom" secondItem="KOy-zh-Cjb" secondAttribute="bottom" id="1vg-DC-DyM"/>
+                            <constraint firstItem="Np1-yI-dRr" firstAttribute="trailing" secondItem="KOy-zh-Cjb" secondAttribute="trailing" constant="16" id="hlb-Jk-ks8"/>
+                            <constraint firstItem="KOy-zh-Cjb" firstAttribute="top" secondItem="Np1-yI-dRr" secondAttribute="top" id="jl3-RG-mTU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Np1-yI-dRr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="742-7Q-ePO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1425" y="366.54929577464787"/>
+        </scene>
+        <!--tabs-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabs" title="tabs" id="49e-Tb-3d3" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="E31-uq-kjV"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -535,6 +636,7 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HzY-SQ-sNu" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Trips" image="car.fill" catalog="system" id="skA-V4-wWY"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Pjo-zg-Zxq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WxA-6e-raA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -616,6 +718,7 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
     <resources>
         <image name="arrow.up.arrow.down" catalog="system" width="64" height="48"/>
         <image name="car.fill" catalog="system" width="64" height="46"/>
+        <image name="checkmark.rectangle.fill" catalog="system" width="64" height="46"/>
         <image name="envelope.badge" catalog="system" width="64" height="48"/>
         <image name="envelope.open.fill" catalog="system" width="64" height="58"/>
         <image name="map.fill" catalog="system" width="64" height="56"/>
