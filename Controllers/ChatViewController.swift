@@ -64,6 +64,20 @@ import InputBarAccessoryView
  
         docRef = db.collection("Trips").document(id)
         
+          userListener = referenceUsers?.addSnapshotListener { querySnapshot, error in
+        
+           guard let snapshot = querySnapshot else {
+             print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+             return
+           }
+       
+      snapshot.documentChanges.forEach { change in
+        self.handleUserChange(change)
+          
+         }
+      }
+        
+        
     // Firestore calls this snapshot listener whenever there is a change to the database.
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
           
@@ -78,19 +92,7 @@ import InputBarAccessoryView
 
         }
 
-         userListener = referenceUsers?.addSnapshotListener { querySnapshot, error in
-  
-                 guard let snapshot = querySnapshot else {
-                   print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
-                   return
-                 }
-             
-            snapshot.documentChanges.forEach { change in
-              self.handleUserChange(change)
-                
-            }
-      }
-  
+     
        let chatUsers = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showUsers))
 
          navigationItem.rightBarButtonItems = [chatUsers]
@@ -174,7 +176,7 @@ import InputBarAccessoryView
      )
      
                
-                let messageW = Message(user: terminal, content:   " Welcome to #"  + channelName + "\nThis channel is created to gather people travelling " + direction + " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. You can report a user by command: \n/report nickName \n "     )
+                let messageW = Message(user: terminal, content:   " Welcome to #"  + channelName + "\nThis channel is created to gather people travelling " + direction + " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. Trip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n "     )
                   
                  save(asciiArt)
                  save(messageW)
@@ -233,8 +235,7 @@ import InputBarAccessoryView
           print("Error sending message: \(e.localizedDescription)")
           return
             }
-
-           }
+         }
       }
     
     private func removeUser(_ user: chatUser) {
@@ -290,70 +291,69 @@ import InputBarAccessoryView
        switch change.type {
       case .added:
       insertNewMessage(message)
-     
-      if message.content.contains("/report")  {
-        
-        let reportedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /report ",with: "")
-        
-        for user in chatRoomUsers {
-            
-            if user.nickName == reportedUser {
-                
-              let reportedUserId = user.uid
-                documentId = docRef
-                
-             let reported = rUser(uid: reportedUserId, docName: documentId!.documentID)
-              
-              reportUser(reported)
-                
-            }
-        }
-        
-      // TODO: more channel moderation by ops
-      // Trip creators will be (@)op and other passengers will be (+)voiced users automatically. Other users could also join chat but ops can change channel mode to moderated if they want to. Some IRC commands will be added. /kick /ban etc. 
-        
-     // about Moderation Guidelines: i will check by filtering reported field in firebase daily, there is no blocking option now because sending private messages is not allowed. User can report and leave the channel. Inappropriate messages will be deleted automatically as channels are autodelted (deleted only from frontend Database for messages stays) after few hours of the trip. More channel moderation will be added in the next version.
-        
-        }
-        
-      if message.content.contains("/block") && message.sender.displayName == currentUser.displayName {
-        
-        let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /block ",with: "")
-          
-          for user in chatRoomUsers {
-               print(chatRoomUsers)
-              if user.nickName == blockedUser {
-            
-                let blockedUserId = user.uid
-                blockedchatRoomUsers.append(blockedUser)
-                cUser!.blocked?.append(blockedUserId)
-                // if blocking person trip creator kick blocked one
-                if cUser?.nickName == trip?.Passengers[0] {
-                    let indexOfUser = trip?.Passengers.firstIndex(of: blockedUser)
-                    trip?.Passengers.remove(at: indexOfUser!)
-                 }
-                
-                let documentId = userId?.documentID
-                
-                chatUserReference.document(documentId!).updateData([
-                    "blocked": cUser!.blocked!
-                          ]) { err in
-                              if let err = err {
-                                  print("Error updating document: \(err)")
-                              } else {
-                                  print("Document successfully updated")
-                              }
-                       
-                }
-                
-            }
-             
-                }
-           
- 
-              }
-     
       
+   if message.content.contains("/b")   {
+  
+         let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /b ",with: "")
+           
+           for user in chatRoomUsers {
+               if user.nickName == blockedUser {
+             
+                 let blockedUserId = user.uid
+                 blockedchatRoomUsers.append(blockedUser)
+                 cUser!.blocked?.append(blockedUserId)
+                 // if blocking person trip creator kick blocked one
+                
+                 if cUser?.nickName == trip?.Passengers[0] {
+                    let indexOfUser = (trip?.Passengers.firstIndex(of: blockedUser))!
+                     trip?.Passengers.remove(at: indexOfUser)
+                  }
+                 // KARSI CIHAZDAKI KODUN FARKLI ISLEDIGINI UNUTMA
+                 let documentId = userId?.documentID
+         
+         chatUserReference.document(documentId!).updateData([
+             "blocked": cUser!.blocked!
+                   ]) { err in
+                       if let err = err {
+                           print("Error updating document: \(err)")
+                       } else {
+                           print("Document successfully updated")
+                       }
+                                
+                         }
+                         
+                     }
+                      
+                         }
+                    
+          
+                       }
+          
+          
+          if message.content.contains("/r")  {
+                 
+                 let reportedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /r ",with: "")
+          
+                 for user in chatRoomUsers {
+
+                  if user.nickName == reportedUser {
+                         
+                       let reportedUserId = user.uid
+                         documentId = docRef
+                         
+                      let reported = rUser(uid: reportedUserId, docName: documentId!.documentID)
+                       
+                       reportUser(reported)
+                         
+                     }
+                 }
+                 
+               // TODO: more channel moderation by ops
+               // Trip creators will be (@)op and other passengers will be (+)voiced users automatically. Other users could also join chat but ops can change channel mode to moderated if they want to. Some IRC commands will be added. /kick /ban etc.
+                 
+              // about Moderation Guidelines: i will check by filtering reported field in firebase daily, there is no blocking option now because sending private messages is not allowed. User can report and leave the channel. Inappropriate messages will be deleted automatically as channels are autodelted (deleted only from frontend Database for messages stays) after few hours of the trip. More channel moderation will be added in the next version.
+                 
+                 }
         
       default:
       break
@@ -480,7 +480,6 @@ extension ChatViewController: MessageInputBarDelegate {
     let message = Message(user: currentUser, content: "<"+(currentUser.displayName)+"> " + text)
     save(message)
     inputBar.inputTextView.text = ""
-    
     
   }
   
