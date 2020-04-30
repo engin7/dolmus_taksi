@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
              
              if  KeychainWrapper.standard.string(forKey: "myKey") != nil {
                 
+             
             let documentID = KeychainWrapper.standard.string(forKey: "myKey")
                 
                   userId = chatUserReference.document(documentID!)

@@ -37,8 +37,8 @@ class TripsTableViewCell: UITableViewCell  {
  }
 
     class TripsTableViewController: UITableViewController {
-
  
+        
         @IBAction func chatButtton(_ sender: Any) {
    
              
@@ -314,7 +314,7 @@ class TripsTableViewCell: UITableViewCell  {
             
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     
-             if ((trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName))
+             if ((trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName)) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse
 //                && ((host?.blocked!.contains(currentUser!.uid))!)
             {
               
@@ -362,19 +362,28 @@ class TripsTableViewCell: UITableViewCell  {
            }
             }  }
                 
-            if trip.Passengers.contains(currentUser!.displayName) {
+            if trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
                 self.updatePassengers(documentId!, trip)
                 let vc = ChatViewController(currentUser: currentUser!, trip: trip)
 
                 self.navigationController?.pushViewController(vc, animated: true)
 
             }
-      
+            if CLLocationManager.authorizationStatus() == .denied {
+                let alert = UIAlertController(title: "Location services denied", message: "You need to allow our app to use your location when in use to access our services. Please go to Settings > Privacy > Location Services. Tap our app icon and change your settings.", preferredStyle: .alert)
+                        
+                         alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
+                         self.present(alert, animated: true, completion: nil)
+                      
+            }
         
                 func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         }
     }
   }
+ 
+
+
 
 extension TripsTableViewController : CLLocationManagerDelegate {
      
@@ -394,7 +403,7 @@ extension TripsTableViewController : CLLocationManagerDelegate {
 
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-           
+ 
            print(error.localizedDescription)
        }
 }

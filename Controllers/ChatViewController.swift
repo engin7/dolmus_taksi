@@ -176,7 +176,7 @@ import InputBarAccessoryView
      )
      
                
-                let messageW = Message(user: terminal, content:   " Welcome to #"  + channelName + "\nThis channel is created to gather people travelling " + direction + " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. Trip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n "     )
+                let messageW = Message(user: terminal, content:   " Welcome to #"  + channelName + "\nThis channel is created to gather people travelling " + direction + " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. Trip creators can ban a user by command: /b nickname\nYou can report a user by command: /r nickName \n "     )
                   
                  save(asciiArt)
                  save(messageW)
