@@ -27,7 +27,6 @@ class ColorPointAnnotation: MKPointAnnotation {
     }
 }
 
-
 class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate {
     
     @IBOutlet weak var myTripView: UIView!
@@ -190,12 +189,15 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         myTripView.isHidden = true
         locationManager = CLLocationManager()
         locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager?.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-        setNavigationSearchBar()
-        arrangeSearchBars()
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            if self.fromLocation != nil {
+                self.setNavigationSearchBar()
+                self.arrangeSearchBars()
+        }
+        }
      }
     
     func setNavigationSearchBar() {
