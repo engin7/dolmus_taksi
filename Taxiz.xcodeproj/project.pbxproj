@@ -57,11 +57,9 @@
 		10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupLocationSearchTable.swift; sourceTree = "<group>"; };
 		10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUsersTableViewController.swift; sourceTree = "<group>"; };
-		10FCDDFD245D7C80000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
 		10FCDDFE245D7C81000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		10FCDE02245D807D000BBE89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		10FCDE04245D8080000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		10FCDE06245D996D000BBE89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		58452656F84D2578238B1235 /* libPods-Taxiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taxiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98EAF695D1C9224028EB8E68 /* Pods-Taxiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.release.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.release.xcconfig"; sourceTree = "<group>"; };
 		9905940D3B069A5E4ED79EC5 /* Pods-Taxiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.debug.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.debug.xcconfig"; sourceTree = "<group>"; };
@@ -314,8 +312,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				10558A2823F3F8EB005402F5 /* Base */,
-				10FCDDFD245D7C80000BBE89 /* tr */,
-				10FCDE06245D996D000BBE89 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
