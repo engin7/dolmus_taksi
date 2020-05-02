@@ -1,0 +1,87 @@
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "0NC-H3-IbG"; */
+"0NC-H3-IbG.title" = "Item";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "2XG-71-8f7"; */
+"2XG-71-8f7.text" = "Subtitle";
+
+/* Class = "UITabBarController"; title = "tabs"; ObjectID = "49e-Tb-3d3"; */
+"49e-Tb-3d3.title" = "tabs";
+
+/* Class = "UIViewController"; title = "Map"; ObjectID = "9pv-A4-QxB"; */
+"9pv-A4-QxB.title" = "Harita";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "BWt-c6-P5a"; */
+"BWt-c6-P5a.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "CWh-pt-jVa"; */
+"CWh-pt-jVa.normalTitle" = "Button";
+
+/* Class = "UINavigationItem"; title = "Profile"; ObjectID = "ESH-UO-gpC"; */
+"ESH-UO-gpC.title" = "Profil";
+
+/* Class = "UITextView"; text = "accept"; ObjectID = "F4m-55-dRp"; */
+"F4m-55-dRp.text" = "kabul et";
+
+/* Class = "UILabel"; text = "create trip"; ObjectID = "GMb-35-e5z"; */
+"GMb-35-e5z.text" = "yolculuk oluştur";
+
+/* Class = "UITextView"; text = " Privacy Policy of Dolmus Taksi \n\n This policy applies to all information collected or submitted on our apps and any other devices and platforms.\n\nInformation we collect\nDolmus Taksi accounts are created anonymously, without email addresses or passwords.\n\nWe store information about your messages in chat rooms.\nWe may disclose your information in response to subpoenas, court orders, or other legal requirements; to exercise our legal rights or defend against legal claims; to investigate, prevent, or take action regarding illegal activities, suspected fraud or abuse, violations of our policies; or to protect our rights and property.\n\nSecurity\nIn our platform there is no tolerance for objectionable content or abusive users. Selling illegeal drugs or doing any other illegal activities in the chat rooms is not allowed and any information will be given to legal authorities. There is a feature to report a user in our chat rooms. We investigate reported user messages in 24 hours and permenantly delete accounts which violate our policies. Any user is responsible for their own safety. We recommend you to meet other passengers in public places.\n\nService Providers\nWe may employ third party companies and individuals to facilitate our Service (“Service Providers”), to provide the Service on our behalf, to perform Service-related services or to assist us in analyzing how our Service is used.\n\nThese third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.\n\nAnalytics\nWe may use third-party Service Providers to monitor and analyze the use of our Service.\n\nFirebase\n\nFirebase is analytics service provided by Google Inc.\n\nYou may opt-out of certain Firebase features through your mobile device settings, such as your device advertising settings or by following the instructions provided by Google in their Privacy Policy: https://policies.google.com/privacy?hl=en\n\nWe also encourage you to review the Google’s policy for safeguarding your data: https://support.google.com/analytics/answer/6004245. For more information on what type of information Firebase collects, please visit please visit the Google Privacy & Terms web page: https://policies.google.com/privacy?hl=en\n\nCalifornia Online Privacy Protection Act Compliance\nWe comply with the California Online Privacy Protection Act. We therefore will not distribute your personal information to outside parties without your consent.\n\nChildren’s Online Privacy Protection Act Compliance\nWe never collect or maintain information at our website from those we actually know are under 13, and no part of our website is structured to attract anyone under 13.\n\nInformation for European Union Customers\nBy using Overcast and providing your information, you authorize us to collect, use, and store your information outside of the European Union.\n\nInternational Transfers of Information\nInformation may be processed, stored, and used outside of the country in which you are located. Data privacy laws vary across jurisdictions, and different laws may be applicable to your data depending on where it is processed, stored, or used.\n\nYour Consent\nBy using our site or apps, you consent to our privacy policy.\n\nContacting Us\nIf you have questions regarding this privacy policy, you may email kuk.engin@icloud.com\n\nChanges to this policy\nIf we decide to change our privacy policy, we will post those changes on this page. Summary of changes so far:\n\nApril 23, 2020: First published."; ObjectID = "KOy-zh-Cjb"; */
+"KOy-zh-Cjb.text" = " Privacy Policy of Dolmus Taksi \n\n This policy applies to all information collected or submitted on our apps and any other devices and platforms.\n\nInformation we collect\nDolmus Taksi accounts are created anonymously, without email addresses or passwords.\n\nWe store information about your messages in chat rooms.\nWe may disclose your information in response to subpoenas, court orders, or other legal requirements; to exercise our legal rights or defend against legal claims; to investigate, prevent, or take action regarding illegal activities, suspected fraud or abuse, violations of our policies; or to protect our rights and property.\n\nSecurity\nIn our platform there is no tolerance for objectionable content or abusive users. Selling illegeal drugs or doing any other illegal activities in the chat rooms is not allowed and any information will be given to legal authorities. There is a feature to report a user in our chat rooms. We investigate reported user messages in 24 hours and permenantly delete accounts which violate our policies. Any user is responsible for their own safety. We recommend you to meet other passengers in public places.\n\nService Providers\nWe may employ third party companies and individuals to facilitate our Service (“Service Providers”), to provide the Service on our behalf, to perform Service-related services or to assist us in analyzing how our Service is used.\n\nThese third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.\n\nAnalytics\nWe may use third-party Service Providers to monitor and analyze the use of our Service.\n\nFirebase\n\nFirebase is analytics service provided by Google Inc.\n\nYou may opt-out of certain Firebase features through your mobile device settings, such as your device advertising settings or by following the instructions provided by Google in their Privacy Policy: https://policies.google.com/privacy?hl=en\n\nWe also encourage you to review the Google’s policy for safeguarding your data: https://support.google.com/analytics/answer/6004245. For more information on what type of information Firebase collects, please visit please visit the Google Privacy & Terms web page: https://policies.google.com/privacy?hl=en\n\nCalifornia Online Privacy Protection Act Compliance\nWe comply with the California Online Privacy Protection Act. We therefore will not distribute your personal information to outside parties without your consent.\n\nChildren’s Online Privacy Protection Act Compliance\nWe never collect or maintain information at our website from those we actually know are under 13, and no part of our website is structured to attract anyone under 13.\n\nInformation for European Union Customers\nBy using Overcast and providing your information, you authorize us to collect, use, and store your information outside of the European Union.\n\nInternational Transfers of Information\nInformation may be processed, stored, and used outside of the country in which you are located. Data privacy laws vary across jurisdictions, and different laws may be applicable to your data depending on where it is processed, stored, or used.\n\nYour Consent\nBy using our site or apps, you consent to our privacy policy.\n\nContacting Us\nIf you have questions regarding this privacy policy, you may email kuk.engin@icloud.com\n\nChanges to this policy\nIf we decide to change our privacy policy, we will post those changes on this page. Summary of changes so far:\n\nApril 23, 2020: First published.";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "LB5-2e-lpO"; */
+"LB5-2e-lpO.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "LEK-s7-Zfg"; */
+"LEK-s7-Zfg.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "to"; ObjectID = "MDQ-Q2-Rt6"; */
+"MDQ-Q2-Rt6.text" = "to";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "V5n-Sa-nAE"; */
+"V5n-Sa-nAE.text" = "Title";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "VIs-lC-F8p"; */
+"VIs-lC-F8p.text" = "Title";
+
+/* Class = "UILabel"; text = "nickName "; ObjectID = "VfJ-aw-zU5"; */
+"VfJ-aw-zU5.text" = "rumuz ";
+
+/* Class = "UILabel"; text = " ⇢"; ObjectID = "YLg-Xq-Wmp"; */
+"YLg-Xq-Wmp.text" = " ⇢";
+
+/* Class = "UILabel"; text = "passengers"; ObjectID = "Ymd-DE-WfG"; */
+"Ymd-DE-WfG.text" = "yolcular";
+
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "acW-dT-cKf"; */
+"acW-dT-cKf.title" = "Harita";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "d3S-Le-RHP"; */
+"d3S-Le-RHP.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "toCity"; ObjectID = "ksA-wC-qJW"; */
+"ksA-wC-qJW.text" = "toCity";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "lq8-kD-6Vk"; */
+"lq8-kD-6Vk.text" = "1";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "m7K-mW-m7w"; */
+"m7K-mW-m7w.text" = "Subtitle";
+
+/* Class = "UITextField"; text = "<-- Contact Us"; ObjectID = "pY8-Sx-iTV"; */
+"pY8-Sx-iTV.text" = "<-- Bize Ulaşın";
+
+/* Class = "UITabBarItem"; title = "Trips"; ObjectID = "skA-V4-wWY"; */
+"skA-V4-wWY.title" = "Yolculuklar";
+
+/* Class = "UILabel"; text = "fromCity"; ObjectID = "wRS-Yw-Mfg"; */
+"wRS-Yw-Mfg.text" = "fromCity";
+
+/* Class = "UILabel"; text = "time"; ObjectID = "xE9-wg-sIL"; */
+"xE9-wg-sIL.text" = "time";
+
+/* Class = "UILabel"; text = "About the app: \nYour nickname is autogenerated. All users are  anonymous. Chat rooms and all messages are deleted after the trip. Please do not provide any personal information in chat rooms until meeting time. Choose  public places to meet. Some users can offer ride with their own vehicle. You can always reject joining the trip if you don't feel comfortable. \n"; ObjectID = "xZW-cd-mu6"; */
+"xZW-cd-mu6.text" = "About the app: \nYour nickname is autogenerated. All users are  anonymous. Chat rooms and all messages are deleted after the trip. Please do not provide any personal information in chat rooms until meeting time. Choose  public places to meet. Some users can offer ride with their own vehicle. You can always reject joining the trip if you don't feel comfortable. \n";
+
+/* Class = "UILabel"; text = "from"; ObjectID = "z69-FF-yfP"; */
+"z69-FF-yfP.text" = "from";

@@ -247,10 +247,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KOy-zh-Cjb">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KOy-zh-Cjb">
                                 <rect key="frame" x="16" y="0.0" width="288" height="568"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <mutableString key="text">    /*/ Privacy Policy of Dolmus Taksi \*\ 
+                                <mutableString key="text"> Privacy Policy of Dolmus Taksi 
 
  This policy applies to all information collected or submitted on our apps and any other devices and platforms.
 
