@@ -13,3 +13,8 @@
 "Contact Us" = "Contact Us";
 "None, I'm just looking." = "None, I'm just looking.";
 "Location services denied" = "Location services denied";
+"You need to allow our app to use your location when in use to access our services. Please go to Settings > Privacy > Location Services. Tap our app icon and change your settings." = "You need to allow our app to use your location when in use to access our services. Please go to Settings > Privacy > Location Services. Tap our app icon and change your settings.";
+"How many passengers will join the trip?" = "How many passengers will join the trip?";
+"Welcome to #" = "Welcome to #";
+"\nThis channel is created to gather people travelling " = "\nThis channel is created to gather people travelling ";
+" \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. \nTrip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n " = " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. \nTrip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n ";

@@ -175,8 +175,11 @@ import InputBarAccessoryView
     "\n        `--'                           `--' "
      )
      
-               
-                let messageW = Message(user: terminal, content:   " Welcome to #"  + channelName + "\nThis channel is created to gather people travelling " + direction + " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. \nTrip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n "     )
+        let w = NSLocalizedString("Welcome to #", comment: "")
+        let t = NSLocalizedString("\nThis channel is created to gather people travelling ", comment: "")
+        let m = NSLocalizedString(" \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. \nTrip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n ", comment: "")
+
+                let messageW = Message(user: terminal, content: w + channelName + t + direction + m)
                   
                  save(asciiArt)
                  save(messageW)

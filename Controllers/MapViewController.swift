@@ -192,7 +192,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         locationManager?.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             if self.fromLocation != nil {
                 self.setNavigationSearchBar()
                 self.arrangeSearchBars()
