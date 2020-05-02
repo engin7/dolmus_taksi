@@ -28,6 +28,7 @@
 		10B5CBD8240444AF00FDC8E7 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */; };
 		10D43B29242A795B00A3719B /* PopupLocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */; };
 		10D43B2B24368B8F00A3719B /* ChatUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */; };
+		10FCDE01245D807D000BBE89 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10FCDE03245D807D000BBE89 /* Localizable.strings */; };
 		820A52C828F041B8BC28B632 /* libPods-Taxiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58452656F84D2578238B1235 /* libPods-Taxiz.a */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,11 @@
 		10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupLocationSearchTable.swift; sourceTree = "<group>"; };
 		10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUsersTableViewController.swift; sourceTree = "<group>"; };
+		10FCDDFD245D7C80000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
+		10FCDDFE245D7C81000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		10FCDE02245D807D000BBE89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		10FCDE04245D8080000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		10FCDE06245D996D000BBE89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		58452656F84D2578238B1235 /* libPods-Taxiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taxiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98EAF695D1C9224028EB8E68 /* Pods-Taxiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.release.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.release.xcconfig"; sourceTree = "<group>"; };
 		9905940D3B069A5E4ED79EC5 /* Pods-Taxiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxiz.debug.xcconfig"; path = "Target Support Files/Pods-Taxiz/Pods-Taxiz.debug.xcconfig"; sourceTree = "<group>"; };
@@ -139,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				10558A2F23F3F8ED005402F5 /* Info.plist */,
+				10FCDE03245D807D000BBE89 /* Localizable.strings */,
 				10558A6A23F888A8005402F5 /* Default-568h@2x.png */,
 				10558A6C23F88A87005402F5 /* GoogleService-Info.plist */,
 			);
@@ -206,6 +213,7 @@
 			knownRegions = (
 				en,
 				Base,
+				tr,
 			);
 			mainGroup = 10558A1323F3F8EB005402F5;
 			productRefGroup = 10558A1D23F3F8EB005402F5 /* Products */;
@@ -223,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				10558A2E23F3F8ED005402F5 /* LaunchScreen.storyboard in Resources */,
+				10FCDE01245D807D000BBE89 /* Localizable.strings in Resources */,
 				10558A6B23F888A8005402F5 /* Default-568h@2x.png in Resources */,
 				10558A2B23F3F8ED005402F5 /* Assets.xcassets in Resources */,
 				10558A6D23F88A87005402F5 /* GoogleService-Info.plist in Resources */,
@@ -305,6 +314,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				10558A2823F3F8EB005402F5 /* Base */,
+				10FCDDFD245D7C80000BBE89 /* tr */,
+				10FCDE06245D996D000BBE89 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -313,8 +324,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				10558A2D23F3F8ED005402F5 /* Base */,
+				10FCDDFE245D7C81000BBE89 /* tr */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		10FCDE03245D807D000BBE89 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10FCDE02245D807D000BBE89 /* en */,
+				10FCDE04245D8080000BBE89 /* tr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -324,6 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -370,7 +392,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -384,6 +406,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -424,7 +447,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

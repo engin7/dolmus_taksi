@@ -321,8 +321,8 @@ class TripsTableViewCell: UITableViewCell  {
              if !(trip.Passengers.contains(currentUser!.displayName))  {
    
             let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: "How many passengers will join the trip?", preferredStyle: .alert)
-       
-            alert.addAction(UIAlertAction(title: "None, I'm just looking.", style: .default, handler: { action in
+            let justLooking = NSLocalizedString("None, I'm just looking.", comment: "")
+            alert.addAction(UIAlertAction(title: justLooking, style: .default, handler: { action in
                 let vc = ChatViewController(currentUser: currentUser!, trip: trip)
                 self.navigationController?.pushViewController(vc, animated: true)
             }))
@@ -370,7 +370,9 @@ class TripsTableViewCell: UITableViewCell  {
 
             }
             if CLLocationManager.authorizationStatus() == .denied {
-                let alert = UIAlertController(title: "Location services denied", message: "You need to allow our app to use your location when in use to access our services. Please go to Settings > Privacy > Location Services. Tap our app icon and change your settings.", preferredStyle: .alert)
+                let title = NSLocalizedString("Location services denied", comment: "")
+
+                let alert = UIAlertController(title: title, message: "You need to allow our app to use your location when in use to access our services. Please go to Settings > Privacy > Location Services. Tap our app icon and change your settings.", preferredStyle: .alert)
                         
                          alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
                          self.present(alert, animated: true, completion: nil)

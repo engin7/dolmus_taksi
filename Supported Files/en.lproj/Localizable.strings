@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Taxiz
+
+  Created by Engin KUK on 2.05.2020.
+  Copyright © 2020 Silverback Inc. All rights reserved.
+*/
+
+
+"Trips" = "Trips";
+"Map" = "Map";
+"Profile" = "Profile";
+"Contact Us" = "Contact Us";
+"None, I'm just looking." = "None, I'm just looking.";
+"Location services denied" = "Location services denied";
