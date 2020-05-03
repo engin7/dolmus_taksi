@@ -10,7 +10,7 @@
         <!--Map-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController title="Map" id="9pv-A4-QxB" customClass="MapViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Map" id="9pv-A4-QxB" customClass="MapViewController" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,13 +53,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="passengers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymd-DE-WfG">
-                                                <rect key="frame" x="39" y="21" width="41" height="9"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                                <rect key="frame" x="29.5" y="21" width="60.5" height="13.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEK-s7-Zfg">
-                                                <rect key="frame" x="48" y="69" width="23" height="22"/>
+                                                <rect key="frame" x="48" y="62.5" width="23" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button" image="car.fill" catalog="system">
@@ -78,28 +78,28 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="create trip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMb-35-e5z">
-                                                <rect key="frame" x="26" y="99" width="67" height="8"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                                <rect key="frame" x="10" y="92.5" width="99" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8h6-1w-cyV">
-                                                <rect key="frame" x="20" y="38" width="79" height="24"/>
+                                                <rect key="frame" x="20" y="42.5" width="79" height="13"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWt-c6-P5a" userLabel="add Person">
-                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="22"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <state key="normal" title="Button" image="person.crop.circle.fill.badge.plus" catalog="system"/>
-                                                        <connections>
-                                                            <action selector="addPerson:" destination="9pv-A4-QxB" eventType="touchUpInside" id="ymt-vr-8yf"/>
-                                                        </connections>
-                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LB5-2e-lpO" userLabel="remove Person">
-                                                        <rect key="frame" x="56" y="1" width="23" height="22"/>
+                                                        <rect key="frame" x="56" y="-4" width="23" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" title="Button" image="person.crop.circle.badge.minus" catalog="system"/>
                                                         <connections>
                                                             <action selector="removePerson:" destination="9pv-A4-QxB" eventType="touchUpInside" id="dlE-15-ekQ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWt-c6-P5a" userLabel="add Person">
+                                                        <rect key="frame" x="0.0" y="-4" width="24" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" title="Button" image="person.crop.circle.fill.badge.plus" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="addPerson:" destination="9pv-A4-QxB" eventType="touchUpInside" id="ymt-vr-8yf"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -138,7 +138,7 @@
                                             <constraint firstItem="8h6-1w-cyV" firstAttribute="leading" secondItem="P3V-LW-hj2" secondAttribute="leading" constant="20" id="g1r-ap-Td2"/>
                                             <constraint firstItem="CWh-pt-jVa" firstAttribute="top" secondItem="d3S-Le-RHP" secondAttribute="top" id="gUn-9w-Zcb"/>
                                             <constraint firstAttribute="width" constant="119" id="nLl-9K-S3e"/>
-                                            <constraint firstItem="GMb-35-e5z" firstAttribute="leading" secondItem="P3V-LW-hj2" secondAttribute="leading" constant="26" id="sYm-gl-Zcj"/>
+                                            <constraint firstItem="GMb-35-e5z" firstAttribute="leading" secondItem="P3V-LW-hj2" secondAttribute="leading" constant="10" id="sYm-gl-Zcj"/>
                                             <constraint firstAttribute="trailing" secondItem="LEK-s7-Zfg" secondAttribute="trailing" constant="48" id="wKG-8D-Qzc"/>
                                         </constraints>
                                     </view>
@@ -198,7 +198,7 @@
         <!--Location Search Table-->
         <scene sceneID="3a6-X2-Ftu">
             <objects>
-                <tableViewController storyboardIdentifier="LocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhc-zp-TSn" customClass="LocationSearchTable" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhc-zp-TSn" customClass="LocationSearchTable" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tiD-Oz-25W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -242,7 +242,7 @@
         <!--Terms-->
         <scene sceneID="AhH-bs-RbC">
             <objects>
-                <viewController id="6Qa-Io-GVP" customClass="Terms" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6Qa-Io-GVP" customClass="Terms" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="abS-jD-Eth">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,7 +250,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KOy-zh-Cjb">
                                 <rect key="frame" x="16" y="0.0" width="288" height="568"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <mutableString key="text"> Privacy Policy of Dolmus Taksi 
+                                <string key="text"> Privacy Policy of Dolmus Taksi 
 
  This policy applies to all information collected or submitted on our apps and any other devices and platforms.
 
@@ -300,7 +300,7 @@ If you have questions regarding this privacy policy, you may email kuk.engin@icl
 Changes to this policy
 If we decide to change our privacy policy, we will post those changes on this page. Summary of changes so far:
 
-April 23, 2020: First published.</mutableString>
+April 23, 2020: First published.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -393,7 +393,7 @@ April 23, 2020: First published.</mutableString>
         <!--Profile-->
         <scene sceneID="FGs-OU-M5J">
             <objects>
-                <tableViewController id="ZLb-K0-6hG" customClass="ProfileTableViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ZLb-K0-6hG" customClass="ProfileTableViewController" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gpT-9Q-wCg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -403,7 +403,7 @@ April 23, 2020: First published.</mutableString>
                         <sections>
                             <tableViewSection id="K4d-Wp-iH7">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="80" id="8yi-Fq-2gR" customClass="ProfileTableViewCell" customModule="Taxiz" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="80" id="8yi-Fq-2gR" customClass="ProfileTableViewCell" customModule="Dolmuş_Taksi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8yi-Fq-2gR" id="Shq-4e-ZTY">
@@ -506,14 +506,14 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
         <!--Trips Table View Controller-->
         <scene sceneID="JSf-C0-f5b">
             <objects>
-                <tableViewController storyboardIdentifier="trips" id="yes-Qc-0lm" customClass="TripsTableViewController" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="trips" id="yes-Qc-0lm" customClass="TripsTableViewController" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hMg-Wi-gB4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <color key="sectionIndexBackgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="40" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Taxiz" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="40" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Dolmuş_Taksi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XGY-1c-AOD" id="hcZ-vC-ExX">
@@ -683,7 +683,7 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
         <!--Popup Location Search Table-->
         <scene sceneID="s8q-B5-O5m">
             <objects>
-                <tableViewController storyboardIdentifier="PopupLocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLw-Qz-yoO" customClass="PopupLocationSearchTable" customModule="Taxiz" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PopupLocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLw-Qz-yoO" customClass="PopupLocationSearchTable" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fUM-gu-Ku4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

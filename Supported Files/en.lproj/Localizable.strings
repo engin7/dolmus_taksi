@@ -18,3 +18,8 @@
 "Welcome to #" = "Welcome to #";
 "\nThis channel is created to gather people travelling " = "\nThis channel is created to gather people travelling ";
 " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. \nTrip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n " = " \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. \nTrip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n ";
+"nickName: " = "nickName: ";
+"Passengers " = "Passengers ";
+"leave trip" = "leave trip";
+" to " = " to ";
+"from " = "from ";

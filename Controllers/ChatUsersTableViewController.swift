@@ -18,6 +18,7 @@ class ChatUsersTableViewController: UITableViewController {
       super.init(nibName: nil, bundle: nil)
     }
     
+
     fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
              tripReference.document(documentId).updateData([
                  "passengers": trip.Passengers
@@ -37,10 +38,13 @@ class ChatUsersTableViewController: UITableViewController {
     
        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
         
-        self.title = "Passengers "
+        let p = NSLocalizedString("Passengers ", comment: "")
+
+        self.title = p
+        let leave = NSLocalizedString("leave trip", comment: "")
 
         if (trip?.Passengers.contains(currentUser!.displayName))! {
-        let exit  = UIBarButtonItem(title: "leave trip", style: .plain, target: self, action: #selector(exitRoom))
+        let exit  = UIBarButtonItem(title: leave, style: .plain, target: self, action: #selector(exitRoom))
         
         navigationItem.rightBarButtonItems = [exit]
         }

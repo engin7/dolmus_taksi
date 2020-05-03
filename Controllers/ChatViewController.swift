@@ -158,7 +158,10 @@ import InputBarAccessoryView
            // TODO:  ASCIIart keyboard stickers in next version
         let channelName = String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!
         
-        let direction = "from " + String(trip!.from) + " to " + String(trip!.to) + " @" + getReadableDate(time: trip!.time)!
+        let f = NSLocalizedString("from ", comment: "")
+        let to = NSLocalizedString(" to ", comment: "")
+
+        let direction = f + String(trip!.from) + to + String(trip!.to) + " @" + getReadableDate(time: trip!.time)!
         
   let asciiArt = Message(user: terminal, content:
      "                   __------__\n" +

@@ -42,8 +42,9 @@ class ProfileTableViewController:  UITableViewController, MFMailComposeViewContr
     override func viewDidLoad() {
            super.viewDidLoad()
         overrideUserInterfaceStyle = .light
- 
-        nickName.text = "nickName: " + currentUser!.displayName
+        let nick = NSLocalizedString("nickName: ", comment: "")
+
+        nickName.text = nick + currentUser!.displayName
     }
  
     override var preferredStatusBarStyle: UIStatusBarStyle {
