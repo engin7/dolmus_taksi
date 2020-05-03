@@ -9,6 +9,8 @@ import UIKit
 import Firebase
 import MessageKit
 import InputBarAccessoryView
+import UserNotifications
+
 
 // TODO: Notifications via firebase
 // TODO: Terminal messages red color
@@ -51,7 +53,7 @@ import InputBarAccessoryView
     override func viewDidLoad() {
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
-
+   
         guard let id = trip?.id else {
                 navigationController?.popViewController(animated: true)
                 return
@@ -119,12 +121,12 @@ import InputBarAccessoryView
         self.messagesCollectionView.scrollToBottom(animated: true)
         
         if !self.trip!.welcomed  {
-                 self.terminalWelcome()
-                 self.trip!.welcomed = true
-                 documentId = docRef
-                 self.updateWelcome(self.documentId!.documentID, self.trip!)
+         self.terminalWelcome()
+         self.trip!.welcomed = true
+         documentId = docRef
+         self.updateWelcome(self.documentId!.documentID, self.trip!)
 
-                }
+        }
              terminalAdd()
        }
        

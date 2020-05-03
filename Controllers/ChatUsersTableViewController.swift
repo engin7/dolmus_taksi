@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class ChatUsersTableViewController: UITableViewController {
 
@@ -35,7 +36,11 @@ class ChatUsersTableViewController: UITableViewController {
     override func viewDidLoad()
     {
        overrideUserInterfaceStyle = .light
-    
+        
+        Messaging.messaging().subscribe(toTopic: "weather") { error in
+          print("Subscribed to weather topic")
+        }
+        
        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
         
         let p = NSLocalizedString("Passengers ", comment: "")
