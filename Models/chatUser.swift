@@ -26,13 +26,15 @@ let nickName: String
 let uid: String
 var blocked: [String]?
 var fcmToken: String?
-
+var hostId: [String:String]?
+    
     init(fcmToken: String) {
      self.nickName = currentUser!.displayName
      self.passenger = false
      self.uid = currentUser!.uid
      id = nil
      blocked = []
+     hostId = [:]
      self.fcmToken = fcmToken
     }
     
@@ -55,6 +57,11 @@ var fcmToken: String?
         guard let fcmToken = data!["fcmToken"] as? String? else {
           return nil
         }
+        guard let hostId = data!["hostId"] as? [String:String]? else {
+                 return nil
+               }
+        
+      
         
     id = document.documentID
     self.nickName = nickName
@@ -62,6 +69,7 @@ var fcmToken: String?
     self.uid = uid
     self.blocked = blocked
     self.fcmToken = fcmToken
+    self.hostId = hostId
     }
 }
 
@@ -75,6 +83,7 @@ extension chatUser: DatabaseRepresentation {
         "blocked": blocked,
             "id" : id,
       "fcmToken" : fcmToken,
+      "hostId" : hostId,
     ]
    }
 }

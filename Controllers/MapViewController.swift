@@ -107,12 +107,27 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         if let e = error {
           print("Error saving channel: \(e.localizedDescription)")
          }
-
+            
       }
 
             self.referenceUsers = db.collection(["Trips", doc_ref.documentID, "users"].joined(separator: "/"))
-         host_doc_ref = self.referenceUsers?.addDocument(data: cUser!.representation)
-     
+            
+         let host_doc_ref = self.referenceUsers?.addDocument(data: cUser!.representation)
+            cUser?.hostId![doc_ref.documentID] = host_doc_ref?.documentID
+            
+            let documentId = userId?.documentID
+               
+               chatUserReference.document(documentId!).updateData([
+                   "hostId": cUser!.hostId!
+                         ]) { err in
+                             if let err = err {
+                                 print("Error updating document: \(err)")
+                             } else {
+                                 print("Document successfully updated")
+                             }
+                                      
+                               }
+            
          UIView.animate(withDuration: 0.2, animations: {
                    self.myTripView.alpha = 0
                 }) { (finished) in

@@ -131,8 +131,8 @@ class ChatUsersTableViewController: UITableViewController {
                 }
               }
     } else {
-        let id = (host_doc_ref?.documentID)!
-        referenceUsers?.document(id).delete() { error in
+        let id = cUser?.hostId![documentId]
+        referenceUsers?.document(id!).delete() { error in
         if let e = error {
           print("Error sending message: \(e.localizedDescription)")
           return
