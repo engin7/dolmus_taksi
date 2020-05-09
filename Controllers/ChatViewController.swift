@@ -44,9 +44,9 @@ import UserNotifications
       self.trip = trip
       super.init(nibName: nil, bundle: nil)
       title =  "Destination:" + String(trip.to)
-   
-        let attributes = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 6)!]
-        UINavigationBar.appearance().titleTextAttributes = attributes
+//
+//        let attributes = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 6)!]
+//        UINavigationBar.appearance().titleTextAttributes = attributes
     }
  
     required init?(coder aDecoder: NSCoder) {

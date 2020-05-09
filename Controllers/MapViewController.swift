@@ -110,15 +110,15 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             
       }
 
-            self.referenceUsers = db.collection(["Trips", doc_ref.documentID, "users"].joined(separator: "/"))
+        self.referenceUsers = db.collection(["Trips", doc_ref.documentID, "users"].joined(separator: "/"))
             
          let host_doc_ref = self.referenceUsers?.addDocument(data: cUser!.representation)
-            cUser?.hostId![doc_ref.documentID] = host_doc_ref?.documentID
+            cUser?.chatUserId![doc_ref.documentID] = host_doc_ref?.documentID
             
             let documentId = userId?.documentID
                
                chatUserReference.document(documentId!).updateData([
-                   "hostId": cUser!.hostId!
+                   "chatUserId": cUser!.chatUserId!
                          ]) { err in
                              if let err = err {
                                  print("Error updating document: \(err)")

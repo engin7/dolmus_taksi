@@ -13,9 +13,7 @@ import Firebase
 class ChatUsersTableViewController: UITableViewController {
 
      private var trip: Trips
-    private var referenceUsers: CollectionReference?
- 
- 
+  
     init(trip: Trips ) {
      self.trip = trip
       super.init(nibName: nil, bundle: nil)
@@ -87,6 +85,21 @@ class ChatUsersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt  indexPath: IndexPath) {
      
         }
+    
+    func updateChatUserId() {
+      
+        let dokumanId = userId?.documentID
+                    
+        chatUserReference.document(dokumanId!).updateData([
+       "chatUserId": cUser!.chatUserId!
+          ]) { err in
+              if let err = err {
+                  print("Error updating document: \(err)")
+              } else {
+                  print("Document successfully updated")
+              }
+                         }
+    }
 
    @objc func exitRoom(sender: UIButton!) {
        // go back
@@ -120,28 +133,21 @@ class ChatUsersTableViewController: UITableViewController {
        }
         let documentId = trip.id!
    
-    self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
-
-    if documentIdforJoinedTrip != nil {
-           let id = (documentIdforJoinedTrip?.documentID)!
-            referenceUsers?.document(id).delete() { error in
-            if let e = error {
-              print("Error sending message: \(e.localizedDescription)")
-              return
-                }
-              }
-    } else {
-        let id = cUser?.hostId![documentId]
-        referenceUsers?.document(id!).delete() { error in
+    let referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+ 
+        let id = cUser?.chatUserId![documentId]
+        referenceUsers.document(id!).delete() { error in
         if let e = error {
           print("Error sending message: \(e.localizedDescription)")
           return
             }
           }
         
-    }
-    
-            
+      
+       cUser?.chatUserId![documentId] = nil
+
+       updateChatUserId()
+     
      }
 
        @objc func joinRoom(sender: UIButton!) {
@@ -159,9 +165,11 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName)
         self.updatePassengers(documentId, self.trip)
        self.navigationController?.popViewController(animated: true)
-        self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
-       documentIdforJoinedTrip = self.referenceUsers?.addDocument(data: cUser!.representation)
-            
+        let referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+        let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
+        cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
+        self.updateChatUserId()
+
      }))
              
         if trip.Passengers.count < 3 {
@@ -170,9 +178,11 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName + "+1")
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
-        self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
-        documentIdforJoinedTrip = self.referenceUsers?.addDocument(data: cUser!.representation)
-         
+        let referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+        let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
+        cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
+        self.updateChatUserId()
+
      }))
      }
          
@@ -183,11 +193,14 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName + "+2")
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
-        self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
-        documentIdforJoinedTrip = self.referenceUsers?.addDocument(data: cUser!.representation)
-         
+        let referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+        let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
+        cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
+        self.updateChatUserId()
+
      }))
      }
+
      self.present(alert, animated: true)
     }
       }
