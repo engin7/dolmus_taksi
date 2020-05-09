@@ -10,9 +10,9 @@ import Foundation
 import Firebase
 
 var cUser: chatUser?
-var host: chatUser?
 var userId: DocumentReference?
- 
+var host: chatUser?
+
 
 var chatUserReference: CollectionReference {
 return db.collection("chatUsers")
@@ -24,7 +24,7 @@ var id: String?
 let passenger: Bool
 let nickName: String
 let uid: String
-var blocked: [String]?
+var blocked: [String]
 var fcmToken: String?
 var chatUserId: [String:String]?
     
@@ -48,7 +48,7 @@ var chatUserId: [String:String]?
         guard let uid = data!["uid"] as? String else {
                           return nil
                         }
-        guard let blocked = data!["blocked"] as? [String]? else {
+        guard let blocked = data!["blocked"] as? [String] else {
                                return nil
                              }
         guard let passenger = data!["passenger"] as? Bool else {

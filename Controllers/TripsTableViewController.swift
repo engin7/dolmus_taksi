@@ -302,20 +302,20 @@ class TripsTableViewCell: UITableViewCell  {
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
             var trip =  self.trips[indexPath.row]
-            let documentId = trip.id //? get new host id calculate in advance to prevent entering it crashing now.. host = nil 
+            let documentId = trip.id
+            
             let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
-           
-            let  hostID = chatUserReference.document(trip.hostID)
- 
-               hostID.getDocument { (document, error) in
-                if let document = document, document.exists {
-                  host = chatUser(document: document)!
-                } }
+            
+            let hUserId = chatUserReference.document(trip.hostID)
+                hUserId.getDocument { (document, error) in
+                  if let document = document, document.exists {
+                   host = chatUser(document: document)!
+                  } }
             
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     
              if ((trip.Passengers.count < 6 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName)) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse
-//                && ((host?.blocked!.contains(currentUser!.uid))!)
+            
             {
               
              let vc = ChatViewController(currentUser: currentUser!, trip: trip)
@@ -342,6 +342,7 @@ class TripsTableViewCell: UITableViewCell  {
                       
             }
         
+ 
                 func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         }
     }

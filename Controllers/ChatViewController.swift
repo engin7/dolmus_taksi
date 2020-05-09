@@ -29,10 +29,8 @@ import UserNotifications
      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
      private var chatRoomUsers: [chatUser] = []
-     private var blockedchatRoomUsers: [String] = []
-
      var documentId: DocumentReference?
-     private var tripListener: ListenerRegistration?
+    private var tripListener: ListenerRegistration?
 
      deinit {
          messageListener?.remove()
@@ -44,19 +42,29 @@ import UserNotifications
       self.trip = trip
       super.init(nibName: nil, bundle: nil)
       title =  "Destination:" + String(trip.to)
-//
-//        let attributes = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 6)!]
-//        UINavigationBar.appearance().titleTextAttributes = attributes
     }
  
+  
     required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
     
+  
     override func viewDidLoad() {
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
-            
+        if   host!.blocked.contains(currentUser.uid) {
+                navigationController?.popViewController(animated: true)
+
+        let title = NSLocalizedString("You have been blocked", comment: "")
+           let message = NSLocalizedString("Creator of this trip channel decided to ban you. Make sure that your notification settings is on as some hosts may decide to ban travellers not responding. If you believe there is a mistake or host abused its power please report to Count Dracula", comment: "")
+           let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+                    alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+
+        }
+
          let w = NSLocalizedString("Welcome!", comment: "")
              
              let m = NSLocalizedString(" You will arrange possible routes, meeting point and sharing taxi costs yourself. When you're sure please click button on the right top then join. Trip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName ", comment: "")
@@ -283,11 +291,7 @@ import UserNotifications
       let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage
       
        messagesCollectionView.reloadData()
-        
-        if blockedchatRoomUsers.contains(currentUser.displayName) {
-            _ = navigationController?.popViewController(animated: true)
-         }
-        
+         
       if shouldScrollToBottom {
         DispatchQueue.main.async {
           self.messagesCollectionView.scrollToBottom(animated: true)
@@ -305,27 +309,24 @@ import UserNotifications
       case .added:
       insertNewMessage(message)
       
-   if message.content.contains("/b")   {
-  
-         let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /b ",with: "")
+      if message.content.contains("/b")  {
+     
+        let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /b ",with: "")
            
            for user in chatRoomUsers {
                if user.nickName == blockedUser {
              
                  let blockedUserId = user.uid
-                 blockedchatRoomUsers.append(blockedUser)
-                 cUser!.blocked?.append(blockedUserId)
-                 // if blocking person trip creator kick blocked one
                 
-                 if cUser?.nickName == trip?.Passengers[0] {
-                    let indexOfUser = (trip?.Passengers.firstIndex(of: blockedUser))!
+                host!.blocked.append(blockedUserId)
+                 // if blocking person trip creator kick blocked one
+                if (trip?.Passengers.contains(blockedUser))! {
+                     let indexOfUser = (trip?.Passengers.firstIndex(of: blockedUser))!
                      trip?.Passengers.remove(at: indexOfUser)
-                  }
-                 // KARSI CIHAZDAKI KODUN FARKLI ISLEDIGINI UNUTMA
-                 let documentId = userId?.documentID
-         
-         chatUserReference.document(documentId!).updateData([
-             "blocked": cUser!.blocked!
+                }
+                     navigationController?.popViewController(animated: true)
+                chatUserReference.document(trip!.hostID).updateData([
+                    "blocked": host!.blocked
                    ]) { err in
                        if let err = err {
                            print("Error updating document: \(err)")
