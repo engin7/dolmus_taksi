@@ -16,7 +16,7 @@ let db = Firestore.firestore()
       var tripReference: CollectionReference {
       return db.collection("Trips")
       }
- 
+var documentIdforJoinedTrip: DocumentReference?
 var tSpam = 0.0
 
  

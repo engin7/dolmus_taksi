@@ -242,14 +242,15 @@ import UserNotifications
     // MARK: - Helpers
 
     private func addUser(_ user: chatUser) {
+      
         self.documentId = referenceUsers?.addDocument(data: user.representation) { error in
         if let e = error {
           print("Error sending message: \(e.localizedDescription)")
           return
             }
          }
-      }
-    
+        }
+     
     private func removeUser(_ user: chatUser) {
         let id = (documentId?.documentID)!
         referenceUsers?.document(id).delete()   { error in

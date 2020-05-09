@@ -13,6 +13,8 @@ import Firebase
 class ChatUsersTableViewController: UITableViewController {
 
      private var trip: Trips
+    private var referenceUsers: CollectionReference?
+ 
  
     init(trip: Trips ) {
      self.trip = trip
@@ -116,7 +118,17 @@ class ChatUsersTableViewController: UITableViewController {
         updatePassengers(trip.id!, trip)
  
        }
+        let documentId = trip.id!
+        let id = (documentIdforJoinedTrip?.documentID)!
+     
+    self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
 
+            referenceUsers?.document(id).delete() { error in
+                   if let e = error {
+                     print("Error sending message: \(e.localizedDescription)")
+                     return
+                       }
+                     }
      }
 
        @objc func joinRoom(sender: UIButton!) {
@@ -134,6 +146,9 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName)
         self.updatePassengers(documentId, self.trip)
        self.navigationController?.popViewController(animated: true)
+        self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+       documentIdforJoinedTrip = self.referenceUsers?.addDocument(data: cUser!.representation)
+            
      }))
              
         if trip.Passengers.count < 3 {
@@ -142,6 +157,9 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName + "+1")
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
+        self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+        documentIdforJoinedTrip = self.referenceUsers?.addDocument(data: cUser!.representation)
+         
      }))
      }
          
@@ -152,6 +170,9 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName + "+2")
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
+        self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+        documentIdforJoinedTrip = self.referenceUsers?.addDocument(data: cUser!.representation)
+         
      }))
      }
      self.present(alert, animated: true)
