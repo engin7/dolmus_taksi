@@ -47,7 +47,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var toAnnotation: MKAnnotation?
     var fromLocation_searchBar: String?
     var pinView :  MKPinAnnotationView?
-
+    private var referenceUsers: CollectionReference?
+ 
     @IBAction func switchTrip(_ sender: Any) {
         swap(&toSearchController.searchBar.text, &fromSearchController.searchBar.text)
         swap(&toCity, &fromCity)
@@ -102,12 +103,16 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             trip!.Passengers.append(currentUser!.displayName + "+" + String(i))
         }
             // add to firestore database:
-        tripReference.addDocument(data: trip!.representation) { error in
+        let doc_ref = tripReference.addDocument(data: trip!.representation) { error in
         if let e = error {
           print("Error saving channel: \(e.localizedDescription)")
          }
+
       }
-        
+
+            self.referenceUsers = db.collection(["Trips", doc_ref.documentID, "users"].joined(separator: "/"))
+           self.referenceUsers?.addDocument(data: cUser!.representation)
+     
          UIView.animate(withDuration: 0.2, animations: {
                    self.myTripView.alpha = 0
                 }) { (finished) in
@@ -120,7 +125,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
          }
         navigationController?.setNavigationBarHidden(false, animated: true)
         mapView.removeAnnotations(mapView.annotations)
-  
+         
        } else {
             
             let alert = UIAlertController(title: "Trip Creating Limit", message: "To prevent spamming, we have user limits for creating a trip channel. Please leave the trip channel you previously created if it is not legitimate and wait for a few minutes.", preferredStyle: .alert)
@@ -192,7 +197,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         locationManager?.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.requestLocation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             if self.fromLocation != nil {
                 self.setNavigationSearchBar()
                 self.arrangeSearchBars()

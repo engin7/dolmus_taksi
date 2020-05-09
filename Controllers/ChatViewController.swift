@@ -43,7 +43,10 @@ import UserNotifications
       self.terminal = User()
       self.trip = trip
       super.init(nibName: nil, bundle: nil)
-        title =  "#" + String(trip.from.first!) + String(trip.to.first!) + getReadableDate(time: trip.time)!
+      title =  "Destination:" + String(trip.to)
+   
+        let attributes = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 6)!]
+        UINavigationBar.appearance().titleTextAttributes = attributes
     }
  
     required init?(coder aDecoder: NSCoder) {
@@ -53,7 +56,18 @@ import UserNotifications
     override func viewDidLoad() {
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
-   
+            
+         let w = NSLocalizedString("Welcome!", comment: "")
+             
+             let m = NSLocalizedString(" You will arrange possible routes, meeting point and sharing taxi costs yourself. When you're sure please click button on the right top then join. Trip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName ", comment: "")
+
+             let messageW =  w + m
+                    
+         let alert = UIAlertController(title: trip!.from + "\n⇣\n" + trip!.to + " @" + getReadableDate(time: trip!.time)!, message: messageW, preferredStyle: .alert)
+          let acknowledged = NSLocalizedString("acknowledged", comment: "")
+          alert.addAction(UIAlertAction(title: acknowledged, style: .default, handler: nil))
+          self.present(alert, animated: true, completion: nil)
+        
         guard let id = trip?.id else {
                 navigationController?.popViewController(animated: true)
                 return
@@ -158,13 +172,10 @@ import UserNotifications
      func terminalWelcome() {
                         
            // TODO:  ASCIIart keyboard stickers in next version
-        let channelName = String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!
-        
-        let f = NSLocalizedString("from ", comment: "")
-        let to = NSLocalizedString(" to ", comment: "")
-
-        let direction = f + String(trip!.from) + to + String(trip!.to) + " @" + getReadableDate(time: trip!.time)!
-        
+     
+    let channelName = String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!
+               
+             
   let asciiArt = Message(user: terminal, content:
      "                   __------__\n" +
     #"                 / _--------_\  "# + "\n" +
@@ -180,15 +191,8 @@ import UserNotifications
     "\n        `--'                           `--' "
      )
      
-        let w = NSLocalizedString("Welcome to #", comment: "")
-        let t = NSLocalizedString("\nThis channel is created to gather people travelling ", comment: "")
-        let m = NSLocalizedString(" \nYou will arrange possible routes, meeting point and sharing taxi costs yourself. \nPlease be respectful and polite. \nTrip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName \n ", comment: "")
-
-                let messageW = Message(user: terminal, content: w + channelName + t + direction + m)
-                  
-                 save(asciiArt)
-                 save(messageW)
-               
+              save(asciiArt)
+ 
            }
     
     

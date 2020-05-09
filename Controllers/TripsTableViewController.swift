@@ -314,54 +314,14 @@ class TripsTableViewCell: UITableViewCell  {
             
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     
-             if ((trip.Passengers.count < 4 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName)) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse
+             if ((trip.Passengers.count < 6 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName)) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse
 //                && ((host?.blocked!.contains(currentUser!.uid))!)
             {
               
-             if !(trip.Passengers.contains(currentUser!.displayName))  {
+             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
+
+             self.navigationController?.pushViewController(vc, animated: true)
                 
-            let message = NSLocalizedString("How many passengers will join the trip?", comment: "")
-
-            let alert = UIAlertController(title: trip.to + "  " + getReadableDate(time: trip.time)!, message: message, preferredStyle: .alert)
-            let justLooking = NSLocalizedString("None, I'm just looking.", comment: "")
-            alert.addAction(UIAlertAction(title: justLooking, style: .default, handler: { action in
-                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-            alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
-                trip.Passengers.append(currentUser!.displayName)
-                self.updatePassengers(documentId!, trip)
-                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
-
-                self.navigationController?.pushViewController(vc, animated: true)
-
-            }))
-                    
-            if trip.Passengers.count < 3 {
-            alert.addAction(UIAlertAction(title: "2", style: .default, handler: { action in
-                trip.Passengers.append(currentUser!.displayName)
-                trip.Passengers.append(currentUser!.displayName + "+1")
-                self.updatePassengers(documentId!, trip)
-                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
-
-                self.navigationController?.pushViewController(vc, animated: true)
-
-            }))
-            }
-                
-            if trip.Passengers.count < 2 {
-            alert.addAction(UIAlertAction(title: "3", style: .default, handler: { action in
-                trip.Passengers.append(currentUser!.displayName)
-                trip.Passengers.append(currentUser!.displayName + "+1")
-                trip.Passengers.append(currentUser!.displayName + "+2")
-                self.updatePassengers(documentId!, trip)
-                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
-
-                self.navigationController?.pushViewController(vc, animated: true)
-            }))
-            }
-            self.present(alert, animated: true)
-           }
             }  }
                 
             if trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {

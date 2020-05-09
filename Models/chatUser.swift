@@ -25,13 +25,15 @@ let passenger: Bool
 let nickName: String
 let uid: String
 var blocked: [String]?
+var fcmToken: String?
 
-    init(nickName: String, uid: String) {
-     self.nickName = nickName
+    init(fcmToken: String) {
+     self.nickName = currentUser!.displayName
      self.passenger = false
-     self.uid = uid
+     self.uid = currentUser!.uid
      id = nil
      blocked = []
+     self.fcmToken = fcmToken
     }
     
     init?(document: DocumentSnapshot) {
@@ -50,12 +52,16 @@ var blocked: [String]?
         guard let passenger = data!["passenger"] as? Bool else {
             return nil
           }
+        guard let fcmToken = data!["fcmToken"] as? String? else {
+          return nil
+        }
         
     id = document.documentID
     self.nickName = nickName
     self.passenger = passenger
     self.uid = uid
     self.blocked = blocked
+    self.fcmToken = fcmToken
     }
 }
 
@@ -67,7 +73,8 @@ extension chatUser: DatabaseRepresentation {
            "uid" : uid,
       "passenger": passenger,
         "blocked": blocked,
-          "id" : id,
+            "id" : id,
+      "fcmToken" : fcmToken,
     ]
    }
 }

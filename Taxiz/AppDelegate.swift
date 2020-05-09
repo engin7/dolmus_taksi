@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
    var ref: DatabaseReference!
    let gcmMessageIDKey = "gcm.message_id"
 
+    
       func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
            // Use Firebase library to configure APIs
            FirebaseApp.configure()
@@ -28,43 +29,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
                    // auto sign-in and move to next view:
                if user != nil {
                 currentUser = User(authData: user!)
-             
-             if  KeychainWrapper.standard.string(forKey: "myKey") != nil {
-                
-             
-            let documentID = KeychainWrapper.standard.string(forKey: "myKey")
-                
-                  userId = chatUserReference.document(documentID!)
-
-                userId!.getDocument { (document, error) in
-                    if let document = document, document.exists {
-                    cUser = chatUser(document: document)
-                       
-                    } }}
-               }
-        
             
-            if  KeychainWrapper.standard.string(forKey: "myKey") == nil {
-        // if user disabled from firestore consol it won't get new uid
+               }
+      //this was myKey will be used for promotions for the  first time users
+            if  KeychainWrapper.standard.string(forKey: "Key") == nil {
+        // if user disabled from firestore consol it won't get a new uid
  
                 Auth.auth().signInAnonymously() { (user, error) in
                            
                  if let user = user {
                    
                    currentUser = User(authData: user.user)
-                    
-                    cUser = chatUser(nickName: currentUser!.displayName, uid: currentUser!.uid)
-                                 
-                      userId = chatUserReference.addDocument(data: cUser!.representation) { error in
-                    if let e = error {
-                      print("Error sending message: \(e.localizedDescription)")
-                      return
-                        }
-
-                       }
-                    
-                    _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "myKey")
-
+           
                }
            }
          }
@@ -115,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
         
         func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
             print("Firebase registration token: \(fcmToken)")
-             
+      
             let dataDict:[String: String] = ["token": fcmToken]
             NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
             // TODO: If necessary send token to application server.
@@ -145,12 +121,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
 //    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 //        Messaging.messaging().subscribe(toTopic: "ALL")
 //    }
-//    
+//
 //    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void){
 //        processNotification(notification)
 //        completionHandler(.badge)
 //    }
-//    
+//
 //    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void){
 //        processNotification(response.notification)
 //        completionHandler()
@@ -165,6 +141,33 @@ extension AppDelegate : MessagingDelegate {
 
 func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
   print("Firebase registration token: \(fcmToken)")
+ 
+    if  KeychainWrapper.standard.string(forKey: "Key") == nil {
+
+        cUser = chatUser(fcmToken: fcmToken)
+
+   userId = chatUserReference.addDocument(data: cUser!.representation) { error in
+   if let e = error {
+     print("Error sending message: \(e.localizedDescription)")
+     return
+  }
+
+      }
+        _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "Key")
+
+    } else {
+        
+       let documentID = KeychainWrapper.standard.string(forKey: "Key")
+           
+             userId = chatUserReference.document(documentID!)
+
+           userId!.getDocument { (document, error) in
+               if let document = document, document.exists {
+               cUser = chatUser(document: document)
+
+            } }
+        
+    }
 
   let dataDict:[String: String] = ["token": fcmToken]
   NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)

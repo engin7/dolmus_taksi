@@ -13,6 +13,7 @@ struct User {
   let displayName: String
   var previousTrip: Date?
  
+
   init(authData: Firebase.User) {
     
     uid = authData.uid
