@@ -111,7 +111,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
       }
 
             self.referenceUsers = db.collection(["Trips", doc_ref.documentID, "users"].joined(separator: "/"))
-           self.referenceUsers?.addDocument(data: cUser!.representation)
+         host_doc_ref = self.referenceUsers?.addDocument(data: cUser!.representation)
      
          UIView.animate(withDuration: 0.2, animations: {
                    self.myTripView.alpha = 0
