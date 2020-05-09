@@ -119,16 +119,29 @@ class ChatUsersTableViewController: UITableViewController {
  
        }
         let documentId = trip.id!
-        let id = (documentIdforJoinedTrip?.documentID)!
-     
+   
     self.referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
 
+    if documentIdforJoinedTrip != nil {
+           let id = (documentIdforJoinedTrip?.documentID)!
             referenceUsers?.document(id).delete() { error in
-                   if let e = error {
-                     print("Error sending message: \(e.localizedDescription)")
-                     return
-                       }
-                     }
+            if let e = error {
+              print("Error sending message: \(e.localizedDescription)")
+              return
+                }
+              }
+    } else {
+        let id = (host_doc_ref?.documentID)!
+        referenceUsers?.document(id).delete() { error in
+        if let e = error {
+          print("Error sending message: \(e.localizedDescription)")
+          return
+            }
+          }
+        
+    }
+    
+            
      }
 
        @objc func joinRoom(sender: UIButton!) {
