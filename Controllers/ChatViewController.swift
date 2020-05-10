@@ -53,17 +53,6 @@ import UserNotifications
     override func viewDidLoad() {
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
-        if   host!.blocked.contains(currentUser.uid) {
-                navigationController?.popViewController(animated: true)
-
-        let title = NSLocalizedString("You have been blocked", comment: "")
-           let message = NSLocalizedString("Creator of this trip channel decided to ban you. Make sure that your notification settings is on as some hosts may decide to ban travellers not responding. If you believe there is a mistake or host abused its power please report to Count Dracula", comment: "")
-           let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-                    alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-
-        }
 
          let w = NSLocalizedString("Welcome!", comment: "")
              
