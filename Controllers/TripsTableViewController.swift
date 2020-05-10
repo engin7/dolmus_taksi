@@ -39,11 +39,16 @@ class TripsTableViewCell: UITableViewCell  {
     class TripsTableViewController: UITableViewController {
  
         
-        @IBAction func chatButtton(_ sender: Any) {
+        @IBAction func onlineButtton(_ sender: Any) {
    
              
         }
 
+        @IBOutlet weak var userCountBarButtonItem: UIBarButtonItem!
+        
+
+        
+        
         private let TripsCellIdentifier = "TripsCell"
         private var currentTripsAlertController: UIAlertController?
        
@@ -152,6 +157,14 @@ class TripsTableViewCell: UITableViewCell  {
                   self.tableView.reloadData()
                   self.deletePastChannels()
          }
+        
+            usersRef.observe(.value, with: { snapshot in
+              if snapshot.exists() {
+                self.userCountBarButtonItem?.title = snapshot.childrenCount.description
+              } else {
+                self.userCountBarButtonItem?.title = "0"
+              }
+            })
       }
         override func viewDidLayoutSubviews() {
               // for different screen size
@@ -314,7 +327,7 @@ class TripsTableViewCell: UITableViewCell  {
             
                if host != nil {
                     
-                    if ((trip.Passengers.count < 6 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName)) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !host!.blocked.contains(currentUser!.uid)
+                    if ((trip.Passengers.count < 5 &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !host!.blocked.contains(currentUser!.uid))
             
             {
               

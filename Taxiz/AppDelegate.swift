@@ -44,7 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
                }
            }
          }
-             
+            if currentUser != nil {
+            // check user's online status
+            let currentUserRef = usersRef.child(currentUser!.uid)
+            currentUserRef.setValue(currentUser?.displayName)
+            currentUserRef.onDisconnectRemoveValue()
+            }
       }
         
         Auth.auth().removeStateDidChangeListener(listener)

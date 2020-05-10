@@ -7,6 +7,11 @@ import UserNotifications
 var currentUser: User?
 var initialName: String?
 
+var reportedReference: CollectionReference {
+return db.collection("reportedUsers")
+}
+let usersRef = Database.database().reference(withPath: "online")
+
 struct User {
   
   let uid: String 
@@ -30,10 +35,6 @@ struct User {
     
 }
 
- var reportedReference: CollectionReference {
- return db.collection("reportedUsers")
- }
- 
  struct rUser {
  
  let uid: String
@@ -72,6 +73,11 @@ struct User {
     }
   }
 
+ // for online users
+ 
+ 
+ 
+ 
  
 // TODO: Autogen weekly random nicks
 // func randomAlphaNumericString(length: Int) -> String {
