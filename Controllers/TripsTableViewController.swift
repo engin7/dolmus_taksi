@@ -312,7 +312,7 @@ class TripsTableViewCell: UITableViewCell  {
                    host = chatUser(document: document)!
                   } }
             
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+               if host != nil {
                     
                     if ((trip.Passengers.count < 6 &&  trip.time > past!) || trip.Passengers.contains(currentUser!.displayName)) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !host!.blocked.contains(currentUser!.uid)
             
@@ -321,7 +321,7 @@ class TripsTableViewCell: UITableViewCell  {
              let vc = ChatViewController(currentUser: currentUser!, trip: trip)
 
              self.navigationController?.pushViewController(vc, animated: true)
-                
+                 
             }
                     if   host!.blocked.contains(currentUser!.uid) {
  
