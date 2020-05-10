@@ -317,8 +317,9 @@ import UserNotifications
                if user.nickName == blockedUser {
              
                  let blockedUserId = user.uid
-                
+                if !(host?.blocked.contains(blockedUserId))!{
                 host!.blocked.append(blockedUserId)
+                }
                  // if blocking person trip creator kick blocked one
                 if (trip?.Passengers.contains(blockedUser))! {
                      let indexOfUser = (trip?.Passengers.firstIndex(of: blockedUser))!
