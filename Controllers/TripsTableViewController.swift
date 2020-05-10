@@ -190,7 +190,7 @@ class TripsTableViewCell: UITableViewCell  {
                         
                     }
                }
-        }
+          }
         }
         
         // MARK: UITableView Delegate methods
@@ -314,48 +314,53 @@ class TripsTableViewCell: UITableViewCell  {
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
-            var trip =  self.trips[indexPath.row]
+            let trip =  self.trips[indexPath.row]
             let documentId = trip.id
-            
+
             let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
             
             let hUserId = chatUserReference.document(trip.hostID)
                 hUserId.getDocument { (document, error) in
                   if let document = document, document.exists {
-                   host = chatUser(document: document)!
+                   host = chatUser(document: document)!   //this causes 1 sec delay, might load during listing for performance updates  
+                   
+                      if ((trip.Passengers.count < 5 &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !host!.blocked.contains(currentUser!.uid))
+              
+              {
+                
+               let vc = ChatViewController(currentUser: currentUser!, trip: trip)
+
+               self.navigationController?.pushViewController(vc, animated: true)
+                   
+              }
+    
+
+               if   host!.blocked.contains(currentUser!.uid) {
+
+                     let title = NSLocalizedString("You have been blocked", comment: "")
+                        let message = NSLocalizedString("Creator of this trip channel decided to ban you. Make sure that your notification settings is on as some hosts may decide to ban travellers not responding. If you believe there is a mistake or host abused its power please report to Count Dracula", comment: "")
+                        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+                                 alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
+                
+                   if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                          tableView.deselectRow(at: selectedIndexPath, animated: false)
+                       }
+                   
+                                  self.present(alert, animated: true, completion: nil)
+                      
+                     }
+                 
+               if trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                   self.updatePassengers(documentId!, trip)
+                   let vc = ChatViewController(currentUser: currentUser!, trip: trip)
+
+                   self.navigationController?.pushViewController(vc, animated: true)
+               }
+                
                   } }
             
-               if host != nil {
-                    
-                    if ((trip.Passengers.count < 5 &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !host!.blocked.contains(currentUser!.uid))
-            
-            {
-              
-             let vc = ChatViewController(currentUser: currentUser!, trip: trip)
-
-             self.navigationController?.pushViewController(vc, animated: true)
-                 
-            }
-                    if   host!.blocked.contains(currentUser!.uid) {
- 
-                          let title = NSLocalizedString("You have been blocked", comment: "")
-                             let message = NSLocalizedString("Creator of this trip channel decided to ban you. Make sure that your notification settings is on as some hosts may decide to ban travellers not responding. If you believe there is a mistake or host abused its power please report to Count Dracula", comment: "")
-                             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-                                      alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
-                                      self.present(alert, animated: true, completion: nil)
-
-                          }
-            
-            }
-                
-            if trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-                self.updatePassengers(documentId!, trip)
-                let vc = ChatViewController(currentUser: currentUser!, trip: trip)
-
-                self.navigationController?.pushViewController(vc, animated: true)
-
-            }
+     
             if CLLocationManager.authorizationStatus() == .denied {
                 
                 let title = NSLocalizedString("Location services denied", comment: "")
@@ -364,12 +369,10 @@ class TripsTableViewCell: UITableViewCell  {
                         
                          alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
                          self.present(alert, animated: true, completion: nil)
+
                       
             }
         
- 
-                func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        }
     }
   }
  
