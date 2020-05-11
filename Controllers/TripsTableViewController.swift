@@ -40,8 +40,12 @@ class TripsTableViewCell: UITableViewCell  {
  
         
         @IBAction func onlineButtton(_ sender: Any) {
-   
-             
+            
+            let vc = GeneralChatViewController()
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalTransitionStyle = .crossDissolve
+            present(vc, animated: true, completion: nil)
+        
         }
 
         @IBOutlet weak var userCountBarButtonItem: UIBarButtonItem!
@@ -322,7 +326,7 @@ class TripsTableViewCell: UITableViewCell  {
             let hUserId = chatUserReference.document(trip.hostID)
                 hUserId.getDocument { (document, error) in
                   if let document = document, document.exists {
-                   host = chatUser(document: document)!   //this causes 1 sec delay, might load during listing for performance updates  
+                   host = chatUser(document: document)!   //this causes 1 sec delay, might load during listing for performance updates
                    
                       if ((trip.Passengers.count < 5 &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !host!.blocked.contains(currentUser!.uid))
               
