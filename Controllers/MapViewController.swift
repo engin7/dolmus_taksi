@@ -70,9 +70,12 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
      if (toSearchController.searchBar.text != "") && (fromSearchController.searchBar.text != "")
         {
+            zoomRoute()
          if  currentUser?.previousTrip ?? Date().addingTimeInterval(TimeInterval(-5.0 * 60.0)) <= Date().addingTimeInterval(TimeInterval( tSpam * -5.0)) {
             tSpam = tSpam + 1.0
- 
+            
+            self.getDirections()
+            
         if picker.date <= Date() {
             
             let calendar = Calendar.current
@@ -127,12 +130,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                                       
                                }
           
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
             self.tabBarController?.selectedIndex = 0
+            self.pinView = nil
+            self.mapView.removeAnnotations(self.mapView.annotations)
             self.removeOverlay()
          }
-         pinView = nil
-         mapView.removeAnnotations(mapView.annotations)
+         
        } else {
             
             let alert = UIAlertController(title: "Trip Creating Limit", message: "To prevent spamming, we have user limits for creating a trip channel. Please leave the trip channel you previously created if it is not legitimate and wait for a few minutes.", preferredStyle: .alert)
@@ -161,7 +166,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         myPersons.text = String(myPersonsInt)
       }
     }
-       
     
     @IBAction func cancelTripButton(_ sender: Any?) {
       
@@ -265,7 +269,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
 
       }
     
-      @objc public func getDirections(){
+      func getDirections(){
       
  
         guard let start = fromLocation, let end = selectedPin else {   return }
@@ -289,14 +293,13 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                      self?.mapView.addOverlay(route.polyline)
              }
                 }
-        
-          
+ 
         }
   
 // MARK: - Actions
 
     func  removeOverlay() {
-      
+      // check this bug later as you might switch to google maps in future!
         // Get the all overlays from map view
          self.mapView.overlays.forEach {
                        if !($0 is MKUserLocation) {
@@ -304,6 +307,21 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                        }
               }
           }
+    func zoomRoute() {
+        
+        let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
+        let distance = fromLocation!.distance(from: destination)/20000
+        let distanceLat = abs(fromLocation!.coordinate.latitude.distance(to: destination.coordinate.latitude))
+        let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
+
+        let midPointLat = ((fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / (2-(distanceLat/10))) + 0.01
+        let midPointLong = (fromLocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
+        let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
+        let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
+        mapView.setRegion(region, animated: true)
+        
+    }
+    
        }
   
 
@@ -367,10 +385,7 @@ extension MapViewController : CLLocationManagerDelegate {
           fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity
             toSearchController.searchBar.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
                 self.toCity = "\(self.selectedPin?.locality ?? "unknown"), \(self.selectedPin?.administrativeArea ?? "unknown")"
-           
- 
-            self.getDirections()
-
+            
              DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 var searchBarFrame = self.fromSearchController.searchBar.frame
                 searchBarFrame.size.width = self.myFrom.frame.size.width - 15
@@ -403,8 +418,7 @@ extension MapViewController : CLLocationManagerDelegate {
                 mapView.setRegion(region, animated: true)
              
                  if self.selectedPin != nil {
-                   self.getDirections()
-           
+ 
             var searchBarFrame = self.fromSearchController.searchBar.frame
             searchBarFrame.size.width = self.myFrom.frame.size.width - 15
             self.fromSearchController.searchBar.frame = searchBarFrame
@@ -444,21 +458,12 @@ extension MapViewController : CLLocationManagerDelegate {
  
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
              
+                pinView?.isSelected = false
+
                 guard(overlay is MKPolyline) else { return MKOverlayRenderer() }
                   let pLine = MKPolylineRenderer(overlay: overlay)
                 pLine.strokeColor = UIColor.blue
-                let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
-                let distance = fromLocation!.distance(from: destination)/20000
-                let distanceLat = abs(fromLocation!.coordinate.latitude.distance(to: destination.coordinate.latitude))
-                let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
-
-                let midPointLat = ((fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / (2-(distanceLat/10))) + 0.01
-                let midPointLong = (fromLocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
-                let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
-                let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
-                mapView.setRegion(region, animated: true)
-                pinView?.isSelected = false
- 
+                 
                 return pLine
         
            }
