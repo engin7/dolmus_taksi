@@ -156,7 +156,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
      print("Error sending message: \(e.localizedDescription)")
      return
   }
-
+        cUser?.id = userId!.documentID
       }
         _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "Key")
 

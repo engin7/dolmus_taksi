@@ -38,6 +38,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     
     @IBOutlet weak var picker: UIDatePicker!
     
+    
     let passengersArray = ["1","2","3"]
     var passenger: Int?
     var pickerTime: Date?
@@ -136,7 +137,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                                }
           
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) {
             self.tabBarController?.selectedIndex = 0
             self.pinView = nil
             self.mapView.removeAnnotations(self.mapView.annotations)
