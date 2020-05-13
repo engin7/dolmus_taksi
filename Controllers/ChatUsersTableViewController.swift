@@ -18,7 +18,6 @@ class ChatUsersTableViewController: UITableViewController {
     init(trip: Trips ) {
      self.trip = trip
       super.init(nibName: nil, bundle: nil)
-
     }
     
 
@@ -69,22 +68,30 @@ class ChatUsersTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
        }
-       
+      
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
      
-                    return (trip.Passengers.count)
+                    return (trip.Passengers.count+1)
            }
        
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
+                    if indexPath.row == 0 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                        cell.textLabel?.text = "Travellers"
+                        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+                        cell.textLabel?.textAlignment = .center
+                         cell.selectionStyle = .none
+                         return cell
+                    } else {
             
                    let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
-                   let users = trip.Passengers[indexPath.row]
+                   let users = trip.Passengers[indexPath.row-1]
                    cell.textLabel?.text = users
                    cell.selectionStyle = .none
                    return cell
             
-        
+        }
         }
         
     
@@ -236,7 +243,7 @@ class ChatUsersTableViewController: UITableViewController {
        10)
         
        let button = UIButton()
-       button.frame = CGRect(x: 80, y: 15, width: 40, height: 10)
+       button.frame = CGRect(x: 80, y: 15, width: 40, height: 15)
        if (trip.Passengers.contains(currentUser!.displayName)) {
        button.setTitle("exit", for: .normal)
        footerView.backgroundColor = UIColor.red
