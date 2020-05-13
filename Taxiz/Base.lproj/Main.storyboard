@@ -352,53 +352,73 @@ April 23, 2020: First published.</string>
                         <sections>
                             <tableViewSection id="K4d-Wp-iH7">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="80" id="8yi-Fq-2gR" customClass="ProfileTableViewCell" customModule="Dolmuş_Taksi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="151" id="8yi-Fq-2gR" customClass="ProfileTableViewCell" customModule="Dolmuş_Taksi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="151"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8yi-Fq-2gR" id="Shq-4e-ZTY">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="151"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nickName " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VfJ-aw-zU5">
-                                                    <rect key="frame" x="166.5" y="30" width="81" height="20"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="qT0-ae-5GU">
+                                                    <rect key="frame" x="20" y="91" width="68" height="49"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wRE-A1-XNF">
+                                                    <rect key="frame" x="96" y="91" width="68" height="49"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="moG-Lt-apY">
+                                                    <rect key="frame" x="174" y="91" width="68" height="49"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fKm-5J-OST">
+                                                    <rect key="frame" x="250" y="91" width="68" height="49"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="euq-oq-9SF">
+                                                    <rect key="frame" x="326" y="91" width="68" height="49"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Public profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTQ-fq-1T4">
+                                                    <rect key="frame" x="157" y="11" width="113" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nickName " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VfJ-aw-zU5">
+                                                    <rect key="frame" x="96" y="53" width="222" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="VfJ-aw-zU5" firstAttribute="centerX" secondItem="Shq-4e-ZTY" secondAttribute="centerX" id="eKf-Zi-rG1"/>
-                                                <constraint firstItem="VfJ-aw-zU5" firstAttribute="centerY" secondItem="Shq-4e-ZTY" secondAttribute="centerY" id="mWj-5S-pqf"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="devNoteCell" rowHeight="385" id="Urk-3e-Nrp">
-                                        <rect key="frame" x="0.0" y="108" width="414" height="385"/>
+                                        <rect key="frame" x="0.0" y="179" width="414" height="385"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Urk-3e-Nrp" id="3VX-4D-OiT">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="385"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZW-cd-mu6">
-                                                    <rect key="frame" x="20" y="64" width="374" height="248"/>
+                                                    <rect key="frame" x="20" y="183" width="374" height="135"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="248" id="DA6-oN-nzU"/>
+                                                        <constraint firstAttribute="height" constant="135" id="DA6-oN-nzU"/>
                                                     </constraints>
-                                                    <string key="text">About the app: 
-Your nickname is autogenerated. All users are  anonymous. Chat rooms and all messages are deleted after the trip. Please do not provide any personal information in chat rooms until meeting time. Choose  public places to meet. Some users can offer ride with their own vehicle. You can always reject joining the trip if you don't feel comfortable. 
-</string>
+                                                    <string key="text">Rating system is in devolopment. All passengers will be able to rate each other after the trip. Your name and picture will be shown only after the trip for rating system. As your nickname will be autogenerated weekly and after each trip, we'll keep your identity hidden. </string>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="envelope.open.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="n9q-rw-Fxz">
-                                                    <rect key="frame" x="119" y="26" width="176" height="39"/>
-                                                    <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="38" id="L2P-kw-uPi"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="&lt;-- Contact Us" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pY8-Sx-iTV">
                                                     <rect key="frame" x="143.5" y="326" width="127" height="34"/>
                                                     <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -416,21 +436,51 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
                                                         <action selector="contactUs:" destination="ZLb-K0-6hG" eventType="touchUpInside" id="h5A-m7-sKu"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Private profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gba-rw-bkg">
+                                                    <rect key="frame" x="157" y="11" width="119" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="your first name: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdl-dA-Kmp">
+                                                    <rect key="frame" x="20" y="63" width="124" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="total trips:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqS-H9-dfz">
+                                                    <rect key="frame" x="20" y="92" width="78" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="other stats ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aT3-Aj-Ll6">
+                                                    <rect key="frame" x="20" y="121" width="101" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fxa-ml-dG4">
+                                                    <rect key="frame" x="283" y="61" width="111" height="82"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.44279751709999998" green="0.65290025679999997" blue="0.9180222603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="gmo-AW-Dk0" firstAttribute="centerY" secondItem="pY8-Sx-iTV" secondAttribute="centerY" id="1fa-Ls-iUv"/>
                                                 <constraint firstItem="pY8-Sx-iTV" firstAttribute="leading" secondItem="gmo-AW-Dk0" secondAttribute="trailing" constant="14.5" id="CiK-em-8c8"/>
-                                                <constraint firstItem="n9q-rw-Fxz" firstAttribute="centerX" secondItem="xZW-cd-mu6" secondAttribute="centerX" id="QZR-Za-01A"/>
                                                 <constraint firstItem="gmo-AW-Dk0" firstAttribute="bottom" secondItem="pY8-Sx-iTV" secondAttribute="bottom" id="Y01-p0-i2r"/>
-                                                <constraint firstItem="pY8-Sx-iTV" firstAttribute="top" secondItem="xZW-cd-mu6" secondAttribute="bottom" constant="14" id="cfX-Gj-c2M"/>
-                                                <constraint firstItem="n9q-rw-Fxz" firstAttribute="leading" secondItem="3VX-4D-OiT" secondAttribute="leadingMargin" constant="99" id="d0T-n9-uXD"/>
+                                                <constraint firstItem="pY8-Sx-iTV" firstAttribute="top" secondItem="xZW-cd-mu6" secondAttribute="bottom" constant="8" id="cfX-Gj-c2M"/>
                                                 <constraint firstItem="xZW-cd-mu6" firstAttribute="trailing" secondItem="3VX-4D-OiT" secondAttribute="trailingMargin" id="icW-T7-pm1"/>
                                                 <constraint firstItem="gmo-AW-Dk0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3VX-4D-OiT" secondAttribute="leadingMargin" constant="30" id="jWk-ab-Arz"/>
                                                 <constraint firstItem="pY8-Sx-iTV" firstAttribute="centerX" secondItem="xZW-cd-mu6" secondAttribute="centerX" id="k9r-h9-LqY"/>
-                                                <constraint firstItem="n9q-rw-Fxz" firstAttribute="top" secondItem="3VX-4D-OiT" secondAttribute="topMargin" constant="16.5" id="nLd-Kv-lHb"/>
                                                 <constraint firstItem="xZW-cd-mu6" firstAttribute="leading" secondItem="3VX-4D-OiT" secondAttribute="leadingMargin" id="vqa-YH-kMF"/>
-                                                <constraint firstItem="xZW-cd-mu6" firstAttribute="bottom" secondItem="3VX-4D-OiT" secondAttribute="bottomMargin" constant="-62" id="xwE-4q-xYT"/>
+                                                <constraint firstItem="xZW-cd-mu6" firstAttribute="bottom" secondItem="3VX-4D-OiT" secondAttribute="bottomMargin" constant="-56" id="xwE-4q-xYT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -450,7 +500,7 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LPB-87-2ko" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2453" y="-433"/>
+            <point key="canvasLocation" x="2452.1739130434785" y="-433.25892857142856"/>
         </scene>
         <!--Trips Table View Controller-->
         <scene sceneID="JSf-C0-f5b">
@@ -469,7 +519,7 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="from" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="z69-FF-yfP">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="from" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="z69-FF-yfP">
                                             <rect key="frame" x="20" y="4" width="40" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
@@ -487,7 +537,7 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="MDQ-Q2-Rt6">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="MDQ-Q2-Rt6">
                                             <rect key="frame" x="117" y="2" width="32" height="26"/>
                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
                                             <nil key="textColor"/>
@@ -695,10 +745,11 @@ Your nickname is autogenerated. All users are  anonymous. Chat rooms and all mes
         <image name="car.fill" catalog="system" width="64" height="46"/>
         <image name="checkmark.rectangle.fill" catalog="system" width="64" height="46"/>
         <image name="envelope.badge" catalog="system" width="64" height="48"/>
-        <image name="envelope.open.fill" catalog="system" width="64" height="58"/>
         <image name="map.fill" catalog="system" width="64" height="56"/>
         <image name="person" catalog="system" width="64" height="58"/>
+        <image name="person.crop.rectangle.fill" catalog="system" width="64" height="46"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="person.icloud.fill" catalog="system" width="64" height="44"/>
+        <image name="star.fill" catalog="system" width="64" height="58"/>
     </resources>
 </document>
