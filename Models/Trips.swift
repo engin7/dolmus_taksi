@@ -23,6 +23,7 @@ var tSpam = 0.0
 struct Trips {
     
     let id: String?
+     let host: String
     let hostID: String
     var time: Date
     var from:String
@@ -34,8 +35,9 @@ struct Trips {
     var welcomed : Bool
     
  
-    init(time:Date, to:String, toCity:String, from:String, fromLocation:[Double], fromCity:String, passengers:String, hostID:String) {
+    init(time:Date, to:String, toCity:String, from:String, fromLocation:[Double], fromCity:String, passengers:String, host:String, hostID: String) {
       self.id = nil
+      self.host = host
       self.hostID = hostID
       self.time = time
       self.to = to
@@ -78,12 +80,17 @@ struct Trips {
         guard let welcomed = data!["welcomed"] as? Bool else {
                          return nil
                 }
-        guard let hostID = data!["hostID"] as? String else {
+        guard let host = data!["host"] as? String else {
                return nil
         }
+        guard let hostID = data!["hostID"] as? String else {
+                      return nil
+               }
         
            id = document.documentID
-           self.hostID     = hostID
+        
+           self.host     = host
+           self.hostID   = hostID
            self.time     = time
            self.to       = to
            self.from     = from
@@ -107,8 +114,9 @@ extension Trips: DatabaseRepresentation {
     "toCity" : toCity,
     "time": time,
     "passengers": Passengers,
-    "id" : id,
+     "id" : id,
     "welcomed": welcomed,
+    "host": host,
     "hostID": hostID,
      ]
    }

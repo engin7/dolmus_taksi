@@ -333,12 +333,8 @@ class TripsTableViewCell: UITableViewCell  {
 
             let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
             
-            let hUserId = chatUserReference.document(trip.hostID)
-                hUserId.getDocument { (document, error) in
-                  if let document = document, document.exists {
-                   host = chatUser(document: document)!   //this causes 1 sec delay, might load during listing for performance updates
-                   
-                      if ((trip.Passengers.count < 5 &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !host!.blocked.contains(currentUser!.uid))
+         
+            if ((trip.Passengers.count < 5 &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !cUser!.blocked.contains(trip.host))
               
               {
                 
@@ -348,14 +344,13 @@ class TripsTableViewCell: UITableViewCell  {
                    
               }
     
-
-               if   host!.blocked.contains(currentUser!.uid) {
+               if   cUser!.blocked.contains(trip.host) {
 
                      let title = NSLocalizedString("You have been blocked", comment: "")
                         let message = NSLocalizedString("Creator of this trip channel decided to ban you. Make sure that your notification settings is on as some hosts may decide to ban travellers not responding. If you believe there is a mistake or host abused its power please report to Count Dracula", comment: "")
                         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-                                 alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
+                       alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
                 
                    if let selectedIndexPath = tableView.indexPathForSelectedRow {
                           tableView.deselectRow(at: selectedIndexPath, animated: false)
@@ -372,9 +367,7 @@ class TripsTableViewCell: UITableViewCell  {
                    self.navigationController?.pushViewController(vc, animated: true)
                }
                 
-                  } }
-            
-     
+           
             if CLLocationManager.authorizationStatus() == .denied {
                 
                 let title = NSLocalizedString("Location services denied", comment: "")
@@ -383,18 +376,14 @@ class TripsTableViewCell: UITableViewCell  {
                         
                          alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
                          self.present(alert, animated: true, completion: nil)
-
-                      
+ 
             }
         
     }
         
-        
   }
  
-
-
-
+  
 extension TripsTableViewController : CLLocationManagerDelegate {
      
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

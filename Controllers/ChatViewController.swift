@@ -48,11 +48,17 @@ import UserNotifications
     required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
-    
+    @objc func reloadButton() {
+    if (trip?.Passengers.count)! > 0 {
+          navigationItem.rightBarButtonItems = []
+     }
+    }
   
     override func viewDidLoad() {
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadButton), name: NSNotification.Name(rawValue: "NotificationID"), object: nil)
 
          let w = NSLocalizedString("Welcome!", comment: "")
              
@@ -69,8 +75,7 @@ import UserNotifications
                 navigationController?.popViewController(animated: true)
                 return
                }
-        
-        
+     
         //   new collection inside Trips
         reference = db.collection(["Trips", id, "thread"].joined(separator: "/"))
         
@@ -106,11 +111,10 @@ import UserNotifications
 
         }
 
-     
-        let chatUsers = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showUsers))
+         let chatUsers = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showUsers))
 
          navigationItem.rightBarButtonItems = [chatUsers]
-         
+      
         
         if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
            layout.setMessageIncomingAvatarSize(.zero)
@@ -246,17 +250,7 @@ import UserNotifications
                   return .popover
               }
              self.present(vc, animated: true, completion:nil)
-            
-            
-//
-//                   vc.modalTransitionStyle   = .crossDissolve
-//                   vc.modalPresentationStyle = UIModalPresentationStyle.popover
-//                   let popover: UIPopoverPresentationController = vc.popoverPresentationController!
-//                   popover.delegate = self
-//                vc.preferredContentSize = CGSize(width: 200, height: 200)
-//
-//                self.present(vc, animated: true, completion:nil)
-
+   
              }
          }
        
@@ -328,6 +322,12 @@ import UserNotifications
       
       if message.content.contains("/b")  {
      
+        let hUserId = chatUserReference.document(trip!.hostID)
+          hUserId.getDocument { (document, error) in
+            if let document = document, document.exists {
+             host = chatUser(document: document)!
+           } }
+
         let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /b ",with: "")
            
            for user in chatRoomUsers {
@@ -336,6 +336,7 @@ import UserNotifications
                  let blockedUserId = user.uid
                 if !(host?.blocked.contains(blockedUserId))!{
                 host!.blocked.append(blockedUserId)
+                cUser!.blocked.append(host!.uid)
                 }
                  // if blocking person trip creator kick blocked one
                 if (trip?.Passengers.contains(blockedUser))! {
@@ -343,6 +344,18 @@ import UserNotifications
                      trip?.Passengers.remove(at: indexOfUser)
                 }
                      navigationController?.popViewController(animated: true)
+                
+                chatUserReference.document(cUser!.id!).updateData([
+                 "blocked": cUser!.blocked
+                ]) { err in
+                    if let err = err {
+                        print("Error updating document: \(err)")
+                    } else {
+                        print("Document successfully updated")
+                    }
+                             
+                      }
+                
                 chatUserReference.document(trip!.hostID).updateData([
                     "blocked": host!.blocked
                    ]) { err in

@@ -92,10 +92,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                 matchingPolicy: .nextTime
             )
             
-            trip =  Trips(time: tomorrow!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, hostID: cUser!.id!)
+            trip =  Trips(time: tomorrow!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, host: cUser!.uid, hostID: cUser!.id!)
             currentUser?.previousTrip = Date()
          } else {
-            trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, hostID: cUser!.id!)
+            trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, host: cUser!.uid, hostID: cUser!.id!)
                 currentUser?.previousTrip = Date()
        }
            
@@ -131,11 +131,13 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                                }
           
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             self.tabBarController?.selectedIndex = 0
             self.pinView = nil
             self.mapView.removeAnnotations(self.mapView.annotations)
             self.removeOverlay()
+            self.toSearchController.searchBar.text = ""
+
          }
          
        } else {
@@ -265,7 +267,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
          self.toSearchController.hidesNavigationBarDuringPresentation = false
         
         definesPresentationContext = true
-        self.fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity ?? "aa"
+        self.fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity ?? ""
 
       }
     

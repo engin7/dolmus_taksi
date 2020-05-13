@@ -146,6 +146,8 @@ class ChatUsersTableViewController: UITableViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.dismiss(animated: true, completion: nil)
        }
+    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NotificationID"), object: nil)
+
      }
 
        @objc func joinRoom(sender: UIButton!) {
