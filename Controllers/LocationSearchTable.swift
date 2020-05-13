@@ -16,6 +16,7 @@ class LocationSearchTable : UITableViewController {
     var searchResults = [MKLocalSearchCompletion]()
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
 
+    
     lazy var searchCompleter: MKLocalSearchCompleter = {
           let sC = MKLocalSearchCompleter()
           sC.delegate = self
@@ -81,8 +82,10 @@ class LocationSearchTable : UITableViewController {
      func updateSearchResults(for searchController: UISearchController) {
                
       searchCompleter.queryFragment =  searchController.searchBar.text ?? ""
-
+            
+ 
           self.tableView.reloadData()
+        
           
       }
   }
@@ -116,8 +119,8 @@ extension LocationSearchTable {
            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
            cell.textLabel?.text = searchResult.title
            cell.detailTextLabel?.text = searchResult.subtitle
-
-        return cell
+           cell.backgroundColor = tableView.backgroundColor
+         return cell
        }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt  indexPath: IndexPath) {

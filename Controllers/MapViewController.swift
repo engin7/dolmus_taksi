@@ -27,16 +27,19 @@ class ColorPointAnnotation: MKPointAnnotation {
     }
 }
 
-class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate {
+class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var myTripView: UIView!
  
     @IBOutlet weak var myFrom: UIView!
     @IBOutlet weak var myTo: UIView!
+ 
+    @IBOutlet weak var pickerView: UIPickerView!
     
-    @IBOutlet weak var myPersons: UILabel!
     @IBOutlet weak var picker: UIDatePicker!
-
+    
+    let passengersArray = ["1","2","3"]
+    var passenger: Int?
     var pickerTime: Date?
     var trip : Trips?
     var toCity: String?
@@ -98,12 +101,14 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, host: cUser!.uid, hostID: cUser!.id!)
                 currentUser?.previousTrip = Date()
        }
-           
-        let n = Int(myPersons.text!)!
-        
-        for i in 1..<n {
+            var n : Int
+           func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+                 n = row + 1
+            
+            for i in 1..<n {
             trip!.Passengers.append(currentUser!.displayName + "+" + String(i))
         }
+          }
             // add to firestore database:
         let doc_ref = tripReference.addDocument(data: trip!.representation) { error in
         if let e = error {
@@ -145,31 +150,15 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             let alert = UIAlertController(title: "Trip Creating Limit", message: "To prevent spamming, we have user limits for creating a trip channel. Please leave the trip channel you previously created if it is not legitimate and wait for a few minutes.", preferredStyle: .alert)
                              
                   alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    self.cancelTripButton(nil)
+                    self.cancelTrip()
                   }))
                   self.present(alert, animated: true, completion: nil)
 
       }
         }
             }
-    @IBAction func addPerson(_ sender: Any) {
-        
-        var myPersonsInt = Int(myPersons.text!)!
-        if myPersonsInt<3 {
-        myPersonsInt += 1
-        myPersons.text = String(myPersonsInt)
-        }
-    }
-    
-    @IBAction func removePerson(_ sender: Any) {
-        var myPersonsInt = Int(myPersons.text!)!
-        if myPersonsInt>1 {
-        myPersonsInt -= 1
-        myPersons.text = String(myPersonsInt)
-      }
-    }
-    
-    @IBAction func cancelTripButton(_ sender: Any?) {
+ 
+ func cancelTrip() {
       
         selectedPin = nil
         mapView.removeAnnotations(mapView.annotations)
@@ -193,7 +182,6 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     override func viewDidLoad() {
         overrideUserInterfaceStyle = .light
         navigationController?.setNavigationBarHidden(true, animated: true)
-
         super.viewDidLoad()
         locationManager = CLLocationManager()
         locationManager?.delegate = self
@@ -218,7 +206,19 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         picker.setDate(calendar.date(from: components)!, animated: false)
         
      }
-     
+    
+     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+         return 1
+     }
+         
+     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+         return passengersArray.count
+     }
+    
+    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return passengersArray[row]
+    }
+    
      func arrangeSearchBars(){
         
         // Search Table display recommendations

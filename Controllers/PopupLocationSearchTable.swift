@@ -83,7 +83,7 @@ class PopupLocationSearchTable : UITableViewController {
      func updateSearchResults(for searchController: UISearchController) {
                
       searchCompleter.queryFragment =  searchController.searchBar.text ?? ""
-
+ 
           self.tableView.reloadData()
           
       }
@@ -118,6 +118,7 @@ extension PopupLocationSearchTable {
            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
            cell.textLabel?.text = searchResult.title
            cell.detailTextLabel?.text = searchResult.subtitle
+            cell.backgroundColor = tableView.backgroundColor
 
         return cell
        }
