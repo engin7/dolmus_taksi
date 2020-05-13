@@ -13,7 +13,8 @@ import Firebase
 class ChatUsersTableViewController: UITableViewController {
 
      private var trip: Trips
-  
+
+    
     init(trip: Trips ) {
      self.trip = trip
       super.init(nibName: nil, bundle: nil)
@@ -44,6 +45,7 @@ class ChatUsersTableViewController: UITableViewController {
         let p = NSLocalizedString("Passengers ", comment: "")
 
         self.title = p
+        
         let leave = NSLocalizedString("leave trip", comment: "")
 
         if (trip.Passengers.contains(currentUser!.displayName)) {
@@ -69,18 +71,22 @@ class ChatUsersTableViewController: UITableViewController {
        }
        
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (trip.Passengers.count)
-       }
+     
+                    return (trip.Passengers.count)
+           }
        
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
-        let users = trip.Passengers[indexPath.row]
-        cell.textLabel?.text = users
-        cell.selectionStyle = .none
-
-        return cell
-       }
+       
+            
+                   let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                   let users = trip.Passengers[indexPath.row]
+                   cell.textLabel?.text = users
+                   cell.selectionStyle = .none
+                   return cell
+            
+        
+        }
+        
     
     override func tableView(_ tableView: UITableView, didSelectRowAt  indexPath: IndexPath) {
      
@@ -104,15 +110,8 @@ class ChatUsersTableViewController: UITableViewController {
    @objc func exitRoom(sender: UIButton!) {
        // go back
     
-       let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-      
-   self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2],   animated: true)
         
-        viewControllers[viewControllers.count - 2].navigationItem.rightBarButtonItem!.isEnabled = false
-    }
-    
+     
     let indexOfUser = trip.Passengers.firstIndex(of: currentUser!.displayName)
        if indexOfUser != nil {
         trip.Passengers.remove(at: indexOfUser!)
@@ -142,17 +141,21 @@ class ChatUsersTableViewController: UITableViewController {
           return
             }
           }
-        
-      
-       cUser?.chatUserId![documentId] = nil
-
+        cUser?.chatUserId![documentId] = nil
        updateChatUserId()
-     
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.dismiss(animated: true, completion: nil)
+       }
      }
 
        @objc func joinRoom(sender: UIButton!) {
     
      let documentId = trip.id!
+
+        let blurEffect = UIBlurEffect(style: .light)
+         let blurVisualEffectView = UIVisualEffectView(effect: blurEffect)
+         blurVisualEffectView.frame = view.bounds
+        self.view.addSubview(blurVisualEffectView)
 
      let message = NSLocalizedString("How many passengers will join the trip?", comment: "")
 
@@ -160,6 +163,9 @@ class ChatUsersTableViewController: UITableViewController {
      let justLooking = NSLocalizedString("Cancel", comment: "")
      alert.addAction(UIAlertAction(title: justLooking, style: .default, handler: { action in
         self.navigationController?.popViewController(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+               self.dismiss(animated: true, completion: nil)
+               }
      }))
      alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
          self.trip.Passengers.append(currentUser!.displayName)
@@ -169,7 +175,12 @@ class ChatUsersTableViewController: UITableViewController {
         let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
         cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
         self.updateChatUserId()
+        blurVisualEffectView.removeFromSuperview()
 
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        self.dismiss(animated: true, completion: nil)
+        }
+        
      }))
              
         if trip.Passengers.count < 3 {
@@ -182,7 +193,10 @@ class ChatUsersTableViewController: UITableViewController {
         let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
         cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
         self.updateChatUserId()
-
+        blurVisualEffectView.removeFromSuperview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        self.dismiss(animated: true, completion: nil)
+        }
      }))
      }
          
@@ -197,12 +211,45 @@ class ChatUsersTableViewController: UITableViewController {
         let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
         cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
         self.updateChatUserId()
+        blurVisualEffectView.removeFromSuperview()
 
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        self.dismiss(animated: true, completion: nil)
+        }
+        
      }))
-     }
-
-     self.present(alert, animated: true)
+        }
+           self.present(alert, animated: true)
+ 
     }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+         return 50
       }
+   
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+       let footerView = UIView()
+       footerView.frame = CGRect(x: 50, y: 50, width: self.view.frame.width/2, height:
+       10)
+        
+       let button = UIButton()
+       button.frame = CGRect(x: 80, y: 15, width: 40, height: 10)
+       if (trip.Passengers.contains(currentUser!.displayName)) {
+       button.setTitle("exit", for: .normal)
+       footerView.backgroundColor = UIColor.red
+ 
+       button.addTarget(self, action: #selector(exitRoom), for:.touchUpInside)
+       } else {
+       button.setTitle("join", for: .normal)
+ 
+       footerView.backgroundColor = UIColor.blue
+       button.addTarget(self, action: #selector(joinRoom), for:.touchUpInside)
+       }
+       footerView.addSubview(button)
+       return footerView
+    }
+    }
     
  
+

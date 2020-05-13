@@ -38,16 +38,23 @@ class TripsTableViewCell: UITableViewCell  {
 
     class TripsTableViewController: UITableViewController {
  
-        
+ 
         @IBAction func onlineButtton(_ sender: Any) {
             
             let vc = GeneralChatViewController()
-            vc.modalPresentationStyle = .overCurrentContext
-            vc.modalTransitionStyle = .crossDissolve
-            present(vc, animated: true, completion: nil)
-        
-        }
+                                    
+          vc.modalTransitionStyle   = .crossDissolve
+            vc.modalPresentationStyle = UIModalPresentationStyle.popover
+          vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+         
+            self.present(vc, animated: true, completion:nil)
 
+        }
+        
+        
+      
+        
+        
         @IBOutlet weak var userCountBarButtonItem: UIBarButtonItem!
         
 
@@ -72,7 +79,7 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()        
         overrideUserInterfaceStyle = .light
-      
+ 
         // warning for disabled user accounts
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
 
@@ -175,6 +182,9 @@ class TripsTableViewCell: UITableViewCell  {
               super.viewDidLayoutSubviews()
                self.imageView.frame = self.view.bounds
            }
+        
+        
+         
         
         func deletePastChannels() {
         // will lower time to 2 hours when reach many active users, chat messages stays in database, i'll delete them manually after checking if there is any reports in the chat rooms.
@@ -378,6 +388,8 @@ class TripsTableViewCell: UITableViewCell  {
             }
         
     }
+        
+        
   }
  
 

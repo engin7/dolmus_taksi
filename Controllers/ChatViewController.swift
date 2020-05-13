@@ -56,7 +56,7 @@ import UserNotifications
 
          let w = NSLocalizedString("Welcome!", comment: "")
              
-             let m = NSLocalizedString(" You will arrange possible routes, meeting point and sharing taxi costs yourself. When you're sure please click button on the right top then join. Trip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName ", comment: "")
+             let m = NSLocalizedString(" You will arrange possible routes, meeting point and sharing taxi costs yourself. When you're sure please click + button on the right top then join. Trip creators can ban a user by command: \n/b nickname\nYou can report a user by command: \n/r nickName ", comment: "")
 
              let messageW =  w + m
                     
@@ -69,6 +69,7 @@ import UserNotifications
                 navigationController?.popViewController(animated: true)
                 return
                }
+        
         
         //   new collection inside Trips
         reference = db.collection(["Trips", id, "thread"].joined(separator: "/"))
@@ -106,7 +107,7 @@ import UserNotifications
         }
 
      
-       let chatUsers = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showUsers))
+        let chatUsers = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showUsers))
 
          navigationItem.rightBarButtonItems = [chatUsers]
          
@@ -220,9 +221,8 @@ import UserNotifications
     }
     
    
-    @objc func showUsers(sender: UIButton!) {
-           
-      
+    @objc func showUsers(sender: Any) {
+     
         docRef!.getDocument { (document, error) in
             if let trip0 = Trips(document: document!) {
                 self.trip = trip0
@@ -231,13 +231,40 @@ import UserNotifications
            
             }
             
-           let vcl = ChatUsersTableViewController(trip: self.trip!)
+              let vc = ChatUsersTableViewController(trip: self.trip!)
+ 
+            vc.modalTransitionStyle   = .crossDissolve
+              vc.modalPresentationStyle = UIModalPresentationStyle.popover
+            vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+               vc.preferredContentSize = CGSize(width: 200, height: 300)
+              let controller = vc.popoverPresentationController
+              controller?.delegate = self
+              controller?.sourceView = self.view
+              controller?.sourceRect = CGRect(x:self.view.bounds.midX, y: self.view.bounds.midY,width: 315,height: 230)
+              controller?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+              func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+                  return .popover
+              }
+             self.present(vc, animated: true, completion:nil)
             
-            self.navigationController?.pushViewController(vcl, animated: true)
+            
+//
+//                   vc.modalTransitionStyle   = .crossDissolve
+//                   vc.modalPresentationStyle = UIModalPresentationStyle.popover
+//                   let popover: UIPopoverPresentationController = vc.popoverPresentationController!
+//                   popover.delegate = self
+//                vc.preferredContentSize = CGSize(width: 200, height: 200)
+//
+//                self.present(vc, animated: true, completion:nil)
+
+             }
          }
-       }
-    
-    // MARK: - Helpers
+       
+
+    // Mark: - UIPopoverPresentationControllerDelegate
+
+   
+      // MARK: - Helpers
 
     private func addUser(_ user: chatUser) {
       
@@ -246,7 +273,7 @@ import UserNotifications
           print("Error sending message: \(e.localizedDescription)")
           return
             }
-         }
+          }
         }
      
     private func removeUser(_ user: chatUser) {
@@ -488,4 +515,33 @@ extension ChatViewController: MessageInputBarDelegate {
     
   }
   
+}
+
+ 
+
+extension ChatViewController: UIPopoverPresentationControllerDelegate {
+
+    func adaptivePresentationStyle(for: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+        //return UIModalPresentationStyle.fullScreen
+    }
+
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        if traitCollection.horizontalSizeClass == .compact {
+            return UIModalPresentationStyle.none
+            //return UIModalPresentationStyle.fullScreen
+        }
+        //return UIModalPresentationStyle.fullScreen
+        return UIModalPresentationStyle.none
+    }
+
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        switch style {
+        case .fullScreen:  return controller.presentedViewController
+        default:
+            return controller.presentedViewController
+        }
+    }
+ 
+    
 }
