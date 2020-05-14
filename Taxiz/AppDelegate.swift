@@ -154,12 +154,23 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
    userId = chatUserReference.addDocument(data: cUser!.representation) { error in
    if let e = error {
      print("Error sending message: \(e.localizedDescription)")
+
      return
   }
-        cUser?.id = userId!.documentID
       }
+        cUser?.id = userId!.documentID
         _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "Key")
-
+ 
+        chatUserReference.document(userId!.documentID).updateData([
+                      "id": cUser?.id
+                  ]) { err in
+                      if let err = err {
+                          print("Error updating document: \(err)")
+                      } else {
+                          print("Document successfully updated")
+                      }
+                  }
+        
     } else {
         
        let documentID = KeychainWrapper.standard.string(forKey: "Key")

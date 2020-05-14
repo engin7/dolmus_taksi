@@ -27,13 +27,16 @@ let uid: String
 var blocked: [String]
 var fcmToken: String?
 var chatUserId: [String:String]?
+var rating: [Int]
+var ratedBy: [String]
     
     init(fcmToken: String) {
-     self.nickName = currentUser!.displayName // ilk acildiginda nil oluyor
+     self.nickName = currentUser!.displayName  
      self.passenger = false
      self.uid = currentUser!.uid
-     id = nil
      blocked = []
+     rating = []
+     ratedBy = []
      chatUserId = [:]
      self.fcmToken = fcmToken
     }
@@ -60,8 +63,12 @@ var chatUserId: [String:String]?
         guard let chatUserId = data!["chatUserId"] as? [String:String]? else {
                  return nil
                }
-        
-      
+        guard let rating = data!["rating"] as? [Int] else {
+                       return nil
+                     }
+      guard let ratedBy = data!["ratedBy"] as? [String] else {
+                     return nil
+                   }
         
     id = document.documentID
     self.nickName = nickName
@@ -70,6 +77,8 @@ var chatUserId: [String:String]?
     self.blocked = blocked
     self.fcmToken = fcmToken
     self.chatUserId = chatUserId
+    self.ratedBy = ratedBy
+    self.rating = rating
     }
 }
 
@@ -83,7 +92,9 @@ extension chatUser: DatabaseRepresentation {
         "blocked": blocked,
             "id" : id,
       "fcmToken" : fcmToken,
-      "chatUserId" : chatUserId,
+    "chatUserId" : chatUserId,
+      "rating"   : rating,
+      "ratedBy"  : ratedBy,
     ]
    }
 }

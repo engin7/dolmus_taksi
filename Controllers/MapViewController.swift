@@ -53,6 +53,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     private var referenceUsers: CollectionReference?
  
     @IBAction func switchTrip(_ sender: Any) {
+        if toSearchController.searchBar.text != "" {
         swap(&toSearchController.searchBar.text, &fromSearchController.searchBar.text)
         swap(&toCity, &fromCity)
         swap(&toLocation, &fromLocation)
@@ -66,8 +67,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         self.mapView.addAnnotation(annotationFrom)
         self.mapView.addAnnotation(annotationTo)
-
         }
+      }
     }
     
     @IBAction func createTripButton(_ sender: Any) {

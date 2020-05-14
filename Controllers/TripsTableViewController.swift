@@ -40,14 +40,13 @@ class TripsTableViewCell: UITableViewCell  {
  
  
         @IBAction func onlineButtton(_ sender: Any) {
-            
-//            let vc = GeneralChatViewController()
-//                                    
-//          vc.modalTransitionStyle   = .crossDissolve
-//            vc.modalPresentationStyle = UIModalPresentationStyle.popover
-//          vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-//         
-//            self.present(vc, animated: true, completion:nil)
+            // present modally
+
+            let vc = GeneralChatViewController()
+          vc.modalTransitionStyle   = .crossDissolve
+            vc.modalPresentationStyle = UIModalPresentationStyle.pageSheet
+          vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+            self.present(vc, animated: true, completion:nil)
 
         }
         
