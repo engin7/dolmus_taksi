@@ -29,7 +29,7 @@ var fcmToken: String?
 var chatUserId: [String:String]?
     
     init(fcmToken: String) {
-     self.nickName = currentUser!.displayName
+     self.nickName = currentUser!.displayName // ilk acildiginda nil oluyor
      self.passenger = false
      self.uid = currentUser!.uid
      id = nil

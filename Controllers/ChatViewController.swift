@@ -56,6 +56,13 @@ import UserNotifications
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        let hUserId = chatUserReference.document(trip!.hostID)
+         hUserId.getDocument { (document, error) in
+           if let document = document, document.exists {
+            host = chatUser(document: document)!
+        
+          } }
+        
          overrideUserInterfaceStyle = .light
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadButton), name: NSNotification.Name(rawValue: "NotificationID"), object: nil)
@@ -321,15 +328,10 @@ import UserNotifications
       insertNewMessage(message)
       
       if message.content.contains("/b")  {
-     
-        let hUserId = chatUserReference.document(trip!.hostID)
-          hUserId.getDocument { (document, error) in
-            if let document = document, document.exists {
-             host = chatUser(document: document)!
-           } }
-
+      
         let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /b ",with: "")
            
+        
            for user in chatRoomUsers {
                if user.nickName == blockedUser {
              
@@ -370,7 +372,7 @@ import UserNotifications
                      }
                       
                          }
-                    
+       
           
                        }
           
