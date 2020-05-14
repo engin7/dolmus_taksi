@@ -33,7 +33,6 @@ class TripsTableViewCell: UITableViewCell  {
     
     @IBOutlet weak var PersonImage3: UIImageView!
     
- 
  }
 
     class TripsTableViewController: UITableViewController {
@@ -43,21 +42,15 @@ class TripsTableViewCell: UITableViewCell  {
             // present modally
 
             let vc = GeneralChatViewController()
-          vc.modalTransitionStyle   = .crossDissolve
-            vc.modalPresentationStyle = UIModalPresentationStyle.pageSheet
-          vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-            self.present(vc, animated: true, completion:nil)
+             vc.modalPresentationStyle = UIModalPresentationStyle.pageSheet
+            vc.modalTransitionStyle = .coverVertical
+
+             self.navigationController?.present(vc, animated: true, completion: nil)
 
         }
-        
-        
-      
-        
-        
+       
         @IBOutlet weak var userCountBarButtonItem: UIBarButtonItem!
-        
-
-        
+    
         
         private let TripsCellIdentifier = "TripsCell"
         private var currentTripsAlertController: UIAlertController?
