@@ -82,8 +82,10 @@ import UserNotifications
 //        })
         // https://www.raywenderlich.com/3-firebase-tutorial-getting-started#toc-anchor-020
         
-        messagesCollectionView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
+         reference = db.collection(["Console", "J5OY4jZbFZRPuVPQSzwu", "thread"].joined(separator: "/"))
 
+         docRef = reference!.document("J5OY4jZbFZRPuVPQSzwu")
+               
         
         if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
            layout.setMessageIncomingAvatarSize(.zero)
@@ -102,11 +104,7 @@ import UserNotifications
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-        
-        messagesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        messagesCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 140).isActive = true
-
-        
+       
         self.messagesCollectionView.scrollToBottom(animated: true)
        
 //             terminalAdd()
@@ -116,32 +114,7 @@ import UserNotifications
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-    
-
-    var viewTranslation = CGPoint(x: 0, y: 0)
-    @objc func handleDismiss(sender: UIPanGestureRecognizer) {
-        switch sender.state {
-        case .changed:
-            viewTranslation = sender.translation(in: messagesCollectionView)
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.messagesCollectionView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-            })
-        case .ended:
-            if viewTranslation.y < 200 {
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                    self.messagesCollectionView.transform = .identity
-                })
-            } else {
-                dismiss(animated: true, completion: nil)
-            }
-        default:
-            break
-        }
-    }
-    
-    
-    
-    
+     
     
      func terminalWelcome() {
                         
