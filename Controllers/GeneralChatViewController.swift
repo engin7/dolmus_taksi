@@ -127,7 +127,7 @@ import UserNotifications
  
         let dateString =  dateFormatter.string(from: Date())
  
-               DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+               DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
  
        docRefOnline!.observe(.value, with: { snapshot in
               
@@ -146,6 +146,8 @@ import UserNotifications
             
         
             NotificationCenter.default.addObserver(self, selector: #selector(away), name: Notification.Name("away"), object: nil)
+        
+            NotificationCenter.default.addObserver(self, selector: #selector(foreground), name: Notification.Name("foreground"), object: nil)
         
         }
        
@@ -168,7 +170,23 @@ import UserNotifications
         
     }
 
-    
+     @objc func foreground (notification: NSNotification){
+           
+           let dateFormatter = DateFormatter()
+           
+           dateFormatter.dateStyle = .full
+
+             dateFormatter.timeStyle = .full
+
+             let dateString =  dateFormatter.string(from: Date())
+           
+           let away = " "+(cUser!.nickName)+" is back online @ " +  dateString
+
+           let message = Message(user: currentUser!, content: away)
+                      
+             self.save(message)
+           
+       }
     
     
     // observe new data change

@@ -59,6 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        NotificationCenter.default.post(name: Notification.Name("foreground"), object: nil)
 
     }
 
@@ -66,8 +67,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-     NotificationCenter.default.post(name: Notification.Name("away"), object: nil)
-    
+        DispatchQueue.main.asyncAfter(deadline: .now() + (3.0 * 60.0)) {
+        
+              docRefOnline!.observe(.value, with: { snapshot in
+                     
+                  if !snapshot.exists() {
+                                             
+               NotificationCenter.default.post(name: Notification.Name("away"), object: nil)
+ 
+                      }
+                         })
+                    
+                      }
          
     }
 
