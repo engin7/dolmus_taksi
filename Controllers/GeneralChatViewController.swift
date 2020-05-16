@@ -32,9 +32,9 @@ import UserNotifications
      private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
     private var tripListener: ListenerRegistration?
- 
+  
     
-    
+  
      deinit {
          messageListener?.remove()
       }
@@ -54,8 +54,8 @@ import UserNotifications
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
         self.definesPresentationContext = true
-
-//
+        
+ 
 //        // 1
 //        usersRef.observe(.childAdded, with: { snap in
 //          // 2
@@ -85,7 +85,7 @@ import UserNotifications
          reference = db.collection(["Console", "J5OY4jZbFZRPuVPQSzwu", "thread"].joined(separator: "/"))
 
          docRef = reference!.document("J5OY4jZbFZRPuVPQSzwu")
-               
+
         
         if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
            layout.setMessageIncomingAvatarSize(.zero)
@@ -107,10 +107,154 @@ import UserNotifications
        
         self.messagesCollectionView.scrollToBottom(animated: true)
        
-//             terminalAdd()
-       }
-     
-   
+        messageListener = reference?.addSnapshotListener { querySnapshot, error in
+                  
+                  guard let snapshot = querySnapshot else {
+                    print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+                    return
+                  }
+                    snapshot.documentChanges.forEach { change in
+                    self.handleDocumentChange(change)
+                  }
+
+                }
+        
+             let dateFormatter = DateFormatter()
+ 
+                     dateFormatter.dateStyle = .full
+
+                       dateFormatter.timeStyle = .full
+ 
+        let dateString =  dateFormatter.string(from: Date())
+ 
+               DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+ 
+       docRefOnline!.observe(.value, with: { snapshot in
+              
+           if snapshot.exists() {
+                                      
+              let online = " "+(cUser!.nickName)+" is online @ " +  dateString
+                   
+           let message = Message(user: currentUser!, content: online)
+            
+                self.save(message)
+                
+               }
+                  })
+             
+               }
+            
+        
+            NotificationCenter.default.addObserver(self, selector: #selector(away), name: Notification.Name("away"), object: nil)
+        
+        }
+       
+    
+     @objc func away (notification: NSNotification){
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .full
+
+          dateFormatter.timeStyle = .full
+
+          let dateString =  dateFormatter.string(from: Date())
+        
+        let away = " "+(cUser!.nickName)+" is away @ " +  dateString
+
+        let message = Message(user: currentUser!, content: away)
+                   
+          self.save(message)
+        
+    }
+
+    
+    
+    
+    // observe new data change
+      private func handleDocumentChange(_ change: DocumentChange) {
+        guard let message = Message(document: change.document) else {
+           
+          return
+        }
+         switch change.type {
+        case .added:
+        insertNewMessage(message)
+        
+        if message.content.contains("/b")  {
+        
+          let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /b ",with: "")
+             //will update
+            let sender = message.sender.senderId
+             for user in chatRoomUsers {
+                 if user.nickName == blockedUser {
+               
+                   let blockedUserId = user.uid
+                  if !(host?.blocked.contains(blockedUserId))!{
+                  host!.blocked.append(blockedUserId)
+                  cUser!.blocked.append(host!.uid)
+                  }
+                   // if blocking person trip creator kick blocked one
+                  if (trip?.Passengers.contains(blockedUser))! {
+                       let indexOfUser = (trip?.Passengers.firstIndex(of: blockedUser))!
+                       trip?.Passengers.remove(at: indexOfUser)
+                  }
+ 
+                  chatUserReference.document(cUser!.id!).updateData([
+                   "blocked": cUser!.blocked
+                  ]) { err in
+                      if let err = err {
+                          print("Error updating document: \(err)")
+                      } else {
+                          print("Document successfully updated")
+                      }
+                               
+                        }
+                  
+                  chatUserReference.document(trip!.hostID).updateData([
+                      "blocked": host!.blocked
+                     ]) { err in
+                         if let err = err {
+                             print("Error updating document: \(err)")
+                         } else {
+                             print("Document successfully updated")
+                         }
+                                  
+                           }
+                           
+                       }
+                        
+                           }
+         
+            
+                         }
+            
+            
+            if message.content.contains("/r")  {
+                   
+                   let reportedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /r ",with: "")
+            
+                   for user in chatRoomUsers {
+
+                    if user.nickName == reportedUser {
+                           
+                         let reportedUserId = user.uid
+                           documentId = docRef
+                           
+                        let reported = rUser(uid: reportedUserId, docName: documentId!.documentID)
+                         
+                         reportUser(reported)
+                           
+                       }
+                   }
+             
+                   }
+          
+        default:
+        break
+        }
+      }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -118,27 +262,8 @@ import UserNotifications
     
      func terminalWelcome() {
                         
-           // TODO:  ASCIIart keyboard stickers in next version
      
-    let channelName = String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!
-               
              
-  let asciiArt = Message(user: terminal, content:
-     "                   __------__\n" +
-    #"                 / _--------_\  "# + "\n" +
-     #"               /  /                \  \  "# +
-     "\n               |  |                |  |" +
-    " \n               |_|__________|_|" + "\n" +
-    #"        /-\ |                          | /-\  "# + "\n" +
-   #"       |     |\           0           /|    | "# + "\n" +
-   #"       |(  )| \           !          / |(  )| "# + "\n" +
-   #"       |___|__\_____!_____/__|___| "# + "\n" +
-    "       [______|#"+channelName+"|______] " +
-   "\n         ||||    ~~~~~~~~     |||| " +
-    "\n        `--'                           `--' "
-     )
-     
-              save(asciiArt)
  
            }
     
@@ -147,7 +272,7 @@ import UserNotifications
     // MARK: - Helpers
  
      
-   private func save(_ message: Message) {
+     public func save(_ message: Message) {
        reference?.addDocument(data: message.representation) { error in
        if let e = error {
          print("Error sending message: \(e.localizedDescription)")
@@ -188,25 +313,8 @@ import UserNotifications
                          }
                     }
     
-    private func handleUserChange(_ change: DocumentChange) {
-      
-        
-        switch change.type {
-        case .added:
-        let user = cUser!
-        chatRoomUsers.append(user)
-  
-          
-        case .removed:
-        let user = cUser!
-        let index = chatRoomUsers.firstIndex(of: user)!
-        chatRoomUsers.remove(at: index)
- 
-        default:
-        break
-        }
-      }
 
+    
 
 // MARK: - MessagesDataSource
 

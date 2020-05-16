@@ -37,9 +37,11 @@ class TripsTableViewCell: UITableViewCell  {
 
     class TripsTableViewController: UITableViewController {
   
-        @IBAction func onlineButtton(_ sender: Any) {
+        let vc = GeneralChatViewController()
+
+        @IBAction func onlineButtton(_ sender: Any?) {
             // present modally
-            let vc = GeneralChatViewController()
+            
              vc.modalPresentationStyle = UIModalPresentationStyle.pageSheet
             vc.modalTransitionStyle = .coverVertical
 
@@ -54,6 +56,7 @@ class TripsTableViewCell: UITableViewCell  {
         private var currentTripsAlertController: UIAlertController?
        
         var tripListener: ListenerRegistration?
+ 
         var trips : [Trips] = []
         var availableTrips : [Trips] = []
         var myTrips : [Trips] = []
@@ -67,7 +70,12 @@ class TripsTableViewCell: UITableViewCell  {
         }
               
       override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.onlineButtton(nil)
+              }
+        
         overrideUserInterfaceStyle = .light
  
         // warning for disabled user accounts
@@ -152,14 +160,16 @@ class TripsTableViewCell: UITableViewCell  {
                   self.tableView.reloadData()
                   self.deletePastChannels()
          }
-        
-            usersRef.observe(.value, with: { snapshot in
+
+                usersRef.observe(.value, with: { snapshot in
               if snapshot.exists() {
                 self.userCountBarButtonItem?.title = snapshot.childrenCount.description
               } else {
                 self.userCountBarButtonItem?.title = "0"
               }
             })
+        
+  
       }
         override func viewDidLayoutSubviews() {
               // for different screen size

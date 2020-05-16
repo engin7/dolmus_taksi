@@ -11,6 +11,7 @@ var reportedReference: CollectionReference {
 return db.collection("reportedUsers")
 }
 let usersRef = Database.database().reference(withPath: "online")
+var  docRefOnline : DatabaseReference?
 
 struct User {
   

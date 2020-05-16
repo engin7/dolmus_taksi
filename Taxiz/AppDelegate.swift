@@ -29,7 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
                    // auto sign-in and move to next view:
                if user != nil {
                 currentUser = User(authData: user!)
-            
+                docRefOnline = usersRef.child(currentUser!.uid)
+
                }
       //this was myKey will be used for promotions for the  first time users
             if  KeychainWrapper.standard.string(forKey: "Key99") == nil {
@@ -49,6 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
             let currentUserRef = usersRef.child(currentUser!.uid)
             currentUserRef.setValue(currentUser?.displayName)
             currentUserRef.onDisconnectRemoveValue()
+            docRefOnline = usersRef.child(currentUser!.uid)
+                
             }
       }
         
@@ -72,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
         
         Messaging.messaging().delegate = self
 
-        
+ 
         return true
 
     }
@@ -89,8 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
       if let messageID = userInfo[gcmMessageIDKey] {
         print("Message ID: \(messageID)")
       }
-
-
+ 
       // Print full message.
       print(userInfo)
         
@@ -121,6 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+
     }
 
 //    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -138,10 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
 //    }
     
  }
-    
-
-
-
+     
 extension AppDelegate : MessagingDelegate {
 
 func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
@@ -197,3 +197,7 @@ func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
 }
 
 }
+
+// TODO:
+//user offline:
+//NotificationCenter.default.post(name: Notification.Name("offline"), object: nil)
