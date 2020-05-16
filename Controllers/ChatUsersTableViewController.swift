@@ -91,7 +91,7 @@ class ChatUsersTableViewController: UITableViewController {
                    cell.selectionStyle = .none
                    return cell
             
-        }
+          }
         }
         
     

@@ -25,6 +25,7 @@
 		10558A9723FE8199005402F5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9623FE8199005402F5 /* Message.swift */; };
 		10720724246883F7003819F7 /* GeneralChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10720723246883F7003819F7 /* GeneralChatViewController.swift */; };
 		10720726246F2978003819F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10720725246F2978003819F7 /* Assets.xcassets */; };
+		1072072824707E8C003819F7 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1072072724707E8C003819F7 /* Location.swift */; };
 		1093CB1D245A0E1D0012113A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093CB1C245A0E1D0012113A /* Terms.swift */; };
 		10B5CBD8240444AF00FDC8E7 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */; };
 		10D43B29242A795B00A3719B /* PopupLocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */; };
@@ -55,6 +56,7 @@
 		10558A9623FE8199005402F5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		10720723246883F7003819F7 /* GeneralChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralChatViewController.swift; sourceTree = "<group>"; };
 		10720725246F2978003819F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1072072724707E8C003819F7 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		1093CB1C245A0E1D0012113A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
 		10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupLocationSearchTable.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				10558A6523F873EF005402F5 /* User.swift */,
 				10226A9F24423EEE00BD49D8 /* chatUser.swift */,
 				10558A9623FE8199005402F5 /* Message.swift */,
+				1072072724707E8C003819F7 /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				1093CB1D245A0E1D0012113A /* Terms.swift in Sources */,
 				10558A2423F3F8EB005402F5 /* MapViewController.swift in Sources */,
 				10720724246883F7003819F7 /* GeneralChatViewController.swift in Sources */,
+				1072072824707E8C003819F7 /* Location.swift in Sources */,
 				10558A9523FE8138005402F5 /* AppSettings.swift in Sources */,
 				10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */,
 				10558A5F23F6E178005402F5 /* LocationSearchTable.swift in Sources */,

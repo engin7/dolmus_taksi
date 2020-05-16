@@ -34,7 +34,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     @IBOutlet weak var myFrom: UIView!
     @IBOutlet weak var myTo: UIView!
  
-    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var pickerView: UIPickerView!  //bug in storyboard 
     
     @IBOutlet weak var picker: UIDatePicker!
     

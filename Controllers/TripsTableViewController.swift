@@ -270,7 +270,7 @@ class TripsTableViewCell: UITableViewCell  {
               let image = UIImage(named: "Image Name")
 
             imageView.image = image
-            imageView.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 0.35)
+            imageView.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1.0)
 
             imageView.layer.cornerRadius = 25
             imageView.clipsToBounds = true
@@ -278,17 +278,16 @@ class TripsTableViewCell: UITableViewCell  {
             imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
 
             let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
-
-             if trip.time < past! {
-             imageView.backgroundColor = .lightGray
-             cell.selectionStyle = .none
-                cell.contentView.alpha = 0.8
-
-            }
-            
+ 
               cell.backgroundView = UIView()
               cell.backgroundView!.addSubview(imageView)
           
+            if trip.time < past! {
+                cell.selectionStyle = .none
+                  cell.contentView.alpha = 0.25
+                cell.backgroundView?.removeFromSuperview()
+              }
+            
               return cell
             
           }

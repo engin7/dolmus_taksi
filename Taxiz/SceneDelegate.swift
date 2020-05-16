@@ -67,19 +67,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        DispatchQueue.main.asyncAfter(deadline: .now() + (3.0 * 60.0)) {
-        
-              docRefOnline!.observe(.value, with: { snapshot in
-                     
-                  if !snapshot.exists() {
-                                             
+       
                NotificationCenter.default.post(name: Notification.Name("away"), object: nil)
- 
-                      }
-                         })
-                    
-                      }
          
+        
     }
 
 

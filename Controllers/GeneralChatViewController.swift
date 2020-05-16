@@ -127,13 +127,13 @@ import UserNotifications
  
         let dateString =  dateFormatter.string(from: Date())
  
-               DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+               DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
  
        docRefOnline!.observe(.value, with: { snapshot in
               
            if snapshot.exists() {
                                       
-              let online = " "+(cUser!.nickName)+" is online @ " +  dateString
+              let online = " "+(cUser!.nickName) + "from" + (myLocation.city) + " is online @ " +  dateString
                    
            let message = Message(user: currentUser!, content: online)
             
@@ -162,7 +162,7 @@ import UserNotifications
 
           let dateString =  dateFormatter.string(from: Date())
         
-        let away = " "+(cUser!.nickName)+" is away @ " +  dateString
+        let away = " "+(cUser!.nickName)  + "from" + (myLocation.city) + " is away @ " +  dateString
 
         let message = Message(user: currentUser!, content: away)
                    
