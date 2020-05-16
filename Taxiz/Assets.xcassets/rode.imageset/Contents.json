@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "rode.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "chat.jpg",
       "scale" : "2x"
     },
     {

@@ -32,15 +32,13 @@ class TripsTableViewCell: UITableViewCell  {
     @IBOutlet weak var PersonImage2: UIImageView!
     
     @IBOutlet weak var PersonImage3: UIImageView!
-    
+     
  }
 
     class TripsTableViewController: UITableViewController {
- 
- 
+  
         @IBAction func onlineButtton(_ sender: Any) {
             // present modally
-
             let vc = GeneralChatViewController()
              vc.modalPresentationStyle = UIModalPresentationStyle.pageSheet
             vc.modalTransitionStyle = .coverVertical
@@ -85,13 +83,7 @@ class TripsTableViewCell: UITableViewCell  {
            self.present(alert, animated: true, completion: nil)
 
             } }
-         
-         self.imageView.image = #imageLiteral(resourceName: "chat")
-         self.imageView.contentMode = .scaleAspectFill
-         self.imageView.alpha = 0.3
-         self.imageView.clipsToBounds = true
-         self.view.addSubview(imageView)
-    
+ 
          locationManager = CLLocationManager()
          locationManager?.delegate = self
          locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -174,17 +166,14 @@ class TripsTableViewCell: UITableViewCell  {
               super.viewDidLayoutSubviews()
                self.imageView.frame = self.view.bounds
            }
-        
-        
          
-        
         func deletePastChannels() {
         // will lower time to 2 hours when reach many active users, chat messages stays in database, i'll delete them manually after checking if there is any reports in the chat rooms.
                let past = Calendar.current.date(byAdding: .hour, value: -12, to: today)
                 
                for Trips in trips {
-                   
-                if Trips.time < past! || Trips.Passengers.count == 0 {
+ 
+                if Trips.time < past! ||   Trips.Passengers.count == 0 {
                       
                      let documentId = Trips.id
                     tripReference.document(documentId!).delete() { error in
@@ -193,9 +182,8 @@ class TripsTableViewCell: UITableViewCell  {
                     } else {
                         print("File deleted successfully")
                     }
-                        
-                    }
-               }
+                 }
+             }
           }
         }
         
@@ -224,10 +212,7 @@ class TripsTableViewCell: UITableViewCell  {
             cell.fromCityTextLabel.textColor = UIColor.black
             cell.toCityTextLabel.textColor = UIColor.black
 
-            let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
-
-           
-            
+ 
             switch trip.Passengers.count {
                 
             case 1:
@@ -236,7 +221,6 @@ class TripsTableViewCell: UITableViewCell  {
                 cell.PersonImage3.isHidden = true
                 cell.contentView.alpha = 0.8
                 
-
             case 2:
                 cell.PersonImage3.isHidden = true
                 cell.PersonImage2.isHidden = true
@@ -249,37 +233,51 @@ class TripsTableViewCell: UITableViewCell  {
                 cell.PersonImage1.isHidden = false
                 cell.contentView.alpha = 0.8
                 
-
             case 4:
                 cell.contentView.alpha = 0.4
                 cell.PersonImage3.isHidden = false
                 cell.PersonImage2.isHidden = false
                 cell.PersonImage1.isHidden = false
- 
-                
+                 
             default:
                break
             }
-          
-            if trip.time < past! {
-            cell.contentView.alpha = 0.2
-            cell.selectionStyle = .none
-           }
-            
+         
             if trip.Passengers.contains(currentUser!.displayName) {
              cell.alpha = 0
-             cell.backgroundColor = UIColor.lightGray
-             UIView.animate(withDuration: 2.0, animations: {
-              cell.alpha = 1.0
+              UIView.animate(withDuration: 2.0, animations: {
+                cell.contentView.alpha = 0.8
               cell.fromTextLabel.textColor = UIColor.red
               cell.toTextLabel.textColor = UIColor.red
               cell.timeTextLabel.textColor = UIColor.red
               cell.fromCityTextLabel.textColor = UIColor.red
               cell.toCityTextLabel.textColor = UIColor.red
-              cell.backgroundColor = UIColor.white
-            })
+             })
                  
           }
+          
+            let imageView = UIImageView(frame: CGRect(x: 2, y: 5, width: cell.frame.width + 40, height: cell.frame.height - 15))
+              let image = UIImage(named: "Image Name")
+
+            imageView.image = image
+            imageView.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 0.35)
+
+            imageView.layer.cornerRadius = 25
+            imageView.clipsToBounds = true
+
+            imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+
+            let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
+
+             if trip.time < past! {
+             imageView.backgroundColor = .lightGray
+             cell.selectionStyle = .none
+                cell.contentView.alpha = 0.8
+
+            }
+            
+              cell.backgroundView = UIView()
+              cell.backgroundView!.addSubview(imageView)
           
               return cell
             
@@ -324,9 +322,8 @@ class TripsTableViewCell: UITableViewCell  {
             let documentId = trip.id
 
             let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
-            
          
-            if ((trip.Passengers.count < 5 &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !cUser!.blocked.contains(trip.host))
+            if ((trip.Passengers.count < 5  &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !cUser!.blocked.contains(trip.host))
               
               {
                 
@@ -347,9 +344,7 @@ class TripsTableViewCell: UITableViewCell  {
                    if let selectedIndexPath = tableView.indexPathForSelectedRow {
                           tableView.deselectRow(at: selectedIndexPath, animated: false)
                        }
-                   
-                                  self.present(alert, animated: true, completion: nil)
-                      
+                          self.present(alert, animated: true, completion: nil)
                      }
                  
                if trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
@@ -358,8 +353,7 @@ class TripsTableViewCell: UITableViewCell  {
 
                    self.navigationController?.pushViewController(vc, animated: true)
                }
-                
-           
+       
             if CLLocationManager.authorizationStatus() == .denied {
                 
                 let title = NSLocalizedString("Location services denied", comment: "")
@@ -370,12 +364,9 @@ class TripsTableViewCell: UITableViewCell  {
                          self.present(alert, animated: true, completion: nil)
  
             }
-        
-    }
-        
-  }
+       }
+   }
  
-  
 extension TripsTableViewController : CLLocationManagerDelegate {
      
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

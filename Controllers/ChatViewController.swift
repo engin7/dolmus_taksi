@@ -61,7 +61,8 @@ import UserNotifications
            if let document = document, document.exists {
             host = chatUser(document: document)!
         
-          } }
+          }            
+        }
         
          overrideUserInterfaceStyle = .light
         

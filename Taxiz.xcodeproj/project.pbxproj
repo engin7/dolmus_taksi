@@ -23,8 +23,8 @@
 		10558A6D23F88A87005402F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10558A6C23F88A87005402F5 /* GoogleService-Info.plist */; };
 		10558A9523FE8138005402F5 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9423FE8138005402F5 /* AppSettings.swift */; };
 		10558A9723FE8199005402F5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A9623FE8199005402F5 /* Message.swift */; };
-		1072072224675ECE003819F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1072072124675ECD003819F7 /* Assets.xcassets */; };
 		10720724246883F7003819F7 /* GeneralChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10720723246883F7003819F7 /* GeneralChatViewController.swift */; };
+		10720726246F2978003819F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10720725246F2978003819F7 /* Assets.xcassets */; };
 		1093CB1D245A0E1D0012113A /* Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1093CB1C245A0E1D0012113A /* Terms.swift */; };
 		10B5CBD8240444AF00FDC8E7 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */; };
 		10D43B29242A795B00A3719B /* PopupLocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */; };
@@ -53,8 +53,8 @@
 		10558A6C23F88A87005402F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		10558A9423FE8138005402F5 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		10558A9623FE8199005402F5 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		1072072124675ECD003819F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10720723246883F7003819F7 /* GeneralChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralChatViewController.swift; sourceTree = "<group>"; };
+		10720725246F2978003819F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1093CB1C245A0E1D0012113A /* Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms.swift; sourceTree = "<group>"; };
 		10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupLocationSearchTable.swift; sourceTree = "<group>"; };
@@ -104,13 +104,13 @@
 		10558A1E23F3F8EB005402F5 /* Taxiz */ = {
 			isa = PBXGroup;
 			children = (
+				10720725246F2978003819F7 /* Assets.xcassets */,
 				102663D4244BA74B009A02C4 /* Taxiz.entitlements */,
 				10558A1F23F3F8EB005402F5 /* AppDelegate.swift */,
 				10558A2123F3F8EB005402F5 /* SceneDelegate.swift */,
 				10558A9423FE8138005402F5 /* AppSettings.swift */,
 				10558A2723F3F8EB005402F5 /* Main.storyboard */,
 				10558A2C23F3F8ED005402F5 /* LaunchScreen.storyboard */,
-				1072072124675ECD003819F7 /* Assets.xcassets */,
 			);
 			path = Taxiz;
 			sourceTree = "<group>";
@@ -236,7 +236,7 @@
 				10FCDE01245D807D000BBE89 /* Localizable.strings in Resources */,
 				10558A6B23F888A8005402F5 /* Default-568h@2x.png in Resources */,
 				10558A6D23F88A87005402F5 /* GoogleService-Info.plist in Resources */,
-				1072072224675ECE003819F7 /* Assets.xcassets in Resources */,
+				10720726246F2978003819F7 /* Assets.xcassets in Resources */,
 				10558A2923F3F8EB005402F5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
