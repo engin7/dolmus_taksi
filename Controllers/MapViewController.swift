@@ -97,10 +97,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                 matchingPolicy: .nextTime
             )
             
-            trip =  Trips(time: tomorrow!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, host: cUser!.uid, hostID: cUser!.id!)
+            trip =  Trips(time: tomorrow!, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ] , fromCity: fromCity!, passengers: currentUser!.displayName, host: cUser!.uid!, hostID: cUser!.id!)
             currentUser?.previousTrip = Date()
          } else {
-            trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, host: cUser!.uid, hostID: cUser!.id!)
+            trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, host: cUser!.uid!, hostID: cUser!.id!)
                 currentUser?.previousTrip = Date()
        }
             var n : Int

@@ -337,9 +337,9 @@ import UserNotifications
                if user.nickName == blockedUser {
              
                  let blockedUserId = user.uid
-                if !(host?.blocked.contains(blockedUserId))!{
-                host!.blocked.append(blockedUserId)
-                cUser!.blocked.append(host!.uid)
+                if !(host?.blocked.contains(blockedUserId!))!{
+                    host!.blocked.append(blockedUserId!)
+                    cUser!.blocked.append(host!.uid!)
                 }
                  // if blocking person trip creator kick blocked one
                 if (trip?.Passengers.contains(blockedUser))! {
@@ -386,7 +386,7 @@ import UserNotifications
 
                   if user.nickName == reportedUser {
                          
-                       let reportedUserId = user.uid
+                    let reportedUserId = user.uid!
                          documentId = docRef
                          
                       let reported = rUser(uid: reportedUserId, docName: documentId!.documentID)

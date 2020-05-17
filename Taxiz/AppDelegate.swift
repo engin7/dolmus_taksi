@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
                if user != nil {
                 currentUser = User(authData: user!)
                 docRefOnline = usersRef.child(currentUser!.uid)
-
                }
       //this was myKey will be used for promotions for the  first time users
             if  KeychainWrapper.standard.string(forKey: "Key99") == nil {
@@ -41,8 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
                  if let user = user {
                    
                    currentUser = User(authData: user.user)
-           
-               }
+                }
            }
          }
             if currentUser != nil {

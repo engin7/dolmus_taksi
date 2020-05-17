@@ -6,34 +6,33 @@
 //  Copyright © 2020 Silverback Inc. All rights reserved.
 //
 
-import Foundation
 import MapKit
+  
 
+class myLocation : NSObject, CLLocationManagerDelegate {
 
-
-class myLocation : NSObject, CLLocationManagerDelegate{
-
-var locationManager: CLLocationManager?
+var locationManager = CLLocationManager()
 var userLocation: CLLocation?
 let geoCoder = CLGeocoder()
 var city: String?
-    
-    override init() {
-
-locationManager = CLLocationManager()
-    
-    
-locationManager?.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-locationManager?.requestWhenInUseAuthorization()
-locationManager?.requestLocation()
-locationManager?.startUpdatingLocation()
-super.init()
-locationManager?.delegate = self
-
+   
+   class var manager: myLocation {
+        return SharedUserLocation
     }
+    
+    override init () {
+        super.init()
+            
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        self.locationManager.startUpdatingLocation()
+    }
+    
+    
        private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
            if status == .authorizedWhenInUse {
-               locationManager!.requestLocation()
+               locationManager.requestLocation()
            }
        }
 
@@ -59,3 +58,7 @@ locationManager?.delegate = self
               print(error.localizedDescription)
           }
   }
+
+ 
+let SharedUserLocation = myLocation()
+

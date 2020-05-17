@@ -55,7 +55,7 @@ import UserNotifications
          overrideUserInterfaceStyle = .light
         self.definesPresentationContext = true
         
- 
+
 //        // 1
 //        usersRef.observe(.childAdded, with: { snap in
 //          // 2
@@ -107,6 +107,8 @@ import UserNotifications
        
         self.messagesCollectionView.scrollToBottom(animated: true)
        
+        messagesCollectionView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
+ 
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
                   
                   guard let snapshot = querySnapshot else {
@@ -131,9 +133,12 @@ import UserNotifications
  
        docRefOnline!.observe(.value, with: { snapshot in
               
-           if snapshot.exists() {
-                                      
-              let online = " "+(cUser!.nickName) + "from" + (myLocation.city) + " is online @ " +  dateString
+           if snapshot.exists() && SharedUserLocation.city != nil {
+               
+            let location = " from " + ( SharedUserLocation.city!) + " is online @ " +  dateString
+            let nick = " " + cUser!.nickName!
+           
+            let online = nick + location
                    
            let message = Message(user: currentUser!, content: online)
             
@@ -141,8 +146,7 @@ import UserNotifications
                 
                }
                   })
-             
-               }
+             }
             
         
             NotificationCenter.default.addObserver(self, selector: #selector(away), name: Notification.Name("away"), object: nil)
@@ -151,6 +155,26 @@ import UserNotifications
         
         }
        
+    var viewTranslation = CGPoint(x: 0, y: 0)
+    @objc func handleDismiss(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            viewTranslation = sender.translation(in: view)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        case .ended:
+            if viewTranslation.y < 200 {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    self.view.transform = .identity
+                })
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        default:
+            break
+        }
+    }
     
      @objc func away (notification: NSNotification){
         
@@ -162,12 +186,15 @@ import UserNotifications
 
           let dateString =  dateFormatter.string(from: Date())
         
-        let away = " "+(cUser!.nickName)  + "from" + (myLocation.city) + " is away @ " +  dateString
+        if SharedUserLocation.city != nil {
+        let location = " from " + (SharedUserLocation.city!) + " is away @ " +  dateString
+            let nick = " "+(cUser!.nickName!)
+        let away = nick  + location
 
         let message = Message(user: currentUser!, content: away)
                    
           self.save(message)
-        
+        }
     }
 
      @objc func foreground (notification: NSNotification){
@@ -180,7 +207,7 @@ import UserNotifications
 
              let dateString =  dateFormatter.string(from: Date())
            
-           let away = " "+(cUser!.nickName)+" is back online @ " +  dateString
+        let away = " "+(cUser!.nickName!)+" is back online @ " +  dateString
 
            let message = Message(user: currentUser!, content: away)
                       
@@ -208,9 +235,9 @@ import UserNotifications
                  if user.nickName == blockedUser {
                
                    let blockedUserId = user.uid
-                  if !(host?.blocked.contains(blockedUserId))!{
-                  host!.blocked.append(blockedUserId)
-                  cUser!.blocked.append(host!.uid)
+                    if !(host?.blocked.contains(blockedUserId!))!{
+                        host!.blocked.append(blockedUserId!)
+                        cUser!.blocked.append(host!.uid!)
                   }
                    // if blocking person trip creator kick blocked one
                   if (trip?.Passengers.contains(blockedUser))! {
@@ -259,7 +286,7 @@ import UserNotifications
                          let reportedUserId = user.uid
                            documentId = docRef
                            
-                        let reported = rUser(uid: reportedUserId, docName: documentId!.documentID)
+                        let reported = rUser(uid: reportedUserId!, docName: documentId!.documentID)
                          
                          reportUser(reported)
                            

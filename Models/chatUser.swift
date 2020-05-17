@@ -22,8 +22,8 @@ struct chatUser {
 
 var id: String?
 let passenger: Bool
-let nickName: String
-let uid: String
+let nickName: String?
+let uid: String?
 var blocked: [String]
 var fcmToken: String?
 var chatUserId: [String:String]?
@@ -31,9 +31,9 @@ var rating: [Int]
 var ratedBy: [String]
     
     init(fcmToken: String) {
-     self.nickName = currentUser!.displayName  
+     self.nickName = currentUser?.displayName
      self.passenger = false
-     self.uid = currentUser!.uid
+     self.uid = currentUser?.uid
      blocked = []
      rating = []
      ratedBy = []
@@ -45,10 +45,10 @@ var ratedBy: [String]
    
     let data = document.data()
  
-        guard let nickName = data!["nick"] as? String else {
+        guard let nickName = data!["nick"] as? String? else {
                    return nil
                  }
-        guard let uid = data!["uid"] as? String else {
+        guard let uid = data!["uid"] as? String? else {
                           return nil
                         }
         guard let blocked = data!["blocked"] as? [String] else {
@@ -101,11 +101,11 @@ extension chatUser: DatabaseRepresentation {
 
 extension chatUser: Comparable {
     static func < (lhs: chatUser, rhs: chatUser) -> Bool {
-            return lhs.nickName < rhs.nickName
+        return lhs.rating.count < rhs.rating.count
     }
-  
+
   static func == (lhs: chatUser, rhs: chatUser) -> Bool {
     return lhs.id == rhs.id
   }
-  
+
 }

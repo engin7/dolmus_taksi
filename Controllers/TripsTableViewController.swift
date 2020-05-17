@@ -72,10 +72,6 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.onlineButtton(nil)
-              }
-        
         overrideUserInterfaceStyle = .light
  
         // warning for disabled user accounts
