@@ -34,12 +34,13 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     @IBOutlet weak var myFrom: UIView!
     @IBOutlet weak var myTo: UIView!
  
-    @IBOutlet weak var pickerView: UIPickerView!  //bug in storyboard 
+    @IBOutlet weak var pickerView: UIPickerView!
     
     @IBOutlet weak var picker: UIDatePicker!
-    
-    
-    let passengersArray = ["1","2","3"]
+
+    var pickerData: [String] = [String]()
+    var addPersons : Int?
+
     var passenger: Int?
     var pickerTime: Date?
     var trip : Trips?
@@ -103,14 +104,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             trip =  Trips(time: picker.date, to: toSearchController.searchBar.text!, toCity: toCity!, from: fromSearchController.searchBar.text!, fromLocation: [(fromLocation?.coordinate.latitude)!, (fromLocation?.coordinate.longitude)! ], fromCity: fromCity!, passengers: currentUser!.displayName, host: cUser!.uid!, hostID: cUser!.id!)
                 currentUser?.previousTrip = Date()
        }
-            var n : Int
-           func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-                 n = row + 1
-            
-            for i in 1..<n {
+           
+            for i in 1..<addPersons! {
             trip!.Passengers.append(currentUser!.displayName + "+" + String(i))
         }
-          }
+          
             // add to firestore database:
         let doc_ref = tripReference.addDocument(data: trip!.representation) { error in
         if let e = error {
@@ -183,6 +181,9 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
 
     override func viewDidLoad() {
         overrideUserInterfaceStyle = .light
+        
+//        picker.subviews[1].isHidden  = true
+ 
         navigationController?.setNavigationBarHidden(true, animated: true)
         super.viewDidLoad()
         locationManager = CLLocationManager()
@@ -207,6 +208,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         picker.setDate(calendar.date(from: components)!, animated: false)
         
+        pickerData = ["1","2","3"]
+
      }
     
      func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -214,11 +217,15 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
      }
          
      func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-         return passengersArray.count
+         return pickerData.count
      }
     
     internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return passengersArray[row]
+        return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+         addPersons = row + 1
     }
     
      func arrangeSearchBars(){

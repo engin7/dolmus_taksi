@@ -41,8 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
      
-         
-        
+          
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -59,8 +58,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        if cUser != nil {
         NotificationCenter.default.post(name: Notification.Name("foreground"), object: nil)
-
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
