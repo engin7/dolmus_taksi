@@ -42,6 +42,8 @@ import UserNotifications
     init(){
     self.terminal = User()
     super.init(nibName: nil, bundle: nil)
+    self.setUpNavBar()
+
     }
     
    
@@ -54,7 +56,8 @@ import UserNotifications
         super.viewDidLoad()
          overrideUserInterfaceStyle = .light
         self.definesPresentationContext = true
-        
+        // prevents default dismiss gesture
+//        self.isModalInPresentation = true
 
 //        // 1
 //        usersRef.observe(.childAdded, with: { snap in
@@ -106,9 +109,7 @@ import UserNotifications
         messagesCollectionView.messagesDisplayDelegate = self
        
         self.messagesCollectionView.scrollToBottom(animated: true)
-       
-        messagesCollectionView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
- 
+        
         messageListener = reference?.addSnapshotListener { querySnapshot, error in
                   
                   guard let snapshot = querySnapshot else {
@@ -135,7 +136,7 @@ import UserNotifications
               
            if snapshot.exists() && SharedUserLocation.city != nil {
                
-            let location = " from " + ( SharedUserLocation.city!) + " is online @ " +  dateString
+            let location = "  from " + ( SharedUserLocation.city!) + " is online @ " +  dateString
             let nick = " " + cUser!.nickName!
            
             let online = nick + location
@@ -155,21 +156,39 @@ import UserNotifications
         
         }
        
-    var viewTranslation = CGPoint(x: 0, y: 0)
+    func setUpNavBar() {
+        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+
+        let title = UINavigationItem(title: "⇣  Swipe down this bar to dismiss")
+
+        navBar.setItems([title], animated: false)
+ 
+        self.view.addSubview(navBar)
+        navBar.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
+
+          
+    }
+    
+  var viewTranslation = CGPoint(x: 0, y: 0)
+
     @objc func handleDismiss(sender: UIPanGestureRecognizer) {
+
         switch sender.state {
         case .changed:
-            viewTranslation = sender.translation(in: view)
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-            })
+             
+             viewTranslation = CGPoint(x: 0.0, y: sender.translation(in: view).y)
+             
+             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: abs(self.viewTranslation.y))
+             })
+
         case .ended:
-            if viewTranslation.y < 200 {
+            if viewTranslation.y < 300    {
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     self.view.transform = .identity
                 })
             } else {
-                dismiss(animated: true, completion: nil)
+                 dismiss(animated: true, completion: nil)
             }
         default:
             break
@@ -187,7 +206,7 @@ import UserNotifications
           let dateString =  dateFormatter.string(from: Date())
         
         if SharedUserLocation.city != nil {
-        let location = " from " + (SharedUserLocation.city!) + " is away @ " +  dateString
+        let location =   " is away @ " +  dateString
             let nick = " "+(cUser!.nickName!)
         let away = nick  + location
 
