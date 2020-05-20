@@ -44,7 +44,7 @@ var city: String?
             
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                                   placemarks?.forEach { (placemark) in
-                                    self.city =   " \(placemark.locality ?? "unkown") , \(placemark.administrativeArea ?? "unkown")"
+                                    self.city =   " \(placemark.locality ?? "unkown"), \(placemark.administrativeArea ?? "unkown")"
                                      
                    
                                }

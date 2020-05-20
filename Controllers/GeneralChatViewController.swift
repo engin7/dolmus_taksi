@@ -14,12 +14,15 @@ import InputBarAccessoryView
 import UserNotifications
 
 
-// TODO: Notifications via firebase
-// TODO: Terminal messages red color
-// TODO: kick leave etc commands.
+protocol  GeneralChatViewControllerDelegate: class{
+    
+     func  GeneralChatViewControllerUserOnline( controller: GeneralChatViewController)
+ }
 
   class GeneralChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate  {
      
+    weak var delegate: GeneralChatViewControllerDelegate?
+
      private var messages: [Message] = []
      private var messageListener: ListenerRegistration?
      private var userListener: ListenerRegistration?
@@ -121,34 +124,8 @@ import UserNotifications
                   }
 
                 }
-        
-             let dateFormatter = DateFormatter()
- 
-                     dateFormatter.dateStyle = .full
-
-                       dateFormatter.timeStyle = .full
- 
-        let dateString =  dateFormatter.string(from: Date())
- 
-               DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
- 
-       docRefOnline!.observe(.value, with: { snapshot in
-              
-           if snapshot.exists() && SharedUserLocation.city != nil {
-               
-            let location = "  from " + ( SharedUserLocation.city!) + " is online @ " +  dateString
-            let nick = " " + cUser!.nickName!
-           
-            let online = nick + location
-                   
-           let message = Message(user: currentUser!, content: online)
-            
-                self.save(message)
-                
-               }
-                  })
-             }
-            
+         
+        NotificationCenter.default.addObserver(self, selector: #selector(userOnline), name: Notification.Name("userOnline"), object: nil)
         
             NotificationCenter.default.addObserver(self, selector: #selector(away), name: Notification.Name("away"), object: nil)
         
@@ -189,6 +166,31 @@ import UserNotifications
             break
         }
     }
+     
+    @objc func userOnline (notification: NSNotification) {
+          
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .full
+
+       dateFormatter.timeStyle = .full
+        
+        let dateString =  dateFormatter.string(from: Date())
+        
+        if SharedUserLocation.city != nil {
+
+            let location = "  from " + ( SharedUserLocation.city!) + " is online @ " +  dateString
+           let nick = " " + cUser!.nickName!
+          
+           let online = nick + location
+                  
+          let message = Message(user: currentUser!, content: online)
+           
+               self.save(message)
+            }
+          }
+                  
+    
     
      @objc func away (notification: NSNotification){
         
@@ -221,7 +223,7 @@ import UserNotifications
 
              let dateString =  dateFormatter.string(from: Date())
            
-        let away = " "+(cUser!.nickName!)+" is back online @ " +  dateString
+        let away = " "+(cUser!.nickName!)+" is back @ " +  dateString
 
            let message = Message(user: currentUser!, content: away)
                       

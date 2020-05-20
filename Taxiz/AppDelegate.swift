@@ -73,7 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
         
         Messaging.messaging().delegate = self
 
- 
         return true
 
     }
@@ -187,6 +186,13 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
   NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
   // TODO: If necessary send token to application server.
   // Note: This callback is fired at each app startup and whenever a new token is generated.
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+
+        NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
+
+          }
+      
 }
 
 // The callback to handle data message received via FCM for devices running iOS 10 or above.

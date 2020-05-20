@@ -72,6 +72,7 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()
         
+ 
         overrideUserInterfaceStyle = .light
  
         // warning for disabled user accounts
@@ -394,5 +395,6 @@ extension TripsTableViewController : CLLocationManagerDelegate {
            print(error.localizedDescription)
        }
 }
- 
- 
+  
+
+
