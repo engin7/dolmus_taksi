@@ -57,7 +57,7 @@ import UserNotifications
          overrideUserInterfaceStyle = .light
         self.definesPresentationContext = true
         // prevents default dismiss gesture
-//        self.isModalInPresentation = true
+        self.isModalInPresentation = true
 
 //        // 1
 //        usersRef.observe(.childAdded, with: { snap in
@@ -166,7 +166,6 @@ import UserNotifications
         self.view.addSubview(navBar)
         navBar.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismiss)))
 
-          
     }
     
   var viewTranslation = CGPoint(x: 0, y: 0)
@@ -178,12 +177,8 @@ import UserNotifications
              
              viewTranslation = CGPoint(x: 0.0, y: sender.translation(in: view).y)
              
-             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.view.transform = CGAffineTransform(translationX: 0, y: abs(self.viewTranslation.y))
-             })
-
         case .ended:
-            if viewTranslation.y < 300    {
+            if viewTranslation.y < 100    {
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     self.view.transform = .identity
                 })
