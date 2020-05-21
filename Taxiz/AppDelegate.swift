@@ -149,7 +149,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
 
         cUser = chatUser(fcmToken: fcmToken)
         _ = SharedUserLocation.city
-
+        welcomeOnline = true
    userId = chatUserReference.addDocument(data: cUser!.representation) { error in
    if let e = error {
      print("Error sending message: \(e.localizedDescription)")
@@ -182,7 +182,8 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
                 
  
                 _ = SharedUserLocation.city
-                
+                welcomeOnline = true
+
             } }
         
     }

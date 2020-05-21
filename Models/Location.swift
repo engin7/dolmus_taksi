@@ -9,6 +9,7 @@
 import MapKit
   
 let SharedUserLocation = myLocation()
+var welcomeOnline = false
 
 class myLocation : NSObject, CLLocationManagerDelegate {
 
@@ -39,18 +40,21 @@ var city = "?"
        }
 
        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-           
-           //  will zoom to the first location
+            //  will zoom to the first location
            if let location = locations.first {
                  userLocation = location
             
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                                   placemarks?.forEach { (placemark) in
                                     self.city =   " \(placemark.locality ?? "unkown"), \(placemark.administrativeArea ?? "unkown")"
-                                }
-                   
-                        NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
- 
+                                    if welcomeOnline {
+               NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
+                          welcomeOnline = false
+            }
+                                 }
+                
+              
+                
                          })
 
                      }
