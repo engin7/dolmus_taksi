@@ -68,6 +68,7 @@ class TripsTableViewCell: UITableViewCell  {
         deinit {
           tripListener?.remove()
         }
+           
               
       override func viewDidLoad() {
         super.viewDidLoad()
@@ -378,6 +379,8 @@ extension TripsTableViewController : CLLocationManagerDelegate {
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             locationManager!.requestLocation()
+            
+                      
         }
     }
 
@@ -387,9 +390,8 @@ extension TripsTableViewController : CLLocationManagerDelegate {
         if let location = locations.first {
               userLocation = location
                   }
-            }
-
-    
+                                        }
+          
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
  
            print(error.localizedDescription)

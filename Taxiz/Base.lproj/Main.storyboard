@@ -93,6 +93,7 @@
                                             <constraint firstAttribute="width" constant="122" id="5tY-5e-krI"/>
                                             <constraint firstAttribute="height" constant="117" id="BUz-e5-y1Y"/>
                                         </constraints>
+                                        <locale key="locale" localeIdentifier="tr_TR"/>
                                     </datePicker>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6v-cp-iM4">
                                         <rect key="frame" x="292" y="134" width="50" height="79"/>

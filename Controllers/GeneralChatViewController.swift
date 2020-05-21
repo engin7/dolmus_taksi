@@ -168,18 +168,15 @@ protocol  GeneralChatViewControllerDelegate: class{
     }
      
     @objc func userOnline (notification: NSNotification) {
-          
+         
+        let today = Date()
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateStyle = .full
-
-       dateFormatter.timeStyle = .full
-        
-        let dateString =  dateFormatter.string(from: Date())
-        
-        if SharedUserLocation.city != nil {
-
-            let location = "  from " + ( SharedUserLocation.city!) + " is online @ " +  dateString
+        dateFormatter.dateFormat = "EEEE HH:mm"
+         
+        let dateString =  dateFormatter.string(from: today )
+  
+        let location = "  from " + ( SharedUserLocation.city) + " is online @ " +  dateString
            let nick = " " + cUser!.nickName!
           
            let online = nick + location
@@ -187,7 +184,7 @@ protocol  GeneralChatViewControllerDelegate: class{
           let message = Message(user: currentUser!, content: online)
            
                self.save(message)
-            }
+           
           }
                   
     
@@ -196,31 +193,26 @@ protocol  GeneralChatViewControllerDelegate: class{
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateStyle = .full
-
-          dateFormatter.timeStyle = .full
-
+          dateFormatter.dateFormat = "EEEE HH:mm"
+ 
           let dateString =  dateFormatter.string(from: Date())
         
-        if SharedUserLocation.city != nil {
-        let location =   " is away @ " +  dateString
+         let location =   " is away @ " +  dateString
             let nick = " "+(cUser!.nickName!)
         let away = nick  + location
 
         let message = Message(user: currentUser!, content: away)
                    
           self.save(message)
-        }
+       
     }
 
      @objc func foreground (notification: NSNotification){
            
            let dateFormatter = DateFormatter()
            
-           dateFormatter.dateStyle = .full
-
-             dateFormatter.timeStyle = .full
-
+           dateFormatter.dateFormat = "EEEE HH:mm"
+ 
              let dateString =  dateFormatter.string(from: Date())
            
         let away = " "+(cUser!.nickName!)+" is back @ " +  dateString

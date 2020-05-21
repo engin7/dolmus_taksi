@@ -12,12 +12,13 @@ import SwiftKeychainWrapper
  
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UNUserNotificationCenterDelegate {
-  
+   
    var ref: DatabaseReference!
    let gcmMessageIDKey = "gcm.message_id"
 
     
       func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
            // Use Firebase library to configure APIs
            FirebaseApp.configure()
 
@@ -147,6 +148,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
     if  KeychainWrapper.standard.string(forKey: "Key99") == nil {
 
         cUser = chatUser(fcmToken: fcmToken)
+        _ = SharedUserLocation.city
 
    userId = chatUserReference.addDocument(data: cUser!.representation) { error in
    if let e = error {
@@ -171,13 +173,16 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
     } else {
         
        let documentID = KeychainWrapper.standard.string(forKey: "Key99")
-            print(documentID)
-             userId = chatUserReference.document(documentID!)
+
+        userId = chatUserReference.document(documentID!)
 
            userId!.getDocument { (document, error) in
                if let document = document, document.exists {
                cUser = chatUser(document: document)
-
+                
+ 
+                _ = SharedUserLocation.city
+                
             } }
         
     }
@@ -187,12 +192,6 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
   // TODO: If necessary send token to application server.
   // Note: This callback is fired at each app startup and whenever a new token is generated.
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
-
-        NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
-
-          }
-      
 }
 
 // The callback to handle data message received via FCM for devices running iOS 10 or above.

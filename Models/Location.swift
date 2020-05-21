@@ -8,21 +8,22 @@
 
 import MapKit
   
+let SharedUserLocation = myLocation()
 
 class myLocation : NSObject, CLLocationManagerDelegate {
 
 var locationManager = CLLocationManager()
 var userLocation: CLLocation?
 let geoCoder = CLGeocoder()
-var city: String?
-   
+var city = "?"
+     
+    
    class var manager: myLocation {
         return SharedUserLocation
     }
     
     override init () {
         super.init()
-            
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
@@ -33,6 +34,7 @@ var city: String?
        private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
            if status == .authorizedWhenInUse {
                locationManager.requestLocation()
+             
            }
        }
 
@@ -45,12 +47,14 @@ var city: String?
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                                   placemarks?.forEach { (placemark) in
                                     self.city =   " \(placemark.locality ?? "unkown"), \(placemark.administrativeArea ?? "unkown")"
-                                     
+                                }
                    
-                               }
+                        NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
+ 
                          })
-            
+
                      }
+
                }
  
        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -60,5 +64,6 @@ var city: String?
   }
 
  
-let SharedUserLocation = myLocation()
+
+
 
