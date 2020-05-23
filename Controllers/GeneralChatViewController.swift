@@ -13,16 +13,10 @@ import MessageKit
 import InputBarAccessoryView
 import UserNotifications
 
-
-protocol  GeneralChatViewControllerDelegate: class{
-    
-     func  GeneralChatViewControllerUserOnline( controller: GeneralChatViewController)
- }
+ 
 
   class GeneralChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate  {
-     
-    weak var delegate: GeneralChatViewControllerDelegate?
-
+ 
      private var messages: [Message] = []
      private var messageListener: ListenerRegistration?
      private var userListener: ListenerRegistration?
@@ -34,10 +28,9 @@ protocol  GeneralChatViewControllerDelegate: class{
      let paragraph = NSMutableParagraphStyle()
      private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
-    private var tripListener: ListenerRegistration?
+     private var tripListener: ListenerRegistration?
   
     
-  
      deinit {
          messageListener?.remove()
       }
@@ -168,7 +161,11 @@ protocol  GeneralChatViewControllerDelegate: class{
     }
      
     @objc func userOnline (notification: NSNotification) {
-         
+        
+        if count  {
+        
+        count = false
+            
         let today = Date()
         let dateFormatter = DateFormatter()
         
@@ -176,15 +173,15 @@ protocol  GeneralChatViewControllerDelegate: class{
          
         let dateString =  dateFormatter.string(from: today )
   
-        let location = "  from " + ( SharedUserLocation.city) + " is online @ " +  dateString
-           let nick = " " + cUser!.nickName!
+        let location = "  from " + ( SharedUserLocation.city!) + " is online @ " +  dateString
+         let nick = " " + cUser!.nickName!
           
            let online = nick + location
                   
           let message = Message(user: currentUser!, content: online)
            
                self.save(message)
-           
+        }
           }
                   
     

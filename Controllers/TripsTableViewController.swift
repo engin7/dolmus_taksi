@@ -57,23 +57,17 @@ class TripsTableViewCell: UITableViewCell  {
        
         var tripListener: ListenerRegistration?
  
-        var trips : [Trips] = []
-        var availableTrips : [Trips] = []
-        var myTrips : [Trips] = []
+        
         let today = Date()
-        var userLocation: CLLocation?
-        private var locationManager: CLLocationManager?
         private let imageView = UIImageView()
-
         deinit {
           tripListener?.remove()
         }
-           
+      
+        
               
       override func viewDidLoad() {
         super.viewDidLoad()
-        
- 
         overrideUserInterfaceStyle = .light
  
         // warning for disabled user accounts
@@ -89,13 +83,7 @@ class TripsTableViewCell: UITableViewCell  {
            self.present(alert, animated: true, completion: nil)
 
             } }
- 
-         locationManager = CLLocationManager()
-         locationManager?.delegate = self
-         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-         locationManager?.requestWhenInUseAuthorization()
-         locationManager?.requestLocation()
-          
+  
         // listed document and get document with snapshot
         tripListener = tripReference.addSnapshotListener { querySnapshot, error in
           guard let snapshot = querySnapshot else {
@@ -114,51 +102,44 @@ class TripsTableViewCell: UITableViewCell  {
      
                  case .added:
                 
-                       if  !trip.Passengers.contains(currentUser!.displayName) && trip.time.timeIntervalSinceNow > 0 {
+                       if  !trip.Passengers.contains(currentUser!.displayName)  {
                               
-                        self.availableTrips.append(trip)
+                         availableTrips.append(trip)
          
-                       } else if trip.Passengers.contains(currentUser!.displayName) && trip.time.timeIntervalSinceNow > 0 {
-                        self.myTrips.append(trip)
+                       } else if trip.Passengers.contains(currentUser!.displayName)
+                       {
+                         myTrips.append(trip)
                        }
                                     
                         else {
-                         self.trips.append(trip)
+                          trips.append(trip)
                         }
                     
                  case .modified:
-                    guard let index = self.trips.firstIndex(of: trip)    else {
+                    guard let index =  trips.firstIndex(of: trip)    else {
                       return
                     }
-                    self.trips[index] = trip
+                    trips[index] = trip
                     self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
                     
                 case .removed:
-                    guard let index =  self.trips.firstIndex(of: trip) else {
+                    guard let index =   trips.firstIndex(of: trip) else {
                       return
                     }
-                    self.trips.remove(at: index)
+                    trips.remove(at: index)
                     self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
                     }
-                }
-            }
-              
-            self.availableTrips.sort(by: {$0.time < $1.time})
-
-            if self.userLocation != nil {
-              self.availableTrips.sort(by: {(abs($0.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($0.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) < (abs($1.fromLocation[0] - (self.userLocation?.coordinate.latitude)!),abs($1.fromLocation[1] - (self.userLocation?.coordinate.longitude)!)) })
-             }
-            
-                 self.trips.insert(contentsOf: self.availableTrips, at: 0)
-                 self.availableTrips = []
+                    
+                 }
+                
+                sorting { (success)  in
+                       guard success != nil else {print("Failed to sort."); return}
                   
-                 self.trips.insert(contentsOf: self.myTrips, at: 0)
-                 self.myTrips = []
-            
-                  self.tableView.reloadData()
-                  self.deletePastChannels()
-         }
-
+                                  self.tableView.reloadData()
+                        }
+                }
+                }
+        
                 usersRef.observe(.value, with: { snapshot in
               if snapshot.exists() {
                 self.userCountBarButtonItem?.title = snapshot.childrenCount.description
@@ -166,46 +147,32 @@ class TripsTableViewCell: UITableViewCell  {
                 self.userCountBarButtonItem?.title = "0"
               }
             })
-        
-  
+         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.shouldReload), name: NSNotification.Name(rawValue: "newDataNotificationForItemEdit"), object: nil)
+
       }
         override func viewDidLayoutSubviews() {
               // for different screen size
               super.viewDidLayoutSubviews()
                self.imageView.frame = self.view.bounds
            }
-         
-        func deletePastChannels() {
-        // will lower time to 2 hours when reach many active users, chat messages stays in database, i'll delete them manually after checking if there is any reports in the chat rooms.
-               let past = Calendar.current.date(byAdding: .hour, value: -12, to: today)
-                
-               for Trips in trips {
- 
-                if Trips.time < past! ||   Trips.Passengers.count == 0 {
-                      
-                     let documentId = Trips.id
-                    tripReference.document(documentId!).delete() { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("File deleted successfully")
-                    }
-                 }
-             }
-          }
+      
+        @objc func shouldReload() {
+            self.tableView.reloadData()
         }
         
+         
         // MARK: UITableView Delegate methods
 
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             
-            return  self.trips.count
+            return   trips.count
          }
          
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
  
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripsTableViewCell", for: indexPath) as! TripsTableViewCell
-            let trip =  self.trips[indexPath.row]
+            let trip = trips[indexPath.row]
     
             cell.fromTextLabel.text =  trip.from
             cell.toTextLabel.text = trip.to
@@ -325,7 +292,7 @@ class TripsTableViewCell: UITableViewCell  {
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
-            let trip =  self.trips[indexPath.row]
+            let trip =  trips[indexPath.row]
             let documentId = trip.id
 
             let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
@@ -373,30 +340,5 @@ class TripsTableViewCell: UITableViewCell  {
             }
        }
    }
- 
-extension TripsTableViewController : CLLocationManagerDelegate {
-     
-    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager!.requestLocation()
-            
-                      
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        //  will zoom to the first location
-        if let location = locations.first {
-              userLocation = location
-                  }
-                                        }
-          
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
- 
-           print(error.localizedDescription)
-       }
-}
-  
 
 

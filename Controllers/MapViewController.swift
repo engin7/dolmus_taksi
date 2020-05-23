@@ -105,7 +105,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                 currentUser?.previousTrip = Date()
        }
            
-            for i in 1..<addPersons! {
+            for i in 1..<(addPersons ?? 1) {
             trip!.Passengers.append(currentUser!.displayName + "+" + String(i))
         }
           
