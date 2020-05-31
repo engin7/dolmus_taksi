@@ -148,8 +148,8 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
     if  KeychainWrapper.standard.string(forKey: "Key99") == nil {
 
         cUser = chatUser(fcmToken: fcmToken)
-        userOnline()
- 
+        _ =  SharedUserLocation
+        
    userId = chatUserReference.addDocument(data: cUser!.representation) { error in
    if let e = error {
      print("Error sending message: \(e.localizedDescription)")
@@ -179,9 +179,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
            userId!.getDocument { (document, error) in
                if let document = document, document.exists {
                cUser = chatUser(document: document)
-            
-                userOnline()
-
+               _ =  SharedUserLocation
             } }
 
 
@@ -204,13 +202,5 @@ func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
 // TODO:
 //user offline:
 //NotificationCenter.default.post(name: Notification.Name("offline"), object: nil)
-func userOnline() {
-      
-    let myCity = SharedUserLocation.city
-        
-            if  myCity != nil {
-                
-             NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
-                
-            }
- }
+
+ 

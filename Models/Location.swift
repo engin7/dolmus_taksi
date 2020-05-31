@@ -10,7 +10,7 @@ import MapKit
   
 let SharedUserLocation = myLocation()
 let myUserLocation = SharedUserLocation.userLocation
-let myCity = SharedUserLocation.city
+var myCity = SharedUserLocation.city
 var count = true
  
 class myLocation : NSObject, CLLocationManagerDelegate {
@@ -48,12 +48,15 @@ var city : String?
             
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                                   placemarks?.forEach { (placemark) in
-                                    self.city =   " \(placemark.locality ?? "unkown"), \(placemark.administrativeArea ?? "unkown")"
+                                    self.city =   " \(placemark.subLocality ?? "unkown"), \(placemark.locality ?? "unkown")"
                                 }
                            
                                 if myCity != nil {
 
                                      sortLocation()
+                                    if cUser != nil {
+                               NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
+                             }
                                      
                                  }
                 

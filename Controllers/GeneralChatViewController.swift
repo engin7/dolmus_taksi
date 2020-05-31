@@ -13,8 +13,7 @@ import MessageKit
 import InputBarAccessoryView
 import UserNotifications
 
- 
-
+  
   class GeneralChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate  {
  
      private var messages: [Message] = []
@@ -29,8 +28,8 @@ import UserNotifications
      private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
      private var tripListener: ListenerRegistration?
-  
-    
+     private let past = Calendar.current.date(byAdding: .hour, value: -72, to: today)
+
      deinit {
          messageListener?.remove()
       }
@@ -169,7 +168,7 @@ import UserNotifications
         let today = Date()
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "EEEE HH:mm"
+        dateFormatter.dateFormat = "EE HH:mm"
          
         let dateString =  dateFormatter.string(from: today )
   
@@ -190,7 +189,7 @@ import UserNotifications
         
         let dateFormatter = DateFormatter()
         
-          dateFormatter.dateFormat = "EEEE HH:mm"
+          dateFormatter.dateFormat = "EE HH:mm"
  
           let dateString =  dateFormatter.string(from: Date())
         
@@ -208,7 +207,7 @@ import UserNotifications
            
            let dateFormatter = DateFormatter()
            
-           dateFormatter.dateFormat = "EEEE HH:mm"
+           dateFormatter.dateFormat = "EE HH:mm"
  
              let dateString =  dateFormatter.string(from: Date())
            
@@ -219,8 +218,7 @@ import UserNotifications
              self.save(message)
            
        }
-    
-    
+     
     // observe new data change
       private func handleDocumentChange(_ change: DocumentChange) {
         guard let message = Message(document: change.document) else {
@@ -230,56 +228,7 @@ import UserNotifications
          switch change.type {
         case .added:
         insertNewMessage(message)
-        
-        if message.content.contains("/b")  {
-        
-          let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /b ",with: "")
-             //will update
-            let sender = message.sender.senderId
-             for user in chatRoomUsers {
-                 if user.nickName == blockedUser {
-               
-                   let blockedUserId = user.uid
-                    if !(host?.blocked.contains(blockedUserId!))!{
-                        host!.blocked.append(blockedUserId!)
-                        cUser!.blocked.append(host!.uid!)
-                  }
-                   // if blocking person trip creator kick blocked one
-                  if (trip?.Passengers.contains(blockedUser))! {
-                       let indexOfUser = (trip?.Passengers.firstIndex(of: blockedUser))!
-                       trip?.Passengers.remove(at: indexOfUser)
-                  }
- 
-                  chatUserReference.document(cUser!.id!).updateData([
-                   "blocked": cUser!.blocked
-                  ]) { err in
-                      if let err = err {
-                          print("Error updating document: \(err)")
-                      } else {
-                          print("Document successfully updated")
-                      }
-                               
-                        }
-                  
-                  chatUserReference.document(trip!.hostID).updateData([
-                      "blocked": host!.blocked
-                     ]) { err in
-                         if let err = err {
-                             print("Error updating document: \(err)")
-                         } else {
-                             print("Document successfully updated")
-                         }
-                                  
-                           }
-                           
-                       }
-                        
-                           }
          
-            
-                         }
-            
-            
             if message.content.contains("/r")  {
                    
                    let reportedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /r ",with: "")
@@ -338,7 +287,25 @@ import UserNotifications
       }
       
       messages.append(message)
-      messages.sort()
+        
+        for message in messages {
+            
+            if message.sentDate < past!  {
+                guard let index =   messages.firstIndex(of: message) else {
+                                    return
+                                  }
+             messages.remove(at: index)
+                let documentId = message.id
+                  reference!.document(documentId!).delete() { error in
+                             if let error = error {
+                                 print(error.localizedDescription)
+                             } else {
+                                 print("File deleted successfully")
+                             }
+                          }
+          }
+        }
+       messages.sort()
          
       let isLatestMessage = messages.firstIndex(of: message) == (messages.count - 1)
       let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage

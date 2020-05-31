@@ -36,7 +36,8 @@ class TripsTableViewCell: UITableViewCell  {
  }
 
     class TripsTableViewController: UITableViewController {
-  
+   
+        
         let vc = GeneralChatViewController()
 
         @IBAction func onlineButtton(_ sender: Any?) {
@@ -68,6 +69,19 @@ class TripsTableViewCell: UITableViewCell  {
               
       override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let popvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "guide") as! GuideViewController
+
+        self.addChild(popvc)
+ 
+        popvc.view.frame = self.view.frame
+
+        self.view.addSubview(popvc.view)
+
+        popvc.didMove(toParent: self)
+         
+        
         overrideUserInterfaceStyle = .light
  
         // warning for disabled user accounts
@@ -235,7 +249,7 @@ class TripsTableViewCell: UITableViewCell  {
               let image = UIImage(named: "Image Name")
 
             imageView.image = image
-            imageView.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1.0)
+            imageView.backgroundColor = UIColor(red: 189/255, green: 185/255, blue: 189/255, alpha: 1.0)
 
             imageView.layer.cornerRadius = 25
             imageView.clipsToBounds = true

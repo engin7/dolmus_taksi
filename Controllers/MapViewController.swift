@@ -357,7 +357,7 @@ extension MapViewController : CLLocationManagerDelegate {
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                 placemarks?.forEach { (placemark) in
                     self.currentCity = placemark.subLocality ?? placemark.name
-                    self.fromCity =   " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
+                    self.fromCity =   " \(placemark.locality ?? "unkown"), \(placemark.administrativeArea ?? "unkown")"
                     self.fromSearchController.searchBar.text = self.fromLocation_searchBar ?? self.currentCity
  
                 }
@@ -410,7 +410,7 @@ extension MapViewController : CLLocationManagerDelegate {
                // cache the pin
                 fromLocation = CLLocation(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude)
                 fromLocation_searchBar =  placemark.subLocality ?? placemark.name
-                self.fromCity  = " \(placemark.locality ?? "unkown")  , \(placemark.administrativeArea ?? "unkown")"
+                self.fromCity  = " \(placemark.locality ?? "unkown"), \(placemark.administrativeArea ?? "unkown")"
                 self.fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity
                  
               // clear existing pins

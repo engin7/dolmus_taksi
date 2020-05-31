@@ -37,8 +37,8 @@ func sorting(completion: @escaping (_ success: Bool?) -> Void) {
       }
 
    func deletePastChannels() {
-       // will lower time to 2 hours when reach many active users, chat messages stays in database, i'll delete them manually after checking if there is any reports in the chat rooms.
-              let past = Calendar.current.date(byAdding: .hour, value: -32, to: today)
+       
+              let past = Calendar.current.date(byAdding: .hour, value: -2, to: today)
                
               for Trips in trips {
 
@@ -56,9 +56,9 @@ func sorting(completion: @escaping (_ success: Bool?) -> Void) {
          }
        }
 
-        func sortLocation(){
+        func sortLocation() {
     
-          
+          // TODO: -  check  for -ve value lat long
          trips.sort(by: {(abs($0.fromLocation[0] - (  userLocation?.coordinate.latitude)!),abs($0.fromLocation[1] - ( userLocation?.coordinate.longitude)!)) < (abs($1.fromLocation[0] - ( userLocation?.coordinate.latitude)!),abs($1.fromLocation[1] - ( userLocation?.coordinate.longitude)!)) })
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -66,5 +66,4 @@ func sorting(completion: @escaping (_ success: Bool?) -> Void) {
               NotificationCenter.default.post(name: Notification.Name("newDataNotificationForItemEdit"), object: nil)
  
              }
-            
       }

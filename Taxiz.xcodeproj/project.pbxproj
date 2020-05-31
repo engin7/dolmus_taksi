@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		101574A8247895CF009914FB /* sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101574A7247895CF009914FB /* sort.swift */; };
+		101574AE2479A100009914FB /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101574AD2479A100009914FB /* GuideViewController.swift */; };
 		10226AA024423EEE00BD49D8 /* chatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10226A9F24423EEE00BD49D8 /* chatUser.swift */; };
 		10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A1F23F3F8EB005402F5 /* AppDelegate.swift */; };
 		10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A2123F3F8EB005402F5 /* SceneDelegate.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		101574A7247895CF009914FB /* sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sort.swift; sourceTree = "<group>"; };
+		101574AD2479A100009914FB /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		10226A9F24423EEE00BD49D8 /* chatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatUser.swift; sourceTree = "<group>"; };
 		102663D4244BA74B009A02C4 /* Taxiz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Taxiz.entitlements; sourceTree = "<group>"; };
 		10558A1C23F3F8EB005402F5 /* Dolmuş Taksi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dolmuş Taksi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 				10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */,
 				1093CB1C245A0E1D0012113A /* Terms.swift */,
 				10558A6723F886B9005402F5 /* TripsTableViewController.swift */,
+				101574AD2479A100009914FB /* GuideViewController.swift */,
 				10720723246883F7003819F7 /* GeneralChatViewController.swift */,
 				10558A2523F3F8EB005402F5 /* ChatViewController.swift */,
 				10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */,
@@ -309,6 +312,7 @@
 				10558A6623F873EF005402F5 /* User.swift in Sources */,
 				10B5CBD8240444AF00FDC8E7 /* ProfileTableViewController.swift in Sources */,
 				10D43B29242A795B00A3719B /* PopupLocationSearchTable.swift in Sources */,
+				101574AE2479A100009914FB /* GuideViewController.swift in Sources */,
 				10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */,
 				10226AA024423EEE00BD49D8 /* chatUser.swift in Sources */,
 				10558A9723FE8199005402F5 /* Message.swift in Sources */,
@@ -474,14 +478,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Taxiz/Taxiz.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.10;
+				CURRENT_PROJECT_VERSION = 1.12;
 				DEVELOPMENT_TEAM = 6T8ZJ7M7C9;
 				INFOPLIST_FILE = "Supported Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.taxiz;
 				PRODUCT_NAME = "Dolmuş Taksi";
 				SWIFT_VERSION = 5.0;
@@ -496,14 +500,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Taxiz/Taxiz.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.10;
+				CURRENT_PROJECT_VERSION = 1.12;
 				DEVELOPMENT_TEAM = 6T8ZJ7M7C9;
 				INFOPLIST_FILE = "Supported Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.taxiz;
 				PRODUCT_NAME = "Dolmuş Taksi";
 				SWIFT_VERSION = 5.0;
