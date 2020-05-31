@@ -10,7 +10,7 @@
         <!--Map-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController title="Map" id="9pv-A4-QxB" customClass="MapViewController" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Map" id="9pv-A4-QxB" customClass="MapViewController" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -169,7 +169,7 @@
         <!--Location Search Table-->
         <scene sceneID="3a6-X2-Ftu">
             <objects>
-                <tableViewController storyboardIdentifier="LocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhc-zp-TSn" customClass="LocationSearchTable" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhc-zp-TSn" customClass="LocationSearchTable" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tiD-Oz-25W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,7 +216,7 @@
         <!--Terms-->
         <scene sceneID="AhH-bs-RbC">
             <objects>
-                <viewController id="6Qa-Io-GVP" customClass="Terms" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6Qa-Io-GVP" customClass="Terms" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="abS-jD-Eth">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -369,7 +369,7 @@ April 23, 2020: First published.</string>
         <!--Profile-->
         <scene sceneID="FGs-OU-M5J">
             <objects>
-                <tableViewController id="ZLb-K0-6hG" customClass="ProfileTableViewController" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ZLb-K0-6hG" customClass="ProfileTableViewController" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gpT-9Q-wCg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -379,7 +379,7 @@ April 23, 2020: First published.</string>
                         <sections>
                             <tableViewSection id="K4d-Wp-iH7">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="151" id="8yi-Fq-2gR" customClass="ProfileTableViewCell" customModule="Dolmuş_Taksi" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="151" id="8yi-Fq-2gR" customClass="ProfileTableViewCell" customModule="Chat_Taxi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="151"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8yi-Fq-2gR" id="Shq-4e-ZTY">
@@ -470,13 +470,13 @@ April 23, 2020: First published.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="385"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="14" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZW-cd-mu6">
-                                                    <rect key="frame" x="16" y="183" width="343" height="135"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZW-cd-mu6">
+                                                    <rect key="frame" x="16" y="153" width="343" height="166"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="135" id="DA6-oN-nzU"/>
+                                                        <constraint firstAttribute="height" constant="166" id="DA6-oN-nzU"/>
                                                     </constraints>
-                                                    <string key="text">Rating system is in devolopment. All passengers will be able to rate each other after the trip. Your name and picture will be shown only after the trip to other passengers for rating system. As your nickname will be autogenerated weekly and after each trip, we'll keep your identity hidden. Ratings will be shown after you get 10 ratings.</string>
-                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                                    <string key="text">Rating system is in devolopment. All passengers will be able to rate each other after the trip. Your avatar name and picture will be shown only after the trip to other passengers for rating system. Please tell other passengers about your avatar while sharing a trip with them. As your nickname will be autogenerated weekly and after each trip, we'll keep your identity hidden. Ratings will be shown after you get 10 ratings.</string>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -497,8 +497,8 @@ April 23, 2020: First published.</string>
                                                         <action selector="contactUs:" destination="ZLb-K0-6hG" eventType="touchUpInside" id="h5A-m7-sKu"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="your first name: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdl-dA-Kmp">
-                                                    <rect key="frame" x="20" y="63" width="124" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="avatar name: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdl-dA-Kmp">
+                                                    <rect key="frame" x="20" y="63" width="103" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -537,12 +537,12 @@ April 23, 2020: First published.</string>
                                                 <constraint firstItem="Gba-rw-bkg" firstAttribute="centerX" secondItem="3VX-4D-OiT" secondAttribute="centerX" id="Afo-Y6-EQy"/>
                                                 <constraint firstItem="pY8-Sx-iTV" firstAttribute="leading" secondItem="gmo-AW-Dk0" secondAttribute="trailing" constant="14.5" id="CiK-em-8c8"/>
                                                 <constraint firstItem="gmo-AW-Dk0" firstAttribute="bottom" secondItem="pY8-Sx-iTV" secondAttribute="bottom" id="Y01-p0-i2r"/>
-                                                <constraint firstItem="pY8-Sx-iTV" firstAttribute="top" secondItem="xZW-cd-mu6" secondAttribute="bottom" constant="8" id="cfX-Gj-c2M"/>
+                                                <constraint firstItem="pY8-Sx-iTV" firstAttribute="top" secondItem="xZW-cd-mu6" secondAttribute="bottom" constant="7" id="cfX-Gj-c2M"/>
                                                 <constraint firstItem="xZW-cd-mu6" firstAttribute="trailing" secondItem="3VX-4D-OiT" secondAttribute="trailingMargin" id="icW-T7-pm1"/>
                                                 <constraint firstItem="gmo-AW-Dk0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3VX-4D-OiT" secondAttribute="leadingMargin" constant="30" id="jWk-ab-Arz"/>
                                                 <constraint firstItem="pY8-Sx-iTV" firstAttribute="centerX" secondItem="xZW-cd-mu6" secondAttribute="centerX" id="k9r-h9-LqY"/>
                                                 <constraint firstItem="xZW-cd-mu6" firstAttribute="leading" secondItem="3VX-4D-OiT" secondAttribute="leadingMargin" id="vqa-YH-kMF"/>
-                                                <constraint firstItem="xZW-cd-mu6" firstAttribute="bottom" secondItem="3VX-4D-OiT" secondAttribute="bottomMargin" constant="-56" id="xwE-4q-xYT"/>
+                                                <constraint firstItem="xZW-cd-mu6" firstAttribute="bottom" secondItem="3VX-4D-OiT" secondAttribute="bottomMargin" constant="-55" id="xwE-4q-xYT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="0.9219285103" blue="0.52512307359999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -567,7 +567,7 @@ April 23, 2020: First published.</string>
         <!--Trips Table View Controller-->
         <scene sceneID="JSf-C0-f5b">
             <objects>
-                <tableViewController storyboardIdentifier="trips" id="yes-Qc-0lm" customClass="TripsTableViewController" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="trips" id="yes-Qc-0lm" customClass="TripsTableViewController" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hMg-Wi-gB4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -578,7 +578,7 @@ April 23, 2020: First published.</string>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="75" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Dolmuş_Taksi" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="75" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Chat_Taxi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XGY-1c-AOD" id="hcZ-vC-ExX">
@@ -726,7 +726,7 @@ April 23, 2020: First published.</string>
         <!--Guide View Controller-->
         <scene sceneID="pFY-ma-rAm">
             <objects>
-                <viewController storyboardIdentifier="guide" id="4fp-te-Vh8" customClass="GuideViewController" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="guide" id="4fp-te-Vh8" customClass="GuideViewController" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gBa-nR-Dwy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -932,7 +932,7 @@ April 23, 2020: First published.</string>
         <!--Popup Location Search Table-->
         <scene sceneID="s8q-B5-O5m">
             <objects>
-                <tableViewController storyboardIdentifier="PopupLocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLw-Qz-yoO" customClass="PopupLocationSearchTable" customModule="Dolmuş_Taksi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PopupLocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLw-Qz-yoO" customClass="PopupLocationSearchTable" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fUM-gu-Ku4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -27,7 +27,7 @@ class ColorPointAnnotation: MKPointAnnotation {
     }
 }
 
-class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var myTripView: UIView!
  
@@ -52,7 +52,46 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var fromLocation_searchBar: String?
     var pinView :  MKPinAnnotationView?
     private var referenceUsers: CollectionReference?
- 
+    @IBOutlet weak var mapView: MKMapView!
+    
+    private var locationManager: CLLocationManager?
+//    private var currentlocation: CLLocation?
+    private var fromLocation: CLLocation?
+    private var toLocation: CLLocation?
+    private var selectedPin:MKPlacemark? = nil
+    private var currentCity: String?
+    private let geoCoder = CLGeocoder()
+    private var foregroundRestorationObserver: NSObjectProtocol?
+    private var moveTop: NSLayoutConstraint?
+
+    
+    fileprivate func moveUp() {
+          UIView.transition(with: self.myTripView, duration: 0.4,
+                            options: .transitionCrossDissolve,
+                            animations: {
+                              let heightOfViewContainingProgrBar = self.myTripView.frame.height
+                              self.moveTop = self.myTripView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -heightOfViewContainingProgrBar)
+                              self.moveTop!.isActive = true
+//                              self.tabBarController?.tabBar.isHidden = true
+                              self.view.layoutIfNeeded()
+                              
+          })
+      }
+    
+    
+     fileprivate func moveDown() {
+         UIView.transition(with: self.myTripView, duration: 0.4,
+                           options: .transitionCrossDissolve,
+                           animations: {
+                             self.moveTop!.isActive = false
+                             self.myTripView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+//                            self.tabBarController?.tabBar.isHidden = false
+                            self.view.layoutIfNeeded()
+                             
+         })
+     }
+    
+    
     @IBAction func switchTrip(_ sender: Any) {
         if toSearchController.searchBar.text != "" {
         swap(&toSearchController.searchBar.text, &fromSearchController.searchBar.text)
@@ -71,16 +110,28 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         }
       }
     }
+  
     
     @IBAction func createTripButton(_ sender: Any) {
         
      if (toSearchController.searchBar.text != "") && (fromSearchController.searchBar.text != "")
         {
-            zoomRoute()
+
+            moveUp()
+ 
          if  currentUser?.previousTrip ?? Date().addingTimeInterval(TimeInterval(-5.0 * 60.0)) <= Date().addingTimeInterval(TimeInterval( tSpam * -5.0)) {
             tSpam = tSpam + 1.0
             
-            self.getDirections()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                self.pinView?.canShowCallout = false
+
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                self.zoomRoute()
+                self.getDirections()
+
+                  }
             
         if picker.date <= Date() {
             
@@ -134,15 +185,16 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                              }
                                       
                                }
-          
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) {
-            self.tabBarController?.selectedIndex = 0
+            
+   
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
             self.pinView = nil
+            self.tabBarController?.selectedIndex = 0
             self.mapView.removeAnnotations(self.mapView.annotations)
             self.removeOverlay()
             self.toSearchController.searchBar.text = ""
 
+            self.moveDown()
          }
          
        } else {
@@ -167,22 +219,19 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         toSearchController.searchBar.text = ""
         
     }
-     
-    @IBOutlet weak var mapView: MKMapView!
+  
     
-    private var locationManager: CLLocationManager?
-//    private var currentlocation: CLLocation?
-    private var fromLocation: CLLocation?
-    private var toLocation: CLLocation?
-    private var selectedPin:MKPlacemark? = nil
-    private var currentCity: String?
-    private let geoCoder = CLGeocoder()
-    private var foregroundRestorationObserver: NSObjectProtocol?
-
+    
     override func viewDidLoad() {
         overrideUserInterfaceStyle = .light
         
-//        picker.subviews[1].isHidden  = true
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.didDragMap(_:)))
+
+        // make your class the delegate of the pan gesture
+        panGesture.delegate = self
+
+        // add the gesture to the mapView
+        mapView.addGestureRecognizer(panGesture)
  
         navigationController?.setNavigationBarHidden(true, animated: true)
         super.viewDidLoad()
@@ -211,6 +260,22 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         pickerData = ["1","2","3"]
 
      }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    @objc func didDragMap(_ sender: UIGestureRecognizer) {
+        if sender.state == .began {
+            self.moveUp()
+        }
+        
+        if sender.state == .ended {
+            self.moveDown()
+        }
+        
+    }
+    
     
      func numberOfComponents(in pickerView: UIPickerView) -> Int {
          return 1
@@ -282,8 +347,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     
       func getDirections(){
       
- 
-        guard let start = fromLocation, let end = selectedPin else {   return }
+        guard let start = fromLocation, let end = toLocation else { return }
        
          let request = MKDirections.Request()
         let startMapItem = MKMapItem(placemark: MKPlacemark(coordinate: start.coordinate))
@@ -318,15 +382,15 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                        }
               }
           }
+    
     func zoomRoute() {
         
-        let destination = CLLocation(latitude: selectedPin!.coordinate.latitude, longitude: selectedPin!.coordinate.longitude)
-        let distance = fromLocation!.distance(from: destination)/20000
-        let distanceLat = abs(fromLocation!.coordinate.latitude.distance(to: destination.coordinate.latitude))
+        let distance = fromLocation!.distance(from: toLocation!)/20000
+        let distanceLat = abs(fromLocation!.coordinate.latitude.distance(to: toLocation!.coordinate.latitude))
         let spanRoute = MKCoordinateSpan(latitudeDelta: distance, longitudeDelta: distance)
-
-        let midPointLat = ((fromLocation!.coordinate.latitude + selectedPin!.coordinate.latitude) / (2-(distanceLat/10))) + 0.01
-        let midPointLong = (fromLocation!.coordinate.longitude + selectedPin!.coordinate.longitude) / 2
+        // TODO: Adjust zoom for very close, also not allow far distance create trip.
+        let midPointLat = ((fromLocation!.coordinate.latitude + toLocation!.coordinate.latitude) / (2-(distanceLat/10))) + 0.01
+        let midPointLong = (fromLocation!.coordinate.longitude + toLocation!.coordinate.longitude) / 2
         let center = CLLocation(latitude: midPointLat, longitude: midPointLong)
         let region = MKCoordinateRegion(center: center.coordinate, span: spanRoute)
         mapView.setRegion(region, animated: true)
@@ -351,9 +415,12 @@ extension MapViewController : CLLocationManagerDelegate {
         //  will zoom to the first location
         if let location = locations.first {
             self.fromLocation = location
+            let annotationFrom = ColorPointAnnotation(pinColor: UIColor.green)
+            annotationFrom.coordinate = self.fromLocation!.coordinate
             let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
+            
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                 placemarks?.forEach { (placemark) in
                     self.currentCity = placemark.subLocality ?? placemark.name
@@ -443,10 +510,12 @@ extension MapViewController : CLLocationManagerDelegate {
     
   
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
+        
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
             return nil
         }
+        
         let reuseId = "pin"
          
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
@@ -456,8 +525,7 @@ extension MapViewController : CLLocationManagerDelegate {
          
         pinView?.canShowCallout = true
          pinView?.calloutOffset = CGPoint(x: -5, y: 5)
-         
- 
+          
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.pinView?.isSelected = true
         }

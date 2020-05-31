@@ -65,8 +65,6 @@ class TripsTableViewCell: UITableViewCell  {
           tripListener?.remove()
         }
       
-        
-              
       override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -163,8 +161,8 @@ class TripsTableViewCell: UITableViewCell  {
             })
          
         NotificationCenter.default.addObserver(self, selector: #selector(self.shouldReload), name: NSNotification.Name(rawValue: "newDataNotificationForItemEdit"), object: nil)
-
       }
+        
         override func viewDidLayoutSubviews() {
               // for different screen size
               super.viewDidLayoutSubviews()

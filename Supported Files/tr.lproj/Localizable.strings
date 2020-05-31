@@ -1,11 +1,4 @@
-/* 
-  Localizable.strings
-  Taxiz
-
-  Created by Engin KUK on 2.05.2020.
-  Copyright © 2020 Silverback Inc. All rights reserved.
-*/
-
+ 
 
 "Trips" = "Seyahat";
 "Map" = "Map";
@@ -22,3 +15,4 @@
 " to " = " varış: ";
 "from " = "başlangıç: ";
 "acknowledged" = "anladım";
+"Chat Taxi" = "Dolmuş Taksi";
