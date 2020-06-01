@@ -67,28 +67,37 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     
     fileprivate func moveUp() {
           UIView.transition(with: self.myTripView, duration: 0.4,
-                            options: .transitionCrossDissolve,
+                            options: .curveEaseIn,
                             animations: {
                               let heightOfViewContainingProgrBar = self.myTripView.frame.height
                               self.moveTop = self.myTripView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -heightOfViewContainingProgrBar)
                               self.moveTop!.isActive = true
-//                              self.tabBarController?.tabBar.isHidden = true
                               self.view.layoutIfNeeded()
-                              
           })
+        let frame = tabBarController?.tabBar.frame
+
+       UIView.animate(withDuration: 0.4, animations: {
+        self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y + frame!.height, width: frame!.width, height: frame!.height)
+        })
+       
       }
     
     
      fileprivate func moveDown() {
          UIView.transition(with: self.myTripView, duration: 0.4,
-                           options: .transitionCrossDissolve,
+                           options: .curveEaseOut,
                            animations: {
                              self.moveTop!.isActive = false
                              self.myTripView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
-//                            self.tabBarController?.tabBar.isHidden = false
                             self.view.layoutIfNeeded()
                              
          })
+            let frame = tabBarController?.tabBar.frame
+
+             UIView.animate(withDuration: 0.4, animations: {
+              self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y - frame!.height, width: frame!.width, height: frame!.height)
+              })
+        
      }
     
     
@@ -187,7 +196,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
                                }
             
    
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
             self.pinView = nil
             self.tabBarController?.selectedIndex = 0
             self.mapView.removeAnnotations(self.mapView.annotations)
@@ -418,7 +427,7 @@ extension MapViewController : CLLocationManagerDelegate {
             let annotationFrom = ColorPointAnnotation(pinColor: UIColor.green)
             annotationFrom.coordinate = self.fromLocation!.coordinate
             let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            let region = MKCoordinateRegion(center: location.coordinate, span: span)
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude + 0.0035,longitude: location.coordinate.longitude ) , span: span)
             mapView.setRegion(region, animated: true)
             
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
