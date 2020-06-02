@@ -235,13 +235,17 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         overrideUserInterfaceStyle = .light
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.didDragMap(_:)))
-
         // make your class the delegate of the pan gesture
         panGesture.delegate = self
-
         // add the gesture to the mapView
         mapView.addGestureRecognizer(panGesture)
  
+        // tap gesture
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(self.handleTap(gestureRecognizer: )))
+        gestureRecognizer.delegate = self
+        mapView.addGestureRecognizer(gestureRecognizer)
+        
         navigationController?.setNavigationBarHidden(true, animated: true)
         super.viewDidLoad()
         locationManager = CLLocationManager()
@@ -285,6 +289,23 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
     }
     
+    @objc func handleTap(gestureRecognizer: UILongPressGestureRecognizer) {
+
+        let location = gestureRecognizer.location(in: mapView)
+        let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
+
+        let toPin = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+         
+        geoCoder.reverseGeocodeLocation(toPin) { (placemarks, error) in
+            if let places = placemarks {
+                for place in places {
+                    let to = MKPlacemark(placemark: place)
+                    self.dropPinZoomInTo(placemark: to)
+                }
+            }
+        }
+            
+    }
     
      func numberOfComponents(in pickerView: UIPickerView) -> Int {
          return 1
@@ -426,7 +447,7 @@ extension MapViewController : CLLocationManagerDelegate {
             self.fromLocation = location
             let annotationFrom = ColorPointAnnotation(pinColor: UIColor.green)
             annotationFrom.coordinate = self.fromLocation!.coordinate
-            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let span = MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
             let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude + 0.0035,longitude: location.coordinate.longitude ) , span: span)
             mapView.setRegion(region, animated: true)
             
