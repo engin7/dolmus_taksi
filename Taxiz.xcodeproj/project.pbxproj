@@ -39,9 +39,10 @@
 /* Begin PBXFileReference section */
 		101574A7247895CF009914FB /* sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sort.swift; sourceTree = "<group>"; };
 		101574AD2479A100009914FB /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		101574B02484950B009914FB /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		10226A9F24423EEE00BD49D8 /* chatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatUser.swift; sourceTree = "<group>"; };
 		102663D4244BA74B009A02C4 /* Taxiz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Taxiz.entitlements; sourceTree = "<group>"; };
-		10558A1C23F3F8EB005402F5 /* Chat Taxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chat Taxi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		10558A1C23F3F8EB005402F5 /* ChaTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChaTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10558A1F23F3F8EB005402F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10558A2123F3F8EB005402F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		10558A2323F3F8EB005402F5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		10B5CBD7240444AF00FDC8E7 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		10D43B28242A795B00A3719B /* PopupLocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupLocationSearchTable.swift; sourceTree = "<group>"; };
 		10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUsersTableViewController.swift; sourceTree = "<group>"; };
-		10FCDDFE245D7C81000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		10FCDE02245D807D000BBE89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		10FCDE04245D8080000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		10FCDE11245DC0D6000BBE89 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		10558A1D23F3F8EB005402F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				10558A1C23F3F8EB005402F5 /* Chat Taxi.app */,
+				10558A1C23F3F8EB005402F5 /* ChaTaxi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,7 +199,7 @@
 			);
 			name = Taxiz;
 			productName = Taxiz;
-			productReference = 10558A1C23F3F8EB005402F5 /* Chat Taxi.app */;
+			productReference = 10558A1C23F3F8EB005402F5 /* ChaTaxi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -338,7 +338,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				10558A2D23F3F8ED005402F5 /* Base */,
-				10FCDDFE245D7C81000BBE89 /* tr */,
+				101574B02484950B009914FB /* tr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -478,16 +478,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Taxiz/Taxiz.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.12;
+				CURRENT_PROJECT_VERSION = 1.13;
 				DEVELOPMENT_TEAM = 6T8ZJ7M7C9;
 				INFOPLIST_FILE = "Supported Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12;
+				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.taxiz;
-				PRODUCT_NAME = "Chat Taxi";
+				PRODUCT_NAME = ChaTaxi;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -500,16 +500,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Taxiz/Taxiz.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.12;
+				CURRENT_PROJECT_VERSION = 1.13;
 				DEVELOPMENT_TEAM = 6T8ZJ7M7C9;
 				INFOPLIST_FILE = "Supported Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12;
+				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.taxiz;
-				PRODUCT_NAME = "Chat Taxi";
+				PRODUCT_NAME = ChaTaxi;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

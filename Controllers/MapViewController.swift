@@ -95,7 +95,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             let frame = tabBarController?.tabBar.frame
 
              UIView.animate(withDuration: 0.4, animations: {
-              self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y - frame!.height, width: frame!.width, height: frame!.height)
+                self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y - frame!.height, width: frame!.width, height: frame!.height)
               })
         
      }

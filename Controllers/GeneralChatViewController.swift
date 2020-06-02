@@ -28,7 +28,7 @@ import UserNotifications
      private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
      private var tripListener: ListenerRegistration?
-     private let past = Calendar.current.date(byAdding: .hour, value: -72, to: today)
+     private let past = Calendar.current.date(byAdding: .hour, value: -48, to: today)
 
      deinit {
          messageListener?.remove()
