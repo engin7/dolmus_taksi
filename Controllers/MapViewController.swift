@@ -49,6 +49,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var fromSearchController = UISearchController(searchResultsController: nil)
     var toSearchController = UISearchController(searchResultsController: nil)
     var toAnnotation: MKAnnotation?
+    var fromAnnotation: MKAnnotation?
     var fromLocation_searchBar: String?
     var pinView :  MKPinAnnotationView?
     private var referenceUsers: CollectionReference?
@@ -300,7 +301,11 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             if let places = placemarks {
                 for place in places {
                     let to = MKPlacemark(placemark: place)
-                    self.dropPinZoomInTo(placemark: to)
+                    if self.fromSearchController.searchBar.text == ""  {
+                        self.dropPinZoomInFrom(placemark: to)
+                    } else {
+                        self.dropPinZoomInTo(placemark: to)
+                    }
                 }
             }
         }
@@ -327,6 +332,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         // Search Table display recommendations
        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        
        let PopupLocationSearchTable = storyboard!.instantiateViewController(withIdentifier: "PopupLocationSearchTable") as! PopupLocationSearchTable
         
         locationSearchTable.handleMapSearchDelegate = self
@@ -338,6 +344,10 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         
         fromSearchController.searchResultsUpdater = PopupLocationSearchTable
          let fromSearchBar = fromSearchController.searchBar
+        
+        fromSearchBar.showsCancelButton = true
+        (fromSearchBar.value(forKey: "cancelButton") as! UIButton).setTitle("  Clear", for: .normal)
+ 
         fromSearchBar.sizeToFit()
         
         fromSearchBar.setImage(UIImage(), for: .clear, state: .normal)
@@ -352,15 +362,19 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
  
         toSearchController.searchResultsUpdater = locationSearchTable
         let toSearchBar = toSearchController.searchBar
+
+        toSearchBar.showsCancelButton = true
+        (toSearchBar.value(forKey: "cancelButton") as! UIButton).setTitle("  Clear", for: .normal)
+
         toSearchBar.sizeToFit()
-         
+        
         toSearchBar.setImage(UIImage(), for: .clear, state: .normal)
         toSearchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
 
         toSearchBar.placeholder = "Destination"
         
-        myTo.addSubview(toSearchController.searchBar)
-        toSearchController.searchBar.delegate = self
+        myTo.addSubview(toSearchBar)
+        toSearchBar.delegate = self
 
         var searchBarFrame = fromSearchController.searchBar.frame
          searchBarFrame.size.width = myFrom.frame.size.width - 15
@@ -488,7 +502,7 @@ extension MapViewController : CLLocationManagerDelegate {
         mapView.addAnnotation(annotation)
         toLocation = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
         let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
-            let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude + 0.02, longitude: annotation.coordinate.longitude - 0.02)  , span: span)
+            let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude + 0.04, longitude: annotation.coordinate.longitude - 0.02)  , span: span)
          mapView.setRegion(region, animated: true)
           fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity
             toSearchController.searchBar.text = self.selectedPin?.subLocality  ?? self.selectedPin?.name
@@ -511,8 +525,11 @@ extension MapViewController : CLLocationManagerDelegate {
                 self.fromSearchController.searchBar.text = fromLocation_searchBar ?? currentCity
                  
               // clear existing pins
-               mapView.removeAnnotations(mapView.annotations)
-
+            
+            for annotation in mapView.annotations where annotation === fromAnnotation   {
+                         mapView.removeAnnotation(annotation)
+                     }
+            
             let annotation = ColorPointAnnotation(pinColor: UIColor.green)
                annotation.coordinate = placemark.coordinate
              
@@ -520,6 +537,7 @@ extension MapViewController : CLLocationManagerDelegate {
                annotation.title = "\(place)"
 
               }
+               fromAnnotation = annotation
                mapView.addAnnotation(annotation)
                let span = MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3)
             let region = MKCoordinateRegion(center:   CLLocationCoordinate2D(latitude: annotation.coordinate.latitude + 0.04, longitude: annotation.coordinate.longitude)  , span: span)

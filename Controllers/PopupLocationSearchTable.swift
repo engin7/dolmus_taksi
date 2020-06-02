@@ -6,7 +6,7 @@
 //  Copyright © 2020 Silverback Inc. All rights reserved.
 //
 
- 
+ // This one is for From Location Search!! ####
 
 import Foundation
 import UIKit
@@ -81,7 +81,8 @@ class PopupLocationSearchTable : UITableViewController {
   extension PopupLocationSearchTable: UISearchResultsUpdating {
 
      func updateSearchResults(for searchController: UISearchController) {
-               
+      
+        
       searchCompleter.queryFragment =  searchController.searchBar.text ?? ""
  
           self.tableView.reloadData()
@@ -91,7 +92,7 @@ class PopupLocationSearchTable : UITableViewController {
 
 
 extension PopupLocationSearchTable: MKLocalSearchCompleterDelegate {
-    
+    // sonuclari gosteren fonk.
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
          self.tableView.reloadData()

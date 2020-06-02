@@ -42,7 +42,7 @@
 		101574B02484950B009914FB /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		10226A9F24423EEE00BD49D8 /* chatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatUser.swift; sourceTree = "<group>"; };
 		102663D4244BA74B009A02C4 /* Taxiz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Taxiz.entitlements; sourceTree = "<group>"; };
-		10558A1C23F3F8EB005402F5 /* TexTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TexTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10558A1C23F3F8EB005402F5 /* Dolmuş Taksi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dolmuş Taksi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		10558A1F23F3F8EB005402F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10558A2123F3F8EB005402F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		10558A2323F3F8EB005402F5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		10558A1D23F3F8EB005402F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				10558A1C23F3F8EB005402F5 /* TexTaxi.app */,
+				10558A1C23F3F8EB005402F5 /* Dolmuş Taksi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,7 +199,7 @@
 			);
 			name = Taxiz;
 			productName = Taxiz;
-			productReference = 10558A1C23F3F8EB005402F5 /* TexTaxi.app */;
+			productReference = 10558A1C23F3F8EB005402F5 /* Dolmuş Taksi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -487,7 +487,7 @@
 				);
 				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.taxiz;
-				PRODUCT_NAME = TexTaxi;
+				PRODUCT_NAME = "Dolmuş Taksi";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -509,7 +509,7 @@
 				);
 				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.taxiz;
-				PRODUCT_NAME = TexTaxi;
+				PRODUCT_NAME = "Dolmuş Taksi";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
