@@ -346,7 +346,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
          let fromSearchBar = fromSearchController.searchBar
         
         fromSearchBar.showsCancelButton = true
-        (fromSearchBar.value(forKey: "cancelButton") as! UIButton).setTitle("  Clear", for: .normal)
+        (fromSearchBar.value(forKey: "cancelButton") as! UIButton).setTitle("Clear", for: .normal)
  
         fromSearchBar.sizeToFit()
         
@@ -364,7 +364,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
         let toSearchBar = toSearchController.searchBar
 
         toSearchBar.showsCancelButton = true
-        (toSearchBar.value(forKey: "cancelButton") as! UIButton).setTitle("  Clear", for: .normal)
+        (toSearchBar.value(forKey: "cancelButton") as! UIButton).setTitle("Clear", for: .normal)
 
         toSearchBar.sizeToFit()
         

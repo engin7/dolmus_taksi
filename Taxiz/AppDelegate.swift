@@ -180,9 +180,26 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
                if let document = document, document.exists {
                cUser = chatUser(document: document)
                _ =  SharedUserLocation
+                print(cUser?.fcmToken)
+
             } }
+        
+            // update the token if it has changed. install/uninstall etc.
+        
+        if cUser?.fcmToken != fcmToken {
 
-
+            cUser?.fcmToken = fcmToken
+            chatUserReference.document(userId!.documentID).updateData([
+               "fcmToken": fcmToken
+            ])
+            { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        }
     }
 
   let dataDict:[String: String] = ["token": fcmToken]
