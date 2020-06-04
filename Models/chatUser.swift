@@ -27,6 +27,7 @@ let uid: String?
 var blocked: [String]
 var fcmToken: String?
 var chatUserId: [String:String]?
+var passengerUserId: [String:String]?
 var rating: [Int]
 var ratedBy: [String]
     
@@ -38,6 +39,7 @@ var ratedBy: [String]
      rating = []
      ratedBy = []
      chatUserId = [:]
+     passengerUserId = [:]
      self.fcmToken = fcmToken
     }
     
@@ -63,6 +65,9 @@ var ratedBy: [String]
         guard let chatUserId = data!["chatUserId"] as? [String:String]? else {
                  return nil
                }
+        guard let passengerUserId = data!["passengerUserId"] as? [String:String]? else {
+          return nil
+        }
         guard let rating = data!["rating"] as? [Int] else {
                        return nil
                      }
@@ -77,6 +82,7 @@ var ratedBy: [String]
     self.blocked = blocked
     self.fcmToken = fcmToken
     self.chatUserId = chatUserId
+    self.passengerUserId = passengerUserId
     self.ratedBy = ratedBy
     self.rating = rating
     }
@@ -93,6 +99,7 @@ extension chatUser: DatabaseRepresentation {
             "id" : id,
       "fcmToken" : fcmToken,
     "chatUserId" : chatUserId,
+    "passengerUserId" : passengerUserId,
       "rating"   : rating,
       "ratedBy"  : ratedBy,
     ]

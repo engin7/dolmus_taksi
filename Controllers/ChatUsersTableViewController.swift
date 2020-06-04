@@ -13,14 +13,15 @@ import Firebase
 class ChatUsersTableViewController: UITableViewController {
 
      private var trip: Trips
+     private var referencePassengers: CollectionReference?
+     private var chatUserReference: CollectionReference?
+     let documentId : String
 
-    
     init(trip: Trips ) {
      self.trip = trip
-      super.init(nibName: nil, bundle: nil)
+     documentId = trip.id!
+     super.init(nibName: nil, bundle: nil)
     }
-    
-
 
     fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
              tripReference.document(documentId).updateData([
@@ -39,7 +40,15 @@ class ChatUsersTableViewController: UITableViewController {
     {
        overrideUserInterfaceStyle = .light
        
-       tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
+        guard let id = trip.id else {
+                       navigationController?.popViewController(animated: true)
+                       return
+                      }
+        
+       referencePassengers = db.collection(["Trips", id, "passengers"].joined(separator: "/"))
+       chatUserReference = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
         
         let p = NSLocalizedString("Passengers ", comment: "")
 
@@ -100,12 +109,12 @@ class ChatUsersTableViewController: UITableViewController {
      
         }
     
-    func updateChatUserId() {
+    func updatePassengerUserId() {
       
         let dokumanId = userId?.documentID
                     
-        chatUserReference.document(dokumanId!).updateData([
-       "chatUserId": cUser!.chatUserId!
+        referencePassengers!.document(dokumanId!).updateData([
+       "passengerUserId": cUser!.passengerUserId!
           ]) { err in
               if let err = err {
                   print("Error updating document: \(err)")
@@ -115,6 +124,22 @@ class ChatUsersTableViewController: UITableViewController {
                          }
     }
 
+    func updateChatUserId() {
+    
+     let dokumanId = userId?.documentID
+   
+        chatUserReference!.document(dokumanId!).updateData([
+    "chatUserId": cUser!.chatUserId!
+       ]) { err in
+           if let err = err {
+               print("Error updating document: \(err)")
+           } else {
+               print("Document successfully updated")
+           }
+                    
+             }
+      }
+    
    @objc func exitRoom(sender: UIButton!) {
        // go back
     
@@ -136,21 +161,29 @@ class ChatUsersTableViewController: UITableViewController {
        if indexOfUser2 != nil {
         trip.Passengers.remove(at: indexOfUser2!)
         updatePassengers(trip.id!, trip)
- 
        }
-        let documentId = trip.id!
-   
-    let referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
- 
-        let id = cUser?.chatUserId![documentId]
-        referenceUsers.document(id!).delete() { error in
+  
+        let id = cUser?.passengerUserId![documentId]
+        referencePassengers!.document(id!).delete() { error in
         if let e = error {
           print("Error sending message: \(e.localizedDescription)")
           return
             }
           }
+    
+         let idChat = cUser?.chatUserId![documentId]
+        chatUserReference!.document(idChat!).delete() { error in
+              if let e = error {
+                print("Error sending message: \(e.localizedDescription)")
+                return
+                  }
+                }
+        cUser?.passengerUserId![documentId] = nil
         cUser?.chatUserId![documentId] = nil
-       updateChatUserId()
+        updatePassengerUserId()
+        updateChatUserId()
+        
+    
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.dismiss(animated: true, completion: nil)
        }
@@ -181,10 +214,15 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName)
         self.updatePassengers(documentId, self.trip)
        self.navigationController?.popViewController(animated: true)
-        let referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
-        let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
-        cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
+ 
+        let passenger_doc_ref =  self.referencePassengers!.addDocument(data: cUser!.representation)
+        cUser?.passengerUserId![documentId] = passenger_doc_ref.documentID
+        self.updatePassengerUserId()
+        
+        let chat_doc_ref =  self.chatUserReference!.addDocument(data: cUser!.representation)
+        cUser?.chatUserId![documentId] = chat_doc_ref.documentID
         self.updateChatUserId()
+        
         blurVisualEffectView.removeFromSuperview()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -199,10 +237,15 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName + "+1")
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
-        let referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
-        let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
-        cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
+
+        let passenger_doc_ref =  self.referencePassengers!.addDocument(data: cUser!.representation)
+        cUser?.passengerUserId![documentId] = passenger_doc_ref.documentID
+        self.updatePassengerUserId()
+       
+        let chat_doc_ref =  self.chatUserReference!.addDocument(data: cUser!.representation)
+        cUser?.chatUserId![documentId] = chat_doc_ref.documentID
         self.updateChatUserId()
+       
         blurVisualEffectView.removeFromSuperview()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
         self.dismiss(animated: true, completion: nil)
@@ -217,10 +260,15 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName + "+2")
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
-        let referenceUsers = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
-        let passenger_doc_ref =  referenceUsers.addDocument(data: cUser!.representation)
-        cUser?.chatUserId![documentId] = passenger_doc_ref.documentID
+
+        let passenger_doc_ref =  self.referencePassengers!.addDocument(data: cUser!.representation)
+        cUser?.passengerUserId![documentId] = passenger_doc_ref.documentID
+        self.updatePassengerUserId()
+        
+        let chat_doc_ref =  self.chatUserReference!.addDocument(data: cUser!.representation)
+        cUser?.chatUserId![documentId] = chat_doc_ref.documentID
         self.updateChatUserId()
+       
         blurVisualEffectView.removeFromSuperview()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

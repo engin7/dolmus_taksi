@@ -53,6 +53,8 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
     var fromLocation_searchBar: String?
     var pinView :  MKPinAnnotationView?
     private var referenceUsers: CollectionReference?
+    private var referencePassengers: CollectionReference?
+
     @IBOutlet weak var mapView: MKMapView!
     
     private var locationManager: CLLocationManager?
@@ -178,13 +180,31 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             
       }
 
+      self.referencePassengers = db.collection(["Trips", doc_ref.documentID, "passengers"].joined(separator: "/"))
+
+            
+         let passenger_doc_ref =  referencePassengers!.addDocument(data: cUser!.representation)
+           
+          cUser?.passengerUserId![doc_ref.documentID] = passenger_doc_ref.documentID
+            
+            let documentId = userId?.documentID
+
+            chatUserReference.document(documentId!).updateData([
+                 "passengerUserId": cUser!.passengerUserId!
+                    ]) { err in
+                        if let err = err {
+                            print("Error updating document: \(err)")
+                        } else {
+                            print("Document successfully updated")
+                        }
+                      }
+            
         self.referenceUsers = db.collection(["Trips", doc_ref.documentID, "users"].joined(separator: "/"))
             
          let host_doc_ref = self.referenceUsers?.addDocument(data: cUser!.representation)
+         
             cUser?.chatUserId![doc_ref.documentID] = host_doc_ref?.documentID
-            
-            let documentId = userId?.documentID
-               
+             
                chatUserReference.document(documentId!).updateData([
                    "chatUserId": cUser!.chatUserId!
                          ]) { err in

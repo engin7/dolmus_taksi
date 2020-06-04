@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
                 docRefOnline = usersRef.child(currentUser!.uid)
                }
       //this was myKey will be used for promotions for the  first time users
-            if  KeychainWrapper.standard.string(forKey: "Key99") == nil {
+            if  KeychainWrapper.standard.string(forKey: "Key98") == nil {
         // if user disabled from firestore consol it won't get a new uid
  
                 Auth.auth().signInAnonymously() { (user, error) in
@@ -44,14 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
                 }
            }
          }
-            if currentUser != nil {
-            // check user's online status
-            let currentUserRef = usersRef.child(currentUser!.uid)
-            currentUserRef.setValue(currentUser?.displayName)
-            currentUserRef.onDisconnectRemoveValue()
-            docRefOnline = usersRef.child(currentUser!.uid)
-                
-            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                if currentUser != nil {
+                          // check user's online status
+                          let currentUserRef = usersRef.child(currentUser!.uid)
+                          currentUserRef.setValue(currentUser?.displayName)
+                          currentUserRef.onDisconnectRemoveValue()
+                          docRefOnline = usersRef.child(currentUser!.uid)
+                          }
+                  }
+  
       }
         
         Auth.auth().removeStateDidChangeListener(listener)
@@ -145,7 +147,7 @@ extension AppDelegate : MessagingDelegate {
 func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
   print("Firebase registration token: \(fcmToken)")
  
-    if  KeychainWrapper.standard.string(forKey: "Key99") == nil {
+    if  KeychainWrapper.standard.string(forKey: "Key98") == nil {
 
         cUser = chatUser(fcmToken: fcmToken)
         _ =  SharedUserLocation
@@ -158,7 +160,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
   }
       }
         cUser?.id = userId!.documentID
-        _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "Key99")
+        _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "Key98")
  
         chatUserReference.document(userId!.documentID).updateData([
                       "id": cUser?.id
@@ -172,7 +174,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
         
     } else {
         
-       let documentID = KeychainWrapper.standard.string(forKey: "Key99")
+       let documentID = KeychainWrapper.standard.string(forKey: "Key98")
 
         userId = chatUserReference.document(documentID!)
 
@@ -180,8 +182,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
                if let document = document, document.exists {
                cUser = chatUser(document: document)
                _ =  SharedUserLocation
-                print(cUser?.fcmToken)
-
+ 
             } }
         
             // update the token if it has changed. install/uninstall etc.

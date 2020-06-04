@@ -53,13 +53,13 @@ var city : String?
                            
                                 if myCity != nil {
 
-                                     sortLocation()
-                                    if cUser != nil {
-                               NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
-                             }
-                                     
-                                 }
-                
+                             sortLocation()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                if cUser != nil  && count == true  {
+                                      NotificationCenter.default.post(name: Notification.Name("userOnline"), object: nil)
+                                    }
+                                  }
+                                }
                             })
 
                         }

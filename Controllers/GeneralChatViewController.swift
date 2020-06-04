@@ -28,7 +28,7 @@ import UserNotifications
      private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
      private var tripListener: ListenerRegistration?
-     private let past = Calendar.current.date(byAdding: .hour, value: -48, to: today)
+     private let past = Calendar.current.date(byAdding: .hour, value: -8, to: today)
 
      deinit {
          messageListener?.remove()
@@ -160,9 +160,7 @@ import UserNotifications
     }
      
     @objc func userOnline (notification: NSNotification) {
-        
-        if count  {
-        
+       
         count = false
             
         let today = Date()
@@ -180,7 +178,7 @@ import UserNotifications
           let message = Message(user: currentUser!, content: online)
            
                self.save(message)
-        }
+        
           }
                   
     
