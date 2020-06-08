@@ -700,11 +700,18 @@ April 23, 2020: First published.</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="evU-MD-eNq">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="person" catalog="system" id="0NC-H3-IbG">
-                            <connections>
-                                <segue destination="2LT-AY-C2E" kind="presentation" id="r5u-gF-ObG"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem title="Item" image="person" catalog="system" id="0NC-H3-IbG">
+                                <connections>
+                                    <segue destination="2LT-AY-C2E" kind="presentation" id="r5u-gF-ObG"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="action" id="cIF-dV-Zou" userLabel="Share">
+                                <connections>
+                                    <action selector="shareButtonClicked:" destination="yes-Qc-0lm" id="Rgo-Re-FIT"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem title="online" image="person.icloud.fill" catalog="system" id="n6P-HF-soT">
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="0.2384952910958904" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
