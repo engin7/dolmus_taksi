@@ -11,7 +11,8 @@ import Firebase
 import Foundation
 import MapKit
 import CoreLocation
- 
+import SwiftKeychainWrapper
+
 class TripsTableViewCell: UITableViewCell  {
   
     @IBOutlet weak var fromTextLabel: UILabel!
@@ -83,7 +84,8 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        if  KeychainWrapper.standard.string(forKey: "Key98") == nil {
+
         let popvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "guide") as! GuideViewController
 
         self.addChild(popvc)
@@ -93,7 +95,8 @@ class TripsTableViewCell: UITableViewCell  {
         self.view.addSubview(popvc.view)
 
         popvc.didMove(toParent: self)
-         
+            
+        }
         
         overrideUserInterfaceStyle = .light
  

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		101574A8247895CF009914FB /* sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101574A7247895CF009914FB /* sort.swift */; };
 		101574AE2479A100009914FB /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101574AD2479A100009914FB /* GuideViewController.swift */; };
+		101574B2248FEC6C009914FB /* RatingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101574B1248FEC6C009914FB /* RatingsViewController.swift */; };
 		10226AA024423EEE00BD49D8 /* chatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10226A9F24423EEE00BD49D8 /* chatUser.swift */; };
 		10558A2023F3F8EB005402F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A1F23F3F8EB005402F5 /* AppDelegate.swift */; };
 		10558A2223F3F8EB005402F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10558A2123F3F8EB005402F5 /* SceneDelegate.swift */; };
@@ -40,6 +41,7 @@
 		101574A7247895CF009914FB /* sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sort.swift; sourceTree = "<group>"; };
 		101574AD2479A100009914FB /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		101574B02484950B009914FB /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		101574B1248FEC6C009914FB /* RatingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingsViewController.swift; sourceTree = "<group>"; };
 		10226A9F24423EEE00BD49D8 /* chatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatUser.swift; sourceTree = "<group>"; };
 		102663D4244BA74B009A02C4 /* Taxiz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Taxiz.entitlements; sourceTree = "<group>"; };
 		10558A1C23F3F8EB005402F5 /* Dolmuş Taksi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dolmuş Taksi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 				1093CB1C245A0E1D0012113A /* Terms.swift */,
 				10558A6723F886B9005402F5 /* TripsTableViewController.swift */,
 				101574AD2479A100009914FB /* GuideViewController.swift */,
+				101574B1248FEC6C009914FB /* RatingsViewController.swift */,
 				10720723246883F7003819F7 /* GeneralChatViewController.swift */,
 				10558A2523F3F8EB005402F5 /* ChatViewController.swift */,
 				10D43B2A24368B8F00A3719B /* ChatUsersTableViewController.swift */,
@@ -301,6 +304,7 @@
 			files = (
 				10558A2623F3F8EB005402F5 /* ChatViewController.swift in Sources */,
 				1093CB1D245A0E1D0012113A /* Terms.swift in Sources */,
+				101574B2248FEC6C009914FB /* RatingsViewController.swift in Sources */,
 				10558A2423F3F8EB005402F5 /* MapViewController.swift in Sources */,
 				10720724246883F7003819F7 /* GeneralChatViewController.swift in Sources */,
 				1072072824707E8C003819F7 /* Location.swift in Sources */,

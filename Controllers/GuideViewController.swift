@@ -20,7 +20,7 @@ class GuideViewController: UIViewController {
         super.viewDidLoad()
             showAnimate()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 16.0) {
 
             self.removeAnimate()
             
