@@ -175,7 +175,8 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
     } else {
         
        let documentID = KeychainWrapper.standard.string(forKey: "Key98")
-
+       
+        // cUser'i cek firestore'dan
         userId = chatUserReference.document(documentID!)
 
            userId!.getDocument { (document, error) in

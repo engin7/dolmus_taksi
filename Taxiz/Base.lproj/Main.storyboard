@@ -10,7 +10,7 @@
         <!--Map-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController title="Map" id="9pv-A4-QxB" customClass="MapViewController" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Map" id="9pv-A4-QxB" customClass="MapViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -170,7 +170,7 @@
         <!--Location Search Table-->
         <scene sceneID="3a6-X2-Ftu">
             <objects>
-                <tableViewController storyboardIdentifier="LocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhc-zp-TSn" customClass="LocationSearchTable" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhc-zp-TSn" customClass="LocationSearchTable" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tiD-Oz-25W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -217,7 +217,7 @@
         <!--Terms-->
         <scene sceneID="AhH-bs-RbC">
             <objects>
-                <viewController id="6Qa-Io-GVP" customClass="Terms" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6Qa-Io-GVP" customClass="Terms" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="abS-jD-Eth">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -371,7 +371,7 @@ April 23, 2020: First published.</string>
         <!--Profile-->
         <scene sceneID="FGs-OU-M5J">
             <objects>
-                <tableViewController id="ZLb-K0-6hG" customClass="ProfileTableViewController" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ZLb-K0-6hG" customClass="ProfileTableViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gpT-9Q-wCg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -381,7 +381,7 @@ April 23, 2020: First published.</string>
                         <sections>
                             <tableViewSection id="K4d-Wp-iH7">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="151" id="8yi-Fq-2gR" customClass="ProfileTableViewCell" customModule="Chat_Taxi" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="151" id="8yi-Fq-2gR" customClass="ProfileTableViewCell" customModule="Dolmus__Taksi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="151"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8yi-Fq-2gR" id="Shq-4e-ZTY">
@@ -569,87 +569,116 @@ April 23, 2020: First published.</string>
         <!--Ratings View Controller-->
         <scene sceneID="rFg-GN-jIZ">
             <objects>
-                <viewController id="6HG-Ny-GpW" customClass="RatingsViewController" customModule="Dolmus__Taksi" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="rating" id="6HG-Ny-GpW" customClass="RatingsViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TpN-8e-E0Y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CGq-jJ-9Qt">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGq-jJ-9Qt">
                                 <rect key="frame" x="16" y="200" width="343" height="383"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rate your travelmates" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIa-vf-UMj">
-                                        <rect key="frame" x="73" y="8" width="196" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate your travelmates" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIa-vf-UMj">
+                                        <rect key="frame" x="88.333333333333329" y="13.999999999999998" width="166.66666666666669" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yt8-td-55q">
-                                        <rect key="frame" x="31" y="291" width="280" height="84"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nickName " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVD-J8-KPC">
+                                        <rect key="frame" x="131.33333333333334" y="234.33333333333331" width="80.666666666666657" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="vEw-RK-hGQ">
+                                        <rect key="frame" x="73.666666666666686" y="56" width="196" height="169"/>
+                                        <color key="tintColor" red="0.44279751709999998" green="0.65290025679999997" blue="0.9180222603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="172" id="9ca-j7-fGq"/>
+                                            <constraint firstAttribute="width" constant="196" id="SjT-HF-1O6"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yt8-td-55q">
+                                        <rect key="frame" x="25.666666666666657" y="303" width="292" height="72"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8P-IW-hsx">
-                                                <rect key="frame" x="0.0" y="0.0" width="48" height="84"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                                <state key="normal" title="✪">
-                                                    <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGI-Ve-4iO">
-                                                <rect key="frame" x="58" y="0.0" width="48" height="84"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                                <state key="normal" title="✪">
+                                                <rect key="frame" x="0.0" y="0.0" width="52" height="72"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                <state key="normal" title="☆">
                                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                 </state>
                                                 <connections>
+                                                    <action selector="starButtonPressed:" destination="6HG-Ny-GpW" eventType="touchUpInside" id="Ts7-aK-Gro"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGI-Ve-4iO">
+                                                <rect key="frame" x="60" y="0.0" width="52" height="72"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                <state key="normal" title="☆">
+                                                    <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="starButtonPressed:" destination="6HG-Ny-GpW" eventType="touchUpInside" id="Qe6-ux-b64"/>
                                                     <action selector="starButtons:" destination="z5Y-tH-FXM" eventType="touchUpInside" id="Tpf-cD-ihK"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpu-2W-G83">
-                                                <rect key="frame" x="116" y="0.0" width="48" height="84"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                                <state key="normal" title="✪">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpu-2W-G83">
+                                                <rect key="frame" x="120" y="0.0" width="52" height="72"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                <state key="normal" title="☆">
                                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="starButtonPressed:" destination="6HG-Ny-GpW" eventType="touchUpInside" id="N72-pi-dVX"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMO-xn-mdG">
-                                                <rect key="frame" x="174" y="0.0" width="48" height="84"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                                <state key="normal" title="✪">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMO-xn-mdG">
+                                                <rect key="frame" x="180" y="0.0" width="52" height="72"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                <state key="normal" title="☆">
                                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="starButtonPressed:" destination="6HG-Ny-GpW" eventType="touchUpInside" id="I3L-WS-xOT"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1X3-hS-rOU">
-                                                <rect key="frame" x="232" y="0.0" width="48" height="84"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                                <state key="normal" title="✪">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1X3-hS-rOU">
+                                                <rect key="frame" x="240" y="0.0" width="52" height="72"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                <state key="normal" title="☆">
                                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="starButtonPressed:" destination="6HG-Ny-GpW" eventType="touchUpInside" id="7tH-6c-X26"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nickName " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVD-J8-KPC">
-                                        <rect key="frame" x="73" y="234.66666666666674" width="196" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="vEw-RK-hGQ">
-                                        <rect key="frame" x="73" y="57.666666666666742" width="196" height="169"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.44279751709999998" green="0.65290025679999997" blue="0.9180222603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="NVD-J8-KPC" firstAttribute="top" secondItem="vEw-RK-hGQ" secondAttribute="bottom" constant="8" id="73U-3m-d22"/>
+                                    <constraint firstAttribute="bottom" secondItem="yt8-td-55q" secondAttribute="bottom" constant="8" id="8H4-SS-bVf"/>
+                                    <constraint firstItem="NVD-J8-KPC" firstAttribute="centerX" secondItem="CGq-jJ-9Qt" secondAttribute="centerX" id="LvF-yN-qis"/>
+                                    <constraint firstItem="dIa-vf-UMj" firstAttribute="centerX" secondItem="CGq-jJ-9Qt" secondAttribute="centerX" id="fhl-3q-VE0"/>
+                                    <constraint firstItem="yt8-td-55q" firstAttribute="centerX" secondItem="CGq-jJ-9Qt" secondAttribute="centerX" id="hRI-Jq-VDX"/>
+                                    <constraint firstItem="yt8-td-55q" firstAttribute="top" secondItem="NVD-J8-KPC" secondAttribute="bottom" constant="48.329999999999998" id="hWh-e9-4Xf"/>
+                                    <constraint firstItem="vEw-RK-hGQ" firstAttribute="centerX" secondItem="CGq-jJ-9Qt" secondAttribute="centerX" id="peX-gE-L71"/>
+                                    <constraint firstItem="vEw-RK-hGQ" firstAttribute="top" secondItem="dIa-vf-UMj" secondAttribute="bottom" constant="20" id="ude-E4-OCr"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="CGq-jJ-9Qt" firstAttribute="leading" secondItem="TpN-8e-E0Y" secondAttribute="leadingMargin" id="5fY-4c-gIh"/>
+                            <constraint firstItem="CGq-jJ-9Qt" firstAttribute="trailing" secondItem="TpN-8e-E0Y" secondAttribute="trailingMargin" id="PUH-F9-mVH"/>
+                            <constraint firstItem="chV-fK-qkU" firstAttribute="bottom" secondItem="CGq-jJ-9Qt" secondAttribute="bottom" constant="195" id="cR3-0W-VkP"/>
+                            <constraint firstItem="CGq-jJ-9Qt" firstAttribute="top" secondItem="chV-fK-qkU" secondAttribute="top" priority="250" constant="156" id="wTW-3M-cnl"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="chV-fK-qkU"/>
                     </view>
                     <connections>
@@ -668,7 +697,7 @@ April 23, 2020: First published.</string>
         <!--Trips Table View Controller-->
         <scene sceneID="JSf-C0-f5b">
             <objects>
-                <tableViewController storyboardIdentifier="trips" id="yes-Qc-0lm" customClass="TripsTableViewController" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="trips" id="yes-Qc-0lm" customClass="TripsTableViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hMg-Wi-gB4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -679,7 +708,7 @@ April 23, 2020: First published.</string>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="75" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Chat_Taxi" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripsTableViewCell" rowHeight="75" id="XGY-1c-AOD" customClass="TripsTableViewCell" customModule="Dolmus__Taksi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XGY-1c-AOD" id="hcZ-vC-ExX">
@@ -834,7 +863,7 @@ April 23, 2020: First published.</string>
         <!--Guide View Controller-->
         <scene sceneID="pFY-ma-rAm">
             <objects>
-                <viewController storyboardIdentifier="guide" id="4fp-te-Vh8" customClass="GuideViewController" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="guide" id="4fp-te-Vh8" customClass="GuideViewController" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gBa-nR-Dwy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1040,7 +1069,7 @@ April 23, 2020: First published.</string>
         <!--Popup Location Search Table-->
         <scene sceneID="s8q-B5-O5m">
             <objects>
-                <tableViewController storyboardIdentifier="PopupLocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLw-Qz-yoO" customClass="PopupLocationSearchTable" customModule="Chat_Taxi" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PopupLocationSearchTable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BLw-Qz-yoO" customClass="PopupLocationSearchTable" customModule="Dolmus__Taksi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fUM-gu-Ku4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

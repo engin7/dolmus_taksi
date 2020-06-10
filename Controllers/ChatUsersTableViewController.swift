@@ -14,7 +14,7 @@ class ChatUsersTableViewController: UITableViewController {
 
      private var trip: Trips
      private var referencePassengers: CollectionReference?
-     private var chatUserReference: CollectionReference?
+     private var referenceChat: CollectionReference?
      let documentId : String
 
     init(trip: Trips ) {
@@ -46,7 +46,7 @@ class ChatUsersTableViewController: UITableViewController {
                       }
         
        referencePassengers = db.collection(["Trips", id, "passengers"].joined(separator: "/"))
-       chatUserReference = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
+       referenceChat = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
         
@@ -112,8 +112,8 @@ class ChatUsersTableViewController: UITableViewController {
     func updatePassengerUserId() {
       
         let dokumanId = userId?.documentID
-                    
-        referencePassengers!.document(dokumanId!).updateData([
+ 
+        chatUserReference.document(dokumanId!).updateData([
        "passengerUserId": cUser!.passengerUserId!
           ]) { err in
               if let err = err {
@@ -128,7 +128,7 @@ class ChatUsersTableViewController: UITableViewController {
     
      let dokumanId = userId?.documentID
    
-        chatUserReference!.document(dokumanId!).updateData([
+        chatUserReference.document(dokumanId!).updateData([
     "chatUserId": cUser!.chatUserId!
        ]) { err in
            if let err = err {
@@ -142,9 +142,7 @@ class ChatUsersTableViewController: UITableViewController {
     
    @objc func exitRoom(sender: UIButton!) {
        // go back
-    
-        
-     
+   
     let indexOfUser = trip.Passengers.firstIndex(of: currentUser!.displayName)
        if indexOfUser != nil {
         trip.Passengers.remove(at: indexOfUser!)
@@ -172,7 +170,7 @@ class ChatUsersTableViewController: UITableViewController {
           }
     
          let idChat = cUser?.chatUserId![documentId]
-        chatUserReference!.document(idChat!).delete() { error in
+        referenceChat!.document(idChat!).delete() { error in
               if let e = error {
                 print("Error sending message: \(e.localizedDescription)")
                 return
@@ -219,7 +217,7 @@ class ChatUsersTableViewController: UITableViewController {
         cUser?.passengerUserId![documentId] = passenger_doc_ref.documentID
         self.updatePassengerUserId()
         
-        let chat_doc_ref =  self.chatUserReference!.addDocument(data: cUser!.representation)
+        let chat_doc_ref =  self.referenceChat!.addDocument(data: cUser!.representation)
         cUser?.chatUserId![documentId] = chat_doc_ref.documentID
         self.updateChatUserId()
         
@@ -242,7 +240,7 @@ class ChatUsersTableViewController: UITableViewController {
         cUser?.passengerUserId![documentId] = passenger_doc_ref.documentID
         self.updatePassengerUserId()
        
-        let chat_doc_ref =  self.chatUserReference!.addDocument(data: cUser!.representation)
+        let chat_doc_ref =  self.referenceChat!.addDocument(data: cUser!.representation)
         cUser?.chatUserId![documentId] = chat_doc_ref.documentID
         self.updateChatUserId()
        
@@ -265,7 +263,7 @@ class ChatUsersTableViewController: UITableViewController {
         cUser?.passengerUserId![documentId] = passenger_doc_ref.documentID
         self.updatePassengerUserId()
         
-        let chat_doc_ref =  self.chatUserReference!.addDocument(data: cUser!.representation)
+        let chat_doc_ref =  self.referenceChat!.addDocument(data: cUser!.representation)
         cUser?.chatUserId![documentId] = chat_doc_ref.documentID
         self.updateChatUserId()
        

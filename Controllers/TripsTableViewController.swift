@@ -98,6 +98,20 @@ class TripsTableViewCell: UITableViewCell  {
             
         }
         
+        
+        let popRating = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "rating") as! RatingsViewController
+
+               self.addChild(popRating)
+        
+               popRating.view.frame = self.view.frame
+
+               self.view.addSubview(popRating.view)
+
+               popRating.didMove(toParent: self)
+        
+        
+        // end
+        
         overrideUserInterfaceStyle = .light
  
         // warning for disabled user accounts

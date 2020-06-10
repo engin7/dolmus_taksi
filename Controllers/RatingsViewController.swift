@@ -13,9 +13,20 @@ class RatingsViewController: UIViewController {
     
     @IBOutlet var starButtons: [UIButton]!
     
-    
-    
-    
+    @IBAction func starButtonPressed(_ sender: UIButton) {
+        
+        let tag = sender.tag
+        for button in starButtons {
+            
+            if button.tag <= tag {
+                button.setTitle("★", for: .normal)
+            } else {
+                button.setTitle("☆", for: .normal)
+            }
+        }
+        
+        removeAnimate()
+    }
     
     
     
@@ -25,6 +36,20 @@ class RatingsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func removeAnimate()
+       {
+           UIView.animate(withDuration: 0.8, animations: {
+               self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+               self.view.alpha = 0.0
+           }, completion: {(finished : Bool) in
+               if(finished)
+               {
+                   self.willMove(toParent: nil)
+                   self.view.removeFromSuperview()
+                   self.removeFromParent()
+               }
+           })
+       }
 
     /*
     // MARK: - Navigation
