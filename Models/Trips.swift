@@ -23,7 +23,7 @@ var tSpam = 0.0
 struct Trips {
     
     let id: String?
-     let host: String
+    let host: String
     let hostID: String
     var time: Date
     var from:String
@@ -32,6 +32,7 @@ struct Trips {
     var to: String
     var toCity: String
     var Passengers: [String]
+    var PassID: [String]
     var welcomed : Bool
     
  
@@ -47,6 +48,7 @@ struct Trips {
       self.fromCity = fromCity
       self.Passengers = [passengers]
       self.welcomed = false
+      self.PassID = []
       }
        
         // firestore initialization:
@@ -77,6 +79,10 @@ struct Trips {
         guard let Passengers = data!["passengers"] as? [String] else {
                   return nil
          }
+        
+        guard let PassID = data!["PassID"] as? [String] else {
+                         return nil
+                }
         guard let welcomed = data!["welcomed"] as? Bool else {
                          return nil
                 }
@@ -98,7 +104,9 @@ struct Trips {
            self.fromLocation = fromLocation
            self.toCity  = toCity
            self.Passengers = Passengers
+           self.PassID = PassID
            self.welcomed = welcomed
+        
         }
 }
     
@@ -114,6 +122,7 @@ extension Trips: DatabaseRepresentation {
     "toCity" : toCity,
     "time": time,
     "passengers": Passengers,
+    "PassID": PassID,
      "id" : id,
     "welcomed": welcomed,
     "host": host,

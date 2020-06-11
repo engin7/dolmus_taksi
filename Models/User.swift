@@ -3,10 +3,11 @@ import Foundation
 import Firebase
 import CoreLocation
 import UserNotifications
-
+import UIKit
+ 
 var currentUser: User?
 var initialName: String?
-
+ 
 var reportedReference: CollectionReference {
 return db.collection("reportedUsers")
 }
@@ -18,7 +19,7 @@ struct User {
   let uid: String 
   let displayName: String
   var previousTrip: Date?
- 
+  
 
   init(authData: Firebase.User) {
     
@@ -97,3 +98,4 @@ struct User {
 //     return randomString
 // }
 //
+ 

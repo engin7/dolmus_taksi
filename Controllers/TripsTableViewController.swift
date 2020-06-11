@@ -84,6 +84,7 @@ class TripsTableViewCell: UITableViewCell  {
       override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Todo first 3 or once a month
         if  KeychainWrapper.standard.string(forKey: "Key98") == nil {
 
         let popvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "guide") as! GuideViewController
@@ -98,20 +99,31 @@ class TripsTableViewCell: UITableViewCell  {
             
         }
         
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+
+            if cUser != nil {
+        if cUser?.ratedBy != [] {
+
+            for raters in cUser!.ratedBy {
+
+ 
         let popRating = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "rating") as! RatingsViewController
+               popRating.tobeRated = raters
+ 
+                    self.addChild(popRating)
+                    popRating.view.frame = self.view.frame
+                   
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    popRating.showAnimate()
+                    self.view.addSubview(popRating.view)
+                    popRating.didMove(toParent: self)
+                 }
+                 }
+            }
+                cUser?.ratedBy.removeAll()
 
-               self.addChild(popRating)
-        
-               popRating.view.frame = self.view.frame
-
-               self.view.addSubview(popRating.view)
-
-               popRating.didMove(toParent: self)
-        
-        
-        // end
-        
+          }
+        }
         overrideUserInterfaceStyle = .light
  
         // warning for disabled user accounts

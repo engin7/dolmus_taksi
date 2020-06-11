@@ -520,10 +520,14 @@ April 23, 2020: First published.</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fxa-ml-dG4">
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fxa-ml-dG4">
                                                     <rect key="frame" x="248" y="61" width="111" height="82"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" red="0.44279751709999998" green="0.65290025679999997" blue="0.9180222603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="lbF-6h-GF4" appends="YES" id="Yr9-JK-kfr"/>
+                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gba-rw-bkg">
                                                     <rect key="frame" x="128" y="15" width="119" height="24"/>
@@ -560,9 +564,15 @@ April 23, 2020: First published.</string>
                     <navigationItem key="navigationItem" title="Profile" id="ESH-UO-gpC" colorLabel="IBBuiltInLabel-Yellow"/>
                     <connections>
                         <outlet property="nickName" destination="VfJ-aw-zU5" id="K5Y-wg-x4I"/>
+                        <outlet property="userProfileImageView" destination="fxa-ml-dG4" id="ONN-GV-V8L"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LPB-87-2ko" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="lbF-6h-GF4">
+                    <connections>
+                        <action selector="setProfileImageButtonTapped:" destination="ZLb-K0-6hG" id="sFv-0V-Wys"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2452" y="-434.03298350824593"/>
         </scene>
@@ -682,6 +692,7 @@ April 23, 2020: First published.</string>
                         <viewLayoutGuide key="safeArea" id="chV-fK-qkU"/>
                     </view>
                     <connections>
+                        <outlet property="userImage" destination="vEw-RK-hGQ" id="A9A-8t-pEG"/>
                         <outletCollection property="starButtons" destination="R8P-IW-hsx" collectionClass="NSMutableArray" id="2ya-Iq-tOf"/>
                         <outletCollection property="starButtons" destination="aGI-Ve-4iO" collectionClass="NSMutableArray" id="zdp-Of-Kid"/>
                         <outletCollection property="starButtons" destination="Zpu-2W-G83" collectionClass="NSMutableArray" id="QJA-kj-T3W"/>

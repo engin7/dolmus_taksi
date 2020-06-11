@@ -16,7 +16,8 @@ class ChatUsersTableViewController: UITableViewController {
      private var referencePassengers: CollectionReference?
      private var referenceChat: CollectionReference?
      let documentId : String
-
+     let passID = cUser?.id
+    
     init(trip: Trips ) {
      self.trip = trip
      documentId = trip.id!
@@ -25,7 +26,8 @@ class ChatUsersTableViewController: UITableViewController {
 
     fileprivate func updatePassengers(_ documentId: String, _ trip: Trips) {
              tripReference.document(documentId).updateData([
-                 "passengers": trip.Passengers
+                 "passengers": trip.Passengers,
+                 "PassID": trip.PassID
              ]) { err in
                  if let err = err {
                      print("Error updating document: \(err)")
@@ -145,22 +147,28 @@ class ChatUsersTableViewController: UITableViewController {
    
     let indexOfUser = trip.Passengers.firstIndex(of: currentUser!.displayName)
        if indexOfUser != nil {
+        let indexId = trip.PassID.firstIndex(of: passID!)
+        trip.PassID.remove(at: indexId!)
         trip.Passengers.remove(at: indexOfUser!)
         updatePassengers(trip.id!, trip)
  
               }
     let indexOfUser1 = trip.Passengers.firstIndex(of: currentUser!.displayName + "+1")
        if indexOfUser1 != nil {
+        let indexId = trip.PassID.firstIndex(of: passID!)
+        trip.PassID.remove(at: indexId!)
         trip.Passengers.remove(at: indexOfUser1!)
         updatePassengers(trip.id!, trip)
  
        }
     let indexOfUser2 = trip.Passengers.firstIndex(of: currentUser!.displayName + "+2")
        if indexOfUser2 != nil {
+        let indexId = trip.PassID.firstIndex(of: passID!)
+        trip.PassID.remove(at: indexId!)
         trip.Passengers.remove(at: indexOfUser2!)
         updatePassengers(trip.id!, trip)
        }
-  
+    
         let id = cUser?.passengerUserId![documentId]
         referencePassengers!.document(id!).delete() { error in
         if let e = error {
@@ -210,6 +218,7 @@ class ChatUsersTableViewController: UITableViewController {
      }))
      alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
          self.trip.Passengers.append(currentUser!.displayName)
+        self.trip.PassID.append(self.passID!)
         self.updatePassengers(documentId, self.trip)
        self.navigationController?.popViewController(animated: true)
  
@@ -233,6 +242,8 @@ class ChatUsersTableViewController: UITableViewController {
      alert.addAction(UIAlertAction(title: "2", style: .default, handler: { action in
          self.trip.Passengers.append(currentUser!.displayName)
          self.trip.Passengers.append(currentUser!.displayName + "+1")
+        self.trip.PassID.append(self.passID!)
+
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
 
@@ -256,6 +267,8 @@ class ChatUsersTableViewController: UITableViewController {
          self.trip.Passengers.append(currentUser!.displayName)
          self.trip.Passengers.append(currentUser!.displayName + "+1")
          self.trip.Passengers.append(currentUser!.displayName + "+2")
+        self.trip.PassID.append(self.passID!)
+
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
 
