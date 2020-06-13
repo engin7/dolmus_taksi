@@ -17,6 +17,9 @@ class ChatUsersTableViewController: UITableViewController {
      private var referenceChat: CollectionReference?
      let documentId : String
      let passID = cUser?.id
+     var usertobeRated: chatUser?
+    var  usertobeRatedId: DocumentReference?
+
     
     init(trip: Trips ) {
      self.trip = trip
@@ -155,16 +158,14 @@ class ChatUsersTableViewController: UITableViewController {
               }
     let indexOfUser1 = trip.Passengers.firstIndex(of: currentUser!.displayName + "+1")
        if indexOfUser1 != nil {
-        let indexId = trip.PassID.firstIndex(of: passID!)
-        trip.PassID.remove(at: indexId!)
+         
         trip.Passengers.remove(at: indexOfUser1!)
         updatePassengers(trip.id!, trip)
  
        }
     let indexOfUser2 = trip.Passengers.firstIndex(of: currentUser!.displayName + "+2")
        if indexOfUser2 != nil {
-        let indexId = trip.PassID.firstIndex(of: passID!)
-        trip.PassID.remove(at: indexId!)
+         
         trip.Passengers.remove(at: indexOfUser2!)
         updatePassengers(trip.id!, trip)
        }
@@ -217,11 +218,36 @@ class ChatUsersTableViewController: UITableViewController {
                }
      }))
      alert.addAction(UIAlertAction(title: "1", style: .destructive, handler: { action in
-         self.trip.Passengers.append(currentUser!.displayName)
+        
+        let past = Calendar.current.date(byAdding: .minute, value: -2, to: Date())
+
+        
+        for id in self.trip.PassID {
+            
+            self.usertobeRatedId = chatUserReference.document(id)
+            self.usertobeRatedId!.getDocument { (document, error) in
+                         if let document = document, document.exists {
+                           self.usertobeRated = chatUser(document: document)
+                            self.usertobeRated?.ratedBy![cUser!.id!] = past!
+
+                chatUserReference.document(id).updateData([
+                               "ratedBy": self.usertobeRated?.ratedBy
+                                 ]) { err in
+                                    if let err = err {
+                                        print("Error updating document: \(err)")
+                                    } else {
+                                        print("Document successfully updated")
+                                        print(self.usertobeRated?.ratedBy)
+                                    }
+                                }
+            }       }
+    }
+        
+        self.trip.Passengers.append(currentUser!.displayName)
         self.trip.PassID.append(self.passID!)
         self.updatePassengers(documentId, self.trip)
-       self.navigationController?.popViewController(animated: true)
- 
+        self.navigationController?.popViewController(animated: true)
+        
         let passenger_doc_ref =  self.referencePassengers!.addDocument(data: cUser!.representation)
         cUser?.passengerUserId![documentId] = passenger_doc_ref.documentID
         self.updatePassengerUserId()

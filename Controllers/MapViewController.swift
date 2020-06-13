@@ -171,7 +171,7 @@ class MapViewController: UIViewController, UISearchBarDelegate, UITableViewDeleg
             for i in 1..<(addPersons ?? 1) {
             trip!.Passengers.append(currentUser!.displayName + "+" + String(i))
         }
-          
+            trip!.PassID.append(cUser!.id!)
             // add to firestore database:
         let doc_ref = tripReference.addDocument(data: trip!.representation) { error in
         if let e = error {

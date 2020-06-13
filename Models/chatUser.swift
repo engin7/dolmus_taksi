@@ -12,7 +12,7 @@ import Firebase
 var cUser: chatUser?
 var userId: DocumentReference?
 var host: chatUser?
-
+var ratingCount = true
 
 var chatUserReference: CollectionReference {
 return db.collection("chatUsers")
@@ -29,7 +29,7 @@ var fcmToken: String?
 var chatUserId: [String:String]?
 var passengerUserId: [String:String]?
 var rating: [Int]
-var ratedBy: [String]
+var ratedBy: [String:Date]?
     
     init(fcmToken: String) {
      self.nickName = currentUser?.displayName
@@ -37,7 +37,7 @@ var ratedBy: [String]
      self.uid = currentUser?.uid
      blocked = []
      rating = []
-     ratedBy = []
+     ratedBy = [:]
      chatUserId = [:]
      passengerUserId = [:]
      self.fcmToken = fcmToken
@@ -71,9 +71,21 @@ var ratedBy: [String]
         guard let rating = data!["rating"] as? [Int] else {
                        return nil
                      }
-      guard let ratedBy = data!["ratedBy"] as? [String] else {
-                     return nil
-                   }
+        guard let dateRate = data!["ratedBy"]as? [String:Timestamp]? else {
+                  return nil
+                }
+        
+        let arrayOfValues = dateRate!.values
+        var arrayOfValuesDate : [Date] = []
+        
+        let arrayOfKeys = dateRate?.keys
+        
+        for value in arrayOfValues {
+            arrayOfValuesDate.append(value.dateValue())
+        }
+        
+        let ratedBy = Dictionary(uniqueKeysWithValues: zip(arrayOfKeys!, arrayOfValuesDate))
+
         
     id = document.documentID
     self.nickName = nickName

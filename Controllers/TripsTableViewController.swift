@@ -98,32 +98,7 @@ class TripsTableViewCell: UITableViewCell  {
         popvc.didMove(toParent: self)
             
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-
-            if cUser != nil {
-        if cUser?.ratedBy != [] {
-
-            for raters in cUser!.ratedBy {
-
- 
-        let popRating = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "rating") as! RatingsViewController
-               popRating.tobeRated = raters
- 
-                    self.addChild(popRating)
-                    popRating.view.frame = self.view.frame
-                   
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    popRating.showAnimate()
-                    self.view.addSubview(popRating.view)
-                    popRating.didMove(toParent: self)
-                 }
-                 }
-            }
-                cUser?.ratedBy.removeAll()
-
-          }
-        }
+  
         overrideUserInterfaceStyle = .light
  
         // warning for disabled user accounts
@@ -206,6 +181,43 @@ class TripsTableViewCell: UITableViewCell  {
          
         NotificationCenter.default.addObserver(self, selector: #selector(self.shouldReload), name: NSNotification.Name(rawValue: "newDataNotificationForItemEdit"), object: nil)
       }
+        
+        override func viewWillAppear(_ animated: Bool) {
+                  
+                   DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+
+                       if cUser != nil {
+                        
+                        let arrayOfKeys = cUser?.ratedBy?.keys
+
+                        if arrayOfKeys != nil {
+                             
+                    let past = Calendar.current.date(byAdding: .minute, value: -2, to: self.today)
+                            
+                            for raters in cUser!.ratedBy! {
+            
+                 if (raters.value) <  past! {
+                        
+                   let popRating = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "rating") as! RatingsViewController
+                        popRating.tobeRated = raters.key
+                               
+                            
+                               self.addChild(popRating)
+                               popRating.view.frame = self.view.frame
+                              
+                           DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                               popRating.showAnimate()
+                               self.view.addSubview(popRating.view)
+                               popRating.didMove(toParent: self)
+                            }
+                            }
+                          }
+                       }
+            
+                     }
+                   }
+        }
+        
         
         override func viewDidLayoutSubviews() {
               // for different screen size
@@ -298,7 +310,7 @@ class TripsTableViewCell: UITableViewCell  {
 
             imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
 
-            let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
+            let past = Calendar.current.date(byAdding: .minute, value: 5, to: today)
  
               cell.backgroundView = UIView()
               cell.backgroundView!.addSubview(imageView)
@@ -351,7 +363,7 @@ class TripsTableViewCell: UITableViewCell  {
             let trip =  trips[indexPath.row]
             let documentId = trip.id
 
-            let past = Calendar.current.date(byAdding: .minute, value: -15, to: today)
+            let past = Calendar.current.date(byAdding: .minute, value: 5, to: today)
          
             if ((trip.Passengers.count < 5  &&  trip.time > past!) && !trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse && !cUser!.blocked.contains(trip.host))
               
@@ -380,7 +392,7 @@ class TripsTableViewCell: UITableViewCell  {
                if trip.Passengers.contains(currentUser!.displayName) && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
                    self.updatePassengers(documentId!, trip)
                    let vc = ChatViewController(currentUser: currentUser!, trip: trip)
-
+ 
                    self.navigationController?.pushViewController(vc, animated: true)
                }
        

@@ -34,7 +34,6 @@ struct Trips {
     var Passengers: [String]
     var PassID: [String]
     var welcomed : Bool
-    
  
     init(time:Date, to:String, toCity:String, from:String, fromLocation:[Double], fromCity:String, passengers:String, host:String, hostID: String) {
       self.id = nil

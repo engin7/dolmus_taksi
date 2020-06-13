@@ -27,7 +27,7 @@ import UserNotifications
      private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
      private var tripListener: ListenerRegistration?
-    
+     
      deinit {
          messageListener?.remove()
       }
@@ -55,7 +55,7 @@ import UserNotifications
         let hUserId = chatUserReference.document(trip!.hostID)
          hUserId.getDocument { (document, error) in
            if let document = document, document.exists {
-            host = chatUser(document: document)!
+            host = chatUser(document: document)
         
           }            
         }
@@ -148,48 +148,10 @@ import UserNotifications
 
         }
              terminalAdd()
-        
-        // run at the time of the trip
-        let date = trip!.time.addingTimeInterval(15)
-
-        let timer = Timer(fireAt: date, interval: 0, target: self, selector: #selector(addRatingList), userInfo: nil, repeats: false)
-
-          RunLoop.main.add(timer, forMode: .common)
-
+    
        }
-       
-    
-    @objc fileprivate func  addRatingList() {
         
-        let passID = cUser?.id
-
-        if trip!.Passengers.contains(currentUser.displayName) {
-          
-            if host?.uid != cUser?.uid {
-           let indexId = trip!.PassID.firstIndex(of: passID!)
-            trip?.PassID.remove(at: indexId!)
-            }
-            
-            cUser!.ratedBy.append(contentsOf: trip!.PassID)
-             
-            cUser?.id = userId!.documentID
- 
-            chatUserReference.document(userId!.documentID).updateData([
-                     "ratedBy": cUser?.ratedBy
-                 ]) { err in
-                     if let err = err {
-                         print("Error updating document: \(err)")
-                     } else {
-                         print("Document successfully updated")
-                     }
-                 }
-             
-         }
-       
-    }
      
-    
-    
     fileprivate func updateWelcome(_ documentId: String, _ trip: Trips) {
             tripReference.document(documentId).updateData([
                 "welcomed": trip.welcomed

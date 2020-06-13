@@ -16,10 +16,7 @@ class RatingsViewController: UIViewController {
     var tobeRated = ""
  
     @IBOutlet weak var userImage: UIImageView!
-    
-    
     @IBOutlet var starButtons: [UIButton]!
-    
     @IBAction func starButtonPressed(_ sender: UIButton) {
         
         let tag = sender.tag
@@ -36,6 +33,18 @@ class RatingsViewController: UIViewController {
         
         chatUserReference.document(tobeRated).updateData([
             "rating": usertobeRated?.rating
+         ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+         
+           cUser?.ratedBy!.removeValue(forKey: tobeRated)
+         
+        chatUserReference.document(cUser!.id!).updateData([
+             "ratedBy": cUser?.ratedBy
         ]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
@@ -43,11 +52,8 @@ class RatingsViewController: UIViewController {
                 print("Document successfully updated")
             }
         }
-        
         removeAnimate()
     }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,12 +64,10 @@ class RatingsViewController: UIViewController {
                    self.usertobeRated = chatUser(document: document)
                    self.downloadImage()
 
-                } }
-       
-
+                }   }
          }
      
-        func downloadImage( ) {
+        func downloadImage() {
             let storageReference = Storage.storage().reference()
             let profileImageRef = storageReference.child("users").child(((usertobeRated?.uid)!)).child("\(   (usertobeRated?.uid)!)-profileImage.jpg")
             _ = profileImageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
@@ -71,14 +75,11 @@ class RatingsViewController: UIViewController {
                 //  an error occurred!
                 print(error)
               } else {
-                
                 let image = UIImage(data: data!)
                 self.userImage.image = image
- 
               }
-            }
-    }
-    
+          }
+     }
     
      func showAnimate()
      {
@@ -104,15 +105,4 @@ class RatingsViewController: UIViewController {
                }
            })
        }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
+  }
