@@ -156,6 +156,17 @@ class ChatUsersTableViewController: UITableViewController {
                     print("Document successfully updated")
                  }
             }
+        
+        chatUserReference.document(userId!.documentID).updateData([
+                  "ratedBy":  cUser?.ratedBy
+                    ]) { err in
+                       if let err = err {
+                           print("Error updating document: \(err)")
+                       } else {
+                           print("Document successfully updated")
+                        }
+                   }
+         
     }
     
    @objc func exitRoom(sender: UIButton!) {
@@ -175,7 +186,8 @@ class ChatUsersTableViewController: UITableViewController {
                              if let document = document, document.exists {
                                self.usertobeRated = chatUser(document: document)
                                 self.usertobeRated?.ratedBy![cUser!.id!] = nil
-        
+                                cUser?.ratedBy![id] = nil
+                                
                                 self.uptadeTobeRated(id: id)
                         }
                    }
@@ -249,14 +261,14 @@ class ChatUsersTableViewController: UITableViewController {
             
             self.usertobeRatedId = chatUserReference.document(id)
             self.usertobeRatedId!.getDocument { (document, error) in
-                         if let document = document, document.exists {
-                           self.usertobeRated = chatUser(document: document)
-                            self.usertobeRated?.ratedBy![cUser!.id!] = self.trip.time
-    
-                            self.uptadeTobeRated(id: id)
-                    }
-                }
-            }
+                 if let document = document, document.exists {
+                   self.usertobeRated = chatUser(document: document)
+                    self.usertobeRated?.ratedBy![cUser!.id!] = self.trip.time
+                    cUser?.ratedBy![id] = self.trip.time
+                    self.uptadeTobeRated(id: id)
+             }
+          }
+        }
         
         self.trip.Passengers.append(currentUser!.displayName)
         self.trip.PassID.append(self.passID!)
@@ -289,7 +301,7 @@ class ChatUsersTableViewController: UITableViewController {
                               if let document = document, document.exists {
                                 self.usertobeRated = chatUser(document: document)
                                  self.usertobeRated?.ratedBy![cUser!.id!] = self.trip.time
-         
+                                 cUser?.ratedBy![id] = self.trip.time
                                  self.uptadeTobeRated(id: id)
                          }
                      }
@@ -327,7 +339,7 @@ class ChatUsersTableViewController: UITableViewController {
                       if let document = document, document.exists {
                         self.usertobeRated = chatUser(document: document)
                          self.usertobeRated?.ratedBy![cUser!.id!] = self.trip.time
- 
+                         cUser?.ratedBy![id] = self.trip.time
                          self.uptadeTobeRated(id: id)
                  }
             }

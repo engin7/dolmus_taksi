@@ -69,8 +69,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
           if let document = document, document.exists {
           cUser = chatUser(document: document)
               } }
-            
-            
+         
         }
     }
 
