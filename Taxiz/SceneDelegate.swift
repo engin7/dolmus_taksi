@@ -34,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         }
          
+         
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -61,6 +62,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to undo the changes made on entering the background.
         if cUser != nil {
         NotificationCenter.default.post(name: Notification.Name("foreground"), object: nil)
+        
+            // refresh to get rating list
+            
+        userId!.getDocument { (document, error) in
+          if let document = document, document.exists {
+          cUser = chatUser(document: document)
+              } }
+            
+            
         }
     }
 

@@ -180,42 +180,53 @@ class TripsTableViewCell: UITableViewCell  {
             })
          
         NotificationCenter.default.addObserver(self, selector: #selector(self.shouldReload), name: NSNotification.Name(rawValue: "newDataNotificationForItemEdit"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+
       }
         
         override func viewWillAppear(_ animated: Bool) {
                   
-                   DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            super.viewWillAppear(animated)
+            willEnterForeground()
+        }
+        
+        @objc func willEnterForeground() {
+             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
 
-                       if cUser != nil {
-                        
-                        let arrayOfKeys = cUser?.ratedBy?.keys
-
-                        if arrayOfKeys != nil {
+                          if cUser != nil {
+                           
                              
-                    let past = Calendar.current.date(byAdding: .minute, value: -2, to: self.today)
-                            
-                            for raters in cUser!.ratedBy! {
-            
-                 if (raters.value) <  past! {
-                        
-                   let popRating = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "rating") as! RatingsViewController
-                        popRating.tobeRated = raters.key
+                           let arrayOfKeys = cUser?.ratedBy?.keys
+
+                           if arrayOfKeys != nil {
+                                
+            let past = Calendar.current.date(byAdding: .minute, value: 2, to: self.today)
                                
-                            
-                               self.addChild(popRating)
-                               popRating.view.frame = self.view.frame
-                              
-                           DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                               popRating.showAnimate()
-                               self.view.addSubview(popRating.view)
-                               popRating.didMove(toParent: self)
-                            }
-                            }
+                      for raters in cUser!.ratedBy! {
+               
+                      if (raters.value) <  past! {
+                           
+                      let popRating = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "rating") as! RatingsViewController
+                           popRating.tobeRated = raters.key
+                         
+                       
+                                  self.addChild(popRating)
+                                  popRating.view.frame = self.view.frame
+                                 
+                              DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                  popRating.showAnimate()
+                                  self.view.addSubview(popRating.view)
+                                  popRating.didMove(toParent: self)
+                               }
+                               }
+                             }
                           }
-                       }
+               
+                        }
+                      }
             
-                     }
-                   }
         }
         
         

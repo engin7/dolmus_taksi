@@ -263,7 +263,6 @@ import UserNotifications
 
     // Mark: - UIPopoverPresentationControllerDelegate
 
-   
       // MARK: - Helpers
 
     private func addUser(_ user: chatUser) {
