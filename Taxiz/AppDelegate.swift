@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
         return true
 
     }
-
+ 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
       // If you are receiving a notification message while your app is in the background,
       // this callback will not be fired till the user taps on the notification launching the application.
@@ -111,6 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
         
     }
 
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -186,6 +187,8 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
  
             } }
         
+        
+        
             // update the token if it has changed. install/uninstall etc.
         
         if cUser?.fcmToken != fcmToken {
@@ -202,13 +205,27 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
                 }
             }
         }
+         
+
+        if let lastOnline = UserDefaults.standard.object(forKey: "lastOnline") as? Date {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)
+            
+            if lastOnline < yesterday! {
+            
+                // TODO: clear cUser old pass & chat Data then update it on backend
+                
+                ratingCount = false
+            }        
+        }
     }
 
   let dataDict:[String: String] = ["token": fcmToken]
   NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
   // TODO: If necessary send token to application server.
   // Note: This callback is fired at each app startup and whenever a new token is generated.
+    
 
+    
 }
 
 // The callback to handle data message received via FCM for devices running iOS 10 or above.

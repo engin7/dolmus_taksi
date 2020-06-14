@@ -76,6 +76,7 @@ class TripsTableViewCell: UITableViewCell  {
  
         
         let today = Date()
+
         private let imageView = UIImageView()
         deinit {
           tripListener?.remove()
@@ -192,21 +193,21 @@ class TripsTableViewCell: UITableViewCell  {
         }
         
         @objc func willEnterForeground() {
-             
+            
+             let pastRating = Calendar.current.date(byAdding: .hour, value: -12, to: today)
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
 
                           if cUser != nil {
-                           
-                             
+                
                            let arrayOfKeys = cUser?.ratedBy?.keys
 
-                           if arrayOfKeys != nil {
+                           if arrayOfKeys != nil && !ratingCount   {
                                 
-            let past = Calendar.current.date(byAdding: .minute, value: 2, to: self.today)
                                
                       for raters in cUser!.ratedBy! {
                
-                      if (raters.value) <  past! {
+                      if (raters.value) <  pastRating! {
                            
                       let popRating = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "rating") as! RatingsViewController
                            popRating.tobeRated = raters.key
@@ -222,12 +223,13 @@ class TripsTableViewCell: UITableViewCell  {
                                }
                                }
                              }
+                                ratingCount = true
+
                           }
                
                         }
                       }
-            
-        }
+            }
         
         
         override func viewDidLayoutSubviews() {

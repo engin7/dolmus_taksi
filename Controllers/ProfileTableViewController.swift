@@ -18,6 +18,9 @@ class ProfileTableViewController:  UITableViewController, MFMailComposeViewContr
 
      @IBOutlet weak var nickName: UILabel!
     
+    @IBOutlet weak var rating: UILabel!
+    
+    
     @IBOutlet weak var userProfileImageView: UIImageView!
      
     @IBAction func contactUs(_ sender: UIButton) {
@@ -58,6 +61,20 @@ class ProfileTableViewController:  UITableViewController, MFMailComposeViewContr
         if let userImage =  UserDefaults.standard.object(forKey: "image") as? Data
         {
         userProfileImageView.image = UIImage(data: userImage)
+        }
+        if cUser != nil {
+        if (cUser?.rating.count)! < 5 {
+        rating.text = "no ratings"
+        } else {
+            
+        let text1 = "\(Double(round(10 * Double((cUser?.rating.reduce(0, +))!)/Double((cUser?.rating.count)!))/10))"
+       
+        let count = cUser?.rating.count
+            let text2 = "/5 - \(count ?? 0)" + " ratings"
+            
+        rating.text = text1 + text2
+            
+        }
         }
     }
  

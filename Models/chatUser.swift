@@ -12,7 +12,8 @@ import Firebase
 var cUser: chatUser?
 var userId: DocumentReference?
 var host: chatUser?
-var ratingCount = true
+var ratingCount = false
+
 
 var chatUserReference: CollectionReference {
 return db.collection("chatUsers")

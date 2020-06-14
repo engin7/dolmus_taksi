@@ -78,8 +78,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
        
-               NotificationCenter.default.post(name: Notification.Name("away"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("away"), object: nil)
          
+        UserDefaults().set(Date(), forKey: "lastOnline")
+
         
     }
 
