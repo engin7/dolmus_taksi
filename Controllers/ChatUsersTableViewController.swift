@@ -320,9 +320,9 @@ class ChatUsersTableViewController: UITableViewController {
         cUser?.chatUserId![documentId] = chat_doc_ref.documentID
         self.updateChatUserId()
         
-        blurVisualEffectView.removeFromSuperview()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        blurVisualEffectView.removeFromSuperview()
         self.dismiss(animated: true, completion: nil)
         }
         
@@ -359,10 +359,10 @@ class ChatUsersTableViewController: UITableViewController {
         cUser?.chatUserId![documentId] = chat_doc_ref.documentID
         self.updateChatUserId()
        
-        blurVisualEffectView.removeFromSuperview()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-        self.dismiss(animated: true, completion: nil)
-        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+               blurVisualEffectView.removeFromSuperview()
+               self.dismiss(animated: true, completion: nil)
+               }
      }))
      }
          
@@ -400,9 +400,10 @@ class ChatUsersTableViewController: UITableViewController {
        
         blurVisualEffectView.removeFromSuperview()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-        self.dismiss(animated: true, completion: nil)
-        }
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+               blurVisualEffectView.removeFromSuperview()
+               self.dismiss(animated: true, completion: nil)
+               }
         
      }))
         }
