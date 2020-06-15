@@ -238,7 +238,11 @@ import UserNotifications
         var users:[String] = []
         var passengersJoined: [String] = []
 
-        referencePassenger!.getDocuments()
+        self.docRef!.getDocument { (document, error) in
+        if let trip0 = Trips(document: document!) {
+            self.trip = trip0
+            
+            self.referencePassenger!.getDocuments()
         {
             (querySnapshot, err) in
 
@@ -264,76 +268,79 @@ import UserNotifications
                     let user = (document.data()["nick"] as? String)!
                    
                     let index = self.trip!.Passengers.firstIndex(of: user)
-       
+       //when other user joins not updating!
                     passengersJoined[index!] = user + text1 + text2
         
                 }
                 
-                self.docRef!.getDocument { (document, error) in
-                             if let trip0 = Trips(document: document!) {
-                                 self.trip = trip0
-                                 
-                                 let vc = ChatUsersTableViewController(trip: self.trip!, usersInRoom: users, passInRoom: passengersJoined)
-                                 
-                                vc.modalTransitionStyle   = .crossDissolve
-                                  vc.modalPresentationStyle = UIModalPresentationStyle.popover
-                                vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-                                   vc.preferredContentSize = CGSize(width: 250, height: 500)
-                                  let controller = vc.popoverPresentationController
-                                  controller?.delegate = self
-                                  controller?.sourceView = self.view
-                                  controller?.sourceRect = CGRect(x:self.view.bounds.midX, y: self.view.bounds.midY,width: 315,height: 230)
-                                  controller?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-                                  func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-                                      return .popover
-                                  }
-                                 self.present(vc, animated: true, completion:nil)
-                        
-                             }  else {
-                                 print("Document does not exist")
-                            
-                                 }
-                             }
-              }
-            }
-     
-        referenceUsers!.getDocuments()
-                   {
-                       (querySnapshot, err) in
+                self.referenceUsers!.getDocuments()
+                           {
+                               (querySnapshot, err) in
 
-                       if let err = err
-                       {
-                           print("Error getting documents: \(err)");
-                       }
-                       else
-                       {
-                        var originals: [String] = []
-                       for document in querySnapshot!.documents {
-                         
-                        let rating = (document.data()["rating"] as? [Int])!
-                        let totalRating = Double((rating.reduce(0, +)))
-                        let ratingCount = Double(rating.count)
-                        
-                        let text1 = " ⭑ \(Double(round(10 * totalRating/ratingCount)/10))"
-                        
-                         let count = rating.count
-                        
-                         let text2 = "/5 - \(count ?? 0)" + " ratings"
-                         let user = (document.data()["nick"] as? String)!
-                        
-                        if !self.trip!.Passengers.contains(user) {
-                            
-                            originals.append(user + text1 + text2)
-                            
-                        }
+                               if let err = err
+                               {
+                                   print("Error getting documents: \(err)");
+                               }
+                               else
+                               {
+                                var originals: [String] = []
+                               for document in querySnapshot!.documents {
+                                 
+                                let rating = (document.data()["rating"] as? [Int])!
+                                let totalRating = Double((rating.reduce(0, +)))
+                                let ratingCount = Double(rating.count)
+                                
+                                let text1 = " ⭑ \(Double(round(10 * totalRating/ratingCount)/10))"
+                                
+                                 let count = rating.count
+                                 
+                                var all: [String] = []
+                                
+                                 let text2 = "/5 - \(count ?? 0)" + " ratings"
+                                 let user = (document.data()["nick"] as? String)!
                    
-            }
-                      users = Array(Set(originals))
+                                if !self.trip!.Passengers.contains(user) && !all.contains(user) {
+                                    
+                                    originals.append(user + text1 + text2)
+                                    
+                                } else {
+                                  
+                                    all.append(user)
 
-                }
-           }
-        
-     
+                                }
+                                
+                           
+                    }
+                              users = Array(Set(originals))
+            
+            let vc = ChatUsersTableViewController(trip: self.trip!, usersInRoom: users, passInRoom: passengersJoined)
+                                          
+                 vc.modalTransitionStyle   = .crossDissolve
+                   vc.modalPresentationStyle = UIModalPresentationStyle.popover
+                 vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                    vc.preferredContentSize = CGSize(width: 250, height: 500)
+                   let controller = vc.popoverPresentationController
+                   controller?.delegate = self
+                   controller?.sourceView = self.view
+                   controller?.sourceRect = CGRect(x:self.view.bounds.midX, y: self.view.bounds.midY,width: 315,height: 230)
+                   controller?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                   func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+                       return .popover
+                   }
+                  self.present(vc, animated: true, completion:nil)
+         
+                                
+                        }
+                   }
+                
+                             }
+                         }
+              }  else {
+                   print("Document does not exist")
+              
+                   }
+            }
+      
          }
        
 

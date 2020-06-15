@@ -21,6 +21,7 @@ class ChatUsersTableViewController: UITableViewController {
      var  usertobeRatedId: DocumentReference?
      var usersInRoom : [String]
      var passengersJoined: [String]
+     var flag = true
     
     init(trip: Trips, usersInRoom: [String], passInRoom: [String]) {
      self.trip = trip
@@ -89,7 +90,8 @@ class ChatUsersTableViewController: UITableViewController {
       
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if usersInRoom.count == 0 {
+        if flag {
+         if usersInRoom.count == 0 {
             
             return (trip.Passengers.count + 1)
             
@@ -97,13 +99,18 @@ class ChatUsersTableViewController: UITableViewController {
             
             return (trip.Passengers.count + 2 + usersInRoom.count)
 
-        }
+            } } else {
+            return 0
+           }
+        
            }
        
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
             
             {
-                 let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+
+                if flag  {
                 
                     if indexPath.row == 0 {
                    
@@ -132,8 +139,9 @@ class ChatUsersTableViewController: UITableViewController {
                    
                     }
                 
+                }
                     return cell
-                
+
             }
   
    
@@ -193,12 +201,12 @@ class ChatUsersTableViewController: UITableViewController {
                            print("Document successfully updated")
                         }
                    }
-         
-    }
+            }
     
    @objc func exitRoom(sender: UIButton!) {
        // go back
-     
+     flag = false
+
     let indexOfUser = trip.Passengers.firstIndex(of: currentUser!.displayName)
        if indexOfUser != nil {
         let indexId = trip.PassID.firstIndex(of: passID!)
@@ -265,6 +273,8 @@ class ChatUsersTableViewController: UITableViewController {
 
        @objc func joinRoom(sender: UIButton!) {
     
+          flag = false
+        
      let documentId = trip.id!
 
         let blurEffect = UIBlurEffect(style: .light)

@@ -373,6 +373,8 @@ class TripsTableViewCell: UITableViewCell  {
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            
+            if cUser != nil {
+            
             let trip =  trips[indexPath.row]
             let documentId = trip.id
 
@@ -418,8 +420,9 @@ class TripsTableViewCell: UITableViewCell  {
                          alert.addAction(UIAlertAction(title: "acknowledged", style: .default, handler: nil))
                          self.present(alert, animated: true, completion: nil)
  
+                }
             }
-       }
-   }
+        }
+     }
 
 
