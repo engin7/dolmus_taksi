@@ -20,12 +20,13 @@ class ChatUsersTableViewController: UITableViewController {
      var usertobeRated: chatUser?
      var  usertobeRatedId: DocumentReference?
      var usersInRoom : [String]
+     var passengersJoined: [String]
     
-    init(trip: Trips, usersInRoom: [String]) {
+    init(trip: Trips, usersInRoom: [String], passInRoom: [String]) {
      self.trip = trip
      documentId = trip.id!
      self.usersInRoom = usersInRoom
-       
+     self.passengersJoined = passInRoom
      super.init(nibName: nil, bundle: nil)
     }
 
@@ -101,15 +102,15 @@ class ChatUsersTableViewController: UITableViewController {
                         cell.textLabel?.textAlignment = .center
                          cell.selectionStyle = .none
                          return cell
-                    } else if indexPath.row < trip.Passengers.count+1 {
+                    } else if indexPath.row < passengersJoined.count+1 {
                    
                    let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
-                   let users = trip.Passengers[indexPath.row-1]
+                   let users = passengersJoined[indexPath.row-1]
                    cell.textLabel?.text = users
                    cell.textLabel?.textAlignment = .center
                    cell.selectionStyle = .none
                    return cell
-                    } else if indexPath.row == trip.Passengers.count+1 {
+                    } else if indexPath.row == passengersJoined.count+1 {
                         
                         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
                        cell.textLabel?.text = "other users in the room"
@@ -123,26 +124,13 @@ class ChatUsersTableViewController: UITableViewController {
                          let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
                     
                         
-         cell.textLabel?.text = self.usersInRoom[indexPath.row - self.trip.Passengers.count - 2]
+         cell.textLabel?.text = self.usersInRoom[indexPath.row - self.passengersJoined.count - 2]
                         
                        return cell
                 }
             }
   
-    
-//    if (cUser?.rating.count)! < 5 {
-//                                 rating.text = "no ratings"
-//                                 } else {
-//
-//                                 let text1 = "\(Double(round(10 * Double((cUser?.rating.reduce(0, +))!)/Double((cUser?.rating.count)!))/10))"
-//
-//                                 let count = cUser?.rating.count
-//                                     let text2 = "/5 - \(count ?? 0)" + " ratings"
-//
-//                                 rating.text = text1 + text2
-//
-//                                 }
-//
+   
     override func tableView(_ tableView: UITableView, didSelectRowAt  indexPath: IndexPath) {
      
         }

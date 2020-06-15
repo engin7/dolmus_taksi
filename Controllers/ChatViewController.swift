@@ -22,7 +22,8 @@ import UserNotifications
      private var reference: CollectionReference?
      private var docRef: DocumentReference?
      private var referenceUsers: CollectionReference?
-      private var trip: Trips?
+     private var referencePassenger: CollectionReference?
+     private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
      private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
@@ -85,6 +86,7 @@ import UserNotifications
         
         referenceUsers = db.collection(["Trips", id, "users"].joined(separator: "/"))
          
+        referencePassenger = db.collection(["Trips", id, "passengers"].joined(separator: "/"))
  
         docRef = db.collection("Trips").document(id)
         
@@ -235,6 +237,40 @@ import UserNotifications
     @objc func showUsers(sender: Any) {
      
         var users:[String] = []
+        var passengersJoined: [String] = self.trip!.Passengers
+
+        referencePassenger!.getDocuments()
+        {
+            (querySnapshot, err) in
+
+            if let err = err
+            {
+                print("Error getting documents: \(err)");
+            }
+            else
+            {
+                
+                for document in querySnapshot!.documents {
+                                
+                   let rating = (document.data()["rating"] as? [Int])!
+                   let totalRating = Double((rating.reduce(0, +)))
+                   let ratingCount = Double(rating.count)
+                   
+                   let text1 = " ⭑ \(Double(round(10 * totalRating/ratingCount)/10))"
+                   
+                    let count = rating.count
+                   
+                    let text2 = "/5 - \(count ?? 0)" + " ratings"
+                    let user = (document.data()["nick"] as? String)!
+                   
+                    let index = self.trip!.Passengers.firstIndex(of: user)
+       
+                    passengersJoined[index!] = user + text1 + text2
+        
+                }
+              }
+            }
+        
         
         referenceUsers!.getDocuments()
                    {
@@ -280,7 +316,7 @@ import UserNotifications
            
             }
             
-              let vc = ChatUsersTableViewController(trip: self.trip!, usersInRoom: users)
+            let vc = ChatUsersTableViewController(trip: self.trip!, usersInRoom: users, passInRoom: passengersJoined)
  
             vc.modalTransitionStyle   = .crossDissolve
               vc.modalPresentationStyle = UIModalPresentationStyle.popover
