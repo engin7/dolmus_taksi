@@ -88,46 +88,52 @@ class ChatUsersTableViewController: UITableViewController {
        }
       
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     
-        return (trip.Passengers.count+2 + usersInRoom.count)
+        
+        if usersInRoom.count == 0 {
+            
+            return (trip.Passengers.count + 1)
+            
+        } else {
+            
+            return (trip.Passengers.count + 2 + usersInRoom.count)
+
+        }
            }
        
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
             
             {
+                 let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                
                     if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                   
                         cell.textLabel?.text = "Travellers"
                         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
                         cell.textLabel?.textAlignment = .center
                          cell.selectionStyle = .none
-                         return cell
-                    } else if indexPath.row < passengersJoined.count+1 {
-                   
-                   let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                     } else if indexPath.row < passengersJoined.count+1 {
+                    
                    let users = passengersJoined[indexPath.row-1]
                    cell.textLabel?.text = users
                    cell.textLabel?.textAlignment = .center
                    cell.selectionStyle = .none
-                   return cell
-                    } else if indexPath.row == passengersJoined.count+1 {
-                        
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+
+                    } else if indexPath.row == passengersJoined.count+1 && usersInRoom.count != 0   {
+                 
                        cell.textLabel?.text = "other users in the room"
                        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
                        cell.textLabel?.textAlignment = .center
                         cell.selectionStyle = .none
-                        return cell
+
                         
-                    } else {
-                       
-                         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                    } else if usersInRoom.count != 0  {
                     
-                        
          cell.textLabel?.text = self.usersInRoom[indexPath.row - self.passengersJoined.count - 2]
-                        
-                       return cell
-                }
+                   
+                    }
+                
+                    return cell
+                
             }
   
    
@@ -215,14 +221,14 @@ class ChatUsersTableViewController: UITableViewController {
                }
         
               }
-    let indexOfUser1 = trip.Passengers.firstIndex(of: currentUser!.displayName + "+1")
+    let indexOfUser1 = trip.Passengers.firstIndex(of: currentUser!.displayName + "+1 (guest)")
        if indexOfUser1 != nil {
          
         trip.Passengers.remove(at: indexOfUser1!)
         updatePassengers(trip.id!, trip)
  
        }
-    let indexOfUser2 = trip.Passengers.firstIndex(of: currentUser!.displayName + "+2")
+    let indexOfUser2 = trip.Passengers.firstIndex(of: currentUser!.displayName + "+2 (guest)")
        if indexOfUser2 != nil {
          
         trip.Passengers.remove(at: indexOfUser2!)
@@ -329,7 +335,7 @@ class ChatUsersTableViewController: UITableViewController {
                  }
         
          self.trip.Passengers.append(currentUser!.displayName)
-         self.trip.Passengers.append(currentUser!.displayName + "+1")
+         self.trip.Passengers.append(currentUser!.displayName + "+1 (guest)")
          self.trip.PassID.append(self.passID!)
 
         self.updatePassengers(documentId, self.trip)
@@ -367,8 +373,8 @@ class ChatUsersTableViewController: UITableViewController {
         }
         
          self.trip.Passengers.append(currentUser!.displayName)
-         self.trip.Passengers.append(currentUser!.displayName + "+1")
-         self.trip.Passengers.append(currentUser!.displayName + "+2")
+         self.trip.Passengers.append(currentUser!.displayName + "+1 (guest)")
+         self.trip.Passengers.append(currentUser!.displayName + "+2 (guest)")
         self.trip.PassID.append(self.passID!)
 
         self.updatePassengers(documentId, self.trip)

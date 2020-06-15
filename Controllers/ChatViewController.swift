@@ -231,13 +231,12 @@ import UserNotifications
             let messageT = Message(user: terminal, content: " \(currentUser.displayName)  has left   #"  + String(trip!.from.first!) + String(trip!.to.first!) + getReadableDate(time: trip!.time)!)
                 save(messageT)
    
-    }
+     }
     
-   
     @objc func showUsers(sender: Any) {
      
         var users:[String] = []
-        var passengersJoined: [String] = self.trip!.Passengers
+        var passengersJoined: [String] = []
 
         referencePassenger!.getDocuments()
         {
@@ -249,6 +248,7 @@ import UserNotifications
             }
             else
             {
+                passengersJoined = self.trip!.Passengers
                 
                 for document in querySnapshot!.documents {
                                 
@@ -258,7 +258,7 @@ import UserNotifications
                    
                    let text1 = " ⭑ \(Double(round(10 * totalRating/ratingCount)/10))"
                    
-                    let count = rating.count
+                   let count = rating.count
                    
                     let text2 = "/5 - \(count ?? 0)" + " ratings"
                     let user = (document.data()["nick"] as? String)!
@@ -268,10 +268,35 @@ import UserNotifications
                     passengersJoined[index!] = user + text1 + text2
         
                 }
+                
+                self.docRef!.getDocument { (document, error) in
+                             if let trip0 = Trips(document: document!) {
+                                 self.trip = trip0
+                                 
+                                 let vc = ChatUsersTableViewController(trip: self.trip!, usersInRoom: users, passInRoom: passengersJoined)
+                                 
+                                vc.modalTransitionStyle   = .crossDissolve
+                                  vc.modalPresentationStyle = UIModalPresentationStyle.popover
+                                vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                                   vc.preferredContentSize = CGSize(width: 250, height: 500)
+                                  let controller = vc.popoverPresentationController
+                                  controller?.delegate = self
+                                  controller?.sourceView = self.view
+                                  controller?.sourceRect = CGRect(x:self.view.bounds.midX, y: self.view.bounds.midY,width: 315,height: 230)
+                                  controller?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                                  func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+                                      return .popover
+                                  }
+                                 self.present(vc, animated: true, completion:nil)
+                        
+                             }  else {
+                                 print("Document does not exist")
+                            
+                                 }
+                             }
               }
             }
-        
-        
+     
         referenceUsers!.getDocuments()
                    {
                        (querySnapshot, err) in
@@ -308,31 +333,7 @@ import UserNotifications
                 }
            }
         
-        docRef!.getDocument { (document, error) in
-            if let trip0 = Trips(document: document!) {
-                self.trip = trip0
-            }  else {
-                print("Document does not exist")
-           
-            }
-            
-            let vc = ChatUsersTableViewController(trip: self.trip!, usersInRoom: users, passInRoom: passengersJoined)
- 
-            vc.modalTransitionStyle   = .crossDissolve
-              vc.modalPresentationStyle = UIModalPresentationStyle.popover
-            vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-               vc.preferredContentSize = CGSize(width: 250, height: 500)
-              let controller = vc.popoverPresentationController
-              controller?.delegate = self
-              controller?.sourceView = self.view
-              controller?.sourceRect = CGRect(x:self.view.bounds.midX, y: self.view.bounds.midY,width: 315,height: 230)
-              controller?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-              func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-                  return .popover
-              }
-             self.present(vc, animated: true, completion:nil)
-   
-             }
+     
          }
        
 
@@ -467,8 +468,7 @@ import UserNotifications
                // TODO: more channel moderation by ops
                // Trip creators will be (@)op and other passengers will be (+)voiced users automatically. Other users could also join chat but ops can change channel mode to moderated if they want to. Some IRC commands will be added. /kick /ban etc.
                  
-              // about Moderation Guidelines: i will check by filtering reported field in firebase daily, there is no blocking option now because sending private messages is not allowed. User can report and leave the channel. Inappropriate messages will be deleted automatically as channels are autodelted (deleted only from frontend Database for messages stays) after few hours of the trip. More channel moderation will be added in the next version.
-                 
+             
                  }
         
       default:
