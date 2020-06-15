@@ -91,7 +91,6 @@ class ChatUsersTableViewController: UITableViewController {
         return (trip.Passengers.count+2 + usersInRoom.count)
            }
        
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
             
             {
@@ -113,7 +112,7 @@ class ChatUsersTableViewController: UITableViewController {
                     } else if indexPath.row == trip.Passengers.count+1 {
                         
                         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
-                       cell.textLabel?.text = "Users in the room"
+                       cell.textLabel?.text = "other users in the room"
                        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
                        cell.textLabel?.textAlignment = .center
                         cell.selectionStyle = .none

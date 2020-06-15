@@ -258,9 +258,13 @@ import UserNotifications
                          let count = rating.count
                         
                          let text2 = "/5 - \(count ?? 0)" + " ratings"
+                         let user = (document.data()["nick"] as? String)!
                         
-                        
-                   originals.append((document.data()["nick"] as? String)! + text1 + text2)
+                        if !self.trip!.Passengers.contains(user) {
+                            
+                            originals.append(user + text1 + text2)
+                            
+                        }
                    
             }
                       users = Array(Set(originals))
@@ -363,8 +367,7 @@ import UserNotifications
       if message.content.contains("/b")  {
       
         let blockedUser = message.content.replacingOccurrences(of: "<\(message.sender.displayName)> /b ",with: "")
-           
-        
+          
            for user in chatRoomUsers {
                if user.nickName == blockedUser {
              
@@ -388,8 +391,7 @@ import UserNotifications
                     } else {
                         print("Document successfully updated")
                     }
-                             
-                      }
+                       }
                 
                 chatUserReference.document(trip!.hostID).updateData([
                     "blocked": host!.blocked
@@ -405,9 +407,7 @@ import UserNotifications
                      }
                       
                          }
-       
-          
-                       }
+                 }
           
           
           if message.content.contains("/r")  {
