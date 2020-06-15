@@ -22,7 +22,7 @@ import UserNotifications
      private var reference: CollectionReference?
      private var docRef: DocumentReference?
      private var referenceUsers: CollectionReference?
-     private var trip: Trips?
+      private var trip: Trips?
      let paragraph = NSMutableParagraphStyle()
      private var chatRoomUsers: [chatUser] = []
      var documentId: DocumentReference?
@@ -84,6 +84,7 @@ import UserNotifications
         reference = db.collection(["Trips", id, "thread"].joined(separator: "/"))
         
         referenceUsers = db.collection(["Trips", id, "users"].joined(separator: "/"))
+         
  
         docRef = db.collection("Trips").document(id)
         
@@ -233,6 +234,40 @@ import UserNotifications
    
     @objc func showUsers(sender: Any) {
      
+        var users:[String] = []
+        
+        referenceUsers!.getDocuments()
+                   {
+                       (querySnapshot, err) in
+
+                       if let err = err
+                       {
+                           print("Error getting documents: \(err)");
+                       }
+                       else
+                       {
+                        var originals: [String] = []
+                       for document in querySnapshot!.documents {
+                         
+                        let rating = (document.data()["rating"] as? [Int])!
+                        let totalRating = Double((rating.reduce(0, +)))
+                        let ratingCount = Double(rating.count)
+                        
+                        let text1 = " ⭑ \(Double(round(10 * totalRating/ratingCount)/10))"
+                        
+                         let count = rating.count
+                        
+                         let text2 = "/5 - \(count ?? 0)" + " ratings"
+                        
+                        
+                   originals.append((document.data()["nick"] as? String)! + text1 + text2)
+                   
+            }
+                      users = Array(Set(originals))
+
+                }
+           }
+        
         docRef!.getDocument { (document, error) in
             if let trip0 = Trips(document: document!) {
                 self.trip = trip0
@@ -241,12 +276,12 @@ import UserNotifications
            
             }
             
-              let vc = ChatUsersTableViewController(trip: self.trip!)
+              let vc = ChatUsersTableViewController(trip: self.trip!, usersInRoom: users)
  
             vc.modalTransitionStyle   = .crossDissolve
               vc.modalPresentationStyle = UIModalPresentationStyle.popover
             vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-               vc.preferredContentSize = CGSize(width: 200, height: 300)
+               vc.preferredContentSize = CGSize(width: 250, height: 500)
               let controller = vc.popoverPresentationController
               controller?.delegate = self
               controller?.sourceView = self.view

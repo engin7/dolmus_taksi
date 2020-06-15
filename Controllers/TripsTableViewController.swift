@@ -193,8 +193,8 @@ class TripsTableViewCell: UITableViewCell  {
         }
         
         @objc func willEnterForeground() {
-            
-             let pastRating = Calendar.current.date(byAdding: .hour, value: -12, to: today)
+            // -ve
+             let pastRating = Calendar.current.date(byAdding: .hour, value: 38, to: today)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
 

@@ -18,12 +18,14 @@ class ChatUsersTableViewController: UITableViewController {
      let documentId : String
      let passID = cUser?.id
      var usertobeRated: chatUser?
-    var  usertobeRatedId: DocumentReference?
-
+     var  usertobeRatedId: DocumentReference?
+     var usersInRoom : [String]
     
-    init(trip: Trips ) {
+    init(trip: Trips, usersInRoom: [String]) {
      self.trip = trip
      documentId = trip.id!
+     self.usersInRoom = usersInRoom
+       
      super.init(nibName: nil, bundle: nil)
     }
 
@@ -54,6 +56,7 @@ class ChatUsersTableViewController: UITableViewController {
        referenceChat = db.collection(["Trips", documentId, "users"].joined(separator: "/"))
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatUsers")
+         
         
         let p = NSLocalizedString("Passengers ", comment: "")
 
@@ -85,7 +88,7 @@ class ChatUsersTableViewController: UITableViewController {
       
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
      
-                    return (trip.Passengers.count+1)
+        return (trip.Passengers.count+2 + usersInRoom.count)
            }
        
     
@@ -99,17 +102,48 @@ class ChatUsersTableViewController: UITableViewController {
                         cell.textLabel?.textAlignment = .center
                          cell.selectionStyle = .none
                          return cell
-                    } else {
-            
+                    } else if indexPath.row < trip.Passengers.count+1 {
+                   
                    let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
                    let users = trip.Passengers[indexPath.row-1]
                    cell.textLabel?.text = users
+                   cell.textLabel?.textAlignment = .center
                    cell.selectionStyle = .none
                    return cell
-            
-          }
-        }
+                    } else if indexPath.row == trip.Passengers.count+1 {
+                        
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                       cell.textLabel?.text = "Users in the room"
+                       cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+                       cell.textLabel?.textAlignment = .center
+                        cell.selectionStyle = .none
+                        return cell
+                        
+                    } else {
+                       
+                         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUsers", for: indexPath)
+                    
+                        
+         cell.textLabel?.text = self.usersInRoom[indexPath.row - self.trip.Passengers.count - 2]
+                        
+                       return cell
+                }
+            }
   
+    
+//    if (cUser?.rating.count)! < 5 {
+//                                 rating.text = "no ratings"
+//                                 } else {
+//
+//                                 let text1 = "\(Double(round(10 * Double((cUser?.rating.reduce(0, +))!)/Double((cUser?.rating.count)!))/10))"
+//
+//                                 let count = cUser?.rating.count
+//                                     let text2 = "/5 - \(count ?? 0)" + " ratings"
+//
+//                                 rating.text = text1 + text2
+//
+//                                 }
+//
     override func tableView(_ tableView: UITableView, didSelectRowAt  indexPath: IndexPath) {
      
         }
@@ -309,7 +343,7 @@ class ChatUsersTableViewController: UITableViewController {
         
          self.trip.Passengers.append(currentUser!.displayName)
          self.trip.Passengers.append(currentUser!.displayName + "+1")
-        self.trip.PassID.append(self.passID!)
+         self.trip.PassID.append(self.passID!)
 
         self.updatePassengers(documentId, self.trip)
         self.navigationController?.popViewController(animated: true)
@@ -384,7 +418,7 @@ class ChatUsersTableViewController: UITableViewController {
        10)
         
        let button = UIButton()
-       button.frame = CGRect(x: 80, y: 15, width: 40, height: 15)
+       button.frame = CGRect(x: 80, y: 15, width: 90, height: 15)
        if (trip.Passengers.contains(currentUser!.displayName)) {
        button.setTitle("exit", for: .normal)
        footerView.backgroundColor = UIColor.red
