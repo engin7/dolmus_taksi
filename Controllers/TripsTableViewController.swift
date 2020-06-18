@@ -67,14 +67,14 @@ class TripsTableViewCell: UITableViewCell  {
         }
        
         @IBOutlet weak var userCountBarButtonItem: UIBarButtonItem!
-    
+   
+        @IBOutlet weak var profileButton: UIBarButtonItem!
         
         private let TripsCellIdentifier = "TripsCell"
         private var currentTripsAlertController: UIAlertController?
        
         var tripListener: ListenerRegistration?
- 
-        
+  
         let today = Date()
 
         private let imageView = UIImageView()
@@ -86,7 +86,7 @@ class TripsTableViewCell: UITableViewCell  {
         super.viewDidLoad()
         
         // Todo first 3 or once a month
-        if  KeychainWrapper.standard.string(forKey: "Key98") == nil {
+        if  KeychainWrapper.standard.string(forKey: "Key97") == nil {
 
         let popvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "guide") as! GuideViewController
 
@@ -193,26 +193,32 @@ class TripsTableViewCell: UITableViewCell  {
         }
         
         @objc func willEnterForeground() {
-            // -ve
-             let pastRating = Calendar.current.date(byAdding: .hour, value: 38, to: today)
+            //-ve
+            self.profileButton.isEnabled = false
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            let pastRating = Calendar.current.date(byAdding: .hour, value: +44, to: today)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
 
                           if cUser != nil {
-                
+                      
                            let arrayOfKeys = cUser?.ratedBy?.keys
-
+                            
+                            if arrayOfKeys!.count == 0   {
+                                                               
+                                   self.profileButton.isEnabled = true
+                            
+                                                       }
+                            
                            if arrayOfKeys != nil && !ratingCount   {
-                                
-                               
+                       
                       for raters in cUser!.ratedBy! {
                
                       if (raters.value) <  pastRating! {
                            
                       let popRating = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "rating") as! RatingsViewController
                            popRating.tobeRated = raters.key
-                         
-                       
+                          
                                   self.addChild(popRating)
                                   popRating.view.frame = self.view.frame
                                  
@@ -225,11 +231,13 @@ class TripsTableViewCell: UITableViewCell  {
                              }
                                 ratingCount = true
 
-                          }
-               
+                           }
+                            
+                            
+
                         }
-                      }
-            }
+                    }
+                }
         
         
         override func viewDidLayoutSubviews() {

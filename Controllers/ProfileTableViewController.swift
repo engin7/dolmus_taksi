@@ -63,7 +63,7 @@ class ProfileTableViewController:  UITableViewController, MFMailComposeViewContr
         userProfileImageView.image = UIImage(data: userImage)
         }
         if cUser != nil {
-        if (cUser?.rating.count)! < 5 {
+        if (cUser?.rating.count)! < 1 {
         rating.text = "no ratings"
         } else {
             
@@ -105,7 +105,7 @@ class ProfileTableViewController:  UITableViewController, MFMailComposeViewContr
     
     func uploadProfileImage(imageData: Data)
     {
-        let activityIndicator = UIActivityIndicatorView.init(style: .medium)
+        let activityIndicator = UIActivityIndicatorView.init(style: .large)
         activityIndicator.startAnimating()
         activityIndicator.center = self.view.center
         self.view.addSubview(activityIndicator)

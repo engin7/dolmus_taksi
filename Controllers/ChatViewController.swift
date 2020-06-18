@@ -269,7 +269,11 @@ import UserNotifications
                    
                     let index = self.trip!.Passengers.firstIndex(of: user)
        //when other user joins not updating!
-                    passengersJoined[index!] = user + text1 + text2
+                    if rating.count < 1 {
+                    passengersJoined[index!] = user + " ⭑ no ratings"
+                    } else {
+                        passengersJoined[index!] = user + text1 + text2
+                    }
         
                 }
                 
@@ -300,15 +304,16 @@ import UserNotifications
                                  let user = (document.data()["nick"] as? String)!
                    
                                 if !self.trip!.Passengers.contains(user) && !all.contains(user) {
-                                    
+                                    if rating.count < 1 {
+                                   originals.append(user + " ⭑ no ratings")
+                                    } else {
                                     originals.append(user + text1 + text2)
                                     
-                                } else {
+                                    } } else {
                                   
                                     all.append(user)
 
                                 }
-                                
                            
                     }
                               users = Array(Set(originals))

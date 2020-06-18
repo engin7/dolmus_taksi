@@ -815,6 +815,7 @@ April 23, 2020: First published.</string>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="profileButton" destination="0NC-H3-IbG" id="PgF-h5-8PC"/>
                         <outlet property="userCountBarButtonItem" destination="7Ci-KP-qav" id="biS-Oj-cmR"/>
                     </connections>
                 </tableViewController>

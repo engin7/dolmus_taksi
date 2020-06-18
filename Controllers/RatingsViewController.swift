@@ -53,6 +53,7 @@ class RatingsViewController: UIViewController {
             }
         }
         removeAnimate()
+
     }
     
     override func viewDidLoad() {
@@ -104,5 +105,6 @@ class RatingsViewController: UIViewController {
                    self.removeFromParent()
                }
            })
-       }
+            
+         }
   }
