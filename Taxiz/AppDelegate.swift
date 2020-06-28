@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate, UN
                 docRefOnline = usersRef.child(currentUser!.uid)
                }
       //this was myKey will be used for promotions for the  first time users
-            if  KeychainWrapper.standard.string(forKey: "Key98") == nil {
+            if  KeychainWrapper.standard.string(forKey: "Key97") == nil {
         // if user disabled from firestore consol it won't get a new uid
  
                 Auth.auth().signInAnonymously() { (user, error) in
@@ -148,7 +148,7 @@ extension AppDelegate : MessagingDelegate {
 func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
   print("Firebase registration token: \(fcmToken)")
  
-    if  KeychainWrapper.standard.string(forKey: "Key98") == nil {
+    if  KeychainWrapper.standard.string(forKey: "Key97") == nil {
 
         cUser = chatUser(fcmToken: fcmToken)
         _ =  SharedUserLocation
@@ -161,7 +161,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
   }
       }
         cUser?.id = userId!.documentID
-        _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "Key98")
+        _ = KeychainWrapper.standard.set(userId!.documentID, forKey: "Key97")
  
         chatUserReference.document(userId!.documentID).updateData([
                       "id": cUser?.id
@@ -175,7 +175,7 @@ func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: Str
         
     } else {
         
-       let documentID = KeychainWrapper.standard.string(forKey: "Key98")
+       let documentID = KeychainWrapper.standard.string(forKey: "Key97")
        
         // cUser'i cek firestore'dan
         userId = chatUserReference.document(documentID!)
