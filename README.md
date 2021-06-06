@@ -12,11 +12,12 @@ After you complete your trip you can rate your travel mates by their avatar. Ple
 <img width="1036" alt="Ekran Resmi 2021-04-21 20 23 22" src="https://user-images.githubusercontent.com/32449276/120922279-dee55200-c6d0-11eb-804b-2b3be29ba6ba.png">
 <img width="1029" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922283-edcc0480-c6d0-11eb-818d-07388b4f1e6c.png">
 
+<img width="300" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922462-f4a74700-c6d1-11eb-9cb1-96ea9a5d4400.png">
+<img width="300" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922454-e822ee80-c6d1-11eb-93fd-26a72a4d7c3a.png">
+<img width="300" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922473-ff61dc00-c6d1-11eb-9ad9-31718ec8398d.png">
+<img width="300" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922476-0557bd00-c6d2-11eb-93d8-fd5cb2cf507f.png">
 
-![1242x2688bb](https://user-images.githubusercontent.com/32449276/120922462-f4a74700-c6d1-11eb-9cb1-96ea9a5d4400.png)
-![1242x2688bb](https://user-images.githubusercontent.com/32449276/120922454-e822ee80-c6d1-11eb-93fd-26a72a4d7c3a.png)
-![chatl](https://user-images.githubusercontent.com/32449276/120922473-ff61dc00-c6d1-11eb-9ad9-31718ec8398d.png)
-![travellers](https://user-images.githubusercontent.com/32449276/120922476-0557bd00-c6d2-11eb-93d8-fd5cb2cf507f.png)
-![1242x2688bb-4](https://user-images.githubusercontent.com/32449276/120922477-05f05380-c6d2-11eb-9495-4684a5fead11.png)
-![1242x2688bb-3](https://user-images.githubusercontent.com/32449276/120922490-130d4280-c6d2-11eb-8d61-3816f4f57232.png)
-![1242x2688bb-2](https://user-images.githubusercontent.com/32449276/120922494-1a345080-c6d2-11eb-9cfc-7157226ed52c.png)
+<img width="300" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922477-05f05380-c6d2-11eb-9495-4684a5fead11.png">
+<img width="300" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922490-130d4280-c6d2-11eb-8d61-3816f4f57232.png">
+<img width="300" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922494-1a345080-c6d2-11eb-9cfc-7157226ed52c.png">
+ 
