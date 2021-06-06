@@ -6,34 +6,8 @@
     
     If there isn't any trip suitable, users can create a trip chat room from maps tab. 
 
-<img width="917" alt="Ekran Resmi 2020-03-11 18 16 05" src="https://user-images.githubusercontent.com/32449276/76433518-7d4b1080-63c5-11ea-965d-90822dff7769.png">
-
-<img src="https://user-images.githubusercontent.com/32449276/76433529-7fad6a80-63c5-11ea-8978-49f72d09bdb4.png" width="200">
-
-More social media sign in features will be added.
-
-<img src="https://user-images.githubusercontent.com/32449276/76997598-9a06bb80-6964-11ea-8eeb-66a1e1819ebe.png" width="200">
  
-Tableview cells will be sorted by user location and time,  will be more user friendly.
-
-<img src="https://user-images.githubusercontent.com/32449276/76433524-7e7c3d80-63c5-11ea-9cfd-88728904a528.png" width="200">
-
-<img src="https://user-images.githubusercontent.com/32449276/76433491-76240280-63c5-11ea-92f4-2235ba978895.png" width="200">
-
-Chat rooms will be improved. Modal View with suggested meeting location will be added. 
-There will be weekly auto-generated nicknames for each user. Channels will be more like IRC style. 
-Trip creators will be (@)op and other passengers will be (+)voiced users automatically. 
-Other users could also join chat but ops can change channel mode to moderated if they want to. 
-Some IRC commands will be added.   
-
-<img src="https://user-images.githubusercontent.com/32449276/76433540-8340f180-63c5-11ea-99ca-a5eb8ed5f737.png" width="200">
-
-<img src="https://user-images.githubusercontent.com/32449276/77228369-da9a4b00-6b97-11ea-8a09-5a8f16cece03.png" width="200">
-
-<img src="https://user-images.githubusercontent.com/32449276/76433513-7ae8b680-63c5-11ea-9502-a28d4c2a66da.png" width="200">
-
-Users can choose number of passergers. They can only create trips for the next 24 hours. Searchbars will be activated. 
-
-
+<img width="1036" alt="Ekran Resmi 2021-04-21 20 23 22" src="https://user-images.githubusercontent.com/32449276/120922279-dee55200-c6d0-11eb-804b-2b3be29ba6ba.png">
+<img width="1029" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922283-edcc0480-c6d0-11eb-818d-07388b4f1e6c.png">
 
 
