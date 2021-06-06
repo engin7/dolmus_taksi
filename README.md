@@ -10,5 +10,7 @@ If there isn't any trip suitable, users can create a trip for next 24 hours from
 After you complete your trip you can rate your travel mates by their avatar. Please ask them their avatar during the trip. You can upload your own avatar by long pressing the picture frame in the profile page.
  
 <img width="1036" alt="Ekran Resmi 2021-04-21 20 23 22" src="https://user-images.githubusercontent.com/32449276/120922279-dee55200-c6d0-11eb-804b-2b3be29ba6ba.png">
+  I removed the app from AppStore after pandemic.
+
 
 <img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922462-f4a74700-c6d1-11eb-9cb1-96ea9a5d4400.png"><img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922454-e822ee80-c6d1-11eb-93fd-26a72a4d7c3a.png"><img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922473-ff61dc00-c6d1-11eb-9ad9-31718ec8398d.png"><img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922476-0557bd00-c6d2-11eb-93d8-fd5cb2cf507f.png"><img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922477-05f05380-c6d2-11eb-9495-4684a5fead11.png"> 
