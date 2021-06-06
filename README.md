@@ -13,4 +13,5 @@ After you complete your trip you can rate your travel mates by their avatar. Ple
   I removed the app from AppStore after pandemic.
 
 
+screenshots in detail
 <img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922462-f4a74700-c6d1-11eb-9cb1-96ea9a5d4400.png"><img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922454-e822ee80-c6d1-11eb-93fd-26a72a4d7c3a.png"><img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922473-ff61dc00-c6d1-11eb-9ad9-31718ec8398d.png"><img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922476-0557bd00-c6d2-11eb-93d8-fd5cb2cf507f.png"><img width="200" alt="Ekran Resmi 2021-04-21 20 24 59" src="https://user-images.githubusercontent.com/32449276/120922477-05f05380-c6d2-11eb-9495-4684a5fead11.png"> 
